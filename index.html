@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RX Research Sciences - Innovative Pharmaceutical Research</title>
+    <title>RX Research Sciences - Pharmaceutical E-Commerce</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ===== RESET & BASE STYLES ===== */
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -21,31 +21,45 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             padding: 0 20px;
         }
         
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        
-        /* ===== HEADER & NAVIGATION ===== */
-        header {
-            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            background: #0d47a1;
             color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 10px 0;
+            font-size: 0.9rem;
         }
         
-        nav {
+        .top-bar-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+        
+        .top-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+        }
+        
+        /* ===== HEADER ===== */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
         }
         
         .logo {
@@ -54,255 +68,493 @@
             gap: 12px;
             font-size: 1.8rem;
             font-weight: bold;
+            color: #0d47a1;
         }
         
         .logo i {
-            color: #4fc3f7;
+            color: #2196f3;
             font-size: 2.2rem;
+        }
+        
+        /* SEARCH BAR */
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 30px;
+            position: relative;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        
+        /* USER ACTIONS */
+        .user-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .action-icon {
+            position: relative;
+            cursor: pointer;
+            color: #555;
+            font-size: 1.3rem;
+            transition: color 0.3s;
+        }
+        
+        .action-icon:hover {
+            color: #2196f3;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f44336;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            min-width: 18px;
+            text-align: center;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .main-nav {
+            background: #f5f7fa;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
         }
         
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 0;
+        }
+        
+        .nav-links li {
+            position: relative;
         }
         
         .nav-links a {
-            color: white;
+            display: block;
+            padding: 18px 25px;
+            color: #333;
+            text-decoration: none;
             font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 4px;
             transition: all 0.3s;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: white;
+            color: #2196f3;
+            box-shadow: 0 -3px 0 #2196f3 inset;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-content a {
+            padding: 12px 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        /* ===== HERO BANNER ===== */
+        .hero-banner {
+            background: linear-gradient(rgba(13, 71, 161, 0.9), rgba(25, 118, 210, 0.9));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        /* ===== BANNER CAROUSEL ===== */
+        .banner-section {
+            margin-bottom: 60px;
+        }
+        
+        .banner-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .banner-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .banner-card {
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .banner-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .banner-img {
+            height: 200px;
+            background: #e3f2fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #0d47a1;
+        }
+        
+        .banner-content {
+            padding: 25px;
+        }
+        
+        .banner-tag {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        /* ===== PRODUCTS SECTION ===== */
+        .products-section {
+            padding: 60px 0;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: #0d47a1;
+        }
+        
+        .view-all {
+            color: #2196f3;
+            text-decoration: none;
+            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: rgba(255, 255, 255, 0.15);
-            color: #4fc3f7;
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
         }
         
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* ===== HERO SECTION ===== */
-        .hero {
-            background: linear-gradient(rgba(13, 71, 161, 0.85), rgba(25, 118, 210, 0.9)),
-                        url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 120px 20px;
-            margin-bottom: 60px;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            opacity: 0.95;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: #4fc3f7;
-            color: white;
-            padding: 14px 32px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             transition: all 0.3s;
-            border: none;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #f44336;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .product-favorite {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #ccc;
+            font-size: 1.2rem;
             cursor: pointer;
-            margin: 5px;
+            z-index: 1;
+            transition: color 0.3s;
         }
         
-        .btn:hover {
-            background: #29b6f6;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        .product-favorite:hover {
+            color: #f44336;
         }
         
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid white;
+        .product-img {
+            height: 220px;
+            background: linear-gradient(135deg, #f0f7ff, #e3f2fd);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
         
-        /* ===== SECTIONS ===== */
-        section {
-            padding: 80px 20px;
+        .product-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
         
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
+        .product-info {
+            padding: 25px;
         }
         
-        .section-title h2 {
-            font-size: 2.5rem;
+        .product-category {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .product-description {
+            color: #777;
+            font-size: 0.95rem;
             margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .current-price {
+            font-size: 1.5rem;
+            font-weight: bold;
             color: #0d47a1;
         }
         
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
+        .original-price {
+            color: #999;
+            text-decoration: line-through;
             font-size: 1.1rem;
         }
         
+        .discount {
+            color: #2e7d32;
+            font-weight: bold;
+            background: #e8f5e9;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .add-to-cart {
+            flex: 1;
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .add-to-cart:hover {
+            background: #0d47a1;
+        }
+        
+        .view-details {
+            background: #f5f7fa;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .view-details:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        
+        /* ===== CATEGORIES ===== */
+        .categories-section {
+            padding: 60px 0;
+            background: #f5f7fa;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            color: #2196f3;
+            margin-bottom: 15px;
+        }
+        
         /* ===== FEATURES ===== */
+        .features-section {
+            padding: 60px 0;
+        }
+        
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
-            margin-top: 40px;
         }
         
         .feature-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
-            padding: 30px;
             text-align: center;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         .feature-icon {
-            background: #e8f4fc;
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
+            background: #e3f2fd;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            font-size: 2.5rem;
-            color: #0d47a1;
-        }
-        
-        .feature-card h3 {
-            margin-bottom: 15px;
-            color: #0d47a1;
-            font-size: 1.5rem;
-        }
-        
-        /* ===== PRODUCTS PREVIEW ===== */
-        .products-preview {
-            background: #f0f7ff;
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-        
-        .product-img {
-            height: 180px;
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            color: #0d47a1;
-        }
-        
-        .product-info {
-            padding: 20px;
-        }
-        
-        .product-info h4 {
-            margin-bottom: 10px;
-            color: #333;
-            font-size: 1.2rem;
-        }
-        
-        .product-info p {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-        
-        .product-tag {
-            display: inline-block;
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        
-        /* ===== CTA SECTION ===== */
-        .cta-section {
-            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
-            color: white;
-            text-align: center;
-            padding: 80px 20px;
-        }
-        
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .cta-section p {
-            max-width: 700px;
-            margin: 0 auto 30px;
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 2rem;
+            color: #2196f3;
         }
         
         /* ===== FOOTER ===== */
         footer {
             background: #0d1b3e;
             color: white;
-            padding: 60px 20px 30px;
+            padding-top: 60px;
+            margin-top: 60px;
         }
         
-        .footer-grid {
+        .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
-            margin-bottom: 40px;
+            padding-bottom: 40px;
         }
         
         .footer-col h3 {
-            margin-bottom: 20px;
-            font-size: 1.3rem;
+            margin-bottom: 25px;
             color: #4fc3f7;
+            font-size: 1.3rem;
         }
         
         .footer-links {
@@ -325,15 +577,29 @@
             color: #4fc3f7;
         }
         
-        .contact-info {
-            color: #bbbbbb;
+        .newsletter {
+            margin-top: 20px;
         }
         
-        .contact-info p {
+        .newsletter-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #2a3a5e;
+            background: #1a2748;
+            color: white;
+            border-radius: 5px;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        }
+        
+        .newsletter-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 500;
         }
         
         .social-icons {
@@ -355,200 +621,393 @@
         }
         
         .social-icons a:hover {
-            background: #4fc3f7;
+            background: #2196f3;
             transform: translateY(-3px);
         }
         
-        .copyright {
+        .footer-bottom {
+            border-top: 1px solid #2a3a5e;
+            padding: 25px 0;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #888;
             font-size: 0.9rem;
         }
         
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 1.5rem;
+            color: #aaa;
+        }
+        
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .search-container {
+                order: 3;
+                margin: 15px 0 0;
+                max-width: 100%;
+            }
+            
             .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: #0d47a1;
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-                text-align: center;
+                overflow-x: auto;
             }
             
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .hero h1 {
+            .hero-content h1 {
                 font-size: 2.5rem;
             }
-            
-            .hero p {
-                font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links a {
+                padding: 15px;
+                white-space: nowrap;
             }
             
-            .section-title h2 {
-                font-size: 2rem;
+            .user-actions {
+                gap: 15px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER & NAVIGATION -->
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div>Free shipping on orders over $100</div>
+            <div class="top-links">
+                <a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
+                <a href="#"><i class="fas fa-question-circle"></i> Help Center</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
     <header>
         <div class="container">
-            <nav>
+            <div class="header-content">
+                <!-- LOGO -->
                 <div class="logo">
                     <i class="fas fa-flask"></i>
                     <span>RX Research Sciences</span>
                 </div>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
+
+                <!-- SEARCH BAR -->
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search products, compounds, reagents...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
                 </div>
+
+                <!-- USER ACTIONS -->
+                <div class="user-actions">
+                    <div class="action-icon">
+                        <i class="far fa-user"></i>
+                    </div>
+                    <div class="action-icon">
+                        <i class="far fa-heart"></i>
+                    </div>
+                    <div class="action-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav class="main-nav">
+            <div class="container">
                 <ul class="nav-links">
                     <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="products.html"><i class="fas fa-pills"></i> Products</a></li>
+                    <li class="dropdown">
+                        <a href="products.html"><i class="fas fa-pills"></i> Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="#">Pharmaceuticals</a>
+                            <a href="#">Laboratory Reagents</a>
+                            <a href="#">Research Compounds</a>
+                            <a href="#">Medical Equipment</a>
+                        </div>
+                    </li>
                     <li><a href="verification.html"><i class="fas fa-check-circle"></i> Verification</a></li>
                     <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
                     <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+                    <li><a href="blog.html"><i class="fas fa-blog"></i> Research Blog</a></li>
                 </ul>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="container">
-            <h1>Innovating Pharmaceutical Research</h1>
-            <p>Advanced scientific research, quality pharmaceutical products, and innovative healthcare solutions for a better world.</p>
-            <a href="products.html" class="btn">View Products</a>
-            <a href="verification.html" class="btn btn-secondary">Verify Product</a>
-        </div>
-    </section>
-
-    <!-- FEATURES SECTION -->
-    <section class="container">
-        <div class="section-title">
-            <h2>Our Specializations</h2>
-            <p>Combining advanced research with cutting-edge technology to develop innovative healthcare solutions</p>
-        </div>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-microscope"></i>
-                </div>
-                <h3>Clinical Research</h3>
-                <p>Rigorous clinical trials following international quality and safety standards to ensure efficacy and patient safety.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-capsules"></i>
-                </div>
-                <h3>Pharmaceutical Development</h3>
-                <p>Development of innovative drugs and formulations to address unmet medical needs across various therapeutic areas.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3>Quality Assurance</h3>
-                <p>Stringent quality control measures ensuring every product meets the highest standards of purity and effectiveness.</p>
+    <!-- HERO BANNER -->
+    <section class="hero-banner">
+        <div class="container hero-content">
+            <h1>Professional Pharmaceutical Products</h1>
+            <p>High-quality research compounds, laboratory reagents, and pharmaceutical supplies for professionals and institutions worldwide.</p>
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
+                <button class="add-to-cart" style="padding: 15px 30px; font-size: 1.1rem;">
+                    <i class="fas fa-shopping-cart"></i> Shop Now
+                </button>
+                <button class="view-details" style="padding: 15px 30px; font-size: 1.1rem;">
+                    <i class="fas fa-microscope"></i> View Research
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- PRODUCTS PREVIEW -->
-    <section class="products-preview">
+    <!-- BANNER CAROUSEL -->
+    <section class="banner-section">
         <div class="container">
-            <div class="section-title">
+            <div class="banner-carousel">
+                <!-- Banner 1 -->
+                <div class="banner-card">
+                    <div class="banner-img">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <div class="banner-content">
+                        <span class="banner-tag">Laboratory</span>
+                        <h3>Premium Lab Reagents</h3>
+                        <p>High-purity chemicals and reagents for research applications</p>
+                    </div>
+                </div>
+                
+                <!-- Banner 2 -->
+                <div class="banner-card">
+                    <div class="banner-img">
+                        <i class="fas fa-capsules"></i>
+                    </div>
+                    <div class="banner-content">
+                        <span class="banner-tag">Pharmaceuticals</span>
+                        <h3>FDA Approved Compounds</h3>
+                        <p>Quality pharmaceutical products with verified efficacy</p>
+                    </div>
+                </div>
+                
+                <!-- Banner 3 -->
+                <div class="banner-card">
+                    <div class="banner-img">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="banner-content">
+                        <span class="banner-tag">Shipping</span>
+                        <h3>Global Express Delivery</h3>
+                        <p>Fast worldwide shipping with temperature control</p>
+                    </div>
+                </div>
+                
+                <!-- Banner 4 -->
+                <div class="banner-card">
+                    <div class="banner-img">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="banner-content">
+                        <span class="banner-tag">Quality</span>
+                        <h3>Quality Guaranteed</h3>
+                        <p>All products come with certificates of analysis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="products-section">
+        <div class="container">
+            <div class="section-header">
                 <h2>Featured Products</h2>
-                <p>Explore our range of innovative pharmaceutical solutions designed for optimal patient outcomes</p>
+                <a href="products.html" class="view-all">
+                    View All Products <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
             
             <div class="products-grid">
+                <!-- Product 1 -->
                 <div class="product-card">
+                    <span class="product-badge">BEST SELLER</span>
+                    <div class="product-favorite"><i class="far fa-heart"></i></div>
                     <div class="product-img">
-                        <i class="fas fa-heartbeat"></i>
+                        <i class="fas fa-heartbeat" style="font-size: 4rem; color: #0d47a1;"></i>
                     </div>
                     <div class="product-info">
-                        <span class="product-tag">Cardiology</span>
-                        <h4>Cardio-RX Pro</h4>
-                        <p>Advanced cardiovascular support formula for heart health maintenance and prevention.</p>
+                        <span class="product-category">Cardiovascular</span>
+                        <h3 class="product-title">Cardio-Pro Advanced</h3>
+                        <p class="product-description">Advanced cardiovascular support formula with enhanced bioavailability for optimal heart health.</p>
+                        <div class="product-price">
+                            <span class="current-price">$89.99</span>
+                            <span class="original-price">$119.99</span>
+                            <span class="discount">25% OFF</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                            <button class="view-details">Details</button>
+                        </div>
                     </div>
                 </div>
                 
+                <!-- Product 2 -->
                 <div class="product-card">
+                    <span class="product-badge" style="background: #2e7d32;">NEW</span>
+                    <div class="product-favorite"><i class="far fa-heart"></i></div>
                     <div class="product-img">
-                        <i class="fas fa-brain"></i>
+                        <i class="fas fa-brain" style="font-size: 4rem; color: #0d47a1;"></i>
                     </div>
                     <div class="product-info">
-                        <span class="product-tag">Neurology</span>
-                        <h4>Neuro-Calm Plus</h4>
-                        <p>Innovative neurological support for cognitive function and stress management.</p>
+                        <span class="product-category">Neurology</span>
+                        <h3 class="product-title">Neuro-Focus Max</h3>
+                        <p class="product-description">Cognitive enhancement formula designed to support memory, focus, and mental clarity.</p>
+                        <div class="product-price">
+                            <span class="current-price">$74.99</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                            <button class="view-details">Details</button>
+                        </div>
                     </div>
                 </div>
                 
+                <!-- Product 3 -->
                 <div class="product-card">
+                    <div class="product-favorite"><i class="far fa-heart"></i></div>
                     <div class="product-img">
-                        <i class="fas fa-bacteria"></i>
+                        <i class="fas fa-bacteria" style="font-size: 4rem; color: #0d47a1;"></i>
                     </div>
                     <div class="product-info">
-                        <span class="product-tag">Antibiotics</span>
-                        <h4>Immuno-Shield</h4>
-                        <p>Broad-spectrum antibiotic formulation with enhanced bioavailability and tolerability.</p>
+                        <span class="product-category">Antibiotics</span>
+                        <h3 class="product-title">Immuno-Shield Plus</h3>
+                        <p class="product-description">Broad-spectrum antibiotic with advanced delivery system for enhanced effectiveness.</p>
+                        <div class="product-price">
+                            <span class="current-price">$129.99</span>
+                            <span class="original-price">$149.99</span>
+                            <span class="discount">13% OFF</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                            <button class="view-details">Details</button>
+                        </div>
                     </div>
                 </div>
                 
+                <!-- Product 4 -->
                 <div class="product-card">
+                    <span class="product-badge" style="background: #ff9800;">LIMITED</span>
+                    <div class="product-favorite"><i class="far fa-heart"></i></div>
                     <div class="product-img">
-                        <i class="fas fa-vial"></i>
+                        <i class="fas fa-dna" style="font-size: 4rem; color: #0d47a1;"></i>
                     </div>
                     <div class="product-info">
-                        <span class="product-tag">Research</span>
-                        <h4>Lab-Grade Reagents</h4>
-                        <p>High-purity chemical reagents and compounds for research and development applications.</p>
+                        <span class="product-category">Research</span>
+                        <h3 class="product-title">Gene-Seq Reagent Kit</h3>
+                        <p class="product-description">Complete kit for genetic sequencing applications with high accuracy and reliability.</p>
+                        <div class="product-price">
+                            <span class="current-price">$299.99</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                            <button class="view-details">Details</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="products.html" class="btn">View All Products</a>
             </div>
         </div>
     </section>
 
-    <!-- CTA SECTION -->
-    <section class="cta-section">
+    <!-- CATEGORIES -->
+    <section class="categories-section">
         <div class="container">
-            <h2>Ready to Transform Healthcare?</h2>
-            <p>Join us in our mission to advance pharmaceutical research and develop solutions that improve lives worldwide.</p>
-            <a href="contact.html" class="btn" style="background: white; color: #0d47a1;">Partner With Us</a>
-            <a href="about.html" class="btn btn-secondary">Learn About Our Mission</a>
+            <div class="section-header">
+                <h2>Shop By Category</h2>
+                <a href="#" class="view-all">
+                    All Categories <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon"><i class="fas fa-pills"></i></div>
+                    <h3>Pharmaceuticals</h3>
+                    <p>120+ Products</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon"><i class="fas fa-vial"></i></div>
+                    <h3>Lab Reagents</h3>
+                    <p>85+ Products</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon"><i class="fas fa-dna"></i></div>
+                    <h3>Research Compounds</h3>
+                    <p>65+ Products</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Equipment</h3>
+                    <p>45+ Products</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon"><i class="fas fa-book"></i></div>
+                    <h3>Publications</h3>
+                    <p>30+ Items</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shipping-fast"></i></div>
+                    <h3>Fast Worldwide Shipping</h3>
+                    <p>Express delivery to research institutions worldwide</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Quality Certified</h3>
+                    <p>All products include certificates of analysis</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3>Secure Transactions</h3>
+                    <p>Bank-level security for all purchases</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                    <h3>Expert Support</h3>
+                    <p>Scientific support team available 24/7</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
         <div class="container">
-            <div class="footer-grid">
+            <div class="footer-content">
                 <div class="footer-col">
                     <h3>RX Research Sciences</h3>
-                    <p style="color: #bbbbbb; margin-bottom: 20px;">Innovating pharmaceutical research for a healthier tomorrow through science, quality, and innovation.</p>
+                    <p style="color: #bbbbbb; margin-bottom: 20px;">Providing high-quality pharmaceutical products and research materials to institutions and professionals worldwide since 2010.</p>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
@@ -561,51 +1020,84 @@
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
                         <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="products.html"><i class="fas fa-chevron-right"></i> Products</a></li>
+                        <li><a href="products.html"><i class="fas fa-chevron-right"></i> All Products</a></li>
                         <li><a href="verification.html"><i class="fas fa-chevron-right"></i> Product Verification</a></li>
-                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Company</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Sales</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
-                    <h3>Contact Info</h3>
-                    <div class="contact-info">
-                        <p><i class="fas fa-map-marker-alt"></i> 123 Research Park, Science District</p>
-                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-                        <p><i class="fas fa-envelope"></i> info@rxresearchsciences.com</p>
-                        <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Legal</h3>
+                    <h3>Customer Service</h3>
                     <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Shipping Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Return Policy</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cookie Policy</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Compliance</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
                     </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #bbbbbb; margin-bottom: 15px;">Subscribe for research updates and product announcements.</p>
+                    <div class="newsletter">
+                        <input type="email" class="newsletter-input" placeholder="Your email address">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </div>
                 </div>
             </div>
             
-            <div class="copyright">
-                <p>&copy; 2024 RX Research Sciences. All rights reserved. | This site is for demonstration purposes.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 RX Research Sciences. All rights reserved. | Professional pharmaceutical e-commerce platform.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- MOBILE MENU SCRIPT -->
     <script>
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
+        // Simple cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const countElement = document.querySelector('.cart-count');
+                let count = parseInt(countElement.textContent);
+                countElement.textContent = count + 1;
+                
+                // Add visual feedback
+                this.innerHTML = '<i class="fas fa-check"></i> Added!';
+                this.style.background = '#2e7d32';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                    this.style.background = '#2196f3';
+                }, 1500);
+            });
         });
         
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('.nav-links').classList.remove('active');
+        // Favorite toggle
+        document.querySelectorAll('.product-favorite').forEach(heart => {
+            heart.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.style.color = '#f44336';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    icon.style.color = '#ccc';
+                }
             });
+        });
+        
+        // Mobile menu toggle (simplified for this example)
+        document.querySelector('.mobile-menu-toggle')?.addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
         });
     </script>
 </body>
