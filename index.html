@@ -1230,7 +1230,7 @@
         <div class="container">
             <div class="header-content">
                 <!-- LOGO -->
-                <a href="#home" class="logo" onclick="scrollToSection('home')">
+                <a href="index.html" class="logo">
                     <i class="fas fa-flask"></i>
                     <span>RX Research Sciences</span>
                 </a>
@@ -1243,15 +1243,15 @@
 
                 <!-- USER ACTIONS -->
                 <div class="user-actions">
-                    <div class="action-icon" onclick="scrollToSection('products')">
+                    <div class="action-icon" onclick="window.location.href='account.html'">
                         <i class="far fa-user"></i>
                         <span>Account</span>
                     </div>
-                    <div class="action-icon" onclick="scrollToSection('products')">
+                    <div class="action-icon" onclick="window.location.href='wishlist.html'">
                         <i class="far fa-heart"></i>
                         <span>Wishlist</span>
                     </div>
-                    <div class="action-icon" id="cartIcon">
+                    <div class="action-icon" onclick="window.location.href='cart.html'">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
                         <span>Cart</span>
@@ -1264,13 +1264,13 @@
         <nav class="main-nav">
             <div class="container">
                 <ul class="nav-links">
-                    <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="#products"><i class="fas fa-shopping-cart"></i> All Products</a></li>
-                    <li><a href="#categories"><i class="fas fa-th-large"></i> Categories</a></li>
-                    <li><a href="#calculator"><i class="fas fa-calculator"></i> Calculator</a></li>
-                    <li><a href="#storage"><i class="fas fa-temperature-low"></i> Storage Guide</a></li>
-                    <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="products/index.html"><i class="fas fa-shopping-cart"></i> All Products</a></li>
+                    <li><a href="index.html#categories"><i class="fas fa-th-large"></i> Categories</a></li>
+                    <li><a href="calculator.html"><i class="fas fa-calculator"></i> Calculator</a></li>
+                    <li><a href="storage-guide.html"><i class="fas fa-temperature-low"></i> Storage Guide</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
             </div>
         </nav>
@@ -1283,10 +1283,10 @@
             <p>Providing researchers worldwide with 80+ high-purity pharmaceutical compounds, peptides, and research materials. Lab-grade quality, certificates of analysis, and global shipping.</p>
             
             <div class="btn-group">
-                <a href="#products" class="btn btn-primary">
+                <a href="products/index.html" class="btn btn-primary">
                     <i class="fas fa-shopping-cart"></i> Shop All Products
                 </a>
-                <a href="#categories" class="btn btn-secondary">
+                <a href="index.html#categories" class="btn btn-secondary">
                     <i class="fas fa-th-large"></i> Browse Categories
                 </a>
             </div>
@@ -1579,7 +1579,7 @@
             </div>
             
             <div style="text-align: center; margin-top: 50px;">
-                <a href="#products" class="btn btn-primary" style="padding: 16px 40px;">
+                <a href="products/index.html" class="btn btn-primary" style="padding: 16px 40px;">
                     <i class="fas fa-arrow-right"></i> View All 80+ Products
                 </a>
             </div>
@@ -1610,8 +1610,8 @@
                         </div>
                         
                         <div class="input-group">
-                            <label for="desiredDose">Desired Dose (mcg)</label>
-                            <input type="number" id="desiredDose" value="250" min="10" max="5000" step="10">
+                            <label for="desiredDose">Desired Dose (mg)</label>
+                            <input type="number" id="desiredDose" value="2" min="0.1" max="50" step="0.1">
                         </div>
                         
                         <div class="input-group">
@@ -1643,18 +1643,18 @@
                         <div class="result-item">
                             <div class="result-label">Volume per Dose</div>
                             <div class="result-value">
-                                <span id="volumeResult">0.05</span>
+                                <span id="volumeResult">0.40</span>
                                 <span class="result-unit">ml</span>
                             </div>
                             <div style="font-size: 0.9rem; color: #666; margin-top: 5px;">
-                                (<span id="unitsResult">5</span> units on <span id="syringeLabel">1ml</span> syringe)
+                                (<span id="unitsResult">40</span> units on <span id="syringeLabel">1ml</span> syringe)
                             </div>
                         </div>
                         
                         <div class="result-item">
                             <div class="result-label">Total Doses Available</div>
                             <div class="result-value">
-                                <span id="dosesResult">40</span>
+                                <span id="dosesResult">5</span>
                                 <span class="result-unit">doses</span>
                             </div>
                         </div>
@@ -1811,10 +1811,10 @@
             <h2>Ready to Advance Your Research?</h2>
             <p>Join thousands of researchers worldwide who trust RX Research Sciences for their laboratory compound needs.</p>
             <div class="btn-group">
-                <a href="#products" class="btn btn-primary">
+                <a href="products/index.html" class="btn btn-primary">
                     <i class="fas fa-shopping-cart"></i> Start Shopping
                 </a>
-                <a href="#contact" class="btn btn-secondary">
+                <a href="contact.html" class="btn btn-secondary">
                     <i class="fas fa-envelope"></i> Contact Sales
                 </a>
             </div>
@@ -1840,22 +1840,22 @@
                 <div class="footer-col">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="#products"><i class="fas fa-chevron-right"></i> All Products</a></li>
-                        <li><a href="#categories"><i class="fas fa-chevron-right"></i> Categories</a></li>
-                        <li><a href="#calculator"><i class="fas fa-chevron-right"></i> Peptide Calculator</a></li>
-                        <li><a href="#storage"><i class="fas fa-chevron-right"></i> Storage Guide</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="products/index.html"><i class="fas fa-chevron-right"></i> All Products</a></li>
+                        <li><a href="index.html#categories"><i class="fas fa-chevron-right"></i> Categories</a></li>
+                        <li><a href="calculator.html"><i class="fas fa-chevron-right"></i> Peptide Calculator</a></li>
+                        <li><a href="storage-guide.html"><i class="fas fa-chevron-right"></i> Storage Guide</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
                     <h3>Research Categories</h3>
                     <ul class="footer-links">
-                        <li><a href="#" data-category="glp1"><i class="fas fa-chevron-right"></i> GLP-1 Analogs</a></li>
-                        <li><a href="#" data-category="peptides"><i class="fas fa-chevron-right"></i> Research Peptides</a></li>
-                        <li><a href="#" data-category="hormones"><i class="fas fa-chevron-right"></i> Growth Hormones</a></li>
-                        <li><a href="#" data-category="blends"><i class="fas fa-chevron-right"></i> Peptide Blends</a></li>
-                        <li><a href="#" data-category="antiaging"><i class="fas fa-chevron-right"></i> Anti-Aging Research</a></li>
+                        <li><a href="products/index.html?category=glp1"><i class="fas fa-chevron-right"></i> GLP-1 Analogs</a></li>
+                        <li><a href="products/index.html?category=peptides"><i class="fas fa-chevron-right"></i> Research Peptides</a></li>
+                        <li><a href="products/index.html?category=hormones"><i class="fas fa-chevron-right"></i> Growth Hormones</a></li>
+                        <li><a href="products/index.html?category=blends"><i class="fas fa-chevron-right"></i> Peptide Blends</a></li>
+                        <li><a href="products/index.html?category=antiaging"><i class="fas fa-chevron-right"></i> Anti-Aging Research</a></li>
                     </ul>
                 </div>
                 
@@ -1905,7 +1905,7 @@
             document.getElementById('legal-banner').style.display = 'none';
         }
         
-        // ===== NAVEGAÇÃO CORRIGIDA =====
+        // ===== NAVEGAÇÃO INTERNA =====
         function scrollToSection(sectionId) {
             const target = document.getElementById(sectionId);
             if (target) {
@@ -1914,48 +1914,31 @@
                     behavior: 'smooth'
                 });
                 
-                // Atualiza estado ativo no menu
-                document.querySelectorAll('.nav-links a').forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
+                // Atualiza estado ativo no menu para links internos
+                const currentPath = window.location.pathname;
+                if (currentPath.endsWith('index.html') || currentPath.endsWith('/')) {
+                    document.querySelectorAll('.nav-links a').forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href.startsWith('#') && href === `#${sectionId}`) {
+                            link.classList.add('active');
+                        } else if (href.startsWith('#')) {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
             }
         }
         
-        // Configura navegação do menu
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                if (href.startsWith('#')) {
-                    const sectionId = href.substring(1);
-                    scrollToSection(sectionId);
-                }
-            });
-        });
-        
-        // Configura botões na home
-        document.querySelectorAll('.btn-group a, .btn-primary, .btn-secondary').forEach(button => {
-            if (button.getAttribute('href') && button.getAttribute('href').startsWith('#')) {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const href = this.getAttribute('href');
-                    const sectionId = href.substring(1);
-                    scrollToSection(sectionId);
-                });
-            }
-        });
-        
-        // Configura links no footer
-        document.querySelectorAll('.footer-links a').forEach(link => {
-            if (link.getAttribute('href') && link.getAttribute('href').startsWith('#')) {
+        // Configura links internos (#) para rolagem suave
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            if (!link.getAttribute('href').startsWith('#!')) {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault();
                     const href = this.getAttribute('href');
-                    const sectionId = href.substring(1);
-                    scrollToSection(sectionId);
+                    if (href !== '#' && href.startsWith('#') && document.getElementById(href.substring(1))) {
+                        e.preventDefault();
+                        const sectionId = href.substring(1);
+                        scrollToSection(sectionId);
+                    }
                 });
             }
         });
@@ -2104,10 +2087,10 @@
             const desiredDose = parseFloat(document.getElementById('desiredDose').value);
             const syringeSize = parseInt(document.getElementById('syringeSize').value);
             
-            // Cálculos
+            // Cálculos - CORRIGIDO para mg (não mcg)
             const concentration = peptideAmount / bacteriostaticWater; // mg/ml
-            const volumePerDose = (desiredDose / 1000) / concentration; // ml
-            const totalDoses = peptideAmount * 1000 / desiredDose;
+            const volumePerDose = desiredDose / concentration; // ml (dose em mg)
+            const totalDoses = peptideAmount / desiredDose;
             const unitsPerDose = (volumePerDose * syringeSize).toFixed(1);
             
             // Atualiza resultados
@@ -2315,7 +2298,40 @@
             updateCartCount();
             filterProducts('all');
             calculatePeptide();
+            
+            // Marca link ativo baseado na página atual
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || 
+                    (currentPage === '' && linkHref === 'index.html') ||
+                    (currentPage.endsWith('index.html') && linkHref === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
         });
+        
+        // Adiciona animações CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            
+            @keyframes fadeOutUp {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-20px); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
