@@ -1380,21 +1380,53 @@
             document.getElementById('legal-banner').style.display = 'none';
         }
         
-        // ===== SHOPPING CART FUNCTIONALITY =====
-let cartCount = 0;
+       // ===== SHOPPING CART FUNCTIONALITY =====
+let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
 const cartCountElement = document.querySelector('.cart-count');
 
-// Add to cart buttons
+// Atualizar contador do carrinho
+function updateCartCount() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCountElement.textContent = totalItems;
+    localStorage.setItem('rxCart', JSON.stringify(cart));
+}
+
+// Add to cart buttons - VERSÃO COMPLETA
 document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', function() {
-        const productName = this.getAttribute('data-product');
-        cartCount++;
-        cartCountElement.textContent = cartCount;
+        const productCard = this.closest('.product-card');
+        const productName = productCard.querySelector('.product-title').textContent;
+        const productPrice = productCard.querySelector('.price-amount').textContent;
+        const productCode = productCard.querySelector('.product-code').textContent;
+        const productCategory = productCard.querySelector('.product-category').textContent;
+        
+        // Extrair apenas números do preço
+        const priceValue = parseFloat(productPrice.replace(/[^\d.]/g, ''));
+        
+        // Verificar se produto já está no carrinho
+        const existingItem = cart.find(item => item.code === productCode);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                name: productName,
+                code: productCode,
+                category: productCategory,
+                price: priceValue,
+                quantity: 1,
+                unit: '10mg' // Você pode ajustar conforme necessário
+            });
+        }
+        
+        updateCartCount();
         
         // Visual feedback
         const originalHTML = this.innerHTML;
+        const originalBg = this.style.background;
         this.innerHTML = '<i class="fas fa-check"></i> Added!';
         this.style.background = '#2e7d32';
+        this.disabled = true;
         
         // Show notification
         showNotification(`${productName} added to cart`);
@@ -1402,9 +1434,277 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
         // Reset button after 1.5 seconds
         setTimeout(() => {
             this.innerHTML = originalHTML;
-            this.style.background = '';
+            this.style.background = originalBg;
+            this.disabled = false;
         }, 1500);
     });
+});
+
+// ===== CARRINHO MODAL =====
+function openCartModal() {
+    // Criar modal do carrinho
+    const modalHTML = `
+        <div class="cart-modal-overlay" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 10000;
+            display: flex;
+            justify-content: flex-end;
+            animation: fadeIn 0.3s ease;
+        ">
+            <div class="cart-modal" style="
+                width: 100%;
+                max-width: 450px;
+                height: 100%;
+                background: white;
+                padding: 25px;
+                overflow-y: auto;
+                box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+                animation: slideInRight 0.3s ease;
+            ">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h2 style="font-size: 1.8rem; color: #0d47a1;">
+                        <i class="fas fa-shopping-cart"></i> Your Cart
+                    </h2>
+                    <button onclick="closeCartModal()" style="
+                        background: none;
+                        border: none;
+                        font-size: 1.5rem;
+                        color: #666;
+                        cursor: pointer;
+                        padding: 5px 10px;
+                    ">&times;</button>
+                </div>
+                
+                ${cart.length === 0 ? 
+                    `<div style="text-align: center; padding: 60px 20px;">
+                        <i class="fas fa-shopping-cart" style="font-size: 4rem; color: #ddd; margin-bottom: 20px;"></i>
+                        <p style="color: #666; font-size: 1.1rem;">Your cart is empty</p>
+                        <a href="#categories" onclick="closeCartModal()" style="
+                            display: inline-block;
+                            margin-top: 20px;
+                            padding: 12px 25px;
+                            background: #2196f3;
+                            color: white;
+                            text-decoration: none;
+                            border-radius: 5px;
+                            font-weight: 500;
+                        ">Browse Products</a>
+                    </div>` 
+                    : 
+                    `<div>
+                        <div class="cart-items" id="cartItemsContainer">
+                            ${cart.map((item, index) => `
+                                <div class="cart-item" style="
+                                    padding: 20px;
+                                    border-bottom: 1px solid #eee;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                ">
+                                    <div>
+                                        <h4 style="margin: 0 0 5px 0; color: #333;">${item.name}</h4>
+                                        <p style="margin: 0; color: #666; font-size: 0.9rem;">${item.code} • ${item.category}</p>
+                                        <p style="margin: 5px 0 0 0; font-weight: bold; color: #0d47a1;">$${item.price.toFixed(2)}</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <div style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 5px;">
+                                            <button onclick="updateQuantity(${index}, -1)" style="
+                                                padding: 5px 12px;
+                                                border: none;
+                                                background: #f5f5f5;
+                                                cursor: pointer;
+                                                font-size: 1.1rem;
+                                            ">-</button>
+                                            <span style="padding: 5px 15px; min-width: 40px; text-align: center;">${item.quantity}</span>
+                                            <button onclick="updateQuantity(${index}, 1)" style="
+                                                padding: 5px 12px;
+                                                border: none;
+                                                background: #f5f5f5;
+                                                cursor: pointer;
+                                                font-size: 1.1rem;
+                                            ">+</button>
+                                        </div>
+                                        <button onclick="removeFromCart(${index})" style="
+                                            padding: 8px;
+                                            background: #ffebee;
+                                            color: #f44336;
+                                            border: none;
+                                            border-radius: 5px;
+                                            cursor: pointer;
+                                        ">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div style="margin-top: 30px; padding: 25px; background: #f8f9fa; border-radius: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                                <span>Subtotal:</span>
+                                <span style="font-weight: bold;">$${calculateSubtotal().toFixed(2)}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 25px;">
+                                <span>Shipping:</span>
+                                <span style="color: #2e7d32; font-weight: bold;">Calculated by representative</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; border-top: 2px solid #ddd; padding-top: 15px;">
+                                <span>Estimated Total:</span>
+                                <span style="color: #0d47a1;">$${calculateSubtotal().toFixed(2)}</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 30px;">
+                            <button onclick="proceedToCheckout()" style="
+                                width: 100%;
+                                padding: 18px;
+                                background: linear-gradient(135deg, #2196f3, #0d47a1);
+                                color: white;
+                                border: none;
+                                border-radius: 8px;
+                                font-size: 1.1rem;
+                                font-weight: bold;
+                                cursor: pointer;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                gap: 10px;
+                                transition: all 0.3s;
+                            ">
+                                <i class="fas fa-whatsapp"></i> Proceed to WhatsApp Order
+                            </button>
+                            
+                            <p style="text-align: center; margin-top: 15px; color: #666; font-size: 0.9rem;">
+                                <i class="fas fa-info-circle"></i> You'll be redirected to WhatsApp to complete your order
+                            </p>
+                        </div>
+                    </div>`
+                }
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Adicionar estilos de animação
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        .cart-modal-overlay {
+            animation: fadeIn 0.3s ease !important;
+        }
+        .cart-modal {
+            animation: slideInRight 0.3s ease !important;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+function closeCartModal() {
+    const modal = document.querySelector('.cart-modal-overlay');
+    if (modal) {
+        modal.style.animation = 'fadeOut 0.3s ease';
+        modal.querySelector('.cart-modal').style.animation = 'slideOutRight 0.3s ease';
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); }
+                to { transform: translateX(100%); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        setTimeout(() => modal.remove(), 300);
+    }
+}
+
+function calculateSubtotal() {
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+}
+
+function updateQuantity(index, change) {
+    cart[index].quantity += change;
+    
+    if (cart[index].quantity < 1) {
+        cart.splice(index, 1);
+    }
+    
+    updateCartCount();
+    updateCartModal();
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartCount();
+    
+    // Se carrinho estiver vazio, fechar modal
+    if (cart.length === 0) {
+        closeCartModal();
+    } else {
+        updateCartModal();
+    }
+}
+
+function updateCartModal() {
+    const modal = document.querySelector('.cart-modal-overlay');
+    if (modal) {
+        closeCartModal();
+        setTimeout(() => openCartModal(), 50);
+    }
+}
+
+function proceedToCheckout() {
+    // Formatar mensagem para WhatsApp
+    let message = "🛒 *NEW ORDER - RX Research Sciences* 🛒\n\n";
+    message += "Hello! I'd like to place an order:\n\n";
+    
+    cart.forEach((item, index) => {
+        message += `*${index + 1}. ${item.name}*\n`;
+        message += `   Code: ${item.code}\n`;
+        message += `   Quantity: ${item.quantity} x ${item.unit || 'unit'}\n`;
+        message += `   Price: $${item.price.toFixed(2)} each\n`;
+        message += `   Subtotal: $${(item.price * item.quantity).toFixed(2)}\n\n`;
+    });
+    
+    message += `*TOTAL ESTIMATE: $${calculateSubtotal().toFixed(2)}*\n\n`;
+    message += "Shipping address and payment details to follow.\n";
+    message += "Please confirm availability and shipping costs.";
+    
+    // Número do WhatsApp do representante (ALTERE AQUI!)
+    const whatsappNumber = "5511999999999"; // Substitua pelo número real
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    
+    // Abrir WhatsApp
+    window.open(whatsappURL, '_blank');
+    
+    // Opcional: Limpar carrinho após envio
+    // cart = [];
+    // updateCartCount();
+    // closeCartModal();
+}
+
+// ===== ABRIR CARRINHO AO CLICAR NO ÍCONE =====
+document.querySelector('.action-icon:nth-child(3)').addEventListener('click', function(e) {
+    e.preventDefault();
+    openCartModal();
 });
         
         // ===== SEARCH FUNCTIONALITY =====
