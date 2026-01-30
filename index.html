@@ -6,6 +6,93 @@
     <title>RX Research Sciences - Pharmaceutical Research & Supply</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ===== AVISO LEGAL ===== */
+        #legal-banner {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 3px solid #e53935;
+            position: sticky;
+            top: 0;
+            z-index: 10000;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        #legal-banner strong {
+            color: #ffcc00;
+        }
+        
+        #legal-banner .warning-highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+            display: inline-block;
+            margin: 0 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        #legal-banner .close-banner-btn {
+            margin-left: 15px;
+            background: #e53935;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+        }
+        
+        #legal-banner .close-banner-btn:hover {
+            background: #c62828;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(229, 57, 53, 0.3);
+        }
+        
+        .legal-content {
+            display: inline-block;
+            max-width: 1200px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            #legal-banner {
+                padding: 12px 15px;
+                font-size: 12px;
+            }
+            
+            .legal-content {
+                display: block;
+                text-align: center;
+            }
+            
+            #legal-banner .close-banner-btn {
+                margin-top: 10px;
+                margin-left: 0;
+                padding: 6px 14px;
+                font-size: 11px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #legal-banner {
+                padding: 10px 12px;
+                font-size: 11px;
+            }
+            
+            #legal-banner .warning-highlight {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+        
         /* ===== BASE STYLES ===== */
         * {
             margin: 0;
@@ -836,6 +923,21 @@
     </style>
 </head>
 <body>
+    <!-- ===== AVISO LEGAL (IMPORTANTE!) ===== -->
+    <div id="legal-banner">
+        <div class="legal-content">
+            <span class="fas fa-exclamation-triangle" style="color: #ffcc00; margin-right: 8px;"></span>
+            <strong>IMPORTANT LEGAL NOTICE:</strong> 
+            <span class="warning-highlight">ALL PRODUCTS ARE FOR LABORATORY RESEARCH USE ONLY</span>
+            • Not for human or veterinary consumption • Not for diagnostic or therapeutic use • 
+            <span class="warning-highlight">STRICTLY IN-VITRO APPLICATIONS</span>
+            • Purchaser assumes all responsibility for compliance with local laws and regulations.
+            <button class="close-banner-btn" onclick="closeLegalBanner()">
+                <span class="fas fa-check-circle"></span> I Understand
+            </button>
+        </div>
+    </div>
+
     <!-- TOP BAR -->
     <div class="top-bar">
         <div class="container top-bar-content">
@@ -1261,6 +1363,23 @@
     </footer>
 
     <script>
+        // ===== AVISO LEGAL FUNCTIONALITY =====
+        function closeLegalBanner() {
+            const banner = document.getElementById('legal-banner');
+            banner.style.animation = 'fadeOutUp 0.3s ease-out';
+            
+            setTimeout(() => {
+                banner.style.display = 'none';
+                // Salvar no localStorage para não mostrar novamente nesta sessão
+                sessionStorage.setItem('legalBannerClosed', 'true');
+            }, 300);
+        }
+        
+        // Verificar se usuário já fechou o banner nesta sessão
+        if (sessionStorage.getItem('legalBannerClosed') === 'true') {
+            document.getElementById('legal-banner').style.display = 'none';
+        }
+        
         // ===== SHOPPING CART FUNCTIONALITY =====
         let cartCount = 0;
         const cartCountElement = document.querySelector('.cart-count');
@@ -1327,14 +1446,14 @@
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
-                top: 20px;
+                top: 80px;
                 right: 20px;
                 background: #2e7d32;
                 color: white;
                 padding: 15px 25px;
                 border-radius: 8px;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                z-index: 10000;
+                z-index: 9999;
                 animation: slideIn 0.3s ease;
                 display: flex;
                 align-items: center;
@@ -1354,6 +1473,18 @@
         // ===== ANIMATIONS =====
         const style = document.createElement('style');
         style.textContent = `
+            /* Animations for legal banner */
+            @keyframes fadeOutUp {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+            }
+            
             @keyframes slideIn {
                 from { transform: translateX(100%); opacity: 0; }
                 to { transform: translateX(0); opacity: 1; }
