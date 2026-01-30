@@ -781,3 +781,9 @@ const categoryColors = {
     "small molecules": "#95a5a6", // Cinza
     default: "#95a5a6"
 };
+
+// ========== EXPORTAR PARA WINDOW ==========
+window.products = products;
+window.categories = categories;
+window.types = types;
+window.categoryColors = categoryColors;
