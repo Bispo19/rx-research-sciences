@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peptide Calculator - RX Research Sciences</title>
+    <link rel="stylesheet" href="styles/products.css">
+</head>
+<body>
+    <header>
+        <!-- Incluir o mesmo header do index.html -->
+    </header>
+
+    <main class="calculator-container">
+        <h1>Peptide Calculator</h1>
+        
+        <div class="calculator-form">
+            <div class="input-group">
+                <label for="desired-dose">Desired Dose (mg)</label>
+                <input type="number" id="desired-dose" placeholder="Enter dose in mg">
+            </div>
+            
+            <div class="input-group">
+                <label for="vial-concentration">Vial Concentration (mg/mL)</label>
+                <input type="number" id="vial-concentration" placeholder="e.g., 10">
+            </div>
+            
+            <div class="input-group">
+                <label for="bacteriostatic-water">Bacteriostatic Water (mL)</label>
+                <input type="number" id="bacteriostatic-water" placeholder="e.g., 2">
+            </div>
+            
+            <button id="calculate-btn" class="btn-primary">Calculate</button>
+            
+            <div class="result" id="result">
+                <h3>Result:</h3>
+                <p id="calculation-result">-</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+            const dose = parseFloat(document.getElementById('desired-dose').value);
+            const concentration = parseFloat(document.getElementById('vial-concentration').value);
+            const water = parseFloat(document.getElementById('bacteriostatic-water').value);
+            
+            if (dose && concentration && water) {
+                const result = (dose / concentration) * water;
+                document.getElementById('calculation-result').textContent = 
+                    `You need to draw ${result.toFixed(2)} mL for ${dose} mg dose`;
+            } else {
+                document.getElementById('calculation-result').textContent = 
+                    'Please fill all fields correctly';
+            }
+        });
+    </script>
+</body>
+</html>
