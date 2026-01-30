@@ -454,6 +454,7 @@
             text-decoration: none;
             color: inherit;
             display: block;
+            cursor: pointer;
         }
         
         .category-card:hover {
@@ -501,6 +502,7 @@
         .products-section {
             padding: 100px 0;
             background: #f8f9fa;
+            position: relative;
         }
         
         .products-grid {
@@ -516,6 +518,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             transition: all 0.3s;
             border: 1px solid #f0f0f0;
+            position: relative;
         }
         
         .product-card:hover {
@@ -527,14 +530,20 @@
         .product-badge {
             position: absolute;
             top: 15px;
-            left: 15px;
+            right: 15px;
             background: #f44336;
             color: white;
-            padding: 5px 15px;
+            padding: 6px 15px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: bold;
-            z-index: 1;
+            z-index: 10;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .product-badge[style*="background: #2e7d32"] {
+            background: #2e7d32 !important;
         }
         
         .product-image {
@@ -566,18 +575,22 @@
             font-size: 0.9rem;
             margin-bottom: 8px;
             display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
         }
         
         .product-title {
             font-size: 1.3rem;
             margin-bottom: 10px;
             color: #333;
+            font-weight: 600;
         }
         
         .product-code {
             color: #888;
             font-family: monospace;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-bottom: 15px;
             background: #f5f5f5;
             padding: 5px 10px;
@@ -920,6 +933,66 @@
                 grid-template-columns: 1fr;
             }
         }
+        
+        /* ===== FIX PARA OS BADGES DUPLICADOS ===== */
+        body > .product-badge,
+        .products-section > .product-badge,
+        .container > .product-badge,
+        .products-grid > .product-badge {
+            display: none !important;
+            visibility: hidden !important;
+        }
+        
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-content, .section-header, .category-card, .product-card, .feature-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .category-card:nth-child(1) { animation-delay: 0.1s; }
+        .category-card:nth-child(2) { animation-delay: 0.2s; }
+        .category-card:nth-child(3) { animation-delay: 0.3s; }
+        .category-card:nth-child(4) { animation-delay: 0.4s; }
+        .category-card:nth-child(5) { animation-delay: 0.5s; }
+        .category-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        .product-card:nth-child(1) { animation-delay: 0.2s; }
+        .product-card:nth-child(2) { animation-delay: 0.3s; }
+        .product-card:nth-child(3) { animation-delay: 0.4s; }
+        .product-card:nth-child(4) { animation-delay: 0.5s; }
+        
+        .feature-card:nth-child(1) { animation-delay: 0.2s; }
+        .feature-card:nth-child(2) { animation-delay: 0.3s; }
+        .feature-card:nth-child(3) { animation-delay: 0.4s; }
+        .feature-card:nth-child(4) { animation-delay: 0.5s; }
+        .feature-card:nth-child(5) { animation-delay: 0.6s; }
+        .feature-card:nth-child(6) { animation-delay: 0.7s; }
     </style>
 </head>
 <body>
@@ -976,10 +1049,10 @@
                         <span>Wishlist</span>
                     </div>
                     <div class="action-icon" id="cartIcon">
-    <i class="fas fa-shopping-cart"></i>
-    <span class="cart-count">0</span>
-    <span>Cart</span>
-</div>
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                        <span>Cart</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -988,13 +1061,13 @@
         <nav class="main-nav">
             <div class="container">
                 <ul class="nav-links">
-                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-                   <li><a href="products/index.html">All Products</a></li>
-                    <li><a href="#categories"><i class="fas fa-th-large"></i> Categories</a></li>
-                    <li><a href="verification.html"><i class="fas fa-check-circle"></i> Verification</a></li>
-                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="blog.html"><i class="fas fa-blog"></i> Research</a></li>
+                    <li><a href="#" class="active" data-target="home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#" data-target="products"><i class="fas fa-shopping-cart"></i> All Products</a></li>
+                    <li><a href="#" data-target="categories"><i class="fas fa-th-large"></i> Categories</a></li>
+                    <li><a href="#" data-target="verification"><i class="fas fa-check-circle"></i> Verification</a></li>
+                    <li><a href="#" data-target="about"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="#" data-target="contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="#" data-target="research"><i class="fas fa-blog"></i> Research</a></li>
                 </ul>
             </div>
         </nav>
@@ -1007,10 +1080,10 @@
             <p>Providing researchers worldwide with 80+ high-purity pharmaceutical compounds, peptides, and research materials. Lab-grade quality, certificates of analysis, and global shipping.</p>
             
             <div class="btn-group">
-                <a href="products.html" class="btn btn-primary">
+                <a href="#" class="btn btn-primary" data-target="products">
                     <i class="fas fa-shopping-cart"></i> Shop All Products
                 </a>
-                <a href="#categories" class="btn btn-secondary">
+                <a href="#" class="btn btn-secondary" data-target="categories">
                     <i class="fas fa-th-large"></i> Browse Categories
                 </a>
             </div>
@@ -1045,7 +1118,7 @@
             </div>
             
             <div class="categories-grid">
-                <a href="products.html?category=glp1" class="category-card">
+                <div class="category-card" data-category="glp1">
                     <div class="category-icon">
                         <i class="fas fa-weight"></i>
                     </div>
@@ -1054,9 +1127,9 @@
                         <p>Tirzepatide, Retatrutide, Cagrilintide and other advanced metabolic research compounds</p>
                         <span class="product-count">15+ Products</span>
                     </div>
-                </a>
+                </div>
                 
-                <a href="products.html?category=peptides" class="category-card">
+                <div class="category-card" data-category="peptides">
                     <div class="category-icon">
                         <i class="fas fa-dna"></i>
                     </div>
@@ -1065,9 +1138,9 @@
                         <p>BPC-157, TB-500, Semax, Selank, Epithalon and other cutting-edge peptides</p>
                         <span class="product-count">50+ Products</span>
                     </div>
-                </a>
+                </div>
                 
-                <a href="products.html?category=hormones" class="category-card">
+                <div class="category-card" data-category="hormones">
                     <div class="category-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
@@ -1076,9 +1149,9 @@
                         <p>CJC-1295, Ipamorelin, Tesamorelin, Sermorelin and growth hormone secretagogues</p>
                         <span class="product-count">12+ Products</span>
                     </div>
-                </a>
+                </div>
                 
-                <a href="products.html?category=blends" class="category-card">
+                <div class="category-card" data-category="blends">
                     <div class="category-icon">
                         <i class="fas fa-vial"></i>
                     </div>
@@ -1087,9 +1160,9 @@
                         <p>Specialized combinations for synergistic effects in research applications</p>
                         <span class="product-count">8+ Products</span>
                     </div>
-                </a>
+                </div>
                 
-                <a href="products.html?category=cognitive" class="category-card">
+                <div class="category-card" data-category="cognitive">
                     <div class="category-icon">
                         <i class="fas fa-brain"></i>
                     </div>
@@ -1098,9 +1171,9 @@
                         <p>Compounds supporting neurological function and cognitive performance research</p>
                         <span class="product-count">10+ Products</span>
                     </div>
-                </a>
+                </div>
                 
-                <a href="products.html?category=antiaging" class="category-card">
+                <div class="category-card" data-category="antiaging">
                     <div class="category-icon">
                         <i class="fas fa-heartbeat"></i>
                     </div>
@@ -1109,7 +1182,7 @@
                         <p>NAD+, Epithalon, MOTS-c and other compounds for longevity research</p>
                         <span class="product-count">8+ Products</span>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </section>
@@ -1139,7 +1212,7 @@
                                 <button class="btn btn-primary btn-small add-to-cart" data-product="Tirzepatide 10mg">
                                     <i class="fas fa-cart-plus"></i> Add
                                 </button>
-                                <button class="btn btn-secondary btn-small">Details</button>
+                                <button class="btn btn-secondary btn-small details-btn">Details</button>
                             </div>
                         </div>
                     </div>
@@ -1161,7 +1234,7 @@
                                 <button class="btn btn-primary btn-small add-to-cart" data-product="Retatrutide 10mg">
                                     <i class="fas fa-cart-plus"></i> Add
                                 </button>
-                                <button class="btn btn-secondary btn-small">Details</button>
+                                <button class="btn btn-secondary btn-small details-btn">Details</button>
                             </div>
                         </div>
                     </div>
@@ -1182,7 +1255,7 @@
                                 <button class="btn btn-primary btn-small add-to-cart" data-product="BPC-157 10mg">
                                     <i class="fas fa-cart-plus"></i> Add
                                 </button>
-                                <button class="btn btn-secondary btn-small">Details</button>
+                                <button class="btn btn-secondary btn-small details-btn">Details</button>
                             </div>
                         </div>
                     </div>
@@ -1203,7 +1276,7 @@
                                 <button class="btn btn-primary btn-small add-to-cart" data-product="Semax 10mg">
                                     <i class="fas fa-cart-plus"></i> Add
                                 </button>
-                                <button class="btn btn-secondary btn-small">Details</button>
+                                <button class="btn btn-secondary btn-small details-btn">Details</button>
                             </div>
                         </div>
                     </div>
@@ -1211,7 +1284,7 @@
             </div>
             
             <div style="text-align: center; margin-top: 50px;">
-                <a href="products.html" class="btn btn-primary" style="padding: 16px 40px;">
+                <a href="#" class="btn btn-primary" style="padding: 16px 40px;" data-target="products">
                     <i class="fas fa-arrow-right"></i> View All 80+ Products
                 </a>
             </div>
@@ -1284,10 +1357,10 @@
             <h2>Ready to Advance Your Research?</h2>
             <p>Join thousands of researchers worldwide who trust RX Research Sciences for their laboratory compound needs.</p>
             <div class="btn-group">
-                <a href="products.html" class="btn btn-primary">
+                <a href="#" class="btn btn-primary" data-target="products">
                     <i class="fas fa-shopping-cart"></i> Start Shopping
                 </a>
-                <a href="contact.html" class="btn btn-secondary">
+                <a href="#" class="btn btn-secondary" data-target="contact">
                     <i class="fas fa-envelope"></i> Contact Sales
                 </a>
             </div>
@@ -1313,22 +1386,22 @@
                 <div class="footer-col">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="products.html"><i class="fas fa-chevron-right"></i> All Products</a></li>
-                        <li><a href="verification.html"><i class="fas fa-chevron-right"></i> Product Verification</a></li>
-                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="#" data-target="home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#" data-target="products"><i class="fas fa-chevron-right"></i> All Products</a></li>
+                        <li><a href="#" data-target="verification"><i class="fas fa-chevron-right"></i> Product Verification</a></li>
+                        <li><a href="#" data-target="about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#" data-target="contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
                     <h3>Research Categories</h3>
                     <ul class="footer-links">
-                        <li><a href="products.html?category=glp1"><i class="fas fa-chevron-right"></i> GLP-1 Analogs</a></li>
-                        <li><a href="products.html?category=peptides"><i class="fas fa-chevron-right"></i> Research Peptides</a></li>
-                        <li><a href="products.html?category=hormones"><i class="fas fa-chevron-right"></i> Growth Hormones</a></li>
-                        <li><a href="products.html?category=blends"><i class="fas fa-chevron-right"></i> Peptide Blends</a></li>
-                        <li><a href="products.html?category=antiaging"><i class="fas fa-chevron-right"></i> Anti-Aging Research</a></li>
+                        <li><a href="#" data-category="glp1"><i class="fas fa-chevron-right"></i> GLP-1 Analogs</a></li>
+                        <li><a href="#" data-category="peptides"><i class="fas fa-chevron-right"></i> Research Peptides</a></li>
+                        <li><a href="#" data-category="hormones"><i class="fas fa-chevron-right"></i> Growth Hormones</a></li>
+                        <li><a href="#" data-category="blends"><i class="fas fa-chevron-right"></i> Peptide Blends</a></li>
+                        <li><a href="#" data-category="antiaging"><i class="fas fa-chevron-right"></i> Anti-Aging Research</a></li>
                     </ul>
                 </div>
                 
@@ -1343,7 +1416,7 @@
                     
                     <div class="newsletter">
                         <input type="email" class="newsletter-input" placeholder="Your email address">
-                        <button class="btn btn-primary" style="width: 100%; padding: 15px;">Subscribe</button>
+                        <button class="btn btn-primary" style="width: 100%; padding: 15px;" id="subscribeBtn">Subscribe</button>
                     </div>
                 </div>
             </div>
@@ -1370,342 +1443,482 @@
             
             setTimeout(() => {
                 banner.style.display = 'none';
-                // Salvar no localStorage para não mostrar novamente nesta sessão
                 sessionStorage.setItem('legalBannerClosed', 'true');
             }, 300);
         }
         
-        // Verificar se usuário já fechou o banner nesta sessão
         if (sessionStorage.getItem('legalBannerClosed') === 'true') {
             document.getElementById('legal-banner').style.display = 'none';
         }
         
-       // ===== SHOPPING CART FUNCTIONALITY =====
-let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
-const cartCountElement = document.querySelector('.cart-count');
-
-// Atualizar contador do carrinho
-function updateCartCount() {
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCountElement.textContent = totalItems;
-    localStorage.setItem('rxCart', JSON.stringify(cart));
-}
-
-// Add to cart buttons - VERSÃO COMPLETA
-document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', function() {
-        const productCard = this.closest('.product-card');
-        const productName = productCard.querySelector('.product-title').textContent;
-        const productPrice = productCard.querySelector('.price-amount').textContent;
-        const productCode = productCard.querySelector('.product-code').textContent;
-        const productCategory = productCard.querySelector('.product-category').textContent;
+        // ===== SHOPPING CART FUNCTIONALITY =====
+        let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+        const cartCountElement = document.querySelector('.cart-count');
         
-        // Extrair apenas números do preço
-        const priceValue = parseFloat(productPrice.replace(/[^\d.]/g, ''));
-        
-        // Verificar se produto já está no carrinho
-        const existingItem = cart.find(item => item.code === productCode);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({
-                name: productName,
-                code: productCode,
-                category: productCategory,
-                price: priceValue,
-                quantity: 1,
-                unit: '10mg' // Você pode ajustar conforme necessário
-            });
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountElement.textContent = totalItems;
+            localStorage.setItem('rxCart', JSON.stringify(cart));
         }
         
-        updateCartCount();
-        
-        // Visual feedback
-        const originalHTML = this.innerHTML;
-        const originalBg = this.style.background;
-        this.innerHTML = '<i class="fas fa-check"></i> Added!';
-        this.style.background = '#2e7d32';
-        this.disabled = true;
-        
-        // Show notification
-        showNotification(`${productName} added to cart`);
-        
-        // Reset button after 1.5 seconds
-        setTimeout(() => {
-            this.innerHTML = originalHTML;
-            this.style.background = originalBg;
-            this.disabled = false;
-        }, 1500);
-    });
-});
-
-// ===== CARRINHO MODAL =====
-function openCartModal() {
-    // Criar modal do carrinho
-    const modalHTML = `
-        <div class="cart-modal-overlay" style="
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 10000;
-            display: flex;
-            justify-content: flex-end;
-            animation: fadeIn 0.3s ease;
-        ">
-            <div class="cart-modal" style="
-                width: 100%;
-                max-width: 450px;
-                height: 100%;
-                background: white;
-                padding: 25px;
-                overflow-y: auto;
-                box-shadow: -5px 0 25px rgba(0,0,0,0.1);
-                animation: slideInRight 0.3s ease;
-            ">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                    <h2 style="font-size: 1.8rem; color: #0d47a1;">
-                        <i class="fas fa-shopping-cart"></i> Your Cart
-                    </h2>
-                    <button onclick="closeCartModal()" style="
-                        background: none;
-                        border: none;
-                        font-size: 1.5rem;
-                        color: #666;
-                        cursor: pointer;
-                        padding: 5px 10px;
-                    ">&times;</button>
-                </div>
+        // Add to cart buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.product-title').textContent;
+                const productPrice = productCard.querySelector('.price-amount').textContent;
+                const productCode = productCard.querySelector('.product-code').textContent;
+                const productCategory = productCard.querySelector('.product-category').textContent;
                 
-                ${cart.length === 0 ? 
-                    `<div style="text-align: center; padding: 60px 20px;">
-                        <i class="fas fa-shopping-cart" style="font-size: 4rem; color: #ddd; margin-bottom: 20px;"></i>
-                        <p style="color: #666; font-size: 1.1rem;">Your cart is empty</p>
-                        <a href="#categories" onclick="closeCartModal()" style="
-                            display: inline-block;
-                            margin-top: 20px;
-                            padding: 12px 25px;
-                            background: #2196f3;
-                            color: white;
-                            text-decoration: none;
-                            border-radius: 5px;
-                            font-weight: 500;
-                        ">Browse Products</a>
-                    </div>` 
-                    : 
-                    `<div>
-                        <div class="cart-items" id="cartItemsContainer">
-                            ${cart.map((item, index) => `
-                                <div class="cart-item" style="
-                                    padding: 20px;
-                                    border-bottom: 1px solid #eee;
-                                    display: flex;
-                                    justify-content: space-between;
-                                    align-items: center;
-                                ">
-                                    <div>
-                                        <h4 style="margin: 0 0 5px 0; color: #333;">${item.name}</h4>
-                                        <p style="margin: 0; color: #666; font-size: 0.9rem;">${item.code} • ${item.category}</p>
-                                        <p style="margin: 5px 0 0 0; font-weight: bold; color: #0d47a1;">$${item.price.toFixed(2)}</p>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                        <div style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 5px;">
-                                            <button onclick="updateQuantity(${index}, -1)" style="
-                                                padding: 5px 12px;
-                                                border: none;
-                                                background: #f5f5f5;
-                                                cursor: pointer;
-                                                font-size: 1.1rem;
-                                            ">-</button>
-                                            <span style="padding: 5px 15px; min-width: 40px; text-align: center;">${item.quantity}</span>
-                                            <button onclick="updateQuantity(${index}, 1)" style="
-                                                padding: 5px 12px;
-                                                border: none;
-                                                background: #f5f5f5;
-                                                cursor: pointer;
-                                                font-size: 1.1rem;
-                                            ">+</button>
-                                        </div>
-                                        <button onclick="removeFromCart(${index})" style="
-                                            padding: 8px;
-                                            background: #ffebee;
-                                            color: #f44336;
-                                            border: none;
-                                            border-radius: 5px;
-                                            cursor: pointer;
+                const priceValue = parseFloat(productPrice.replace(/[^\d.]/g, ''));
+                
+                const existingItem = cart.find(item => item.code === productCode);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        name: productName,
+                        code: productCode,
+                        category: productCategory,
+                        price: priceValue,
+                        quantity: 1,
+                        unit: '10mg'
+                    });
+                }
+                
+                updateCartCount();
+                
+                const originalHTML = this.innerHTML;
+                const originalBg = this.style.background;
+                this.innerHTML = '<i class="fas fa-check"></i> Added!';
+                this.style.background = '#2e7d32';
+                this.disabled = true;
+                
+                showNotification(`${productName} added to cart`);
+                
+                setTimeout(() => {
+                    this.innerHTML = originalHTML;
+                    this.style.background = originalBg;
+                    this.disabled = false;
+                }, 1500);
+            });
+        });
+        
+        // ===== CARRINHO MODAL =====
+        function openCartModal() {
+            const modalHTML = `
+                <div class="cart-modal-overlay" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 10000;
+                    display: flex;
+                    justify-content: flex-end;
+                    animation: fadeIn 0.3s ease;
+                ">
+                    <div class="cart-modal" style="
+                        width: 100%;
+                        max-width: 450px;
+                        height: 100%;
+                        background: white;
+                        padding: 25px;
+                        overflow-y: auto;
+                        box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+                        animation: slideInRight 0.3s ease;
+                    ">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                            <h2 style="font-size: 1.8rem; color: #0d47a1;">
+                                <i class="fas fa-shopping-cart"></i> Your Cart
+                            </h2>
+                            <button onclick="closeCartModal()" style="
+                                background: none;
+                                border: none;
+                                font-size: 1.5rem;
+                                color: #666;
+                                cursor: pointer;
+                                padding: 5px 10px;
+                            ">&times;</button>
+                        </div>
+                        
+                        ${cart.length === 0 ? 
+                            `<div style="text-align: center; padding: 60px 20px;">
+                                <i class="fas fa-shopping-cart" style="font-size: 4rem; color: #ddd; margin-bottom: 20px;"></i>
+                                <p style="color: #666; font-size: 1.1rem;">Your cart is empty</p>
+                                <a href="#" onclick="closeCartModal(); scrollToSection('products')" style="
+                                    display: inline-block;
+                                    margin-top: 20px;
+                                    padding: 12px 25px;
+                                    background: #2196f3;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    font-weight: 500;
+                                ">Browse Products</a>
+                            </div>` 
+                            : 
+                            `<div>
+                                <div class="cart-items" id="cartItemsContainer">
+                                    ${cart.map((item, index) => `
+                                        <div class="cart-item" style="
+                                            padding: 20px;
+                                            border-bottom: 1px solid #eee;
+                                            display: flex;
+                                            justify-content: space-between;
+                                            align-items: center;
                                         ">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                            <div>
+                                                <h4 style="margin: 0 0 5px 0; color: #333;">${item.name}</h4>
+                                                <p style="margin: 0; color: #666; font-size: 0.9rem;">${item.code} • ${item.category}</p>
+                                                <p style="margin: 5px 0 0 0; font-weight: bold; color: #0d47a1;">$${item.price.toFixed(2)}</p>
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <div style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 5px;">
+                                                    <button onclick="updateQuantity(${index}, -1)" style="
+                                                        padding: 5px 12px;
+                                                        border: none;
+                                                        background: #f5f5f5;
+                                                        cursor: pointer;
+                                                        font-size: 1.1rem;
+                                                    ">-</button>
+                                                    <span style="padding: 5px 15px; min-width: 40px; text-align: center;">${item.quantity}</span>
+                                                    <button onclick="updateQuantity(${index}, 1)" style="
+                                                        padding: 5px 12px;
+                                                        border: none;
+                                                        background: #f5f5f5;
+                                                        cursor: pointer;
+                                                        font-size: 1.1rem;
+                                                    ">+</button>
+                                                </div>
+                                                <button onclick="removeFromCart(${index})" style="
+                                                    padding: 8px;
+                                                    background: #ffebee;
+                                                    color: #f44336;
+                                                    border: none;
+                                                    border-radius: 5px;
+                                                    cursor: pointer;
+                                                ">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                
+                                <div style="margin-top: 30px; padding: 25px; background: #f8f9fa; border-radius: 10px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                                        <span>Subtotal:</span>
+                                        <span style="font-weight: bold;">$${calculateSubtotal().toFixed(2)}</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 25px;">
+                                        <span>Shipping:</span>
+                                        <span style="color: #2e7d32; font-weight: bold;">Calculated by representative</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; border-top: 2px solid #ddd; padding-top: 15px;">
+                                        <span>Estimated Total:</span>
+                                        <span style="color: #0d47a1;">$${calculateSubtotal().toFixed(2)}</span>
                                     </div>
                                 </div>
-                            `).join('')}
-                        </div>
-                        
-                        <div style="margin-top: 30px; padding: 25px; background: #f8f9fa; border-radius: 10px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                                <span>Subtotal:</span>
-                                <span style="font-weight: bold;">$${calculateSubtotal().toFixed(2)}</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 25px;">
-                                <span>Shipping:</span>
-                                <span style="color: #2e7d32; font-weight: bold;">Calculated by representative</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; border-top: 2px solid #ddd; padding-top: 15px;">
-                                <span>Estimated Total:</span>
-                                <span style="color: #0d47a1;">$${calculateSubtotal().toFixed(2)}</span>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 30px;">
-                            <button onclick="proceedToCheckout()" style="
-                                width: 100%;
-                                padding: 18px;
-                                background: linear-gradient(135deg, #2196f3, #0d47a1);
-                                color: white;
-                                border: none;
-                                border-radius: 8px;
-                                font-size: 1.1rem;
-                                font-weight: bold;
-                                cursor: pointer;
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                gap: 10px;
-                                transition: all 0.3s;
-                            ">
-                                <i class="fas fa-whatsapp"></i> Proceed to WhatsApp Order
-                            </button>
-                            
-                            <p style="text-align: center; margin-top: 15px; color: #666; font-size: 0.9rem;">
-                                <i class="fas fa-info-circle"></i> You'll be redirected to WhatsApp to complete your order
-                            </p>
-                        </div>
-                    </div>`
+                                
+                                <div style="margin-top: 30px;">
+                                    <button onclick="proceedToCheckout()" style="
+                                        width: 100%;
+                                        padding: 18px;
+                                        background: linear-gradient(135deg, #2196f3, #0d47a1);
+                                        color: white;
+                                        border: none;
+                                        border-radius: 8px;
+                                        font-size: 1.1rem;
+                                        font-weight: bold;
+                                        cursor: pointer;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        gap: 10px;
+                                        transition: all 0.3s;
+                                    ">
+                                        <i class="fas fa-whatsapp"></i> Proceed to WhatsApp Order
+                                    </button>
+                                    
+                                    <p style="text-align: center; margin-top: 15px; color: #666; font-size: 0.9rem;">
+                                        <i class="fas fa-info-circle"></i> You'll be redirected to WhatsApp to complete your order
+                                    </p>
+                                </div>
+                            </div>`
+                        }
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
                 }
-            </div>
-        </div>
-    `;
-    
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-    
-    // Adicionar estilos de animação
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); }
+                    to { transform: translateX(0); }
+                }
+                .cart-modal-overlay {
+                    animation: fadeIn 0.3s ease !important;
+                }
+                .cart-modal {
+                    animation: slideInRight 0.3s ease !important;
+                }
+            `;
+            document.head.appendChild(style);
         }
-        @keyframes slideInRight {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-        .cart-modal-overlay {
-            animation: fadeIn 0.3s ease !important;
-        }
-        .cart-modal {
-            animation: slideInRight 0.3s ease !important;
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-function closeCartModal() {
-    const modal = document.querySelector('.cart-modal-overlay');
-    if (modal) {
-        modal.style.animation = 'fadeOut 0.3s ease';
-        modal.querySelector('.cart-modal').style.animation = 'slideOutRight 0.3s ease';
         
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; }
+        function closeCartModal() {
+            const modal = document.querySelector('.cart-modal-overlay');
+            if (modal) {
+                modal.style.animation = 'fadeOut 0.3s ease';
+                modal.querySelector('.cart-modal').style.animation = 'slideOutRight 0.3s ease';
+                
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fadeOut {
+                        from { opacity: 1; }
+                        to { opacity: 0; }
+                    }
+                    @keyframes slideOutRight {
+                        from { transform: translateX(0); }
+                        to { transform: translateX(100%); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                setTimeout(() => modal.remove(), 300);
             }
-            @keyframes slideOutRight {
-                from { transform: translateX(0); }
-                to { transform: translateX(100%); }
-            }
-        `;
-        document.head.appendChild(style);
+        }
         
-        setTimeout(() => modal.remove(), 300);
-    }
-}
-
-function calculateSubtotal() {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-}
-
-function updateQuantity(index, change) {
-    cart[index].quantity += change;
-    
-    if (cart[index].quantity < 1) {
-        cart.splice(index, 1);
-    }
-    
-    updateCartCount();
-    updateCartModal();
-}
-
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCartCount();
-    
-    // Se carrinho estiver vazio, fechar modal
-    if (cart.length === 0) {
-        closeCartModal();
-    } else {
-        updateCartModal();
-    }
-}
-
-function updateCartModal() {
-    const modal = document.querySelector('.cart-modal-overlay');
-    if (modal) {
-        closeCartModal();
-        setTimeout(() => openCartModal(), 50);
-    }
-}
-
-function proceedToCheckout() {
-    // Formatar mensagem para WhatsApp
-    let message = "🛒 *NEW ORDER - RX Research Sciences* 🛒\n\n";
-    message += "Hello! I'd like to place an order:\n\n";
-    
-    cart.forEach((item, index) => {
-        message += `*${index + 1}. ${item.name}*\n`;
-        message += `   Code: ${item.code}\n`;
-        message += `   Quantity: ${item.quantity} x ${item.unit || 'unit'}\n`;
-        message += `   Price: $${item.price.toFixed(2)} each\n`;
-        message += `   Subtotal: $${(item.price * item.quantity).toFixed(2)}\n\n`;
-    });
-    
-    message += `*TOTAL ESTIMATE: $${calculateSubtotal().toFixed(2)}*\n\n`;
-    message += "Shipping address and payment details to follow.\n";
-    message += "Please confirm availability and shipping costs.";
-    
-    // Número do WhatsApp do representante (ALTERE AQUI!)
-    const whatsappNumber = "0000000000"; // Substitua pelo número real
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-    
-    // Abrir WhatsApp
-    window.open(whatsappURL, '_blank');
-    
-    // Opcional: Limpar carrinho após envio
-    // cart = [];
-    // updateCartCount();
-    // closeCartModal();
-}
-
-// ===== ABRIR CARRINHO AO CLICAR NO ÍCONE =====
-document.querySelector('.action-icon:nth-child(3)').addEventListener('click', function(e) {
-    e.preventDefault();
-    openCartModal();
-});
+        function calculateSubtotal() {
+            return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        }
+        
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            
+            if (cart[index].quantity < 1) {
+                cart.splice(index, 1);
+            }
+            
+            updateCartCount();
+            updateCartModal();
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            
+            if (cart.length === 0) {
+                closeCartModal();
+            } else {
+                updateCartModal();
+            }
+        }
+        
+        function updateCartModal() {
+            const modal = document.querySelector('.cart-modal-overlay');
+            if (modal) {
+                closeCartModal();
+                setTimeout(() => openCartModal(), 50);
+            }
+        }
+        
+        function proceedToCheckout() {
+            let message = "🛒 *NEW ORDER - RX Research Sciences* 🛒\n\n";
+            message += "Hello! I'd like to place an order:\n\n";
+            
+            cart.forEach((item, index) => {
+                message += `*${index + 1}. ${item.name}*\n`;
+                message += `   Code: ${item.code}\n`;
+                message += `   Quantity: ${item.quantity} x ${item.unit || 'unit'}\n`;
+                message += `   Price: $${item.price.toFixed(2)} each\n`;
+                message += `   Subtotal: $${(item.price * item.quantity).toFixed(2)}\n\n`;
+            });
+            
+            message += `*TOTAL ESTIMATE: $${calculateSubtotal().toFixed(2)}*\n\n`;
+            message += "Shipping address and payment details to follow.\n";
+            message += "Please confirm availability and shipping costs.";
+            
+            const whatsappNumber = "0000000000";
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+        }
+        
+        // Abrir carrinho
+        document.querySelector('#cartIcon').addEventListener('click', function(e) {
+            e.preventDefault();
+            openCartModal();
+        });
+        
+        // ===== BOTÃO "DETAILS" DOS PRODUTOS =====
+        document.querySelectorAll('.details-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.product-title').textContent;
+                const productCode = productCard.querySelector('.product-code').textContent;
+                const productPrice = productCard.querySelector('.price-amount').textContent;
+                const productCategory = productCard.querySelector('.product-category').textContent;
+                
+                const modalHTML = `
+                    <div class="details-modal-overlay" style="
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0,0,0,0.7);
+                        z-index: 20000;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        animation: fadeIn 0.3s ease;
+                    ">
+                        <div class="details-modal" style="
+                            background: white;
+                            padding: 30px;
+                            border-radius: 15px;
+                            max-width: 500px;
+                            width: 90%;
+                            max-height: 80vh;
+                            overflow-y: auto;
+                            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+                            animation: slideUp 0.4s ease;
+                        ">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <h3 style="color: #0d47a1; margin: 0;">
+                                    <i class="fas fa-info-circle"></i> Product Details
+                                </h3>
+                                <button onclick="this.closest('.details-modal-overlay').remove()" style="
+                                    background: none;
+                                    border: none;
+                                    font-size: 1.8rem;
+                                    color: #666;
+                                    cursor: pointer;
+                                    padding: 5px 10px;
+                                ">&times;</button>
+                            </div>
+                            
+                            <h4 style="margin-bottom: 15px; color: #333; font-size: 1.5rem;">${productName}</h4>
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                                <p><strong>Product Code:</strong> <code>${productCode}</code></p>
+                                <p><strong>Category:</strong> ${productCategory}</p>
+                                <p><strong>Price:</strong> <span style="color: #0d47a1; font-weight: bold; font-size: 1.2rem;">${productPrice}</span></p>
+                                <p><strong>Purity:</strong> ≥99% HPLC Verified</p>
+                                <p><strong>Form:</strong> Lyophilized Powder</p>
+                                <p><strong>Storage:</strong> -20°C in dry form</p>
+                            </div>
+                            
+                            <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                                <p style="margin: 0; color: #2e7d32; font-weight: 500;">
+                                    <i class="fas fa-check-circle"></i> Certificate of Analysis (COA) included with every order
+                                </p>
+                            </div>
+                            
+                            <p><strong>Shipping Information:</strong></p>
+                            <ul style="margin-bottom: 25px; padding-left: 20px;">
+                                <li>Temperature-controlled packaging</li>
+                                <li>Discreet shipping worldwide</li>
+                                <li>Delivery: 5-10 business days (international)</li>
+                                <li>Tracking number provided</li>
+                            </ul>
+                            
+                            <div style="display: flex; gap: 10px; margin-top: 25px;">
+                                <button class="btn btn-primary btn-small add-to-cart" 
+                                        data-product="${productName}" 
+                                        style="flex: 1;"
+                                        onclick="this.closest('.details-modal-overlay').remove()">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                                <button onclick="this.closest('.details-modal-overlay').remove()" 
+                                        style="flex: 1; padding: 10px 20px; background: #f5f5f5; border: none; border-radius: 5px; cursor: pointer;">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.insertAdjacentHTML('beforeend', modalHTML);
+                
+                // Adiciona animação
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideUp {
+                        from {
+                            opacity: 0;
+                            transform: translateY(30px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            });
+        });
+        
+        // ===== NAVEGAÇÃO POR SEÇÕES =====
+        function scrollToSection(sectionId) {
+            const sections = {
+                'home': '.hero',
+                'products': '.products-section',
+                'categories': '#categories',
+                'verification': '.hero', // Temporário
+                'about': '.features-section', // Temporário
+                'contact': '.cta-section', // Temporário
+                'research': '.products-section' // Temporário
+            };
+            
+            const target = document.querySelector(sections[sectionId]);
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Atualiza estado ativo no menu
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                document.querySelector(`[data-target="${sectionId}"]`).classList.add('active');
+            }
+        }
+        
+        // Configura navegação do menu
+        document.querySelectorAll('[data-target]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('data-target');
+                scrollToSection(target);
+            });
+        });
+        
+        // Configura cards de categoria
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                scrollToSection('products');
+                
+                // Mostra notificação de categoria
+                setTimeout(() => {
+                    showNotification(`Showing ${category} products`);
+                }, 800);
+            });
+        });
         
         // ===== SEARCH FUNCTIONALITY =====
         const searchInput = document.querySelector('.search-bar');
@@ -1713,25 +1926,30 @@ document.querySelector('.action-icon:nth-child(3)').addEventListener('click', fu
         
         searchButton.addEventListener('click', () => {
             if (searchInput.value.trim()) {
-                window.location.href = `products.html?search=${encodeURIComponent(searchInput.value)}`;
+                showNotification(`Searching for: ${searchInput.value}`);
+                // Simula busca - redireciona para produtos
+                scrollToSection('products');
+                searchInput.value = '';
             }
         });
         
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && searchInput.value.trim()) {
-                window.location.href = `products.html?search=${encodeURIComponent(searchInput.value)}`;
+                showNotification(`Searching for: ${searchInput.value}`);
+                scrollToSection('products');
+                searchInput.value = '';
             }
         });
         
         // ===== SMOOTH SCROLLING =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                e.preventDefault();
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
                 
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
+                    e.preventDefault();
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
@@ -1742,7 +1960,6 @@ document.querySelector('.action-icon:nth-child(3)').addEventListener('click', fu
         
         // ===== NOTIFICATION SYSTEM =====
         function showNotification(message) {
-            // Create notification element
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
@@ -1763,17 +1980,15 @@ document.querySelector('.action-icon:nth-child(3)').addEventListener('click', fu
             notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
             document.body.appendChild(notification);
             
-            // Remove after 3 seconds
             setTimeout(() => {
                 notification.style.animation = 'slideOut 0.3s ease';
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
         
-        // ===== ANIMATIONS =====
+        // ===== ANIMAÇÕES =====
         const style = document.createElement('style');
         style.textContent = `
-            /* Animations for legal banner */
             @keyframes fadeOutUp {
                 from {
                     opacity: 1;
@@ -1789,46 +2004,11 @@ document.querySelector('.action-icon:nth-child(3)').addEventListener('click', fu
                 from { transform: translateX(100%); opacity: 0; }
                 to { transform: translateX(0); opacity: 1; }
             }
+            
             @keyframes slideOut {
                 from { transform: translateX(0); opacity: 1; }
                 to { transform: translateX(100%); opacity: 0; }
             }
-            
-            /* Fade in animations for page load */
-            .hero-content, .section-header, .category-card, .product-card, .feature-card {
-                animation: fadeInUp 0.6s ease-out;
-            }
-            
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            /* Stagger animations */
-            .category-card:nth-child(1) { animation-delay: 0.1s; }
-            .category-card:nth-child(2) { animation-delay: 0.2s; }
-            .category-card:nth-child(3) { animation-delay: 0.3s; }
-            .category-card:nth-child(4) { animation-delay: 0.4s; }
-            .category-card:nth-child(5) { animation-delay: 0.5s; }
-            .category-card:nth-child(6) { animation-delay: 0.6s; }
-            
-            .product-card:nth-child(1) { animation-delay: 0.2s; }
-            .product-card:nth-child(2) { animation-delay: 0.3s; }
-            .product-card:nth-child(3) { animation-delay: 0.4s; }
-            .product-card:nth-child(4) { animation-delay: 0.5s; }
-            
-            .feature-card:nth-child(1) { animation-delay: 0.2s; }
-            .feature-card:nth-child(2) { animation-delay: 0.3s; }
-            .feature-card:nth-child(3) { animation-delay: 0.4s; }
-            .feature-card:nth-child(4) { animation-delay: 0.5s; }
-            .feature-card:nth-child(5) { animation-delay: 0.6s; }
-            .feature-card:nth-child(6) { animation-delay: 0.7s; }
         `;
         document.head.appendChild(style);
         
@@ -1841,35 +2021,44 @@ document.querySelector('.action-icon:nth-child(3)').addEventListener('click', fu
             }
         });
         
-        // ===== NAVIGATION ACTIVE STATE =====
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            const linkPage = link.getAttribute('href');
-            if (linkPage === currentPage || 
-                (currentPage === 'index.html' && linkPage === 'index.html') ||
-                (currentPage === '' && linkPage === 'index.html')) {
-                link.classList.add('active');
+        // ===== BOTÃO SUBSCRIBE =====
+        document.getElementById('subscribeBtn').addEventListener('click', function() {
+            const emailInput = document.querySelector('.newsletter-input');
+            if (emailInput.value && emailInput.value.includes('@')) {
+                showNotification('Thank you for subscribing to our newsletter!');
+                emailInput.value = '';
+            } else {
+                showNotification('Please enter a valid email address');
             }
         });
         
-        // ===== INITIALIZE PAGE =====
+        // ===== INICIALIZAÇÃO =====
         document.addEventListener('DOMContentLoaded', () => {
-            // Add loaded class for animations
-            document.body.classList.add('loaded');
+            updateCartCount();
             
-            // Update cart count from localStorage if available
-            const savedCartCount = localStorage.getItem('rxCartCount');
-            if (savedCartCount) {
-                cartCount = parseInt(savedCartCount);
-                cartCountElement.textContent = cartCount;
-            }
-            
-            // Save cart count to localStorage on changes
-            const originalAddToCart = cartCountElement.textContent;
-            Object.defineProperty(cartCountElement, 'textContent', {
-                set: function(value) {
-                    localStorage.setItem('rxCartCount', value);
-                    this.nodeValue = value;
+            // Adiciona evento de carrinho aos botões dentro do modal
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.add-to-cart')) {
+                    const button = e.target.closest('.add-to-cart');
+                    const productName = button.getAttribute('data-product');
+                    
+                    // Simula adição ao carrinho
+                    const existingItem = cart.find(item => item.name === productName);
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.push({
+                            name: productName,
+                            code: 'CS-TEMP001',
+                            category: 'Research Compound',
+                            price: 99.99,
+                            quantity: 1,
+                            unit: '10mg'
+                        });
+                    }
+                    
+                    updateCartCount();
+                    showNotification(`${productName} added to cart`);
                 }
             });
         });
