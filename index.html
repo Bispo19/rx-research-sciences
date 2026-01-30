@@ -1381,31 +1381,31 @@
         }
         
         // ===== SHOPPING CART FUNCTIONALITY =====
-        let cartCount = 0;
-        const cartCountElement = document.querySelector('.cart-count');
+let cartCount = 0;
+const cartCountElement = document.querySelector('.cart-count');
+
+// Add to cart buttons
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function() {
+        const productName = this.getAttribute('data-product');
+        cartCount++;
+        cartCountElement.textContent = cartCount;
         
-        // Add to cart buttons
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function() {
-                const productName = this.getAttribute('data-product');
-                cartCount++;
-                cartCountElement.textContent = cartCount;
-                
-                // Visual feedback
-                const originalHTML = this.innerHTML;
-                this.innerHTML = '<i class="fas fa-check"></i> Added!';
-                this.style.background = '#2e7d32';
-                
-                // Show notification
-                showNotification(`${productName} added to cart`);
-                
-                // Reset button after 1.5 seconds
-                setTimeout(() => {
-                    this.innerHTML = originalHTML;
-                    this.style.background = '';
-                }, 1500);
-            });
-        });
+        // Visual feedback
+        const originalHTML = this.innerHTML;
+        this.innerHTML = '<i class="fas fa-check"></i> Added!';
+        this.style.background = '#2e7d32';
+        
+        // Show notification
+        showNotification(`${productName} added to cart`);
+        
+        // Reset button after 1.5 seconds
+        setTimeout(() => {
+            this.innerHTML = originalHTML;
+            this.style.background = '';
+        }, 1500);
+    });
+});
         
         // ===== SEARCH FUNCTIONALITY =====
         const searchInput = document.querySelector('.search-bar');
