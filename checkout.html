@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - RX Research Sciences</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* (Adicione aqui os mesmos estilos do seu index.html) */
+        /* E adicione estilos específicos do checkout */
+    </style>
+</head>
+<body>
+    <!-- Mesmo header e navegação do index.html -->
+    
+    <div class="container" style="max-width: 800px; margin: 50px auto;">
+        <h1><i class="fas fa-shopping-cart"></i> Complete Your Order</h1>
+        
+        <div id="orderSummary">
+            <!-- O JavaScript preencherá aqui -->
+        </div>
+        
+        <div style="background: #f8f9fa; padding: 30px; border-radius: 10px; margin-top: 30px;">
+            <h3><i class="fas fa-shipping-fast"></i> Shipping Information</h3>
+            <p>After you submit your order via WhatsApp, our representative will contact you to:</p>
+            <ul>
+                <li>Confirm shipping address</li>
+                <li>Calculate exact shipping costs</li>
+                <li>Provide payment instructions</li>
+                <li>Give estimated delivery time</li>
+            </ul>
+        </div>
+        
+        <button id="whatsappButton" style="
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        ">
+            <i class="fab fa-whatsapp"></i> Send Order via WhatsApp
+        </button>
+    </div>
+    
+    <script>
+        // Carregar carrinho do localStorage
+        const cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+        
+        function renderOrderSummary() {
+            const container = document.getElementById('orderSummary');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 50px; background: #fff3cd; border-radius: 10px;">
+                        <i class="fas fa-shopping-cart" style="font-size: 3rem; color: #856404;"></i>
+                        <h3 style="color: #856404;">Your cart is empty</h3>
+                        <a href="index.html" style="
+                            display: inline-block;
+                            margin-top: 20px;
+                            padding: 12px 30px;
+                            background: #2196f3;
+                            color: white;
+                            text-decoration: none;
+                            border-radius: 5px;
+                        ">Return to Shop</a>
+                    </div>
+                `;
+                document.getElementById('whatsappButton').style.display = 'none';
+                return;
+            }
+            
+            let html = `<div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">`;
+            html += `<h2>Order Summary</h2>`;
+            
+            cart.forEach((item, index) => {
+                html += `
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 20px 0;
+                        border-bottom: 1px solid #eee;
+                    ">
+                        <div>
+                            <h4 style="margin: 0;">${item.name}</h4>
+                            <p style="margin: 5px 0; color: #666;">${item.code}</p>
+                            <p style="margin: 0; color: #666;">Quantity: ${item.quantity}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="margin: 0; font-weight: bold; color: #0d47a1;">$${(item.price * item.quantity).toFixed(2)}</p>
+                            <p style="margin: 5px 0 0 0; color: #666;">$${item.price.toFixed(2)} each</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            html += `
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #ddd;">
+                    <div style="display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 10px;">
+                        <span>Subtotal:</span>
+                        <span>$${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; color: #2e7d32; margin-bottom: 10px;">
+                        <span>Shipping:</span>
+                        <span>To be calculated</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: bold; padding-top: 15px; border-top: 1px solid #ddd;">
+                        <span>Estimated Total:</span>
+                        <span style="color: #0d47a1;">$${subtotal.toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
+            
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+        
+        document.getElementById('whatsappButton').addEventListener('click', function() {
+            // Similar à função proceedToCheckout() anterior
+            let message = "🛒 *DETAILED ORDER - RX Research Sciences* 🛒\n\n";
+            message += "Hello! Please process this order:\n\n";
+            
+            cart.forEach((item, index) => {
+                message += `*${index + 1}. ${item.name}*\n`;
+                message += `   Code: ${item.code}\n`;
+                message += `   Quantity: ${item.quantity} x ${item.unit || 'unit'}\n`;
+                message += `   Price: $${item.price.toFixed(2)} each\n`;
+                message += `   Subtotal: $${(item.price * item.quantity).toFixed(2)}\n\n`;
+            });
+            
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `*ORDER TOTAL: $${subtotal.toFixed(2)}*\n\n`;
+            message += "Please provide:\n";
+            message += "1. Shipping cost to my location\n";
+            message += "2. Payment methods available\n";
+            message += "3. Estimated delivery time\n\n";
+            message += "I'll provide shipping details after confirmation.";
+            
+            const whatsappNumber = "5511999999999"; // ALTERE AQUI
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+            
+            // Opcional: Limpar carrinho após envio
+            // localStorage.removeItem('rxCart');
+            // alert('Order submitted! Our representative will contact you shortly.');
+        });
+        
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', renderOrderSummary);
+    </script>
+</body>
+</html>
