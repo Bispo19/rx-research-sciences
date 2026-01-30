@@ -492,28 +492,17 @@
             font-size: 0.9rem;
         }
         
-        /* ===== PAGINATION ===== */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 40px 0;
+        /* ===== PRODUCT COUNTER ===== */
+        .product-counter {
+            text-align: center;
+            color: #666;
+            margin: 20px 0;
+            font-size: 1.1rem;
         }
         
-        .pagination-btn {
-            padding: 10px 18px;
-            border: 1px solid #ddd;
-            background: white;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .pagination-btn:hover,
-        .pagination-btn.active {
-            background: #2196f3;
-            color: white;
-            border-color: #2196f3;
+        .counter-number {
+            font-weight: bold;
+            color: #0d47a1;
         }
         
         /* ===== RESPONSIVE ===== */
@@ -624,10 +613,15 @@
     <!-- PRODUCTS HEADER -->
     <section class="products-header">
         <div class="container">
-            <h1>Research Compounds Catalog</h1>
-            <p>Comprehensive collection of high-purity research peptides, compounds, and pharmaceutical-grade materials for scientific research.</p>
+            <h1>Complete Research Compounds Catalog</h1>
+            <p>Comprehensive collection of 80+ high-purity research peptides, compounds, and pharmaceutical-grade materials for scientific research.</p>
         </div>
     </section>
+
+    <!-- PRODUCT COUNTER -->
+    <div class="container product-counter">
+        Showing <span class="counter-number" id="productCount">80</span> research compounds
+    </div>
 
     <!-- FILTERS -->
     <section class="container">
@@ -635,21 +629,21 @@
             <div class="filters-row">
                 <div class="filter-group">
                     <span class="filter-label">Sort by:</span>
-                    <select class="filter-select">
-                        <option>Newest First</option>
-                        <option>Price: Low to High</option>
-                        <option>Price: High to Low</option>
-                        <option>Name: A to Z</option>
+                    <select class="filter-select" id="sortSelect">
+                        <option value="name">Name: A to Z</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="category">Category</option>
                     </select>
                 </div>
                 
                 <div class="search-filter">
-                    <input type="text" placeholder="Filter products by name or code...">
+                    <input type="text" id="searchInput" placeholder="Search products by name or code...">
                 </div>
                 
                 <div class="view-options">
-                    <button class="view-btn active"><i class="fas fa-th-large"></i></button>
-                    <button class="view-btn"><i class="fas fa-list"></i></button>
+                    <button class="view-btn active" id="gridView"><i class="fas fa-th-large"></i></button>
+                    <button class="view-btn" id="listView"><i class="fas fa-list"></i></button>
                 </div>
             </div>
         </div>
@@ -662,303 +656,437 @@
             <button class="category-tab" data-category="glp1">GLP-1 Analogs</button>
             <button class="category-tab" data-category="peptides">Research Peptides</button>
             <button class="category-tab" data-category="blends">Peptide Blends</button>
-            <button class="category-tab" data-category="hormones">Hormones</button>
+            <button class="category-tab" data-category="hormones">Growth Hormones</button>
             <button class="category-tab" data-category="cognitive">Cognitive Enhancers</button>
             <button class="category-tab" data-category="antiaging">Anti-Aging</button>
             <button class="category-tab" data-category="recovery">Recovery & Healing</button>
+            <button class="category-tab" data-category="specialty">Specialty Compounds</button>
         </div>
     </section>
 
     <!-- PRODUCTS GRID -->
     <section class="container">
         <div class="products-grid" id="products-container">
-            <!-- Tirzepatide Products -->
-            <div class="product-card" data-category="glp1">
-                <div class="product-header">
-                    <span class="product-category">GLP-1 Analog</span>
-                    <h3 class="product-name">Tirzepatide 10mg</h3>
-                    <span class="product-code">CS-ze101208</span>
+            <!-- PRODUCTS WILL BE GENERATED HERE BY JAVASCRIPT -->
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>RX Research Sciences</h3>
+                    <p style="color: #bbbbbb; margin-bottom: 20px;">Professional supplier of research peptides and pharmaceutical compounds for scientific research.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Tirzepatide</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                        <li><span class="spec-label">Form:</span> <span class="spec-value">Lyophilized Powder</span></li>
-                        <li><span class="spec-label">Storage:</span> <span class="spec-value">-20°C</span></li>
+                
+                <div class="footer-col">
+                    <h3>Product Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" data-category="glp1"><i class="fas fa-chevron-right"></i> GLP-1 Analogs</a></li>
+                        <li><a href="#" data-category="peptides"><i class="fas fa-chevron-right"></i> Research Peptides</a></li>
+                        <li><a href="#" data-category="blends"><i class="fas fa-chevron-right"></i> Peptide Blends</a></li>
+                        <li><a href="#" data-category="hormones"><i class="fas fa-chevron-right"></i> Growth Hormones</a></li>
+                        <li><a href="#" data-category="antiaging"><i class="fas fa-chevron-right"></i> Anti-Aging Compounds</a></li>
                     </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$189.99</div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="Tirzepatide 10mg">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="btn-details">Details</button>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Legal & Compliance</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Research Use Only</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Quality Certificates</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Shipping Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> support@rxresearch.com</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 9AM-6PM EST</a></li>
+                        <li><a href="#"><i class="fas fa-file-pdf"></i> Request COA</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 RX Research Sciences. All products are for research purposes only. Not for human consumption.</p>
+                <p style="font-size: 0.8rem; margin-top: 10px; color: #aaa;">These products are not intended to diagnose, treat, cure, or prevent any disease.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== PRODUCT DATA - ALL 80+ PRODUCTS =====
+        const allProducts = [
+            // GLP-1 ANALOGS (Category: glp1)
+            { name: "Tirzepatide 10mg", code: "CS-ze101208", category: "glp1", concentration: "10mg", price: 189.99 },
+            { name: "Tirzepatide 15mg", code: "CS-ze151021", category: "glp1", concentration: "15mg", price: 249.99 },
+            { name: "Tirzepatide 20mg", code: "CS-ze201124", category: "glp1", concentration: "20mg", price: 299.99 },
+            { name: "Tirzepatide 30mg", code: "CS-ze30-0108", category: "glp1", concentration: "30mg", price: 399.99 },
+            { name: "Tirzepatide 45mg", code: "CS-ze451115", category: "glp1", concentration: "45mg", price: 529.99 },
+            { name: "Tirzepatide 60mg", code: "CS-ze60-1218", category: "glp1", concentration: "60mg", price: 649.99 },
+            { name: "Tirzepatide 90mg", code: "CS-ze901103", category: "glp1", concentration: "90mg", price: 899.99 },
+            { name: "Retatrutide 10mg", code: "CS-re10-1220", category: "glp1", concentration: "10mg", price: 219.99 },
+            { name: "Retatrutide 20mg", code: "CS-re20-1225", category: "glp1", concentration: "20mg", price: 329.99 },
+            { name: "Retatrutide 30mg", code: "CS-re301107", category: "glp1", concentration: "30mg", price: 449.99 },
+            { name: "Retatrutide 40mg", code: "CS-re401103", category: "glp1", concentration: "40mg", price: 549.99 },
+            { name: "Retatrutide 50mg", code: "CS-re501130", category: "glp1", concentration: "50mg", price: 649.99 },
+            { name: "Retatrutide 100mg", code: "CS-re100-1228", category: "glp1", concentration: "100mg", price: 1199.99 },
+            { name: "Cagrilintide 5mg", code: "CS-ca51021", category: "glp1", concentration: "5mg", price: 149.99 },
+            { name: "Cagrilintide 10mg", code: "CS-ca101008", category: "glp1", concentration: "10mg", price: 249.99 },
+            { name: "Mazdutide 10mg", code: "CS-maz101018", category: "glp1", concentration: "10mg", price: 199.99 },
+            { name: "Survodutide 10mg", code: "CS-su101012", category: "glp1", concentration: "10mg", price: 219.99 },
+
+            // RESEARCH PEPTIDES (Category: peptides)
+            { name: "AOD 9604 5mg", code: "CS-ad51018", category: "peptides", concentration: "5mg", price: 79.99 },
+            { name: "Semax 10mg", code: "CS-sa101018", category: "peptides", concentration: "10mg", price: 89.99 },
+            { name: "Selank 10mg", code: "CS-sn101026", category: "peptides", concentration: "10mg", price: 79.99 },
+            { name: "Na semax 10mg", code: "CS-nasa10928", category: "peptides", concentration: "10mg", price: 99.99 },
+            { name: "Na selank 10mg", code: "CS-nasn101127", category: "peptides", concentration: "10mg", price: 89.99 },
+            { name: "Na semax 50mg", code: "CS-nasem501130", category: "peptides", concentration: "50mg", price: 399.99 },
+            { name: "Na selank 50mg", code: "CS-nasel501130", category: "peptides", concentration: "50mg", price: 389.99 },
+            { name: "MTI, Melanotan1 10mg", code: "CS-mn1101018", category: "peptides", concentration: "10mg", price: 69.99 },
+            { name: "MTII, Melanotan2 10mg", code: "CS-mn2101103", category: "peptides", concentration: "10mg", price: 74.99 },
+            { name: "PT141 10mg", code: "CS-pt101105", category: "peptides", concentration: "10mg", price: 89.99 },
+            { name: "Snap-8 10mg", code: "CS-sp101026", category: "peptides", concentration: "10mg", price: 79.99 },
+            { name: "Epithalon 10mg", code: "CS-ep10-1228", category: "peptides", concentration: "10mg", price: 99.99 },
+            { name: "Epithalon 50mg", code: "CS-ei501018", category: "peptides", concentration: "50mg", price: 399.99 },
+            { name: "NA Epithalon 20mg", code: "CS-naep20-1222", category: "peptides", concentration: "20mg", price: 179.99 },
+            { name: "GHK-Cu 50mg", code: "CS-gu50-1228", category: "peptides", concentration: "50mg", price: 129.99 },
+            { name: "GHK-Cu 100mg", code: "CS-gu100-1225", category: "peptides", concentration: "100mg", price: 229.99 },
+            { name: "kisspeptin 10mg", code: "CS-ki10-0111", category: "peptides", concentration: "10mg", price: 119.99 },
+            { name: "5-Amino-1MQ 10mg", code: "CS-5aq101018", category: "peptides", concentration: "10mg", price: 149.99 },
+            { name: "5-Amino-1MQ 50mg", code: "CS-51q501022", category: "peptides", concentration: "50mg", price: 599.99 },
+            { name: "MOTS-c 10mg", code: "CS-mc101021", category: "peptides", concentration: "10mg", price: 129.99 },
+            { name: "MOTS-c 20mg", code: "CS-mc20-1228", category: "peptides", concentration: "20mg", price: 229.99 },
+            { name: "MOTS-c 40mg", code: "CS-mc40-1231", category: "peptides", concentration: "40mg", price: 429.99 },
+            { name: "SS-31 (Elamipretide) 10mg", code: "CS-s3101103", category: "peptides", concentration: "10mg", price: 159.99 },
+            { name: "SS-31 (Elamipretide) 30mg", code: "CS-s3301021", category: "peptides", concentration: "30mg", price: 399.99 },
+            { name: "SS-31 (Elamipretide) 50mg", code: "CS-ss501105", category: "peptides", concentration: "50mg", price: 599.99 },
+            { name: "DSIP 5mg", code: "CS-dp51021", category: "peptides", concentration: "5mg", price: 69.99 },
+            { name: "DSIP 10mg", code: "CS-dp101115", category: "peptides", concentration: "10mg", price: 119.99 },
+            { name: "TB-500/thymosin beta 10mg", code: "CS-tb10-0111", category: "peptides", concentration: "10mg", price: 79.99 },
+            { name: "TB-500/thymosin beta 20mg", code: "CS-tb201213", category: "peptides", concentration: "20mg", price: 139.99 },
+            { name: "TB Frag", code: "CS-tbf101105", category: "peptides", concentration: "10mg", price: 89.99 },
+            { name: "Thymosin Alpha-1 10mg", code: "CS-ta110-1231", category: "peptides", concentration: "10mg", price: 149.99 },
+            { name: "BPC-157 10mg", code: "CS-bc101103", category: "peptides", concentration: "10mg", price: 69.99 },
+            { name: "BPC-157 20mg", code: "CS-bc20-0109", category: "peptides", concentration: "20mg", price: 119.99 },
+            { name: "BPC-157 40mg", code: "CS-bc401022", category: "peptides", concentration: "40mg", price: 219.99 },
+            { name: "HGH 10iu", code: "CS-h101026", category: "peptides", concentration: "10iu", price: 89.99 },
+            { name: "HGH 176-191 5mg", code: "CS-hh51018", category: "peptides", concentration: "5mg", price: 79.99 },
+            { name: "IGF-1 LR3 1mg", code: "CS-IG1-0105", category: "peptides", concentration: "1mg", price: 149.99 },
+            { name: "CJC1295 DAC 5mg", code: "CS-cwd5820", category: "peptides", concentration: "5mg", price: 149.99 },
+            { name: "CJC1295 No DAC 10mg", code: "CS-cnd10902", category: "peptides", concentration: "10mg", price: 129.99 },
+            { name: "CJC1295, Ipamorelin 5mg+5mg", code: "CS-ci101021", category: "peptides", concentration: "5mg+5mg", price: 169.99 },
+            { name: "Ipamorelin 10mg", code: "CS-ip10-0108", category: "peptides", concentration: "10mg", price: 89.99 },
+            { name: "Tesamorelin 10mg", code: "CS-te10-0111", category: "peptides", concentration: "10mg", price: 159.99 },
+            { name: "Tesamorelin 20mg", code: "CS-te20-1222", category: "peptides", concentration: "20mg", price: 289.99 },
+            { name: "LL37 5mg", code: "CS-l351021", category: "peptides", concentration: "5mg", price: 129.99 },
+            { name: "ARA-290(Cibinetide) 16mg", code: "CS-ar161125", category: "peptides", concentration: "16mg", price: 199.99 },
+            { name: "PE-22-28 10mg", code: "CS-p2101012", category: "peptides", concentration: "10mg", price: 149.99 },
+            { name: "Bronchogen 20mg", code: "CS-brn201018", category: "peptides", concentration: "20mg", price: 179.99 },
+            { name: "Testagen 20mg", code: "CS-tes20-0105", category: "peptides", concentration: "20mg", price: 159.99 },
+            { name: "Ovagen 20mg", code: "CS-ov201123", category: "peptides", concentration: "20mg", price: 169.99 },
+            { name: "Sermorelin 5mg", code: "CS-sm51115", category: "peptides", concentration: "5mg", price: 99.99 },
+            { name: "KPV 10mg", code: "CS-kv101123", category: "peptides", concentration: "10mg", price: 89.99 },
+            { name: "KPV 30mg", code: "CS-kv301021", category: "peptides", concentration: "30mg", price: 229.99 },
+            { name: "Vilon 20mg", code: "CS-vi201021", category: "peptides", concentration: "20mg", price: 149.99 },
+            { name: "Cartalax 20mg", code: "CS-cx201211", category: "peptides", concentration: "20mg", price: 169.99 },
+            { name: "Vesilute 20mg", code: "CS-ves20-1231", category: "peptides", concentration: "20mg", price: 159.99 },
+            { name: "Pinelon 20mg", code: "CS-pi201012", category: "peptides", concentration: "20mg", price: 149.99 },
+            { name: "Thymulin 20mg", code: "CS-thy201012", category: "peptides", concentration: "20mg", price: 139.99 },
+            { name: "Thymogen 20mg", code: "CS-thm201012", category: "peptides", concentration: "20mg", price: 139.99 },
+            { name: "Pancragen 20mg", code: "CS-pan201018", category: "peptides", concentration: "20mg", price: 169.99 },
+            { name: "Prostamax 20mg", code: "CS-pros201018", category: "peptides", concentration: "20mg", price: 179.99 },
+            { name: "Crystagen 20mg", code: "CS-cry201018", category: "peptides", concentration: "20mg", price: 189.99 },
+            { name: "Vesugen 20mg", code: "CS-ves201021", category: "peptides", concentration: "20mg", price: 169.99 },
+            { name: "FOXO4 10mg", code: "CS-fo101021", category: "peptides", concentration: "10mg", price: 199.99 },
+            { name: "Adipotide 10mg", code: "CS-adi101021", category: "peptides", concentration: "10mg", price: 179.99 },
+            { name: "Chonluten 20mg", code: "CS-cho201107", category: "peptides", concentration: "20mg", price: 159.99 },
+            { name: "GHRP-6 10mg", code: "CS-gh6101120", category: "peptides", concentration: "10mg", price: 89.99 },
+            { name: "Adamax 10mg", code: "CS-ada101123", category: "peptides", concentration: "10mg", price: 149.99 },
+            { name: "Oxytocin 10mg", code: "CS-oxy101123", category: "peptides", concentration: "10mg", price: 79.99 },
+            { name: "Glutathione 600mg", code: "CS-glu6001123", category: "peptides", concentration: "600mg", price: 129.99 },
+            { name: "illumineeuro 50mg", code: "CS-illu501206", category: "peptides", concentration: "50mg", price: 299.99 },
+            { name: "Abaloparatide 3mg", code: "CS-abalo31211", category: "peptides", concentration: "3mg", price: 249.99 },
+            { name: "Hexarelin 3mg", code: "CS-hex3-1222", category: "peptides", concentration: "3mg", price: 99.99 },
+            { name: "Humuanin 10mg", code: "CS-hum10-0102", category: "peptides", concentration: "10mg", price: 179.99 },
+            { name: "PNC 27 30mg", code: "CS-pnc-0109", category: "peptides", concentration: "30mg", price: 349.99 },
+
+            // PEPTIDE BLENDS (Category: blends)
+            { name: "BPC157,TB4 Blend 5mg+5mg", code: "CS-t/b55-0108", category: "blends", concentration: "5mg+5mg", price: 129.99 },
+            { name: "BPC157,TB4 Blend 10mg+10mg", code: "CS-bt201026", category: "blends", concentration: "10mg+10mg", price: 229.99 },
+            { name: "BPC157,TB4 Blend 30mg+30mg", code: "CS-bt601109", category: "blends", concentration: "30mg+30mg", price: 599.99 },
+            { name: "Tesa Ipa Blend 5mg+5mg", code: "CS-t/i55-1229", category: "blends", concentration: "5mg+5mg", price: 189.99 },
+            { name: "Tesa Ipa Blend 10mg+3mg", code: "CS-ti1031110", category: "blends", concentration: "10mg+3mg", price: 249.99 },
+            { name: "Tesa Ipa CJC 6mg+3mg+3mg", code: "CS-T/I/J633-1218", category: "blends", concentration: "6mg+3mg+3mg", price: 299.99 },
+            { name: "Glow Blend 70mg", code: "CS-gw701103", category: "blends", concentration: "70mg", price: 399.99 },
+            { name: "Klow Blend 80mg", code: "CS-ko801012", category: "blends", concentration: "80mg", price: 449.99 }
+        ];
+
+        // ===== CATEGORY MAPPING =====
+        const categoryNames = {
+            "glp1": "GLP-1 Analog",
+            "peptides": "Research Peptide",
+            "blends": "Peptide Blend",
+            "hormones": "Growth Hormone",
+            "cognitive": "Cognitive Enhancer",
+            "antiaging": "Anti-Aging",
+            "recovery": "Recovery & Healing",
+            "specialty": "Specialty Compound"
+        };
+
+        // ===== GENERATE PRODUCT CARDS =====
+        function generateProductCard(product) {
+            const categoryName = categoryNames[product.category] || "Research Compound";
+            const form = product.concentration.includes("mg") ? "Lyophilized Powder" : 
+                        product.concentration.includes("iu") ? "Lyophilized Powder" : 
+                        "Research Grade";
+            
+            return `
+                <div class="product-card" data-category="${product.category}" data-name="${product.name.toLowerCase()}" data-code="${product.code.toLowerCase()}">
+                    <div class="product-header">
+                        <span class="product-category">${categoryName}</span>
+                        <h3 class="product-name">${product.name}</h3>
+                        <span class="product-code">${product.code}</span>
+                    </div>
+                    <div class="product-body">
+                        <ul class="product-specs">
+                            <li><span class="spec-label">Concentration:</span> <span class="spec-value">${product.concentration}</span></li>
+                            <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99% HPLC</span></li>
+                            <li><span class="spec-label">Form:</span> <span class="spec-value">${form}</span></li>
+                            <li><span class="spec-label">Storage:</span> <span class="spec-value">-20°C Protected</span></li>
+                            <li><span class="spec-label">Shelf Life:</span> <span class="spec-value">24 Months</span></li>
+                        </ul>
+                        <div class="product-price">
+                            <div class="price-amount">$${product.price.toFixed(2)}</div>
+                            <div class="product-actions">
+                                <button class="btn-cart" data-product="${product.name}">
+                                    <i class="fas fa-cart-plus"></i> Add
+                                </button>
+                                <button class="btn-details" data-code="${product.code}">Details</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            `;
+        }
 
-            <div class="product-card" data-category="glp1">
-                <div class="product-header">
-                    <span class="product-category">GLP-1 Analog</span>
-                    <h3 class="product-name">Tirzepatide 15mg</h3>
-                    <span class="product-code">CS-ze151021</span>
-                </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Tirzepatide</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">15mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                        <li><span class="spec-label">Form:</span> <span class="spec-value">Lyophilized Powder</span></li>
-                    </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$249.99</div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="Tirzepatide 15mg">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="btn-details">Details</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        // ===== INITIALIZE PAGE =====
+        function initializePage() {
+            const container = document.getElementById('products-container');
+            const productCount = document.getElementById('productCount');
+            
+            // Generate all products
+            container.innerHTML = allProducts.map(product => generateProductCard(product)).join('');
+            
+            // Update product count
+            productCount.textContent = allProducts.length;
+            
+            // Add event listeners
+            setupEventListeners();
+        }
 
-            <div class="product-card" data-category="glp1">
-                <div class="product-header">
-                    <span class="product-category">GLP-1 Analog</span>
-                    <h3 class="product-name">Tirzepatide 20mg</h3>
-                    <span class="product-code">CS-ze201124</span>
-                </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Tirzepatide</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">20mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                        <li><span class="spec-label">Form:</span> <span class="spec-value">Lyophilized Powder</span></li>
-                    </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$299.99</div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="Tirzepatide 20mg">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="btn-details">Details</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        // ===== EVENT LISTENERS =====
+        function setupEventListeners() {
+            let cartCount = 0;
+            const cartCountElement = document.querySelector('.cart-count');
+            
+            // Add to cart buttons
+            document.querySelectorAll('.btn-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productName = this.getAttribute('data-product');
+                    cartCount++;
+                    cartCountElement.textContent = cartCount;
+                    
+                    // Visual feedback
+                    const originalHTML = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i> Added!';
+                    this.style.background = '#2e7d32';
+                    
+                    showNotification(`${productName} added to cart`);
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalHTML;
+                        this.style.background = '#2196f3';
+                    }, 1500);
+                });
+            });
+            
+            // Details buttons
+            document.querySelectorAll('.btn-details').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productCode = this.getAttribute('data-code');
+                    showNotification(`Viewing details for ${productCode}`);
+                    // In a real app, this would open a modal or navigate to product page
+                });
+            });
+            
+            // Category filtering
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Update active tab
+                    document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    const products = document.querySelectorAll('.product-card');
+                    let visibleCount = 0;
+                    
+                    products.forEach(product => {
+                        if (category === 'all' || product.getAttribute('data-category') === category) {
+                            product.style.display = 'block';
+                            visibleCount++;
+                        } else {
+                            product.style.display = 'none';
+                        }
+                    });
+                    
+                    // Update product count
+                    document.getElementById('productCount').textContent = visibleCount;
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const products = document.querySelectorAll('.product-card');
+                let visibleCount = 0;
+                
+                products.forEach(product => {
+                    const productName = product.getAttribute('data-name');
+                    const productCode = product.getAttribute('data-code');
+                    
+                    if (productName.includes(searchTerm) || productCode.includes(searchTerm)) {
+                        product.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+                
+                // Update product count
+                document.getElementById('productCount').textContent = visibleCount;
+            });
+            
+            // Sort functionality
+            const sortSelect = document.getElementById('sortSelect');
+            sortSelect.addEventListener('change', function() {
+                const sortBy = this.value;
+                const container = document.getElementById('products-container');
+                const products = Array.from(document.querySelectorAll('.product-card'));
+                
+                products.sort((a, b) => {
+                    if (sortBy === 'name') {
+                        return a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
+                    } else if (sortBy === 'price-low') {
+                        const priceA = parseFloat(a.querySelector('.price-amount').textContent.replace('$', ''));
+                        const priceB = parseFloat(b.querySelector('.price-amount').textContent.replace('$', ''));
+                        return priceA - priceB;
+                    } else if (sortBy === 'price-high') {
+                        const priceA = parseFloat(a.querySelector('.price-amount').textContent.replace('$', ''));
+                        const priceB = parseFloat(b.querySelector('.price-amount').textContent.replace('$', ''));
+                        return priceB - priceA;
+                    }
+                    return 0;
+                });
+                
+                // Reappend sorted products
+                products.forEach(product => container.appendChild(product));
+            });
+            
+            // View options
+            document.getElementById('gridView').addEventListener('click', function() {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('products-container').classList.remove('list-view');
+            });
+            
+            document.getElementById('listView').addEventListener('click', function() {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('products-container').classList.add('list-view');
+            });
+            
+            // Footer category links
+            document.querySelectorAll('.footer-links a[data-category]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.getAttribute('data-category');
+                    const tab = document.querySelector(`.category-tab[data-category="${category}"]`);
+                    if (tab) tab.click();
+                });
+            });
+        }
 
-            <div class="product-card" data-category="glp1">
-                <div class="product-header">
-                    <span class="product-category">GLP-1 Analog</span>
-                    <h3 class="product-name">Tirzepatide 30mg</h3>
-                    <span class="product-code">CS-ze30-0108</span>
-                </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Tirzepatide</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">30mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                    </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$399.99</div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="Tirzepatide 30mg">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="btn-details">Details</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        // ===== NOTIFICATION SYSTEM =====
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #2e7d32;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
 
-            <!-- Retatrutide Products -->
-            <div class="product-card" data-category="glp1">
-                <div class="product-header">
-                    <span class="product-category">GLP-1 Analog</span>
-                    <h3 class="product-name">Retatrutide 10mg</h3>
-                    <span class="product-code">CS-re10-1220</span>
-                </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Retatrutide</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                    </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$219.99</div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="Retatrutide 10mg">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="btn-details">Details</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        // ===== ADD CSS ANIMATIONS =====
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            .list-view {
+                grid-template-columns: 1fr !important;
+            }
+            .list-view .product-card {
+                display: flex;
+                flex-direction: row;
+            }
+            .list-view .product-header {
+                flex: 0 0 300px;
+                border-right: 1px solid #f0f0f0;
+                border-bottom: none;
+            }
+            .list-view .product-body {
+                flex: 1;
+            }
+        `;
+        document.head.appendChild(style);
 
-            <div class="product-card" data-category="glp1">
-                <div class="product-header">
-                    <span class="product-category">GLP-1 Analog</span>
-                    <h3 class="product-name">Retatrutide 20mg</h3>
-                    <span class="product-code">CS-re20-1225</span>
-                </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Retatrutide</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">20mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                    </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$329.99</div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="Retatrutide 20mg">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="btn-details">Details</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cognitive Enhancers -->
-            <div class="product-card" data-category="cognitive">
-                <div class="product-header">
-                    <span class="product-category">Cognitive Enhancer</span>
-                    <h3 class="product-name">Semax 10mg</h3>
-                    <span class="product-code">CS-sa101018</span>
-                </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Semax</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                    </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$89.99</div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="Semax 10mg">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="btn-details">Details</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="cognitive">
-                <div class="product-header">
-                    <span class="product-category">Cognitive Enhancer</span>
-                    <h3 class="product-name">Selank 10mg</h3>
-                    <span class="product-code">CS-sn101026</span>
-                </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Selank</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                    </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$79.99</div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="Selank 10mg">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="btn-details">Details</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BPC-157 & Recovery -->
-            <div class="product-card" data-category="recovery">
-                <div class="product-header">
-                    <span class="product-category">Recovery Peptide</span>
-                    <h3 class="product-name">BPC-157 10mg</h3>
-                    <span class="product-code">CS-bc101103</span>
-                </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">BPC-157</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                    </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$69.99</div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="BPC-157 10mg">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="btn-details">Details</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="recovery">
-                <div class="product-header">
-                    <span class="product-category">Recovery Peptide</span>
-                    <h3 class="product-name">BPC-157 20mg</h3>
-                    <span class="product-code">CS-bc20-0109</span>
-                </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">BPC-157</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">20mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                    </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$119.99</div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="BPC-157 20mg">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="btn-details">Details</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TB-500 -->
-            <div class="product-card" data-category="recovery">
-                <div class="product-header">
-                    <span class="product-category">Recovery Peptide</span>
-                    <h3 class="product-name">TB-500 10mg</h3>
-                    <span class="product-code">CS-tb10-0111</span>
-                </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">TB-500</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                    </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$79.99</div>
-                        <div class="product-actions">
-                            <button class="btn-cart" data-product="TB-500 10mg">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="btn-details">Details</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Growth Hormone Releasing -->
-            <div class="product-card" data-category="hormones">
-                <div class="product-header">
-                    <span class="product-category">Growth Hormone</span>
-                    <h3 class="product-name">CJC1295 DAC 5mg</h3>
-                    <span class="product-code">CS-cwd5820</span>
-                </div>
-                <div class="product-body">
-                    <ul class="product-specs">
-                        <li><span class="spec-label">Compound:</span> <span class="spec-value">CJC1295 DAC</span></li>
-                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">5mg</span></li>
-                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
-                    </ul>
-                    <div class="product-price">
-                        <div class="price-amount">$149.99</div>
-                        <div class="product-actions">
-                            <
+        // ===== INITIALIZE WHEN PAGE LOADS =====
+        document.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+</body>
+</html>
