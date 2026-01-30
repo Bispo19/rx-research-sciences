@@ -3,44 +3,1389 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storage Guide - RX Research Sciences</title>
-    <link rel="stylesheet" href="styles/products.css">
+    <title>Peptide Storage Guide - RX Research Sciences</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== HEADER ===== */
+        .top-bar {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+            color: white;
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0d47a1;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: #2196f3;
+            font-size: 2.2rem;
+        }
+        
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 30px;
+            position: relative;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #2196f3;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #0d47a1;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .action-icon {
+            position: relative;
+            cursor: pointer;
+            color: #555;
+            font-size: 1.3rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .action-icon:hover {
+            color: #2196f3;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f44336;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            min-width: 18px;
+            text-align: center;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .main-nav {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #4fc3f7;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .storage-hero {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(13, 71, 161, 0.9)),
+                        url('https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .storage-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+        }
+        
+        .storage-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .storage-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .storage-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(33, 150, 243, 0.4);
+        }
+        
+        /* ===== STORAGE GUIDES ===== */
+        .storage-guides-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .storage-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .storage-tab {
+            padding: 12px 30px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .storage-tab:hover {
+            border-color: #2196f3;
+            color: #2196f3;
+        }
+        
+        .storage-tab.active {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            border-color: #2196f3;
+        }
+        
+        .storage-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .storage-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* ===== STORAGE CARDS ===== */
+        .storage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .storage-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .storage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #2196f3;
+        }
+        
+        .storage-card.warning {
+            border-color: #ff9800;
+        }
+        
+        .storage-card.warning:hover {
+            box-shadow: 0 20px 40px rgba(255, 152, 0, 0.15);
+        }
+        
+        .storage-card.critical {
+            border-color: #f44336;
+        }
+        
+        .storage-card.critical:hover {
+            box-shadow: 0 20px 40px rgba(244, 67, 54, 0.15);
+        }
+        
+        .storage-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 1.8rem;
+            color: white;
+        }
+        
+        .storage-card.warning .storage-icon {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+        }
+        
+        .storage-card.critical .storage-icon {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+        }
+        
+        .storage-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .storage-card ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .storage-card li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            color: #666;
+        }
+        
+        .storage-card li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .storage-card.warning li:before {
+            content: '⚠';
+            color: #ff9800;
+        }
+        
+        .storage-card.critical li:before {
+            content: '✗';
+            color: #f44336;
+        }
+        
+        .temp-badge {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #0d47a1;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        
+        .storage-card.warning .temp-badge {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .storage-card.critical .temp-badge {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+        
+        /* ===== TIMELINE SECTION ===== */
+        .timeline-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: #2196f3;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-start;
+            padding-right: calc(50% + 30px);
+        }
+        
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+            padding-left: calc(50% + 30px);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #2196f3;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.2);
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #0d47a1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .timeline-content h3 i {
+            color: #2196f3;
+        }
+        
+        /* ===== FAQ SECTION ===== */
+        .faq-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 600px) {
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .faq-item {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .faq-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .faq-item h3 i {
+            color: #2196f3;
+        }
+        
+        .faq-item p {
+            color: #666;
+            margin-bottom: 0;
+        }
+        
+        /* ===== DOWNLOAD SECTION ===== */
+        .download-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            color: white;
+            text-align: center;
+        }
+        
+        .download-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .download-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .download-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .download-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .download-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .download-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-10px);
+        }
+        
+        .download-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #4fc3f7;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0d1b3e;
+            color: white;
+            padding-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 20px;
+            color: #4fc3f7;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #4fc3f7;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbbbbb;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: #4fc3f7;
+            transform: translateX(5px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #2a3a5e;
+            padding: 20px 0;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .storage-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+            
+            .storage-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                padding-left: 70px !important;
+                padding-right: 0 !important;
+            }
+            
+            .timeline-dot {
+                left: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .storage-hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .storage-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .search-container {
+                order: 3;
+                margin: 15px 0 0;
+                max-width: 100%;
+            }
+            
+            .nav-links {
+                overflow-x: auto;
+                padding: 0 10px;
+            }
+            
+            .nav-links a {
+                padding: 15px 20px;
+                white-space: nowrap;
+            }
+            
+            .storage-tab {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div><i class="fas fa-shipping-fast"></i> Free shipping on orders over $100 • <i class="fas fa-certificate"></i> Lab-grade quality</div>
+            <div class="top-links">
+                <a href="tel:+10000000"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
+                <a href="mailto:support@rxresearch.com"><i class="fas fa-envelope"></i> support@rxresearch.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
     <header>
-        <!-- Incluir o mesmo header do index.html -->
+        <div class="container">
+            <div class="header-content">
+                <!-- LOGO -->
+                <a href="index.html" class="logo">
+                    <i class="fas fa-flask"></i>
+                    <span>RX Research Sciences</span>
+                </a>
+
+                <!-- SEARCH -->
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search research compounds...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+
+                <!-- USER ACTIONS -->
+                <div class="user-actions">
+                    <div class="action-icon" onclick="window.location.href='account.html'">
+                        <i class="far fa-user"></i>
+                        <span>Account</span>
+                    </div>
+                    <div class="action-icon" onclick="window.location.href='wishlist.html'">
+                        <i class="far fa-heart"></i>
+                        <span>Wishlist</span>
+                    </div>
+                    <div class="action-icon" onclick="window.location.href='cart.html'">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                        <span>Cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="products/index.html"><i class="fas fa-shopping-cart"></i> All Products</a></li>
+                    <li><a href="index.html#categories"><i class="fas fa-th-large"></i> Categories</a></li>
+                    <li><a href="calculator.html"><i class="fas fa-calculator"></i> Calculator</a></li>
+                    <li><a href="storage-guide.html" class="active"><i class="fas fa-temperature-low"></i> Storage Guide</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
-    <main class="storage-guide">
-        <h1>Peptide Storage Guide</h1>
-        
-        <div class="storage-section">
-            <h2>📦 Unreconstituted Peptides</h2>
-            <ul>
-                <li><strong>Temperature:</strong> Store at -20°C or below</li>
-                <li><strong>Duration:</strong> Up to 24 months</li>
-                <li><strong>Protection:</strong> Keep away from light and moisture</li>
-            </ul>
+    <!-- HERO SECTION -->
+    <section class="storage-hero">
+        <div class="container storage-hero-content">
+            <h1>Peptide Storage & Handling Guide</h1>
+            <p>Proper storage techniques are essential for maintaining peptide stability and ensuring reliable research results. Follow our comprehensive guide for optimal preservation.</p>
+            <a href="#storage-guides" class="btn btn-primary">
+                <i class="fas fa-book-open"></i> View Storage Guidelines
+            </a>
         </div>
-        
-        <div class="storage-section">
-            <h2>🧪 Reconstituted Peptides</h2>
-            <ul>
-                <li><strong>Refrigerated (2-8°C):</strong> 30-60 days maximum</li>
-                <li><strong>Frozen (-20°C):</strong> Up to 90 days</li>
-                <li><strong>Avoid:</strong> Repeated freeze-thaw cycles</li>
-            </ul>
+    </section>
+
+    <!-- STORAGE GUIDES -->
+    <section id="storage-guides" class="storage-guides-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Comprehensive Storage Guidelines</h2>
+                <p>Follow these protocols to maintain peptide integrity and maximize shelf life</p>
+            </div>
+            
+            <!-- TABS -->
+            <div class="storage-tabs">
+                <button class="storage-tab active" data-tab="lyophilized">Lyophilized Peptides</button>
+                <button class="storage-tab" data-tab="reconstituted">Reconstituted Peptides</button>
+                <button class="storage-tab" data-tab="shipping">Shipping & Handling</button>
+                <button class="storage-tab" data-tab="best-practices">Best Practices</button>
+            </div>
+            
+            <!-- LYOPHILIZED PEPTIDES -->
+            <div id="lyophilized" class="storage-content active">
+                <div class="storage-grid">
+                    <div class="storage-card">
+                        <div class="storage-icon">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <h3>Temperature Storage</h3>
+                        <ul>
+                            <li><strong>Optimal:</strong> -20°C or below for long-term storage</li>
+                            <li><strong>Short-term:</strong> 2-8°C for up to 30 days</li>
+                            <li><strong>Maximum:</strong> Never exceed 25°C</li>
+                            <li><strong>Freezer:</strong> Use frost-free freezers to prevent freeze-thaw cycles</li>
+                        </ul>
+                        <div class="temp-badge">-20°C Recommended</div>
+                    </div>
+                    
+                    <div class="storage-card">
+                        <div class="storage-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Environmental Protection</h3>
+                        <ul>
+                            <li><strong>Moisture:</strong> Store in desiccated environment</li>
+                            <li><strong>Light:</strong> Protect from direct light exposure</li>
+                            <li><strong>Oxygen:</strong> Keep in airtight containers</li>
+                            <li><strong>Containers:</strong> Use amber vials for light-sensitive peptides</li>
+                        </ul>
+                        <div class="temp-badge">Desiccated & Dark</div>
+                    </div>
+                    
+                    <div class="storage-card">
+                        <div class="storage-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Shelf Life & Stability</h3>
+                        <ul>
+                            <li><strong>24+ months:</strong> At -20°C in sealed container</li>
+                            <li><strong>12 months:</strong> At 2-8°C in sealed container</li>
+                            <li><strong>1 month:</strong> At room temperature (15-25°C)</li>
+                            <li><strong>Check:</strong> Visual inspection before use</li>
+                        </ul>
+                        <div class="temp-badge">24+ Months Stability</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RECONSTITUTED PEPTIDES -->
+            <div id="reconstituted" class="storage-content">
+                <div class="storage-grid">
+                    <div class="storage-card warning">
+                        <div class="storage-icon">
+                            <i class="fas fa-temperature-low"></i>
+                        </div>
+                        <h3>Refrigerated Storage</h3>
+                        <ul>
+                            <li><strong>Temperature:</strong> 2-8°C immediately after reconstitution</li>
+                            <li><strong>Duration:</strong> 30-60 days maximum</li>
+                            <li><strong>Container:</strong> Use original vial or sterile container</li>
+                            <li><strong>Labeling:</strong> Clearly mark date of reconstitution</li>
+                        </ul>
+                        <div class="temp-badge">2-8°C • 60 Days Max</div>
+                    </div>
+                    
+                    <div class="storage-card">
+                        <div class="storage-icon">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <h3>Frozen Storage</h3>
+                        <ul>
+                            <li><strong>Temperature:</strong> -20°C for extended storage</li>
+                            <li><strong>Duration:</strong> Up to 90 days when frozen</li>
+                            <li><strong>Aliquots:</strong> Divide into single-use aliquots</li>
+                            <li><strong>Thawing:</strong> Thaw slowly at 2-8°C</li>
+                        </ul>
+                        <div class="temp-badge">-20°C • 90 Days Max</div>
+                    </div>
+                    
+                    <div class="storage-card critical">
+                        <div class="storage-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Critical Warnings</h3>
+                        <ul>
+                            <li><strong>DO NOT:</strong> Re-freeze after thawing</li>
+                            <li><strong>Avoid:</strong> Repeated freeze-thaw cycles</li>
+                            <li><strong>Discard:</strong> If cloudiness or precipitation occurs</li>
+                            <li><strong>Never:</strong> Store at room temperature</li>
+                        </ul>
+                        <div class="temp-badge">Critical Protocols</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SHIPPING & HANDLING -->
+            <div id="shipping" class="storage-content">
+                <div class="storage-grid">
+                    <div class="storage-card">
+                        <div class="storage-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3>Shipping Protocols</h3>
+                        <ul>
+                            <li><strong>Temperature:</strong> Shipped with ice packs at 2-8°C</li>
+                            <li><strong>Packaging:</strong> Insulated containers with temperature indicators</li>
+                            <li><strong>Duration:</strong> Expedited shipping (2-3 days)</li>
+                            <li><strong>Tracking:</strong> Real-time temperature monitoring available</li>
+                        </ul>
+                        <div class="temp-badge">Temperature Controlled</div>
+                    </div>
+                    
+                    <div class="storage-card">
+                        <div class="storage-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <h3>Receiving & Inspection</h3>
+                        <ul>
+                            <li><strong>Inspect:</strong> Check temperature indicator upon arrival</li>
+                            <li><strong>Transfer:</strong> Move to storage immediately (within 30 minutes)</li>
+                            <li><strong>Document:</strong> Record receipt date and condition</li>
+                            <li><strong>Verify:</strong> Check vial integrity and labeling</li>
+                        </ul>
+                        <div class="temp-badge">Immediate Transfer</div>
+                    </div>
+                    
+                    <div class="storage-card warning">
+                        <div class="storage-icon">
+                            <i class="fas fa-truck-loading"></i>
+                        </div>
+                        <h3>Handling Precautions</h3>
+                        <ul>
+                            <li><strong>Gloves:</strong> Always wear nitrile gloves</li>
+                            <li><strong>Aseptic:</strong> Use sterile techniques when handling</li>
+                            <li><strong>Contamination:</strong> Avoid contact with skin or surfaces</li>
+                            <li><strong>Documentation:</strong> Maintain handling logs</li>
+                        </ul>
+                        <div class="temp-badge">Sterile Handling Required</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BEST PRACTICES -->
+            <div id="best-practices" class="storage-content">
+                <div class="storage-grid">
+                    <div class="storage-card">
+                        <div class="storage-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <h3>Reconstitution Protocol</h3>
+                        <ul>
+                            <li><strong>Water:</strong> Use bacteriostatic water only</li>
+                            <li><strong>Sterility:</strong> Wipe vial tops with alcohol swab</li>
+                            <li><strong>Technique:</strong> Use aseptic techniques throughout</li>
+                            <li><strong>Mixing:</strong> Gently swirl, do not shake vigorously</li>
+                        </ul>
+                        <div class="temp-badge">Aseptic Technique</div>
+                    </div>
+                    
+                    <div class="storage-card">
+                        <div class="storage-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3>Quality Control</h3>
+                        <ul>
+                            <li><strong>Visual:</strong> Check for clarity before use</li>
+                            <li><strong>Labeling:</strong> Clearly mark all containers</li>
+                            <li><strong>Documentation:</strong> Maintain storage logs</li>
+                            <li><strong>Expiration:</strong> Follow FIFO (first in, first out)</li>
+                        </ul>
+                        <div class="temp-badge">Quality Assurance</div>
+                    </div>
+                    
+                    <div class="storage-card">
+                        <div class="storage-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Record Keeping</h3>
+                        <ul>
+                            <li><strong>Dates:</strong> Record receipt, reconstitution, and expiry</li>
+                            <li><strong>Temperature:</strong> Log storage temperature daily</li>
+                            <li><strong>Usage:</strong> Document all aliquots and usage</li>
+                            <li><strong>Incidents:</strong> Record any deviations or issues</li>
+                        </ul>
+                        <div class="temp-badge">Complete Documentation</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="storage-section">
-            <h2>⚠️ Important Notes</h2>
-            <ul>
-                <li>Always use bacteriostatic water for reconstitution</li>
-                <li>Label vials with date of reconstitution</li>
-                <li>Discard if cloudiness or precipitation occurs</li>
-                <li>Store in original packaging when possible</li>
-            </ul>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Peptide Stability Timeline</h2>
+                <p>Understanding peptide degradation over time under different storage conditions</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3><i class="fas fa-shipping-fast"></i> Day 0: Receipt</h3>
+                        <p><strong>Immediate Action:</strong> Transfer to -20°C storage within 30 minutes of receipt. Inspect packaging and temperature indicators.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3><i class="fas fa-flask"></i> Day 1-730: Lyophilized Storage</h3>
+                        <p><strong>Stability:</strong> Maintain at -20°C. Peptides remain ≥95% pure for up to 24 months when stored properly in sealed containers.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3><i class="fas fa-tint"></i> Day of Reconstitution</h3>
+                        <p><strong>Critical Step:</strong> Use bacteriostatic water and aseptic technique. Label vial with reconstitution date. Store at 2-8°C immediately.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3><i class="fas fa-clock"></i> Day 1-30: Refrigerated Use</h3>
+                        <p><strong>Optimal Period:</strong> Reconstituted peptides remain stable for 30 days at 2-8°C. Visual inspection required before each use.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Day 31-60: Extended Refrigeration</h3>
+                        <p><strong>Caution:</strong> Some peptides may remain stable up to 60 days, but efficacy may decrease. Not recommended for critical research.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3><i class="fas fa-trash-alt"></i> After 60 Days: Disposal</h3>
+                        <p><strong>Required Action:</strong> Dispose of reconstituted peptides according to laboratory safety protocols. Never use beyond recommended period.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Common questions about peptide storage and handling</p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3><i class="fas fa-question-circle"></i> Can I use sterile water instead of bacteriostatic water?</h3>
+                    <p><strong>No.</strong> Bacteriostatic water contains antimicrobial agents that prevent bacterial growth. Sterile water lacks these preservatives and can lead to contamination within 24 hours. Always use bacteriostatic water for peptide reconstitution.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3><i class="fas fa-question-circle"></i> How many times can I freeze-thaw reconstituted peptides?</h3>
+                    <p><strong>Zero times recommended.</strong> Freeze-thaw cycles degrade peptide structure. Aliquot reconstituted peptides into single-use portions to avoid repeated freezing and thawing.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3><i class="fas fa-question-circle"></i> What temperature indicator should I see upon receipt?</h3>
+                    <p>Our shipments include temperature indicators that should show "OK" or green color. If indicator shows "EXPOSED" or red, contact support immediately and do not use the peptides until verified.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3><i class="fas fa-question-circle"></i> Can I store peptides at -80°C instead of -20°C?</h3>
+                    <p><strong>Yes, -80°C is excellent for long-term storage</strong> and can extend shelf life beyond 24 months. However, ensure proper packaging to prevent freeze-drying at ultra-low temperatures.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3><i class="fas fa-question-circle"></i> What if my peptide vial has condensation inside?</h3>
+                    <p>Condensation indicates moisture exposure. Lyophilized peptides are hygroscopic. If significant condensation is present, the peptide may have degraded. Contact support for replacement.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3><i class="fas fa-question-circle"></i> How should I dispose of expired peptides?</h3>
+                    <p>Follow your institution's chemical waste disposal protocols. Typically, peptides should be treated as biological/chemical waste and disposed through approved hazardous waste channels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD SECTION -->
+    <section class="download-section">
+        <div class="container">
+            <div class="download-content">
+                <h2>Download Storage Protocols</h2>
+                <p>Get printable guides and reference materials for your laboratory</p>
+                
+                <div class="download-cards">
+                    <div class="download-card">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>Complete Storage Guide</h3>
+                        <p>PDF document with all protocols</p>
+                        <button class="btn btn-primary" style="margin-top: 15px;">
+                            <i class="fas fa-download"></i> Download PDF
+                        </button>
+                    </div>
+                    
+                    <div class="download-card">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>Storage Log Sheets</h3>
+                        <p>Printable temperature and usage logs</p>
+                        <button class="btn btn-primary" style="margin-top: 15px;">
+                            <i class="fas fa-download"></i> Download Logs
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>RX Research Sciences</h3>
+                    <p style="color: #bbbbbb; margin-bottom: 20px;">Providing high-purity research compounds to the scientific community since 2010.</p>
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <a href="#" style="color: white; font-size: 1.3rem;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white; font-size: 1.3rem;"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" style="color: white; font-size: 1.3rem;"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="products/index.html"><i class="fas fa-chevron-right"></i> Products</a></li>
+                        <li><a href="calculator.html"><i class="fas fa-chevron-right"></i> Calculator</a></li>
+                        <li><a href="storage-guide.html"><i class="fas fa-chevron-right"></i> Storage Guide</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Shipping Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Research Use Only</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Legal Disclaimer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <div style="color: #bbbbbb;">
+                        <p style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt"></i> 123 Research Park Drive</p>
+                        <p style="margin-bottom: 10px;"><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                        <p style="margin-bottom: 10px;"><i class="fas fa-envelope"></i> support@rxresearch.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 RX Research Sciences. All rights reserved. | For Research Use Only - Not for Human Consumption</p>
+                <p style="font-size: 0.8rem; margin-top: 10px; color: #aaa;">Proper storage and handling are essential for research integrity. Always follow laboratory safety protocols.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== TAB FUNCTIONALITY =====
+        document.querySelectorAll('.storage-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.storage-tab').forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Hide all content
+                document.querySelectorAll('.storage-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Show selected content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // ===== CART FUNCTIONALITY =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load cart from localStorage
+            let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+            const cartCountElement = document.querySelector('.cart-count');
+            
+            function updateCartCount() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                if (cartCountElement) {
+                    cartCountElement.textContent = totalItems;
+                }
+                localStorage.setItem('rxCart', JSON.stringify(cart));
+            }
+            
+            updateCartCount();
+            
+            // Update active nav link
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Add search functionality
+            const searchInput = document.querySelector('.search-bar');
+            const searchButton = document.querySelector('.search-btn');
+            
+            if (searchButton) {
+                searchButton.addEventListener('click', () => {
+                    if (searchInput.value.trim()) {
+                        window.location.href = `products/index.html?search=${encodeURIComponent(searchInput.value)}`;
+                    }
+                });
+                
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && searchInput.value.trim()) {
+                        window.location.href = `products/index.html?search=${encodeURIComponent(searchInput.value)}`;
+                    }
+                });
+            }
+            
+            // Add download button functionality
+            document.querySelectorAll('.btn-primary').forEach(button => {
+                if (button.textContent.includes('Download')) {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        showNotification('Download started. Check your downloads folder.', 'success');
+                        
+                        // Simulate download delay
+                        setTimeout(() => {
+                            showNotification('Download complete!', 'success');
+                        }, 2000);
+                    });
+                }
+            });
+        });
+        
+        // ===== NOTIFICATION SYSTEM =====
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => notification.remove());
+            
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            // Set colors based on type
+            let backgroundColor = '#2196f3';
+            let icon = 'fas fa-info-circle';
+            
+            if (type === 'success') {
+                backgroundColor = '#2e7d32';
+                icon = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                backgroundColor = '#f44336';
+                icon = 'fas fa-exclamation-circle';
+            } else if (type === 'warning') {
+                backgroundColor = '#ff9800';
+                icon = 'fas fa-exclamation-triangle';
+            }
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${backgroundColor};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                min-width: 300px;
+                max-width: 400px;
+            `;
+            
+            notification.innerHTML = `<i class="${icon}"></i> ${message}`;
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
