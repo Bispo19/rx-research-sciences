@@ -3,143 +3,1119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RX Research Sciences | Premium Research Compounds</title>
-    <meta name="description" content="High-purity pharmaceutical compounds, peptides, and research materials. Lab-grade quality with certificates of analysis. Based in China, serving global researchers.">
+    <title>RX Research Sciences - Pharmaceutical Research & Supply</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== AVISO LEGAL ===== */
+        #legal-banner {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 3px solid #e53935;
+            position: sticky;
+            top: 0;
+            z-index: 10000;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        #legal-banner strong {
+            color: #ffcc00;
+        }
+        
+        #legal-banner .warning-highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+            display: inline-block;
+            margin: 0 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        #legal-banner .close-banner-btn {
+            margin-left: 15px;
+            background: #e53935;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+        }
+        
+        #legal-banner .close-banner-btn:hover {
+            background: #c62828;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(229, 57, 53, 0.3);
+        }
+        
+        .legal-content {
+            display: inline-block;
+            max-width: 1200px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            #legal-banner {
+                padding: 12px 15px;
+                font-size: 12px;
+            }
+            
+            .legal-content {
+                display: block;
+                text-align: center;
+            }
+            
+            #legal-banner .close-banner-btn {
+                margin-top: 10px;
+                margin-left: 0;
+                padding: 6px 14px;
+                font-size: 11px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #legal-banner {
+                padding: 10px 12px;
+                font-size: 11px;
+            }
+            
+            #legal-banner .warning-highlight {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+        
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+            color: white;
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* ===== HEADER ===== */
+        header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0d47a1;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: #2196f3;
+            font-size: 2.2rem;
+        }
+        
+        /* SEARCH BAR */
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 30px;
+            position: relative;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #2196f3;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #0d47a1;
+        }
+        
+        /* USER ACTIONS */
+        .user-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .action-icon {
+            position: relative;
+            cursor: pointer;
+            color: #555;
+            font-size: 1.3rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .action-icon:hover {
+            color: #2196f3;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f44336;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            min-width: 18px;
+            text-align: center;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .main-nav {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #4fc3f7;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, rgba(13, 71, 161, 0.9), rgba(21, 101, 192, 0.9)),
+                        url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4fc3f7;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(33, 150, 243, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #0d47a1;
+            transform: translateY(-3px);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        /* ===== FEATURED CATEGORIES ===== */
+        .categories-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid #f0f0f0;
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #2196f3;
+        }
+        
+        .category-icon {
+            height: 150px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: #0d47a1;
+        }
+        
+        .category-content {
+            padding: 30px;
+        }
+        
+        .category-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .category-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .product-count {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* ===== FEATURED PRODUCTS ===== */
+        .products-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #2196f3;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #f44336;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, #f0f7ff, #e3f2fd);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image i {
+            font-size: 4rem;
+            color: #0d47a1;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover .product-image i {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            padding: 25px;
+        }
+        
+        .product-category {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .product-code {
+            color: #888;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            background: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .price-amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0d47a1;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== WHY CHOOSE US ===== */
+        .features-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .feature-card:hover {
+            background: white;
+            border-color: #2196f3;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .feature-card p {
+            color: #666;
+        }
+        
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover;
+            opacity: 0.1;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0d1b3e;
+            color: white;
+            padding-top: 80px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            padding-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 25px;
+            color: #4fc3f7;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #4fc3f7;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bbbbbb;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: #4fc3f7;
+            transform: translateX(5px);
+        }
+        
+        .contact-info {
+            color: #bbbbbb;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-icons a:hover {
+            background: #2196f3;
+            transform: translateY(-3px) rotate(5deg);
+        }
+        
+        .newsletter {
+            margin-top: 20px;
+        }
+        
+        .newsletter-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #2a3a5e;
+            background: #1a2748;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            border-color: #4fc3f7;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #2a3a5e;
+            padding: 30px 0;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 1.8rem;
+            color: #aaa;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .search-container {
+                order: 3;
+                margin: 15px 0 0;
+                max-width: 100%;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                overflow-x: auto;
+                padding: 0 10px;
+            }
+            
+            .nav-links a {
+                padding: 15px 20px;
+                white-space: nowrap;
+            }
+            
+            .hero {
+                padding: 80px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-stats {
+                gap: 30px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .top-links {
+                margin-top: 5px;
+            }
+            
+            .user-actions {
+                gap: 15px;
+            }
+            
+            .categories-grid,
+            .products-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Announcement Bar (Top Message) -->
-    <div class="announcement-bar">
-        <p>Lab-grade quality • Third-party tested • Based in Shenzhen, China</p>
+    <!-- ===== AVISO LEGAL (IMPORTANTE!) ===== -->
+    <div id="legal-banner">
+        <div class="legal-content">
+            <span class="fas fa-exclamation-triangle" style="color: #ffcc00; margin-right: 8px;"></span>
+            <strong>IMPORTANT LEGAL NOTICE:</strong> 
+            <span class="warning-highlight">ALL PRODUCTS ARE FOR LABORATORY RESEARCH USE ONLY</span>
+            • Not for human or veterinary consumption • Not for diagnostic or therapeutic use • 
+            <span class="warning-highlight">STRICTLY IN-VITRO APPLICATIONS</span>
+            • Purchaser assumes all responsibility for compliance with local laws and regulations.
+            <button class="close-banner-btn" onclick="closeLegalBanner()">
+                <span class="fas fa-check-circle"></span> I Understand
+            </button>
+        </div>
     </div>
 
-    <!-- Header & Navigation -->
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="index.html">
-                        <h1>RX Research Sciences</h1>
-                        <p class="tagline">Advanced Research Compounds</p>
-                    </a>
-                </div>
-                
-                <nav class="main-nav">
-                    <ul class="nav-list">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">All Products</a></li>
-                        <li><a href="quality.html">Quality & Testing</a></li>
-                        <li><a href="shipping.html">Global Shipping</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </nav>
-                
-                <div class="header-actions">
-                    <button class="icon-btn" aria-label="Search">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    <button class="icon-btn" aria-label="Account">
-                        <i class="fas fa-user"></i>
-                    </button>
-                    <button class="icon-btn" aria-label="Wishlist">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    
-                    <!-- Cart with counter -->
-                    <div class="cart-container">
-                        <button class="icon-btn cart-btn" aria-label="Cart" id="cartToggle">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count" id="cartCount">0</span>
-                        </button>
-                        
-                        <!-- Cart Dropdown -->
-                        <div class="cart-dropdown" id="cartDropdown">
-                            <div class="cart-header">
-                                <h3>Shopping Cart</h3>
-                                <button class="close-cart" id="closeCart">&times;</button>
-                            </div>
-                            <div class="cart-items" id="cartItems">
-                                <!-- Cart items will be inserted here by JavaScript -->
-                                <div class="empty-cart">
-                                    <i class="fas fa-shopping-cart"></i>
-                                    <p>Your cart is empty</p>
-                                </div>
-                            </div>
-                            <div class="cart-footer">
-                                <div class="cart-total">
-                                    <span>Total:</span>
-                                    <span class="total-amount" id="cartTotal">$0.00</span>
-                                </div>
-                                <button class="btn whatsapp-btn" id="sendWhatsApp">
-                                    <i class="fab fa-whatsapp"></i> Order via WhatsApp
-                                </button>
-                                <p class="cart-note">Orders are confirmed via WhatsApp with our China-based representative</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Mobile Navigation -->
-            <div class="mobile-nav" id="mobileNav">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">All Products</a></li>
-                    <li><a href="quality.html">Quality & Testing</a></li>
-                    <li><a href="shipping.html">Global Shipping</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="#" class="whatsapp-link">
-                        <i class="fab fa-whatsapp"></i> Contact via WhatsApp
-                    </a></li>
-                </ul>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div><i class="fas fa-shipping-fast"></i> Free shipping on orders over $100 • <i class="fas fa-certificate"></i> Lab-grade quality</div>
+            <div class="top-links">
+                <a href="tel:+15551234567"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
+                <a href="mailto:support@rxresearch.com"><i class="fas fa-envelope"></i> support@rxresearch.com</a>
             </div>
         </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- LOGO -->
+                <a href="index.html" class="logo">
+                    <i class="fas fa-flask"></i>
+                    <span>RX Research Sciences</span>
+                </a>
+
+                <!-- SEARCH -->
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search 80+ research compounds...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+
+                <!-- USER ACTIONS -->
+                <div class="user-actions">
+                    <div class="action-icon">
+                        <i class="far fa-user"></i>
+                        <span>Account</span>
+                    </div>
+                    <div class="action-icon">
+                        <i class="far fa-heart"></i>
+                        <span>Wishlist</span>
+                    </div>
+                    <div class="action-icon" id="cartIcon">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count">0</span>
+    <span>Cart</span>
+</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                   <li><a href="products/index.html">All Products</a></li>
+                    <li><a href="#categories"><i class="fas fa-th-large"></i> Categories</a></li>
+                    <li><a href="verification.html"><i class="fas fa-check-circle"></i> Verification</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="blog.html"><i class="fas fa-blog"></i> Research</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- HERO SECTION -->
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Advanced Research Compounds for Scientific Discovery</h1>
-                <p class="hero-subtitle">Providing researchers worldwide with 80+ high-purity pharmaceutical compounds, peptides, and research materials. Lab-grade quality, certificates of analysis, and global shipping from our China office.</p>
-                
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">80+</span>
-                        <span class="stat-label">Research Compounds</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">99%</span>
-                        <span class="stat-label">HPLC Purity</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Countries Served</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">24/7</span>
-                        <span class="stat-label">Expert Support</span>
-                    </div>
+        <div class="container hero-content">
+            <h1>Advanced Research Compounds for Scientific Discovery</h1>
+            <p>Providing researchers worldwide with 80+ high-purity pharmaceutical compounds, peptides, and research materials. Lab-grade quality, certificates of analysis, and global shipping.</p>
+            
+            <div class="btn-group">
+                <a href="products.html" class="btn btn-primary">
+                    <i class="fas fa-shopping-cart"></i> Shop All Products
+                </a>
+                <a href="#categories" class="btn btn-secondary">
+                    <i class="fas fa-th-large"></i> Browse Categories
+                </a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">80+</span>
+                    <span class="stat-label">Research Compounds</span>
                 </div>
-                
-                <div class="hero-actions">
-                    <a href="#featured" class="btn btn-primary">View Products</a>
-                    <a href="contact.html" class="btn btn-secondary">Contact Our Lab</a>
+                <div class="stat-item">
+                    <span class="stat-number">99%</span>
+                    <span class="stat-label">HPLC Purity</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Countries Served</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Expert Support</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Featured Products -->
-    <section class="featured-products" id="featured">
+    <!-- FEATURED CATEGORIES -->
+    <section id="categories" class="categories-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Research Categories</h2>
+                <p>Browse our comprehensive collection of research compounds organized by therapeutic area and application</p>
+            </div>
+            
+            <div class="categories-grid">
+                <a href="products.html?category=glp1" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-weight"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>GLP-1 Analogs</h3>
+                        <p>Tirzepatide, Retatrutide, Cagrilintide and other advanced metabolic research compounds</p>
+                        <span class="product-count">15+ Products</span>
+                    </div>
+                </a>
+                
+                <a href="products.html?category=peptides" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>Research Peptides</h3>
+                        <p>BPC-157, TB-500, Semax, Selank, Epithalon and other cutting-edge peptides</p>
+                        <span class="product-count">50+ Products</span>
+                    </div>
+                </a>
+                
+                <a href="products.html?category=hormones" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>Growth Hormones</h3>
+                        <p>CJC-1295, Ipamorelin, Tesamorelin, Sermorelin and growth hormone secretagogues</p>
+                        <span class="product-count">12+ Products</span>
+                    </div>
+                </a>
+                
+                <a href="products.html?category=blends" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>Peptide Blends</h3>
+                        <p>Specialized combinations for synergistic effects in research applications</p>
+                        <span class="product-count">8+ Products</span>
+                    </div>
+                </a>
+                
+                <a href="products.html?category=cognitive" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>Cognitive Enhancers</h3>
+                        <p>Compounds supporting neurological function and cognitive performance research</p>
+                        <span class="product-count">10+ Products</span>
+                    </div>
+                </a>
+                
+                <a href="products.html?category=antiaging" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>Anti-Aging Research</h3>
+                        <p>NAD+, Epithalon, MOTS-c and other compounds for longevity research</p>
+                        <span class="product-count">8+ Products</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="products-section">
         <div class="container">
             <div class="section-header">
                 <h2>Featured Research Compounds</h2>
@@ -149,181 +1125,111 @@
             <div class="products-grid">
                 <!-- Product 1 -->
                 <div class="product-card">
-                    <div class="product-badges">
-                        <span class="badge badge-best">BEST SELLER</span>
-                        <span class="badge badge-category">GLP-1 Analog</span>
-                    </div>
+                    <div class="product-badge">BEST SELLER</div>
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Tirzepatide research compound">
+                        <i class="fas fa-weight"></i>
                     </div>
                     <div class="product-info">
+                        <span class="product-category">GLP-1 Analog</span>
                         <h3 class="product-title">Tirzepatide 10mg</h3>
-                        <p class="product-code">CS-ze101208</p>
-                        <p class="product-description">High-purity GLP-1 receptor agonist for metabolic research applications.</p>
-                        
-                        <div class="product-details">
-                            <div class="detail-item">
-                                <i class="fas fa-flask"></i>
-                                <span>≥99% HPLC Purity</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-file-certificate"></i>
-                                <span>COA Available</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-box"></i>
-                                <span>Lyophilized Powder</span>
-                            </div>
-                        </div>
-                        
+                        <span class="product-code">CS-ze101208</span>
                         <div class="product-price">
-                            <span class="price">$189.99</span>
-                            <span class="price-unit">per vial</span>
+                            <div class="price-amount">$189.99</div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary btn-small add-to-cart" data-product="Tirzepatide 10mg">
+                                    <i class="fas fa-cart-plus"></i> Add
+                                </button>
+                                <button class="btn btn-secondary btn-small">Details</button>
+                            </div>
                         </div>
-                        
-                        <button class="btn btn-add-cart" data-product="Tirzepatide 10mg" data-price="189.99" data-code="CS-ze101208">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
                     </div>
                 </div>
                 
                 <!-- Product 2 -->
                 <div class="product-card">
-                    <div class="product-badges">
-                        <span class="badge badge-new">NEW</span>
-                        <span class="badge badge-category">Research Peptide</span>
-                    </div>
+                    <div class="product-badge" style="background: #2e7d32;">NEW</div>
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Retatrutide research compound">
+                        <i class="fas fa-dna"></i>
                     </div>
                     <div class="product-info">
+                        <span class="product-category">Research Peptide</span>
                         <h3 class="product-title">Retatrutide 10mg</h3>
-                        <p class="product-code">CS-re10-1220</p>
-                        <p class="product-description">Novel triple agonist for metabolic studies and research applications.</p>
-                        
-                        <div class="product-details">
-                            <div class="detail-item">
-                                <i class="fas fa-flask"></i>
-                                <span>≥99% HPLC Purity</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-file-certificate"></i>
-                                <span>COA Available</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-box"></i>
-                                <span>Lyophilized Powder</span>
-                            </div>
-                        </div>
-                        
+                        <span class="product-code">CS-re10-1220</span>
                         <div class="product-price">
-                            <span class="price">$219.99</span>
-                            <span class="price-unit">per vial</span>
+                            <div class="price-amount">$219.99</div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary btn-small add-to-cart" data-product="Retatrutide 10mg">
+                                    <i class="fas fa-cart-plus"></i> Add
+                                </button>
+                                <button class="btn btn-secondary btn-small">Details</button>
+                            </div>
                         </div>
-                        
-                        <button class="btn btn-add-cart" data-product="Retatrutide 10mg" data-price="219.99" data-code="CS-re10-1220">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
                     </div>
                 </div>
                 
                 <!-- Product 3 -->
                 <div class="product-card">
-                    <div class="product-badges">
-                        <span class="badge badge-category">Recovery Peptide</span>
-                    </div>
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="BPC-157 research peptide">
+                        <i class="fas fa-heartbeat"></i>
                     </div>
                     <div class="product-info">
+                        <span class="product-category">Recovery Peptide</span>
                         <h3 class="product-title">BPC-157 10mg</h3>
-                        <p class="product-code">CS-bc101103</p>
-                        <p class="product-description">Stable gastric peptide for tissue repair and recovery research studies.</p>
-                        
-                        <div class="product-details">
-                            <div class="detail-item">
-                                <i class="fas fa-flask"></i>
-                                <span>≥99% HPLC Purity</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-file-certificate"></i>
-                                <span>COA Available</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-box"></i>
-                                <span>Lyophilized Powder</span>
-                            </div>
-                        </div>
-                        
+                        <span class="product-code">CS-bc101103</span>
                         <div class="product-price">
-                            <span class="price">$69.99</span>
-                            <span class="price-unit">per vial</span>
+                            <div class="price-amount">$69.99</div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary btn-small add-to-cart" data-product="BPC-157 10mg">
+                                    <i class="fas fa-cart-plus"></i> Add
+                                </button>
+                                <button class="btn btn-secondary btn-small">Details</button>
+                            </div>
                         </div>
-                        
-                        <button class="btn btn-add-cart" data-product="BPC-157 10mg" data-price="69.99" data-code="CS-bc101103">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
                     </div>
                 </div>
                 
                 <!-- Product 4 -->
                 <div class="product-card">
-                    <div class="product-badges">
-                        <span class="badge badge-category">Cognitive Enhancer</span>
-                    </div>
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Semax research compound">
+                        <i class="fas fa-brain"></i>
                     </div>
                     <div class="product-info">
+                        <span class="product-category">Cognitive Enhancer</span>
                         <h3 class="product-title">Semax 10mg</h3>
-                        <p class="product-code">CS-sa101018</p>
-                        <p class="product-description">Neuroprotective peptide for cognitive function and memory research.</p>
-                        
-                        <div class="product-details">
-                            <div class="detail-item">
-                                <i class="fas fa-flask"></i>
-                                <span>≥99% HPLC Purity</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-file-certificate"></i>
-                                <span>COA Available</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-box"></i>
-                                <span>Lyophilized Powder</span>
-                            </div>
-                        </div>
-                        
+                        <span class="product-code">CS-sa101018</span>
                         <div class="product-price">
-                            <span class="price">$89.99</span>
-                            <span class="price-unit">per vial</span>
+                            <div class="price-amount">$89.99</div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary btn-small add-to-cart" data-product="Semax 10mg">
+                                    <i class="fas fa-cart-plus"></i> Add
+                                </button>
+                                <button class="btn btn-secondary btn-small">Details</button>
+                            </div>
                         </div>
-                        
-                        <button class="btn btn-add-cart" data-product="Semax 10mg" data-price="89.99" data-code="CS-sa101018">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
                     </div>
                 </div>
             </div>
             
-            <div class="section-footer">
-                <a href="products.html" class="btn btn-outline">View All Products</a>
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="products.html" class="btn btn-primary" style="padding: 16px 40px;">
+                    <i class="fas fa-arrow-right"></i> View All 80+ Products
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="why-choose">
+    <!-- WHY CHOOSE US -->
+    <section class="features-section">
         <div class="container">
             <div class="section-header">
                 <h2>Why Choose RX Research Sciences</h2>
-                <p>Our commitment to quality, reliability, and scientific excellence from our China-based operations</p>
+                <p>Our commitment to quality, reliability, and scientific excellence</p>
             </div>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-microscope"></i>
+                        <i class="fas fa-certificate"></i>
                     </div>
                     <h3>Lab-Grade Quality</h3>
                     <p>All products come with certificates of analysis (COA) verifying ≥99% HPLC purity and independent third-party testing.</p>
@@ -331,15 +1237,15 @@
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-globe-asia"></i>
+                        <i class="fas fa-globe"></i>
                     </div>
-                    <h3>China-Based Global Shipping</h3>
-                    <p>Direct worldwide shipping from our Shenzhen facility with temperature-controlled packaging for sensitive compounds.</p>
+                    <h3>Global Shipping</h3>
+                    <p>Discreet worldwide shipping with temperature-controlled packaging for sensitive research compounds.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-qrcode"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3>Verification System</h3>
                     <p>Every product has a unique verification code to confirm authenticity and batch information.</p>
@@ -363,98 +1269,610 @@
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-lock"></i>
                     </div>
                     <h3>Secure & Discreet</h3>
-                    <p>Secure communication channels and discreet packaging for research privacy and confidentiality.</p>
+                    <p>Bank-level security for all transactions and discreet packaging for research privacy.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WhatsApp CTA -->
-    <section class="whatsapp-cta">
-        <div class="container">
-            <div class="cta-content">
-                <div class="cta-icon">
-                    <i class="fab fa-whatsapp"></i>
-                </div>
-                <div class="cta-text">
-                    <h2>Direct Order & Inquiries via WhatsApp</h2>
-                    <p>Our China-based representatives are available to process orders, provide quotes, and answer technical questions. Click below to start a conversation.</p>
-                </div>
-                <div class="cta-action">
-                    <a href="https://wa.me/8618888888888?text=Hi%20RX%20Research%20Sciences%2C%20I%27m%20interested%20in%20your%20research%20compounds" class="btn btn-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-                    </a>
-                    <p class="cta-note">Direct line to our Shenzhen office</p>
-                </div>
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="container cta-content">
+            <h2>Ready to Advance Your Research?</h2>
+            <p>Join thousands of researchers worldwide who trust RX Research Sciences for their laboratory compound needs.</p>
+            <div class="btn-group">
+                <a href="products.html" class="btn btn-primary">
+                    <i class="fas fa-shopping-cart"></i> Start Shopping
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i> Contact Sales
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="main-footer">
+    <!-- FOOTER -->
+    <footer>
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col footer-about">
+            <div class="footer-content">
+                <div class="footer-col">
                     <h3>RX Research Sciences</h3>
-                    <p>Providing high-purity research compounds to the scientific community since 2015. Based in Shenzhen, China with global shipping capabilities.</p>
-                    <div class="footer-contact">
-                        <p><i class="fas fa-map-marker-alt"></i> Science Park, Shenzhen, China</p>
-                        <p><i class="fas fa-phone"></i> +86 188 8888 8888</p>
-                        <p><i class="fas fa-envelope"></i> info@rxresearchsciences.com</p>
+                    <p style="color: #bbbbbb; margin-bottom: 20px;">Providing high-purity research compounds to the scientific community since 2010. Committed to advancing scientific discovery through quality products and support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
                 <div class="footer-col">
-                    <h4>Products</h4>
-                    <ul>
-                        <li><a href="products.html">All Compounds</a></li>
-                        <li><a href="#">Peptides</a></li>
-                        <li><a href="#">SARM Compounds</a></li>
-                        <li><a href="#">Research Chemicals</a></li>
-                        <li><a href="#">New Arrivals</a></li>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="products.html"><i class="fas fa-chevron-right"></i> All Products</a></li>
+                        <li><a href="verification.html"><i class="fas fa-chevron-right"></i> Product Verification</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
-                    <h4>Information</h4>
-                    <ul>
-                        <li><a href="quality.html">Quality Control</a></li>
-                        <li><a href="shipping.html">Shipping Policy</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
+                    <h3>Research Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="products.html?category=glp1"><i class="fas fa-chevron-right"></i> GLP-1 Analogs</a></li>
+                        <li><a href="products.html?category=peptides"><i class="fas fa-chevron-right"></i> Research Peptides</a></li>
+                        <li><a href="products.html?category=hormones"><i class="fas fa-chevron-right"></i> Growth Hormones</a></li>
+                        <li><a href="products.html?category=blends"><i class="fas fa-chevron-right"></i> Peptide Blends</a></li>
+                        <li><a href="products.html?category=antiaging"><i class="fas fa-chevron-right"></i> Anti-Aging Research</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
-                    <h4>Connect</h4>
-                    <div class="social-links">
-                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Research Park Drive<br>Science District, CA 90210</p>
+                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                        <p><i class="fas fa-envelope"></i> support@rxresearchsciences.com</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM EST</p>
                     </div>
-                    <div class="footer-newsletter">
-                        <p>Subscribe for updates on new compounds</p>
-                        <form class="newsletter-form">
-                            <input type="email" placeholder="Your email" required>
-                            <button type="submit">Subscribe</button>
-                        </form>
+                    
+                    <div class="newsletter">
+                        <input type="email" class="newsletter-input" placeholder="Your email address">
+                        <button class="btn btn-primary" style="width: 100%; padding: 15px;">Subscribe</button>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 RX Research Sciences. All rights reserved. For research use only. Not for human consumption.</p>
-                <p classfooter-disclaimer>Products are intended for laboratory research purposes only. Not for diagnostic or therapeutic use.</p>
+                <p>&copy; 2024 RX Research Sciences. All rights reserved. | Research Use Only - Not for Human Consumption</p>
+                <p style="font-size: 0.8rem; margin-top: 10px; color: #aaa;">These products are for research purposes only. Not intended for diagnostic or therapeutic use.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa" title="Visa"></i>
+                    <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fab fa-cc-amex" title="American Express"></i>
+                    <i class="fab fa-cc-paypal" title="PayPal"></i>
+                    <i class="fab fa-bitcoin" title="Bitcoin"></i>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+    <script>
+        // ===== AVISO LEGAL FUNCTIONALITY =====
+        function closeLegalBanner() {
+            const banner = document.getElementById('legal-banner');
+            banner.style.animation = 'fadeOutUp 0.3s ease-out';
+            
+            setTimeout(() => {
+                banner.style.display = 'none';
+                // Salvar no localStorage para não mostrar novamente nesta sessão
+                sessionStorage.setItem('legalBannerClosed', 'true');
+            }, 300);
+        }
+        
+        // Verificar se usuário já fechou o banner nesta sessão
+        if (sessionStorage.getItem('legalBannerClosed') === 'true') {
+            document.getElementById('legal-banner').style.display = 'none';
+        }
+        
+       // ===== SHOPPING CART FUNCTIONALITY =====
+let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+const cartCountElement = document.querySelector('.cart-count');
+
+// Atualizar contador do carrinho
+function updateCartCount() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCountElement.textContent = totalItems;
+    localStorage.setItem('rxCart', JSON.stringify(cart));
+}
+
+// Add to cart buttons - VERSÃO COMPLETA
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function() {
+        const productCard = this.closest('.product-card');
+        const productName = productCard.querySelector('.product-title').textContent;
+        const productPrice = productCard.querySelector('.price-amount').textContent;
+        const productCode = productCard.querySelector('.product-code').textContent;
+        const productCategory = productCard.querySelector('.product-category').textContent;
+        
+        // Extrair apenas números do preço
+        const priceValue = parseFloat(productPrice.replace(/[^\d.]/g, ''));
+        
+        // Verificar se produto já está no carrinho
+        const existingItem = cart.find(item => item.code === productCode);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                name: productName,
+                code: productCode,
+                category: productCategory,
+                price: priceValue,
+                quantity: 1,
+                unit: '10mg' // Você pode ajustar conforme necessário
+            });
+        }
+        
+        updateCartCount();
+        
+        // Visual feedback
+        const originalHTML = this.innerHTML;
+        const originalBg = this.style.background;
+        this.innerHTML = '<i class="fas fa-check"></i> Added!';
+        this.style.background = '#2e7d32';
+        this.disabled = true;
+        
+        // Show notification
+        showNotification(`${productName} added to cart`);
+        
+        // Reset button after 1.5 seconds
+        setTimeout(() => {
+            this.innerHTML = originalHTML;
+            this.style.background = originalBg;
+            this.disabled = false;
+        }, 1500);
+    });
+});
+
+// ===== CARRINHO MODAL =====
+function openCartModal() {
+    // Criar modal do carrinho
+    const modalHTML = `
+        <div class="cart-modal-overlay" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 10000;
+            display: flex;
+            justify-content: flex-end;
+            animation: fadeIn 0.3s ease;
+        ">
+            <div class="cart-modal" style="
+                width: 100%;
+                max-width: 450px;
+                height: 100%;
+                background: white;
+                padding: 25px;
+                overflow-y: auto;
+                box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+                animation: slideInRight 0.3s ease;
+            ">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h2 style="font-size: 1.8rem; color: #0d47a1;">
+                        <i class="fas fa-shopping-cart"></i> Your Cart
+                    </h2>
+                    <button onclick="closeCartModal()" style="
+                        background: none;
+                        border: none;
+                        font-size: 1.5rem;
+                        color: #666;
+                        cursor: pointer;
+                        padding: 5px 10px;
+                    ">&times;</button>
+                </div>
+                
+                ${cart.length === 0 ? 
+                    `<div style="text-align: center; padding: 60px 20px;">
+                        <i class="fas fa-shopping-cart" style="font-size: 4rem; color: #ddd; margin-bottom: 20px;"></i>
+                        <p style="color: #666; font-size: 1.1rem;">Your cart is empty</p>
+                        <a href="#categories" onclick="closeCartModal()" style="
+                            display: inline-block;
+                            margin-top: 20px;
+                            padding: 12px 25px;
+                            background: #2196f3;
+                            color: white;
+                            text-decoration: none;
+                            border-radius: 5px;
+                            font-weight: 500;
+                        ">Browse Products</a>
+                    </div>` 
+                    : 
+                    `<div>
+                        <div class="cart-items" id="cartItemsContainer">
+                            ${cart.map((item, index) => `
+                                <div class="cart-item" style="
+                                    padding: 20px;
+                                    border-bottom: 1px solid #eee;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                ">
+                                    <div>
+                                        <h4 style="margin: 0 0 5px 0; color: #333;">${item.name}</h4>
+                                        <p style="margin: 0; color: #666; font-size: 0.9rem;">${item.code} • ${item.category}</p>
+                                        <p style="margin: 5px 0 0 0; font-weight: bold; color: #0d47a1;">$${item.price.toFixed(2)}</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <div style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 5px;">
+                                            <button onclick="updateQuantity(${index}, -1)" style="
+                                                padding: 5px 12px;
+                                                border: none;
+                                                background: #f5f5f5;
+                                                cursor: pointer;
+                                                font-size: 1.1rem;
+                                            ">-</button>
+                                            <span style="padding: 5px 15px; min-width: 40px; text-align: center;">${item.quantity}</span>
+                                            <button onclick="updateQuantity(${index}, 1)" style="
+                                                padding: 5px 12px;
+                                                border: none;
+                                                background: #f5f5f5;
+                                                cursor: pointer;
+                                                font-size: 1.1rem;
+                                            ">+</button>
+                                        </div>
+                                        <button onclick="removeFromCart(${index})" style="
+                                            padding: 8px;
+                                            background: #ffebee;
+                                            color: #f44336;
+                                            border: none;
+                                            border-radius: 5px;
+                                            cursor: pointer;
+                                        ">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div style="margin-top: 30px; padding: 25px; background: #f8f9fa; border-radius: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                                <span>Subtotal:</span>
+                                <span style="font-weight: bold;">$${calculateSubtotal().toFixed(2)}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 25px;">
+                                <span>Shipping:</span>
+                                <span style="color: #2e7d32; font-weight: bold;">Calculated by representative</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; border-top: 2px solid #ddd; padding-top: 15px;">
+                                <span>Estimated Total:</span>
+                                <span style="color: #0d47a1;">$${calculateSubtotal().toFixed(2)}</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 30px;">
+                            <button onclick="proceedToCheckout()" style="
+                                width: 100%;
+                                padding: 18px;
+                                background: linear-gradient(135deg, #2196f3, #0d47a1);
+                                color: white;
+                                border: none;
+                                border-radius: 8px;
+                                font-size: 1.1rem;
+                                font-weight: bold;
+                                cursor: pointer;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                gap: 10px;
+                                transition: all 0.3s;
+                            ">
+                                <i class="fas fa-whatsapp"></i> Proceed to WhatsApp Order
+                            </button>
+                            
+                            <p style="text-align: center; margin-top: 15px; color: #666; font-size: 0.9rem;">
+                                <i class="fas fa-info-circle"></i> You'll be redirected to WhatsApp to complete your order
+                            </p>
+                        </div>
+                    </div>`
+                }
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Adicionar estilos de animação
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        .cart-modal-overlay {
+            animation: fadeIn 0.3s ease !important;
+        }
+        .cart-modal {
+            animation: slideInRight 0.3s ease !important;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+function closeCartModal() {
+    const modal = document.querySelector('.cart-modal-overlay');
+    if (modal) {
+        modal.style.animation = 'fadeOut 0.3s ease';
+        modal.querySelector('.cart-modal').style.animation = 'slideOutRight 0.3s ease';
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); }
+                to { transform: translateX(100%); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        setTimeout(() => modal.remove(), 300);
+    }
+}
+
+function calculateSubtotal() {
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+}
+
+function updateQuantity(index, change) {
+    cart[index].quantity += change;
+    
+    if (cart[index].quantity < 1) {
+        cart.splice(index, 1);
+    }
+    
+    updateCartCount();
+    updateCartModal();
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartCount();
+    
+    // Se carrinho estiver vazio, fechar modal
+    if (cart.length === 0) {
+        closeCartModal();
+    } else {
+        updateCartModal();
+    }
+}
+
+function updateCartModal() {
+    const modal = document.querySelector('.cart-modal-overlay');
+    if (modal) {
+        closeCartModal();
+        setTimeout(() => openCartModal(), 50);
+    }
+}
+
+function proceedToCheckout() {
+    // Formatar mensagem para WhatsApp
+    let message = "🛒 *NEW ORDER - RX Research Sciences* 🛒\n\n";
+    message += "Hello! I'd like to place an order:\n\n";
+    
+    cart.forEach((item, index) => {
+        message += `*${index + 1}. ${item.name}*\n`;
+        message += `   Code: ${item.code}\n`;
+        message += `   Quantity: ${item.quantity} x ${item.unit || 'unit'}\n`;
+        message += `   Price: $${item.price.toFixed(2)} each\n`;
+        message += `   Subtotal: $${(item.price * item.quantity).toFixed(2)}\n\n`;
+    });
+    
+    message += `*TOTAL ESTIMATE: $${calculateSubtotal().toFixed(2)}*\n\n`;
+    message += "Shipping address and payment details to follow.\n";
+    message += "Please confirm availability and shipping costs.";
+    
+    // Número do WhatsApp do representante (ALTERE AQUI!)
+    const whatsappNumber = "5511999999999"; // Substitua pelo número real
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    
+    // Abrir WhatsApp
+    window.open(whatsappURL, '_blank');
+    
+    // Opcional: Limpar carrinho após envio
+    // cart = [];
+    // updateCartCount();
+    // closeCartModal();
+}
+
+// ===== ABRIR CARRINHO AO CLICAR NO ÍCONE =====
+document.querySelector('.action-icon:nth-child(3)').addEventListener('click', function(e) {
+    e.preventDefault();
+    openCartModal();
+});
+        
+        // ===== SEARCH FUNCTIONALITY =====
+        const searchInput = document.querySelector('.search-bar');
+        const searchButton = document.querySelector('.search-btn');
+        
+        searchButton.addEventListener('click', () => {
+            if (searchInput.value.trim()) {
+                window.location.href = `products.html?search=${encodeURIComponent(searchInput.value)}`;
+            }
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && searchInput.value.trim()) {
+                window.location.href = `products.html?search=${encodeURIComponent(searchInput.value)}`;
+            }
+        });
+        
+        // ===== SMOOTH SCROLLING =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // ===== NOTIFICATION SYSTEM =====
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: #2e7d32;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            `;
+            
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // ===== ANIMATIONS =====
+        const style = document.createElement('style');
+        style.textContent = `
+            /* Animations for legal banner */
+            @keyframes fadeOutUp {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+            }
+            
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            
+            /* Fade in animations for page load */
+            .hero-content, .section-header, .category-card, .product-card, .feature-card {
+                animation: fadeInUp 0.6s ease-out;
+            }
+            
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            /* Stagger animations */
+            .category-card:nth-child(1) { animation-delay: 0.1s; }
+            .category-card:nth-child(2) { animation-delay: 0.2s; }
+            .category-card:nth-child(3) { animation-delay: 0.3s; }
+            .category-card:nth-child(4) { animation-delay: 0.4s; }
+            .category-card:nth-child(5) { animation-delay: 0.5s; }
+            .category-card:nth-child(6) { animation-delay: 0.6s; }
+            
+            .product-card:nth-child(1) { animation-delay: 0.2s; }
+            .product-card:nth-child(2) { animation-delay: 0.3s; }
+            .product-card:nth-child(3) { animation-delay: 0.4s; }
+            .product-card:nth-child(4) { animation-delay: 0.5s; }
+            
+            .feature-card:nth-child(1) { animation-delay: 0.2s; }
+            .feature-card:nth-child(2) { animation-delay: 0.3s; }
+            .feature-card:nth-child(3) { animation-delay: 0.4s; }
+            .feature-card:nth-child(4) { animation-delay: 0.5s; }
+            .feature-card:nth-child(5) { animation-delay: 0.6s; }
+            .feature-card:nth-child(6) { animation-delay: 0.7s; }
+        `;
+        document.head.appendChild(style);
+        
+        // ===== PARALLAX EFFECT FOR HERO =====
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
+            }
+        });
+        
+        // ===== NAVIGATION ACTIVE STATE =====
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            const linkPage = link.getAttribute('href');
+            if (linkPage === currentPage || 
+                (currentPage === 'index.html' && linkPage === 'index.html') ||
+                (currentPage === '' && linkPage === 'index.html')) {
+                link.classList.add('active');
+            }
+        });
+        
+        // ===== INITIALIZE PAGE =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add loaded class for animations
+            document.body.classList.add('loaded');
+            
+            // Update cart count from localStorage if available
+            const savedCartCount = localStorage.getItem('rxCartCount');
+            if (savedCartCount) {
+                cartCount = parseInt(savedCartCount);
+                cartCountElement.textContent = cartCount;
+            }
+            
+            // Save cart count to localStorage on changes
+            const originalAddToCart = cartCountElement.textContent;
+            Object.defineProperty(cartCountElement, 'textContent', {
+                set: function(value) {
+                    localStorage.setItem('rxCartCount', value);
+                    this.nodeValue = value;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
