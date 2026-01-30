@@ -26,9 +26,65 @@
             padding: 0 20px;
         }
         
+        /* ===== AVISO LEGAL ===== */
+        #legal-banner {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 3px solid #e53935;
+            position: sticky;
+            top: 0;
+            z-index: 10000;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        #legal-banner strong {
+            color: #ffcc00;
+        }
+        
+        #legal-banner .warning-highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+            display: inline-block;
+            margin: 0 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        #legal-banner .close-banner-btn {
+            margin-left: 15px;
+            background: #e53935;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+        }
+        
+        #legal-banner .close-banner-btn:hover {
+            background: #c62828;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(229, 57, 53, 0.3);
+        }
+        
+        .legal-content {
+            display: inline-block;
+            max-width: 1200px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
         /* ===== TOP BAR ===== */
         .top-bar {
-            background: #0d47a1;
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
             color: white;
             padding: 10px 0;
             font-size: 0.9rem;
@@ -44,12 +100,18 @@
             color: white;
             margin-left: 20px;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
         
         /* ===== HEADER ===== */
         header {
             background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .header-content {
@@ -66,6 +128,7 @@
             font-size: 1.8rem;
             font-weight: bold;
             color: #0d47a1;
+            text-decoration: none;
         }
         
         .logo i {
@@ -73,6 +136,7 @@
             font-size: 2.2rem;
         }
         
+        /* SEARCH BAR */
         .search-container {
             flex: 1;
             max-width: 600px;
@@ -82,25 +146,40 @@
         
         .search-bar {
             width: 100%;
-            padding: 12px 20px;
+            padding: 14px 50px 14px 20px;
             border: 2px solid #e0e0e0;
             border-radius: 30px;
             font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #2196f3;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
         }
         
         .search-btn {
             position: absolute;
-            right: 5px;
-            top: 5px;
+            right: 8px;
+            top: 8px;
             background: #2196f3;
             color: white;
             border: none;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             cursor: pointer;
+            transition: background 0.3s;
         }
         
+        .search-btn:hover {
+            background: #0d47a1;
+        }
+        
+        /* USER ACTIONS */
         .user-actions {
             display: flex;
             gap: 20px;
@@ -111,6 +190,14 @@
             cursor: pointer;
             color: #555;
             font-size: 1.3rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .action-icon:hover {
+            color: #2196f3;
         }
         
         .cart-count {
@@ -128,9 +215,8 @@
         
         /* ===== NAVIGATION ===== */
         .main-nav {
-            background: #f5f7fa;
-            border-top: 1px solid #e0e0e0;
-            border-bottom: 1px solid #e0e0e0;
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
         
         .nav-links {
@@ -144,48 +230,101 @@
         }
         
         .nav-links a {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             padding: 18px 25px;
-            color: #333;
+            color: white;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
         
         .nav-links a:hover,
         .nav-links a.active {
-            background: white;
-            color: #2196f3;
-            box-shadow: 0 -3px 0 #2196f3 inset;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #4fc3f7;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
         }
         
         /* ===== PRODUCTS HEADER ===== */
         .products-header {
-            background: linear-gradient(135deg, #0d47a1, #1976d2);
+            background: linear-gradient(135deg, rgba(13, 71, 161, 0.9), rgba(21, 101, 192, 0.9)),
+                        url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
             color: white;
-            padding: 60px 0;
+            padding: 100px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
             margin-bottom: 40px;
+        }
+        
+        .products-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
         }
         
         .products-header h1 {
             font-size: 3rem;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
         }
         
         .products-header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 800px;
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 700px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* ===== PRODUCT COUNTER ===== */
+        .product-counter {
+            text-align: center;
+            color: #666;
+            margin: 20px 0 40px;
+            font-size: 1.1rem;
+        }
+        
+        .counter-number {
+            font-weight: bold;
+            color: #0d47a1;
+            font-size: 1.3rem;
         }
         
         /* ===== FILTERS ===== */
         .filters-section {
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             margin-bottom: 40px;
         }
         
@@ -209,11 +348,19 @@
         }
         
         .filter-select {
-            padding: 10px 15px;
-            border: 1px solid #ddd;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
             border-radius: 8px;
             background: white;
             min-width: 180px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
         }
         
         .search-filter {
@@ -223,9 +370,17 @@
         
         .search-filter input {
             width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
             border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .search-filter input:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
         }
         
         .view-options {
@@ -234,12 +389,17 @@
         }
         
         .view-btn {
-            padding: 10px 15px;
-            border: 1px solid #ddd;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
             background: white;
             border-radius: 8px;
             cursor: pointer;
             color: #666;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .view-btn.active {
@@ -248,9 +408,14 @@
             border-color: #2196f3;
         }
         
+        .view-btn:hover:not(.active) {
+            border-color: #2196f3;
+            color: #2196f3;
+        }
+        
         /* ===== CATEGORIES ===== */
         .categories-section {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
         .categories-tabs {
@@ -258,42 +423,46 @@
             flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 30px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 25px;
         }
         
         .category-tab {
-            padding: 10px 25px;
+            padding: 12px 28px;
             background: white;
-            border: 1px solid #ddd;
+            border: 2px solid #ddd;
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 500;
+            font-size: 1rem;
         }
         
         .category-tab:hover,
         .category-tab.active {
-            background: #2196f3;
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
             color: white;
             border-color: #2196f3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.2);
         }
         
         /* ===== PRODUCTS GRID ===== */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 30px;
             margin-bottom: 60px;
         }
         
         .product-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             transition: all 0.3s;
             border: 1px solid #f0f0f0;
+            position: relative;
         }
         
         .product-card:hover {
@@ -311,19 +480,20 @@
             display: inline-block;
             background: #e8f5e9;
             color: #2e7d32;
-            padding: 5px 12px;
+            padding: 6px 15px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 500;
             margin-bottom: 15px;
         }
         
         .product-name {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 600;
             color: #0d47a1;
             margin-bottom: 10px;
             line-height: 1.4;
+            min-height: 56px;
         }
         
         .product-code {
@@ -331,8 +501,8 @@
             font-size: 0.9rem;
             font-family: monospace;
             background: #f5f5f5;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 6px 12px;
+            border-radius: 6px;
             display: inline-block;
             margin-bottom: 15px;
         }
@@ -343,14 +513,15 @@
         
         .product-specs {
             list-style: none;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .product-specs li {
-            padding: 8px 0;
+            padding: 10px 0;
             border-bottom: 1px dashed #f0f0f0;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
         
         .product-specs li:last-child {
@@ -359,13 +530,16 @@
         
         .spec-label {
             color: #666;
+            font-size: 0.95rem;
         }
         
         .spec-value {
             font-weight: 500;
             color: #333;
+            font-size: 0.95rem;
         }
         
+        /* ===== PRODUCT PRICE AND ACTIONS ===== */
         .product-price {
             display: flex;
             align-items: center;
@@ -373,78 +547,105 @@
             margin-top: 20px;
             padding-top: 20px;
             border-top: 1px solid #f0f0f0;
+            min-height: 80px;
         }
         
         .price-amount {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: bold;
             color: #0d47a1;
+            line-height: 1;
         }
         
         .product-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             align-items: center;
+            justify-content: flex-end;
+            min-width: 200px;
         }
         
-      <button class="btn-cart" onclick="addToCartFromProductPage({
-    id: '${product.code.toLowerCase()}',
-    name: '${product.name}',
-    code: '${product.code}',
-    concentration: '${product.concentration}',
-    category: '${categoryName}',
-    price: ${product.price},
-    icon: '${product.category === 'glp1' ? 'fas fa-weight' : 
-             product.category === 'peptides' ? 'fas fa-dna' : 
-             product.category === 'blends' ? 'fas fa-vial' : 
-             product.category === 'hormones' ? 'fas fa-chart-line' :
-             product.category === 'cognitive' ? 'fas fa-brain' :
-             product.category === 'antiaging' ? 'fas fa-heartbeat' :
-             product.category === 'recovery' ? 'fas fa-heartbeat' : 'fas fa-flask'}'
-})">
-    <i class="fas fa-cart-plus"></i> Add
-</button>
+        .btn-cart {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            min-width: 100px;
+            justify-content: center;
+            height: 48px;
+            box-sizing: border-box;
         }
         
         .btn-cart:hover {
-            background: #0d47a1;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
         }
         
         .btn-details {
             background: white;
             color: #333;
-            border: 1px solid #ddd;
-            padding: 12px 20px;
+            border: 2px solid #ddd;
+            padding: 12px 22px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            min-width: 100px;
+            justify-content: center;
+            height: 48px;
+            box-sizing: border-box;
         }
         
         .btn-details:hover {
             background: #f0f7ff;
             border-color: #2196f3;
+            color: #2196f3;
+            transform: translateY(-3px);
         }
         
         /* ===== FOOTER ===== */
         footer {
             background: #0d1b3e;
             color: white;
-            padding-top: 60px;
-            margin-top: 60px;
+            padding-top: 80px;
+            margin-top: 80px;
         }
         
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            padding-bottom: 40px;
+            gap: 50px;
+            padding-bottom: 50px;
         }
         
         .footer-col h3 {
             margin-bottom: 25px;
             color: #4fc3f7;
             font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #4fc3f7;
         }
         
         .footer-links {
@@ -457,64 +658,136 @@
         
         .footer-links a {
             color: #bbbbbb;
-            transition: color 0.3s;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
         }
         
         .footer-links a:hover {
             color: #4fc3f7;
+            transform: translateX(5px);
         }
         
         .social-icons {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
         
         .social-icons a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             color: white;
             transition: all 0.3s;
+            text-decoration: none;
         }
         
         .social-icons a:hover {
             background: #2196f3;
-            transform: translateY(-3px);
+            transform: translateY(-3px) rotate(5deg);
         }
         
         .footer-bottom {
             border-top: 1px solid #2a3a5e;
-            padding: 25px 0;
+            padding: 30px 0;
             text-align: center;
             color: #888;
             font-size: 0.9rem;
         }
         
-        /* ===== PRODUCT COUNTER ===== */
-        .product-counter {
-            text-align: center;
-            color: #666;
-            margin: 20px 0;
-            font-size: 1.1rem;
+        /* ===== MODAL DE DETALHES ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 20000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
         }
         
-        .counter-number {
-            font-weight: bold;
-            color: #0d47a1;
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .product-modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideInUp 0.3s ease;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #666;
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .modal-close:hover {
+            background: #f5f5f5;
+            color: #f44336;
+        }
+        
+        /* ===== CARRINHO MODAL ===== */
+        .cart-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 15000;
+            display: none;
+            justify-content: flex-end;
+        }
+        
+        .cart-modal-overlay.active {
+            display: flex;
+        }
+        
+        .cart-modal {
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            background: white;
+            padding: 25px;
+            overflow-y: auto;
+            animation: slideInRight 0.3s ease;
         }
         
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1200px) {
             .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
         }
         
@@ -529,23 +802,41 @@
                 max-width: 100%;
             }
             
+            .products-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .products-header p {
+                font-size: 1.1rem;
+            }
+            
             .filters-row {
                 flex-direction: column;
                 align-items: stretch;
             }
+            
+            .filter-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .search-filter {
+                max-width: 100%;
+            }
+            
+            .product-actions {
+                min-width: 180px;
+            }
         }
         
         @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
             .nav-links {
                 overflow-x: auto;
+                padding: 0 10px;
             }
             
             .nav-links a {
-                padding: 15px;
+                padding: 15px 20px;
                 white-space: nowrap;
             }
             
@@ -554,17 +845,112 @@
                 flex-wrap: nowrap;
                 padding-bottom: 10px;
             }
+            
+            .category-tab {
+                white-space: nowrap;
+            }
+            
+            .product-price {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .product-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .btn-cart, .btn-details {
+                min-width: 120px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .top-links {
+                margin-top: 5px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn-cart, .btn-details {
+                width: 100%;
+                min-width: unset;
+            }
+            
+            .products-header h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        @keyframes slideOutRight {
+            from { transform: translateX(0); }
+            to { transform: translateX(100%); }
+        }
+        
+        @keyframes fadeOutUp {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
         }
     </style>
 </head>
 <body>
+    <!-- ===== AVISO LEGAL ===== -->
+    <div id="legal-banner">
+        <div class="legal-content">
+            <span class="fas fa-exclamation-triangle" style="color: #ffcc00; margin-right: 8px;"></span>
+            <strong>IMPORTANT LEGAL NOTICE:</strong> 
+            <span class="warning-highlight">ALL PRODUCTS ARE FOR LABORATORY RESEARCH USE ONLY</span>
+            • Not for human or veterinary consumption • Not for diagnostic or therapeutic use • 
+            <span class="warning-highlight">STRICTLY IN-VITRO APPLICATIONS</span>
+            • Purchaser assumes all responsibility for compliance with local laws and regulations.
+            <button class="close-banner-btn" onclick="closeLegalBanner()">
+                <span class="fas fa-check-circle"></span> I Understand
+            </button>
+        </div>
+    </div>
+
     <!-- TOP BAR -->
     <div class="top-bar">
         <div class="container top-bar-content">
-            <div>Free shipping on orders over $100 • Lab-grade quality guaranteed</div>
+            <div><i class="fas fa-shipping-fast"></i> Free shipping on orders over $100 • <i class="fas fa-certificate"></i> Lab-grade quality</div>
             <div class="top-links">
-                <a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
-                <a href="#"><i class="fas fa-question-circle"></i> Scientific Support</a>
+                <a href="tel:+15551234567"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
+                <a href="mailto:support@rxresearch.com"><i class="fas fa-envelope"></i> support@rxresearch.com</a>
             </div>
         </div>
     </div>
@@ -574,14 +960,14 @@
         <div class="container">
             <div class="header-content">
                 <!-- LOGO -->
-                <div class="logo">
+                <a href="../index.html" class="logo">
                     <i class="fas fa-flask"></i>
                     <span>RX Research Sciences</span>
-                </div>
+                </a>
 
                 <!-- SEARCH -->
                 <div class="search-container">
-                    <input type="text" class="search-bar" placeholder="Search products by name or code...">
+                    <input type="text" class="search-bar" placeholder="Search 80+ research compounds...">
                     <button class="search-btn"><i class="fas fa-search"></i></button>
                 </div>
 
@@ -589,13 +975,16 @@
                 <div class="user-actions">
                     <div class="action-icon">
                         <i class="far fa-user"></i>
+                        <span>Account</span>
                     </div>
                     <div class="action-icon">
                         <i class="far fa-heart"></i>
+                        <span>Wishlist</span>
                     </div>
-                    <div class="action-icon">
+                    <div class="action-icon" id="cartIcon">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
+                        <span>Cart</span>
                     </div>
                 </div>
             </div>
@@ -605,12 +994,13 @@
         <nav class="main-nav">
             <div class="container">
                 <ul class="nav-links">
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="products.html" class="active"><i class="fas fa-pills"></i> All Products</a></li>
-                    <li><a href="verification.html"><i class="fas fa-check-circle"></i> Verification</a></li>
-                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="blog.html"><i class="fas fa-blog"></i> Research</a></li>
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="index.html" class="active"><i class="fas fa-pills"></i> All Products</a></li>
+                    <li><a href="../index.html#categories"><i class="fas fa-th-large"></i> Categories</a></li>
+                    <li><a href="../verification.html"><i class="fas fa-check-circle"></i> Verification</a></li>
+                    <li><a href="../about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="../contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="../blog.html"><i class="fas fa-blog"></i> Research</a></li>
                 </ul>
             </div>
         </nav>
@@ -732,113 +1122,187 @@
         </div>
     </footer>
 
+    <!-- ===== MODAL DE DETALHES DO PRODUTO ===== -->
+    <div class="modal-overlay" id="productModal">
+        <div class="product-modal">
+            <button class="modal-close" onclick="closeProductModal()">&times;</button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL DO CARRINHO ===== -->
+    <div class="cart-modal-overlay" id="cartModal">
+        <div class="cart-modal">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2 style="font-size: 1.8rem; color: #0d47a1;">
+                    <i class="fas fa-shopping-cart"></i> Your Cart
+                </h2>
+                <button onclick="closeCartModal()" style="
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    color: #666;
+                    cursor: pointer;
+                    padding: 5px 10px;
+                ">&times;</button>
+            </div>
+            
+            <div id="cartItemsContainer" style="margin-bottom: 30px;">
+                <!-- Itens do carrinho serão inseridos aqui -->
+            </div>
+            
+            <div style="margin-top: auto;">
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <span style="font-weight: 500;">Subtotal:</span>
+                        <span id="cartSubtotal" style="font-weight: bold; color: #0d47a1;">$0.00</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <span style="font-weight: 500;">Shipping:</span>
+                        <span style="color: #2e7d32; font-weight: 500;">Calculated by representative</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; border-top: 2px solid #ddd; padding-top: 15px;">
+                        <span>Estimated Total:</span>
+                        <span id="cartTotal" style="color: #0d47a1;">$0.00</span>
+                    </div>
+                </div>
+                
+                <button onclick="proceedToWhatsApp()" style="
+                    width: 100%;
+                    padding: 18px;
+                    background: linear-gradient(135deg, #25D366, #128C7E);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 1.1rem;
+                    font-weight: bold;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+                    transition: all 0.3s;
+                ">
+                    <i class="fab fa-whatsapp"></i> Complete Order via WhatsApp
+                </button>
+                
+                <p style="text-align: center; margin-top: 15px; color: #666; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle"></i> You'll be redirected to WhatsApp to complete your order
+                </p>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ===== PRODUCT DATA - ALL 80+ PRODUCTS =====
+        // ===== VARIÁVEIS GLOBAIS =====
+        let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+        
+        // ===== DADOS DOS PRODUTOS =====
         const allProducts = [
             // GLP-1 ANALOGS (Category: glp1)
-            { name: "Tirzepatide 10mg", code: "CS-ze101208", category: "glp1", concentration: "10mg", price: 189.99 },
-            { name: "Tirzepatide 15mg", code: "CS-ze151021", category: "glp1", concentration: "15mg", price: 249.99 },
-            { name: "Tirzepatide 20mg", code: "CS-ze201124", category: "glp1", concentration: "20mg", price: 299.99 },
-            { name: "Tirzepatide 30mg", code: "CS-ze30-0108", category: "glp1", concentration: "30mg", price: 399.99 },
-            { name: "Tirzepatide 45mg", code: "CS-ze451115", category: "glp1", concentration: "45mg", price: 529.99 },
-            { name: "Tirzepatide 60mg", code: "CS-ze60-1218", category: "glp1", concentration: "60mg", price: 649.99 },
-            { name: "Tirzepatide 90mg", code: "CS-ze901103", category: "glp1", concentration: "90mg", price: 899.99 },
-            { name: "Retatrutide 10mg", code: "CS-re10-1220", category: "glp1", concentration: "10mg", price: 219.99 },
-            { name: "Retatrutide 20mg", code: "CS-re20-1225", category: "glp1", concentration: "20mg", price: 329.99 },
-            { name: "Retatrutide 30mg", code: "CS-re301107", category: "glp1", concentration: "30mg", price: 449.99 },
-            { name: "Retatrutide 40mg", code: "CS-re401103", category: "glp1", concentration: "40mg", price: 549.99 },
-            { name: "Retatrutide 50mg", code: "CS-re501130", category: "glp1", concentration: "50mg", price: 649.99 },
-            { name: "Retatrutide 100mg", code: "CS-re100-1228", category: "glp1", concentration: "100mg", price: 1199.99 },
-            { name: "Cagrilintide 5mg", code: "CS-ca51021", category: "glp1", concentration: "5mg", price: 149.99 },
-            { name: "Cagrilintide 10mg", code: "CS-ca101008", category: "glp1", concentration: "10mg", price: 249.99 },
-            { name: "Mazdutide 10mg", code: "CS-maz101018", category: "glp1", concentration: "10mg", price: 199.99 },
-            { name: "Survodutide 10mg", code: "CS-su101012", category: "glp1", concentration: "10mg", price: 219.99 },
+            { name: "Tirzepatide 10mg", code: "CS-ze101208", category: "glp1", concentration: "10mg", price: 189.99, icon: "fas fa-weight" },
+            { name: "Tirzepatide 15mg", code: "CS-ze151021", category: "glp1", concentration: "15mg", price: 249.99, icon: "fas fa-weight" },
+            { name: "Tirzepatide 20mg", code: "CS-ze201124", category: "glp1", concentration: "20mg", price: 299.99, icon: "fas fa-weight" },
+            { name: "Tirzepatide 30mg", code: "CS-ze30-0108", category: "glp1", concentration: "30mg", price: 399.99, icon: "fas fa-weight" },
+            { name: "Tirzepatide 45mg", code: "CS-ze451115", category: "glp1", concentration: "45mg", price: 529.99, icon: "fas fa-weight" },
+            { name: "Tirzepatide 60mg", code: "CS-ze60-1218", category: "glp1", concentration: "60mg", price: 649.99, icon: "fas fa-weight" },
+            { name: "Tirzepatide 90mg", code: "CS-ze901103", category: "glp1", concentration: "90mg", price: 899.99, icon: "fas fa-weight" },
+            { name: "Retatrutide 10mg", code: "CS-re10-1220", category: "glp1", concentration: "10mg", price: 219.99, icon: "fas fa-dna" },
+            { name: "Retatrutide 20mg", code: "CS-re20-1225", category: "glp1", concentration: "20mg", price: 329.99, icon: "fas fa-dna" },
+            { name: "Retatrutide 30mg", code: "CS-re301107", category: "glp1", concentration: "30mg", price: 449.99, icon: "fas fa-dna" },
+            { name: "Retatrutide 40mg", code: "CS-re401103", category: "glp1", concentration: "40mg", price: 549.99, icon: "fas fa-dna" },
+            { name: "Retatrutide 50mg", code: "CS-re501130", category: "glp1", concentration: "50mg", price: 649.99, icon: "fas fa-dna" },
+            { name: "Retatrutide 100mg", code: "CS-re100-1228", category: "glp1", concentration: "100mg", price: 1199.99, icon: "fas fa-dna" },
+            { name: "Cagrilintide 5mg", code: "CS-ca51021", category: "glp1", concentration: "5mg", price: 149.99, icon: "fas fa-weight" },
+            { name: "Cagrilintide 10mg", code: "CS-ca101008", category: "glp1", concentration: "10mg", price: 249.99, icon: "fas fa-weight" },
+            { name: "Mazdutide 10mg", code: "CS-maz101018", category: "glp1", concentration: "10mg", price: 199.99, icon: "fas fa-weight" },
+            { name: "Survodutide 10mg", code: "CS-su101012", category: "glp1", concentration: "10mg", price: 219.99, icon: "fas fa-weight" },
 
             // RESEARCH PEPTIDES (Category: peptides)
-            { name: "AOD 9604 5mg", code: "CS-ad51018", category: "peptides", concentration: "5mg", price: 79.99 },
-            { name: "Semax 10mg", code: "CS-sa101018", category: "peptides", concentration: "10mg", price: 89.99 },
-            { name: "Selank 10mg", code: "CS-sn101026", category: "peptides", concentration: "10mg", price: 79.99 },
-            { name: "Na semax 10mg", code: "CS-nasa10928", category: "peptides", concentration: "10mg", price: 99.99 },
-            { name: "Na selank 10mg", code: "CS-nasn101127", category: "peptides", concentration: "10mg", price: 89.99 },
-            { name: "Na semax 50mg", code: "CS-nasem501130", category: "peptides", concentration: "50mg", price: 399.99 },
-            { name: "Na selank 50mg", code: "CS-nasel501130", category: "peptides", concentration: "50mg", price: 389.99 },
-            { name: "MTI, Melanotan1 10mg", code: "CS-mn1101018", category: "peptides", concentration: "10mg", price: 69.99 },
-            { name: "MTII, Melanotan2 10mg", code: "CS-mn2101103", category: "peptides", concentration: "10mg", price: 74.99 },
-            { name: "PT141 10mg", code: "CS-pt101105", category: "peptides", concentration: "10mg", price: 89.99 },
-            { name: "Snap-8 10mg", code: "CS-sp101026", category: "peptides", concentration: "10mg", price: 79.99 },
-            { name: "Epithalon 10mg", code: "CS-ep10-1228", category: "peptides", concentration: "10mg", price: 99.99 },
-            { name: "Epithalon 50mg", code: "CS-ei501018", category: "peptides", concentration: "50mg", price: 399.99 },
-            { name: "NA Epithalon 20mg", code: "CS-naep20-1222", category: "peptides", concentration: "20mg", price: 179.99 },
-            { name: "GHK-Cu 50mg", code: "CS-gu50-1228", category: "peptides", concentration: "50mg", price: 129.99 },
-            { name: "GHK-Cu 100mg", code: "CS-gu100-1225", category: "peptides", concentration: "100mg", price: 229.99 },
-            { name: "kisspeptin 10mg", code: "CS-ki10-0111", category: "peptides", concentration: "10mg", price: 119.99 },
-            { name: "5-Amino-1MQ 10mg", code: "CS-5aq101018", category: "peptides", concentration: "10mg", price: 149.99 },
-            { name: "5-Amino-1MQ 50mg", code: "CS-51q501022", category: "peptides", concentration: "50mg", price: 599.99 },
-            { name: "MOTS-c 10mg", code: "CS-mc101021", category: "peptides", concentration: "10mg", price: 129.99 },
-            { name: "MOTS-c 20mg", code: "CS-mc20-1228", category: "peptides", concentration: "20mg", price: 229.99 },
-            { name: "MOTS-c 40mg", code: "CS-mc40-1231", category: "peptides", concentration: "40mg", price: 429.99 },
-            { name: "SS-31 (Elamipretide) 10mg", code: "CS-s3101103", category: "peptides", concentration: "10mg", price: 159.99 },
-            { name: "SS-31 (Elamipretide) 30mg", code: "CS-s3301021", category: "peptides", concentration: "30mg", price: 399.99 },
-            { name: "SS-31 (Elamipretide) 50mg", code: "CS-ss501105", category: "peptides", concentration: "50mg", price: 599.99 },
-            { name: "DSIP 5mg", code: "CS-dp51021", category: "peptides", concentration: "5mg", price: 69.99 },
-            { name: "DSIP 10mg", code: "CS-dp101115", category: "peptides", concentration: "10mg", price: 119.99 },
-            { name: "TB-500/thymosin beta 10mg", code: "CS-tb10-0111", category: "peptides", concentration: "10mg", price: 79.99 },
-            { name: "TB-500/thymosin beta 20mg", code: "CS-tb201213", category: "peptides", concentration: "20mg", price: 139.99 },
-            { name: "TB Frag", code: "CS-tbf101105", category: "peptides", concentration: "10mg", price: 89.99 },
-            { name: "Thymosin Alpha-1 10mg", code: "CS-ta110-1231", category: "peptides", concentration: "10mg", price: 149.99 },
-            { name: "BPC-157 10mg", code: "CS-bc101103", category: "peptides", concentration: "10mg", price: 69.99 },
-            { name: "BPC-157 20mg", code: "CS-bc20-0109", category: "peptides", concentration: "20mg", price: 119.99 },
-            { name: "BPC-157 40mg", code: "CS-bc401022", category: "peptides", concentration: "40mg", price: 219.99 },
-            { name: "HGH 10iu", code: "CS-h101026", category: "peptides", concentration: "10iu", price: 89.99 },
-            { name: "HGH 176-191 5mg", code: "CS-hh51018", category: "peptides", concentration: "5mg", price: 79.99 },
-            { name: "IGF-1 LR3 1mg", code: "CS-IG1-0105", category: "peptides", concentration: "1mg", price: 149.99 },
-            { name: "CJC1295 DAC 5mg", code: "CS-cwd5820", category: "peptides", concentration: "5mg", price: 149.99 },
-            { name: "CJC1295 No DAC 10mg", code: "CS-cnd10902", category: "peptides", concentration: "10mg", price: 129.99 },
-            { name: "CJC1295, Ipamorelin 5mg+5mg", code: "CS-ci101021", category: "peptides", concentration: "5mg+5mg", price: 169.99 },
-            { name: "Ipamorelin 10mg", code: "CS-ip10-0108", category: "peptides", concentration: "10mg", price: 89.99 },
-            { name: "Tesamorelin 10mg", code: "CS-te10-0111", category: "peptides", concentration: "10mg", price: 159.99 },
-            { name: "Tesamorelin 20mg", code: "CS-te20-1222", category: "peptides", concentration: "20mg", price: 289.99 },
-            { name: "LL37 5mg", code: "CS-l351021", category: "peptides", concentration: "5mg", price: 129.99 },
-            { name: "ARA-290(Cibinetide) 16mg", code: "CS-ar161125", category: "peptides", concentration: "16mg", price: 199.99 },
-            { name: "PE-22-28 10mg", code: "CS-p2101012", category: "peptides", concentration: "10mg", price: 149.99 },
-            { name: "Bronchogen 20mg", code: "CS-brn201018", category: "peptides", concentration: "20mg", price: 179.99 },
-            { name: "Testagen 20mg", code: "CS-tes20-0105", category: "peptides", concentration: "20mg", price: 159.99 },
-            { name: "Ovagen 20mg", code: "CS-ov201123", category: "peptides", concentration: "20mg", price: 169.99 },
-            { name: "Sermorelin 5mg", code: "CS-sm51115", category: "peptides", concentration: "5mg", price: 99.99 },
-            { name: "KPV 10mg", code: "CS-kv101123", category: "peptides", concentration: "10mg", price: 89.99 },
-            { name: "KPV 30mg", code: "CS-kv301021", category: "peptides", concentration: "30mg", price: 229.99 },
-            { name: "Vilon 20mg", code: "CS-vi201021", category: "peptides", concentration: "20mg", price: 149.99 },
-            { name: "Cartalax 20mg", code: "CS-cx201211", category: "peptides", concentration: "20mg", price: 169.99 },
-            { name: "Vesilute 20mg", code: "CS-ves20-1231", category: "peptides", concentration: "20mg", price: 159.99 },
-            { name: "Pinelon 20mg", code: "CS-pi201012", category: "peptides", concentration: "20mg", price: 149.99 },
-            { name: "Thymulin 20mg", code: "CS-thy201012", category: "peptides", concentration: "20mg", price: 139.99 },
-            { name: "Thymogen 20mg", code: "CS-thm201012", category: "peptides", concentration: "20mg", price: 139.99 },
-            { name: "Pancragen 20mg", code: "CS-pan201018", category: "peptides", concentration: "20mg", price: 169.99 },
-            { name: "Prostamax 20mg", code: "CS-pros201018", category: "peptides", concentration: "20mg", price: 179.99 },
-            { name: "Crystagen 20mg", code: "CS-cry201018", category: "peptides", concentration: "20mg", price: 189.99 },
-            { name: "Vesugen 20mg", code: "CS-ves201021", category: "peptides", concentration: "20mg", price: 169.99 },
-            { name: "FOXO4 10mg", code: "CS-fo101021", category: "peptides", concentration: "10mg", price: 199.99 },
-            { name: "Adipotide 10mg", code: "CS-adi101021", category: "peptides", concentration: "10mg", price: 179.99 },
-            { name: "Chonluten 20mg", code: "CS-cho201107", category: "peptides", concentration: "20mg", price: 159.99 },
-            { name: "GHRP-6 10mg", code: "CS-gh6101120", category: "peptides", concentration: "10mg", price: 89.99 },
-            { name: "Adamax 10mg", code: "CS-ada101123", category: "peptides", concentration: "10mg", price: 149.99 },
-            { name: "Oxytocin 10mg", code: "CS-oxy101123", category: "peptides", concentration: "10mg", price: 79.99 },
-            { name: "Glutathione 600mg", code: "CS-glu6001123", category: "peptides", concentration: "600mg", price: 129.99 },
-            { name: "illumineeuro 50mg", code: "CS-illu501206", category: "peptides", concentration: "50mg", price: 299.99 },
-            { name: "Abaloparatide 3mg", code: "CS-abalo31211", category: "peptides", concentration: "3mg", price: 249.99 },
-            { name: "Hexarelin 3mg", code: "CS-hex3-1222", category: "peptides", concentration: "3mg", price: 99.99 },
-            { name: "Humuanin 10mg", code: "CS-hum10-0102", category: "peptides", concentration: "10mg", price: 179.99 },
-            { name: "PNC 27 30mg", code: "CS-pnc-0109", category: "peptides", concentration: "30mg", price: 349.99 },
+            { name: "AOD 9604 5mg", code: "CS-ad51018", category: "peptides", concentration: "5mg", price: 79.99, icon: "fas fa-heartbeat" },
+            { name: "Semax 10mg", code: "CS-sa101018", category: "peptides", concentration: "10mg", price: 89.99, icon: "fas fa-brain" },
+            { name: "Selank 10mg", code: "CS-sn101026", category: "peptides", concentration: "10mg", price: 79.99, icon: "fas fa-brain" },
+            { name: "Na semax 10mg", code: "CS-nasa10928", category: "peptides", concentration: "10mg", price: 99.99, icon: "fas fa-brain" },
+            { name: "Na selank 10mg", code: "CS-nasn101127", category: "peptides", concentration: "10mg", price: 89.99, icon: "fas fa-brain" },
+            { name: "Na semax 50mg", code: "CS-nasem501130", category: "peptides", concentration: "50mg", price: 399.99, icon: "fas fa-brain" },
+            { name: "Na selank 50mg", code: "CS-nasel501130", category: "peptides", concentration: "50mg", price: 389.99, icon: "fas fa-brain" },
+            { name: "MTI, Melanotan1 10mg", code: "CS-mn1101018", category: "peptides", concentration: "10mg", price: 69.99, icon: "fas fa-palette" },
+            { name: "MTII, Melanotan2 10mg", code: "CS-mn2101103", category: "peptides", concentration: "10mg", price: 74.99, icon: "fas fa-palette" },
+            { name: "PT141 10mg", code: "CS-pt101105", category: "peptides", concentration: "10mg", price: 89.99, icon: "fas fa-heart" },
+            { name: "Snap-8 10mg", code: "CS-sp101026", category: "peptides", concentration: "10mg", price: 79.99, icon: "fas fa-spa" },
+            { name: "Epithalon 10mg", code: "CS-ep10-1228", category: "peptides", concentration: "10mg", price: 99.99, icon: "fas fa-clock" },
+            { name: "Epithalon 50mg", code: "CS-ei501018", category: "peptides", concentration: "50mg", price: 399.99, icon: "fas fa-clock" },
+            { name: "NA Epithalon 20mg", code: "CS-naep20-1222", category: "peptides", concentration: "20mg", price: 179.99, icon: "fas fa-clock" },
+            { name: "GHK-Cu 50mg", code: "CS-gu50-1228", category: "peptides", concentration: "50mg", price: 129.99, icon: "fas fa-star" },
+            { name: "GHK-Cu 100mg", code: "CS-gu100-1225", category: "peptides", concentration: "100mg", price: 229.99, icon: "fas fa-star" },
+            { name: "kisspeptin 10mg", code: "CS-ki10-0111", category: "peptides", concentration: "10mg", price: 119.99, icon: "fas fa-heart" },
+            { name: "5-Amino-1MQ 10mg", code: "CS-5aq101018", category: "peptides", concentration: "10mg", price: 149.99, icon: "fas fa-bolt" },
+            { name: "5-Amino-1MQ 50mg", code: "CS-51q501022", category: "peptides", concentration: "50mg", price: 599.99, icon: "fas fa-bolt" },
+            { name: "MOTS-c 10mg", code: "CS-mc101021", category: "peptides", concentration: "10mg", price: 129.99, icon: "fas fa-dna" },
+            { name: "MOTS-c 20mg", code: "CS-mc20-1228", category: "peptides", concentration: "20mg", price: 229.99, icon: "fas fa-dna" },
+            { name: "MOTS-c 40mg", code: "CS-mc40-1231", category: "peptides", concentration: "40mg", price: 429.99, icon: "fas fa-dna" },
+            { name: "SS-31 (Elamipretide) 10mg", code: "CS-s3101103", category: "peptides", concentration: "10mg", price: 159.99, icon: "fas fa-shield-alt" },
+            { name: "SS-31 (Elamipretide) 30mg", code: "CS-s3301021", category: "peptides", concentration: "30mg", price: 399.99, icon: "fas fa-shield-alt" },
+            { name: "SS-31 (Elamipretide) 50mg", code: "CS-ss501105", category: "peptides", concentration: "50mg", price: 599.99, icon: "fas fa-shield-alt" },
+            { name: "DSIP 5mg", code: "CS-dp51021", category: "peptides", concentration: "5mg", price: 69.99, icon: "fas fa-moon" },
+            { name: "DSIP 10mg", code: "CS-dp101115", category: "peptides", concentration: "10mg", price: 119.99, icon: "fas fa-moon" },
+            { name: "TB-500/thymosin beta 10mg", code: "CS-tb10-0111", category: "peptides", concentration: "10mg", price: 79.99, icon: "fas fa-medkit" },
+            { name: "TB-500/thymosin beta 20mg", code: "CS-tb201213", category: "peptides", concentration: "20mg", price: 139.99, icon: "fas fa-medkit" },
+            { name: "TB Frag", code: "CS-tbf101105", category: "peptides", concentration: "10mg", price: 89.99, icon: "fas fa-medkit" },
+            { name: "Thymosin Alpha-1 10mg", code: "CS-ta110-1231", category: "peptides", concentration: "10mg", price: 149.99, icon: "fas fa-shield-alt" },
+            { name: "BPC-157 10mg", code: "CS-bc101103", category: "peptides", concentration: "10mg", price: 69.99, icon: "fas fa-heartbeat" },
+            { name: "BPC-157 20mg", code: "CS-bc20-0109", category: "peptides", concentration: "20mg", price: 119.99, icon: "fas fa-heartbeat" },
+            { name: "BPC-157 40mg", code: "CS-bc401022", category: "peptides", concentration: "40mg", price: 219.99, icon: "fas fa-heartbeat" },
+            { name: "HGH 10iu", code: "CS-h101026", category: "peptides", concentration: "10iu", price: 89.99, icon: "fas fa-chart-line" },
+            { name: "HGH 176-191 5mg", code: "CS-hh51018", category: "peptides", concentration: "5mg", price: 79.99, icon: "fas fa-chart-line" },
+            { name: "IGF-1 LR3 1mg", code: "CS-IG1-0105", category: "peptides", concentration: "1mg", price: 149.99, icon: "fas fa-chart-line" },
+            { name: "CJC1295 DAC 5mg", code: "CS-cwd5820", category: "peptides", concentration: "5mg", price: 149.99, icon: "fas fa-chart-line" },
+            { name: "CJC1295 No DAC 10mg", code: "CS-cnd10902", category: "peptides", concentration: "10mg", price: 129.99, icon: "fas fa-chart-line" },
+            { name: "CJC1295, Ipamorelin 5mg+5mg", code: "CS-ci101021", category: "peptides", concentration: "5mg+5mg", price: 169.99, icon: "fas fa-chart-line" },
+            { name: "Ipamorelin 10mg", code: "CS-ip10-0108", category: "peptides", concentration: "10mg", price: 89.99, icon: "fas fa-chart-line" },
+            { name: "Tesamorelin 10mg", code: "CS-te10-0111", category: "peptides", concentration: "10mg", price: 159.99, icon: "fas fa-chart-line" },
+            { name: "Tesamorelin 20mg", code: "CS-te20-1222", category: "peptides", concentration: "20mg", price: 289.99, icon: "fas fa-chart-line" },
+            { name: "LL37 5mg", code: "CS-l351021", category: "peptides", concentration: "5mg", price: 129.99, icon: "fas fa-shield-alt" },
+            { name: "ARA-290(Cibinetide) 16mg", code: "CS-ar161125", category: "peptides", concentration: "16mg", price: 199.99, icon: "fas fa-shield-alt" },
+            { name: "PE-22-28 10mg", code: "CS-p2101012", category: "peptides", concentration: "10mg", price: 149.99, icon: "fas fa-flask" },
+            { name: "Bronchogen 20mg", code: "CS-brn201018", category: "peptides", concentration: "20mg", price: 179.99, icon: "fas fa-lungs" },
+            { name: "Testagen 20mg", code: "CS-tes20-0105", category: "peptides", concentration: "20mg", price: 159.99, icon: "fas fa-dumbbell" },
+            { name: "Ovagen 20mg", code: "CS-ov201123", category: "peptides", concentration: "20mg", price: 169.99, icon: "fas fa-venus" },
+            { name: "Sermorelin 5mg", code: "CS-sm51115", category: "peptides", concentration: "5mg", price: 99.99, icon: "fas fa-chart-line" },
+            { name: "KPV 10mg", code: "CS-kv101123", category: "peptides", concentration: "10mg", price: 89.99, icon: "fas fa-leaf" },
+            { name: "KPV 30mg", code: "CS-kv301021", category: "peptides", concentration: "30mg", price: 229.99, icon: "fas fa-leaf" },
+            { name: "Vilon 20mg", code: "CS-vi201021", category: "peptides", concentration: "20mg", price: 149.99, icon: "fas fa-heart" },
+            { name: "Cartalax 20mg", code: "CS-cx201211", category: "peptides", concentration: "20mg", price: 169.99, icon: "fas fa-bone" },
+            { name: "Vesilute 20mg", code: "CS-ves20-1231", category: "peptides", concentration: "20mg", price: 159.99, icon: "fas fa-vial" },
+            { name: "Pinelon 20mg", code: "CS-pi201012", category: "peptides", concentration: "20mg", price: 149.99, icon: "fas fa-brain" },
+            { name: "Thymulin 20mg", code: "CS-thy201012", category: "peptides", concentration: "20mg", price: 139.99, icon: "fas fa-shield-alt" },
+            { name: "Thymogen 20mg", code: "CS-thm201012", category: "peptides", concentration: "20mg", price: 139.99, icon: "fas fa-shield-alt" },
+            { name: "Pancragen 20mg", code: "CS-pan201018", category: "peptides", concentration: "20mg", price: 169.99, icon: "fas fa-pancreas" },
+            { name: "Prostamax 20mg", code: "CS-pros201018", category: "peptides", concentration: "20mg", price: 179.99, icon: "fas fa-prostate" },
+            { name: "Crystagen 20mg", code: "CS-cry201018", category: "peptides", concentration: "20mg", price: 189.99, icon: "fas fa-gem" },
+            { name: "Vesugen 20mg", code: "CS-ves201021", category: "peptides", concentration: "20mg", price: 169.99, icon: "fas fa-vial" },
+            { name: "FOXO4 10mg", code: "CS-fo101021", category: "peptides", concentration: "10mg", price: 199.99, icon: "fas fa-dna" },
+            { name: "Adipotide 10mg", code: "CS-adi101021", category: "peptides", concentration: "10mg", price: 179.99, icon: "fas fa-weight" },
+            { name: "Chonluten 20mg", code: "CS-cho201107", category: "peptides", concentration: "20mg", price: 159.99, icon: "fas fa-bone" },
+            { name: "GHRP-6 10mg", code: "CS-gh6101120", category: "peptides", concentration: "10mg", price: 89.99, icon: "fas fa-chart-line" },
+            { name: "Adamax 10mg", code: "CS-ada101123", category: "peptides", concentration: "10mg", price: 149.99, icon: "fas fa-brain" },
+            { name: "Oxytocin 10mg", code: "CS-oxy101123", category: "peptides", concentration: "10mg", price: 79.99, icon: "fas fa-heart" },
+            { name: "Glutathione 600mg", code: "CS-glu6001123", category: "peptides", concentration: "600mg", price: 129.99, icon: "fas fa-shield-alt" },
+            { name: "illumineeuro 50mg", code: "CS-illu501206", category: "peptides", concentration: "50mg", price: 299.99, icon: "fas fa-brain" },
+            { name: "Abaloparatide 3mg", code: "CS-abalo31211", category: "peptides", concentration: "3mg", price: 249.99, icon: "fas fa-bone" },
+            { name: "Hexarelin 3mg", code: "CS-hex3-1222", category: "peptides", concentration: "3mg", price: 99.99, icon: "fas fa-chart-line" },
+            { name: "Humuanin 10mg", code: "CS-hum10-0102", category: "peptides", concentration: "10mg", price: 179.99, icon: "fas fa-dna" },
+            { name: "PNC 27 30mg", code: "CS-pnc-0109", category: "peptides", concentration: "30mg", price: 349.99, icon: "fas fa-flask" },
 
             // PEPTIDE BLENDS (Category: blends)
-            { name: "BPC157,TB4 Blend 5mg+5mg", code: "CS-t/b55-0108", category: "blends", concentration: "5mg+5mg", price: 129.99 },
-            { name: "BPC157,TB4 Blend 10mg+10mg", code: "CS-bt201026", category: "blends", concentration: "10mg+10mg", price: 229.99 },
-            { name: "BPC157,TB4 Blend 30mg+30mg", code: "CS-bt601109", category: "blends", concentration: "30mg+30mg", price: 599.99 },
-            { name: "Tesa Ipa Blend 5mg+5mg", code: "CS-t/i55-1229", category: "blends", concentration: "5mg+5mg", price: 189.99 },
-            { name: "Tesa Ipa Blend 10mg+3mg", code: "CS-ti1031110", category: "blends", concentration: "10mg+3mg", price: 249.99 },
-            { name: "Tesa Ipa CJC 6mg+3mg+3mg", code: "CS-T/I/J633-1218", category: "blends", concentration: "6mg+3mg+3mg", price: 299.99 },
-            { name: "Glow Blend 70mg", code: "CS-gw701103", category: "blends", concentration: "70mg", price: 399.99 },
-            { name: "Klow Blend 80mg", code: "CS-ko801012", category: "blends", concentration: "80mg", price: 449.99 }
+            { name: "BPC157,TB4 Blend 5mg+5mg", code: "CS-t/b55-0108", category: "blends", concentration: "5mg+5mg", price: 129.99, icon: "fas fa-vial" },
+            { name: "BPC157,TB4 Blend 10mg+10mg", code: "CS-bt201026", category: "blends", concentration: "10mg+10mg", price: 229.99, icon: "fas fa-vial" },
+            { name: "BPC157,TB4 Blend 30mg+30mg", code: "CS-bt601109", category: "blends", concentration: "30mg+30mg", price: 599.99, icon: "fas fa-vial" },
+            { name: "Tesa Ipa Blend 5mg+5mg", code: "CS-t/i55-1229", category: "blends", concentration: "5mg+5mg", price: 189.99, icon: "fas fa-vial" },
+            { name: "Tesa Ipa Blend 10mg+3mg", code: "CS-ti1031110", category: "blends", concentration: "10mg+3mg", price: 249.99, icon: "fas fa-vial" },
+            { name: "Tesa Ipa CJC 6mg+3mg+3mg", code: "CS-T/I/J633-1218", category: "blends", concentration: "6mg+3mg+3mg", price: 299.99, icon: "fas fa-vial" },
+            { name: "Glow Blend 70mg", code: "CS-gw701103", category: "blends", concentration: "70mg", price: 399.99, icon: "fas fa-vial" },
+            { name: "Klow Blend 80mg", code: "CS-ko801012", category: "blends", concentration: "80mg", price: 449.99, icon: "fas fa-vial" }
         ];
 
         // ===== CATEGORY MAPPING =====
@@ -853,7 +1317,7 @@
             "specialty": "Specialty Compound"
         };
 
-        // ===== GENERATE PRODUCT CARDS =====
+        // ===== FUNÇÕES PRINCIPAIS =====
         function generateProductCard(product) {
             const categoryName = categoryNames[product.category] || "Research Compound";
             const form = product.concentration.includes("mg") ? "Lyophilized Powder" : 
@@ -878,10 +1342,12 @@
                         <div class="product-price">
                             <div class="price-amount">$${product.price.toFixed(2)}</div>
                             <div class="product-actions">
-                                <button class="btn-cart" data-product="${product.name}">
+                                <button class="btn-cart" onclick="addToCart('${product.code}')">
                                     <i class="fas fa-cart-plus"></i> Add
                                 </button>
-                                <button class="btn-details" data-code="${product.code}">Details</button>
+                                <button class="btn-details" onclick="showProductDetails('${product.code}')">
+                                    <i class="fas fa-eye"></i> Details
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -889,7 +1355,6 @@
             `;
         }
 
-        // ===== INITIALIZE PAGE =====
         function initializePage() {
             const container = document.getElementById('products-container');
             const productCount = document.getElementById('productCount');
@@ -900,43 +1365,389 @@
             // Update product count
             productCount.textContent = allProducts.length;
             
-            // Add event listeners
+            // Update cart count
+            updateCartCount();
+            
+            // Setup event listeners
             setupEventListeners();
+        }
+
+        // ===== FUNÇÕES DO CARRINHO =====
+        function addToCart(productCode) {
+            const product = allProducts.find(p => p.code === productCode);
+            if (!product) return;
+            
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.code === product.code);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    code: product.code,
+                    name: product.name,
+                    price: product.price,
+                    concentration: product.concentration,
+                    category: product.category,
+                    quantity: 1
+                });
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('rxCart', JSON.stringify(cart));
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Show notification
+            showNotification(`${product.name} added to cart`);
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCountElement = document.querySelector('.cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = totalItems;
+            }
+        }
+
+        function openCartModal() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.add('active');
+            renderCartItems();
+        }
+
+        function closeCartModal() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.remove('active');
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cartItemsContainer');
+            const subtotalElement = document.getElementById('cartSubtotal');
+            const totalElement = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px;">
+                        <i class="fas fa-shopping-cart" style="font-size: 4rem; color: #ddd; margin-bottom: 20px;"></i>
+                        <p style="color: #666; font-size: 1.1rem;">Your cart is empty</p>
+                        <button onclick="closeCartModal()" style="
+                            display: inline-block;
+                            margin-top: 20px;
+                            padding: 12px 25px;
+                            background: #2196f3;
+                            color: white;
+                            border: none;
+                            border-radius: 5px;
+                            font-weight: 500;
+                            cursor: pointer;
+                        ">Browse Products</button>
+                    </div>
+                `;
+                subtotalElement.textContent = '$0.00';
+                totalElement.textContent = '$0.00';
+                return;
+            }
+            
+            let html = '';
+            let subtotal = 0;
+            
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                html += `
+                    <div class="cart-item" style="
+                        padding: 20px;
+                        border-bottom: 1px solid #eee;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    ">
+                        <div>
+                            <h4 style="margin: 0 0 5px 0; color: #333;">${item.name}</h4>
+                            <p style="margin: 0; color: #666; font-size: 0.9rem;">${item.code} • ${item.concentration}</p>
+                            <p style="margin: 5px 0 0 0; font-weight: bold; color: #0d47a1;">$${item.price.toFixed(2)} each</p>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 5px;">
+                                <button onclick="updateCartQuantity(${index}, -1)" style="
+                                    padding: 5px 12px;
+                                    border: none;
+                                    background: #f5f5f5;
+                                    cursor: pointer;
+                                    font-size: 1.1rem;
+                                ">-</button>
+                                <span style="padding: 5px 15px; min-width: 40px; text-align: center;">${item.quantity}</span>
+                                <button onclick="updateCartQuantity(${index}, 1)" style="
+                                    padding: 5px 12px;
+                                    border: none;
+                                    background: #f5f5f5;
+                                    cursor: pointer;
+                                    font-size: 1.1rem;
+                                ">+</button>
+                            </div>
+                            <button onclick="removeFromCart(${index})" style="
+                                padding: 8px;
+                                background: #ffebee;
+                                color: #f44336;
+                                border: none;
+                                border-radius: 5px;
+                                cursor: pointer;
+                            ">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            totalElement.textContent = `$${subtotal.toFixed(2)}`;
+        }
+
+        function updateCartQuantity(index, change) {
+            cart[index].quantity += change;
+            
+            if (cart[index].quantity < 1) {
+                cart.splice(index, 1);
+            }
+            
+            localStorage.setItem('rxCart', JSON.stringify(cart));
+            updateCartCount();
+            renderCartItems();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('rxCart', JSON.stringify(cart));
+            updateCartCount();
+            renderCartItems();
+        }
+
+        function proceedToWhatsApp() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty');
+                return;
+            }
+            
+            let message = "🛒 *NEW ORDER - RX Research Sciences* 🛒\n\n";
+            message += "Hello! I'd like to place an order:\n\n";
+            
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                message += `*${index + 1}. ${item.name}*\n`;
+                message += `   Code: ${item.code}\n`;
+                message += `   Concentration: ${item.concentration}\n`;
+                message += `   Quantity: ${item.quantity}\n`;
+                message += `   Price: $${item.price.toFixed(2)} each\n`;
+                message += `   Subtotal: $${itemTotal.toFixed(2)}\n\n`;
+            });
+            
+            message += `*TOTAL ESTIMATE: $${total.toFixed(2)}*\n\n`;
+            message += "Shipping address and payment details to follow.\n";
+            message += "Please confirm availability and shipping costs.";
+            
+            // ALTERE AQUI: Coloque o número do seu representante do WhatsApp
+            const whatsappNumber = "5511999999999"; // Formato: código do país + DDD + número
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+            
+            // Optional: Clear cart after sending
+            // cart = [];
+            // localStorage.removeItem('rxCart');
+            // updateCartCount();
+            // closeCartModal();
+        }
+
+        // ===== FUNÇÕES DOS PRODUTOS =====
+        function showProductDetails(productCode) {
+            const product = allProducts.find(p => p.code === productCode);
+            if (!product) return;
+            
+            const categoryName = categoryNames[product.category] || "Research Compound";
+            
+            const modalContent = `
+                <div style="padding: 40px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+                        <div style="background: linear-gradient(135deg, #f0f7ff, #e3f2fd); border-radius: 15px; padding: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <i class="${product.icon}" style="font-size: 6rem; color: #0d47a1; margin-bottom: 30px;"></i>
+                            <span style="background: #e8f5e9; color: #2e7d32; padding: 8px 20px; border-radius: 20px; font-weight: 500; font-size: 0.9rem;">
+                                ${categoryName}
+                            </span>
+                        </div>
+                        
+                        <div>
+                            <h2 style="color: #0d47a1; margin-top: 0; margin-bottom: 15px; font-size: 2.2rem;">${product.name}</h2>
+                            <div style="background: #f5f5f5; padding: 12px 20px; border-radius: 8px; margin-bottom: 25px; display: inline-block;">
+                                <span style="font-family: monospace; font-size: 1.1rem; color: #666;">${product.code}</span>
+                            </div>
+                            
+                            <div style="margin-bottom: 30px;">
+                                <h3 style="color: #333; margin-bottom: 15px; font-size: 1.3rem;">
+                                    <i class="fas fa-info-circle"></i> Product Information
+                                </h3>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                                    <div>
+                                        <p style="color: #666; margin-bottom: 5px;">Concentration</p>
+                                        <p style="font-weight: 500; color: #333;">${product.concentration}</p>
+                                    </div>
+                                    <div>
+                                        <p style="color: #666; margin-bottom: 5px;">Purity</p>
+                                        <p style="font-weight: 500; color: #333;">≥99% HPLC</p>
+                                    </div>
+                                    <div>
+                                        <p style="color: #666; margin-bottom: 5px;">Storage</p>
+                                        <p style="font-weight: 500; color: #333;">-20°C Protected</p>
+                                    </div>
+                                    <div>
+                                        <p style="color: #666; margin-bottom: 5px;">Shelf Life</p>
+                                        <p style="font-weight: 500; color: #333;">24 Months</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                                <h4 style="color: #856404; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-exclamation-circle"></i> Important Notice
+                                </h4>
+                                <p style="color: #856404; margin-bottom: 0;">
+                                    This product is for laboratory research use only. Not for human or veterinary consumption.
+                                </p>
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <div>
+                                    <p style="color: #666; margin-bottom: 5px;">Price</p>
+                                    <div style="font-size: 2.5rem; font-weight: bold; color: #0d47a1;">$${product.price.toFixed(2)}</div>
+                                </div>
+                                <div style="display: flex; gap: 15px;">
+                                    <button onclick="addToCart('${product.code}'); closeProductModal();" style="
+                                        padding: 16px 30px;
+                                        background: linear-gradient(135deg, #2196f3, #0d47a1);
+                                        color: white;
+                                        border: none;
+                                        border-radius: 8px;
+                                        font-weight: bold;
+                                        cursor: pointer;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 10px;
+                                    ">
+                                        <i class="fas fa-cart-plus"></i> Add to Cart
+                                    </button>
+                                    <button onclick="closeProductModal()" style="
+                                        padding: 16px 30px;
+                                        background: white;
+                                        color: #333;
+                                        border: 2px solid #ddd;
+                                        border-radius: 8px;
+                                        font-weight: 500;
+                                        cursor: pointer;
+                                    ">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 30px; border-radius: 10px;">
+                        <h3 style="color: #333; margin-bottom: 20px;">
+                            <i class="fas fa-shipping-fast"></i> Shipping Information
+                        </h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <i class="fas fa-check-circle" style="color: #2e7d32; font-size: 1.2rem;"></i>
+                                <div>
+                                    <p style="font-weight: 500; margin-bottom: 5px;">Free Shipping</p>
+                                    <p style="color: #666; font-size: 0.9rem;">On orders over $100</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <i class="fas fa-temperature-low" style="color: #2196f3; font-size: 1.2rem;"></i>
+                                <div>
+                                    <p style="font-weight: 500; margin-bottom: 5px;">Temperature Control</p>
+                                    <p style="color: #666; font-size: 0.9rem;">For sensitive compounds</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <i class="fas fa-globe" style="color: #0d47a1; font-size: 1.2rem;"></i>
+                                <div>
+                                    <p style="font-weight: 500; margin-bottom: 5px;">Worldwide Shipping</p>
+                                    <p style="color: #666; font-size: 0.9rem;">Discreet packaging</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('modalContent').innerHTML = modalContent;
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        // ===== FUNÇÕES AUXILIARES =====
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: #2e7d32;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            `;
+            
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        function closeLegalBanner() {
+            const banner = document.getElementById('legal-banner');
+            banner.style.animation = 'fadeOutUp 0.3s ease-out';
+            setTimeout(() => {
+                banner.style.display = 'none';
+                sessionStorage.setItem('legalBannerClosed', 'true');
+            }, 300);
         }
 
         // ===== EVENT LISTENERS =====
         function setupEventListeners() {
-            let cartCount = 0;
-            const cartCountElement = document.querySelector('.cart-count');
+            // Carrinho
+            document.getElementById('cartIcon').addEventListener('click', openCartModal);
             
-            // Add to cart buttons
-            document.querySelectorAll('.btn-cart').forEach(button => {
-                button.addEventListener('click', function() {
-                    const productName = this.getAttribute('data-product');
-                    cartCount++;
-                    cartCountElement.textContent = cartCount;
-                    
-                    // Visual feedback
-                    const originalHTML = this.innerHTML;
-                    this.innerHTML = '<i class="fas fa-check"></i> Added!';
-                    this.style.background = '#2e7d32';
-                    
-                    showNotification(`${productName} added to cart`);
-                    
-                    setTimeout(() => {
-                        this.innerHTML = originalHTML;
-                        this.style.background = '#2196f3';
-                    }, 1500);
-                });
+            // Fechar modais ao clicar fora
+            document.getElementById('productModal').addEventListener('click', function(e) {
+                if (e.target === this) closeProductModal();
             });
             
-            // Details buttons
-            document.querySelectorAll('.btn-details').forEach(button => {
-                button.addEventListener('click', function() {
-                    const productCode = this.getAttribute('data-code');
-                    showNotification(`Viewing details for ${productCode}`);
-                    // In a real app, this would open a modal or navigate to product page
-                });
+            document.getElementById('cartModal').addEventListener('click', function(e) {
+                if (e.target === this) closeCartModal();
             });
             
             // Category filtering
@@ -1037,62 +1848,62 @@
             });
         }
 
-        // ===== NOTIFICATION SYSTEM =====
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #2e7d32;
-                color: white;
-                padding: 15px 25px;
-                border-radius: 8px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                z-index: 10000;
-                animation: slideIn 0.3s ease;
+        // ===== INICIALIZAR PÁGINA =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check legal banner
+            if (sessionStorage.getItem('legalBannerClosed') === 'true') {
+                document.getElementById('legal-banner').style.display = 'none';
+            }
+            
+            // Initialize page
+            initializePage();
+            
+            // Add animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+                .list-view {
+                    grid-template-columns: 1fr !important;
+                }
+                .list-view .product-card {
+                    display: flex;
+                    flex-direction: row;
+                }
+                .list-view .product-header {
+                    flex: 0 0 300px;
+                    border-right: 1px solid #f0f0f0;
+                    border-bottom: none;
+                }
+                .list-view .product-body {
+                    flex: 1;
+                }
+                .product-card {
+                    animation: fadeInUp 0.6s ease-out;
+                    opacity: 0;
+                    animation-fill-mode: forwards;
+                }
+                @keyframes fadeInUp {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
             `;
+            document.head.appendChild(style);
             
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
+            // Add stagger animations
             setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-
-        // ===== ADD CSS ANIMATIONS =====
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-            .list-view {
-                grid-template-columns: 1fr !important;
-            }
-            .list-view .product-card {
-                display: flex;
-                flex-direction: row;
-            }
-            .list-view .product-header {
-                flex: 0 0 300px;
-                border-right: 1px solid #f0f0f0;
-                border-bottom: none;
-            }
-            .list-view .product-body {
-                flex: 1;
-            }
-        `;
-        document.head.appendChild(style);
-
-        // ===== INITIALIZE WHEN PAGE LOADS =====
-        document.addEventListener('DOMContentLoaded', initializePage);
+                const cards = document.querySelectorAll('.product-card');
+                cards.forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.05}s`;
+                });
+            }, 100);
+        });
     </script>
 </body>
 </html>
