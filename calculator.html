@@ -3,56 +3,1155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peptide Calculator - RX Research Sciences</title>
-    <link rel="stylesheet" href="styles/products.css">
+    <title>Peptide Reconstitution Calculator - RX Research Sciences</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASE STYLES (Consistent with main site) ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== HEADER (Same as main site) ===== */
+        .top-bar {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+            color: white;
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0d47a1;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: #2196f3;
+            font-size: 2.2rem;
+        }
+        
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 30px;
+            position: relative;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #2196f3;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #0d47a1;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .action-icon {
+            position: relative;
+            cursor: pointer;
+            color: #555;
+            font-size: 1.3rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .action-icon:hover {
+            color: #2196f3;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f44336;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            min-width: 18px;
+            text-align: center;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .main-nav {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #4fc3f7;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .calculator-hero {
+            background: linear-gradient(135deg, rgba(13, 71, 161, 0.9), rgba(21, 101, 192, 0.9)),
+                        url('https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .calculator-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+        }
+        
+        .calculator-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .calculator-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .calculator-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(33, 150, 243, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #0d47a1;
+            border: 2px solid #0d47a1;
+        }
+        
+        .btn-secondary:hover {
+            background: #0d47a1;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* ===== MAIN CALCULATOR SECTION ===== */
+        .main-calculator-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .calculator-container {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+        
+        @media (max-width: 992px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        .calculator-inputs {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .calculator-results {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        .unit-label {
+            display: inline-block;
+            margin-left: 10px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        /* Results Styling */
+        .result-item {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #2196f3;
+            transition: transform 0.3s;
+        }
+        
+        .result-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .result-label {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .result-label i {
+            color: #2196f3;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0d47a1;
+        }
+        
+        .result-unit {
+            font-size: 1rem;
+            color: #666;
+            margin-left: 5px;
+            font-weight: 500;
+        }
+        
+        .result-detail {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+            padding-left: 24px;
+        }
+        
+        /* ===== EXAMPLE SECTION ===== */
+        .examples-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .example-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #2196f3;
+        }
+        
+        .example-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #0d47a1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example-card h3 i {
+            color: #2196f3;
+        }
+        
+        .example-card ul {
+            list-style: none;
+            margin: 15px 0;
+        }
+        
+        .example-card li {
+            margin-bottom: 8px;
+            padding-left: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example-card li i {
+            color: #2e7d32;
+            font-size: 0.9rem;
+        }
+        
+        .example-result {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #0d47a1;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0d1b3e;
+            color: white;
+            padding-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 20px;
+            color: #4fc3f7;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #4fc3f7;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbbbbb;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: #4fc3f7;
+            transform: translateX(5px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #2a3a5e;
+            padding: 20px 0;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .calculator-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .calculator-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .calculator-container {
+                padding: 30px;
+            }
+            
+            .calculator-inputs,
+            .calculator-results {
+                padding: 25px;
+            }
+            
+            .result-value {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .search-container {
+                order: 3;
+                margin: 15px 0 0;
+                max-width: 100%;
+            }
+            
+            .nav-links {
+                overflow-x: auto;
+                padding: 0 10px;
+            }
+            
+            .nav-links a {
+                padding: 15px 20px;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <!-- Incluir o mesmo header do index.html -->
-    </header>
-
-    <main class="calculator-container">
-        <h1>Peptide Calculator</h1>
-        
-        <div class="calculator-form">
-            <div class="input-group">
-                <label for="desired-dose">Desired Dose (mg)</label>
-                <input type="number" id="desired-dose" placeholder="Enter dose in mg">
-            </div>
-            
-            <div class="input-group">
-                <label for="vial-concentration">Vial Concentration (mg/mL)</label>
-                <input type="number" id="vial-concentration" placeholder="e.g., 10">
-            </div>
-            
-            <div class="input-group">
-                <label for="bacteriostatic-water">Bacteriostatic Water (mL)</label>
-                <input type="number" id="bacteriostatic-water" placeholder="e.g., 2">
-            </div>
-            
-            <button id="calculate-btn" class="btn-primary">Calculate</button>
-            
-            <div class="result" id="result">
-                <h3>Result:</h3>
-                <p id="calculation-result">-</p>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div><i class="fas fa-shipping-fast"></i> Free shipping on orders over $100 • <i class="fas fa-certificate"></i> Lab-grade quality</div>
+            <div class="top-links">
+                <a href="tel:+10000000"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
+                <a href="mailto:support@rxresearch.com"><i class="fas fa-envelope"></i> support@rxresearch.com</a>
             </div>
         </div>
-    </main>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- LOGO -->
+                <a href="index.html" class="logo">
+                    <i class="fas fa-flask"></i>
+                    <span>RX Research Sciences</span>
+                </a>
+
+                <!-- SEARCH -->
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search research compounds...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+
+                <!-- USER ACTIONS -->
+                <div class="user-actions">
+                    <div class="action-icon" onclick="window.location.href='account.html'">
+                        <i class="far fa-user"></i>
+                        <span>Account</span>
+                    </div>
+                    <div class="action-icon" onclick="window.location.href='wishlist.html'">
+                        <i class="far fa-heart"></i>
+                        <span>Wishlist</span>
+                    </div>
+                    <div class="action-icon" onclick="window.location.href='cart.html'">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                        <span>Cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="products/index.html"><i class="fas fa-shopping-cart"></i> All Products</a></li>
+                    <li><a href="index.html#categories"><i class="fas fa-th-large"></i> Categories</a></li>
+                    <li><a href="calculator.html" class="active"><i class="fas fa-calculator"></i> Calculator</a></li>
+                    <li><a href="storage-guide.html"><i class="fas fa-temperature-low"></i> Storage Guide</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="calculator-hero">
+        <div class="container calculator-hero-content">
+            <h1>Advanced Peptide Reconstitution Calculator</h1>
+            <p>Precise dosing calculations for research peptides. Ensure accurate concentrations for your laboratory experiments with our professional-grade calculator.</p>
+            <a href="#calculator" class="btn btn-primary">
+                <i class="fas fa-calculator"></i> Start Calculating
+            </a>
+        </div>
+    </section>
+
+    <!-- MAIN CALCULATOR -->
+    <section id="calculator" class="main-calculator-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Calculate Peptide Dosage</h2>
+                <p>Enter your peptide parameters below for accurate reconstitution calculations</p>
+            </div>
+            
+            <div class="calculator-container">
+                <div class="calculator-grid">
+                    <!-- INPUTS -->
+                    <div class="calculator-inputs">
+                        <h3 style="margin-bottom: 30px; color: #0d47a1; font-size: 1.8rem;">
+                            <i class="fas fa-sliders-h"></i> Calculation Parameters
+                        </h3>
+                        
+                        <div class="input-group">
+                            <label for="peptideAmount">
+                                <i class="fas fa-vial"></i> Peptide Amount
+                            </label>
+                            <input type="number" id="peptideAmount" value="10" min="1" max="100" step="0.1">
+                            <span class="unit-label">mg</span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="vialConcentration">
+                                <i class="fas fa-concentration"></i> Vial Concentration
+                            </label>
+                            <input type="number" id="vialConcentration" value="5" min="0.1" max="50" step="0.1">
+                            <span class="unit-label">mg/mL</span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="bacteriostaticWater">
+                                <i class="fas fa-tint"></i> Bacteriostatic Water
+                            </label>
+                            <input type="number" id="bacteriostaticWater" value="2" min="0.5" max="10" step="0.1">
+                            <span class="unit-label">mL</span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="desiredDose">
+                                <i class="fas fa-syringe"></i> Desired Dose
+                            </label>
+                            <input type="number" id="desiredDose" value="2" min="0.1" max="50" step="0.1">
+                            <span class="unit-label">mg</span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="syringeSize">
+                                <i class="fas fa-syringe"></i> Syringe Size
+                            </label>
+                            <select id="syringeSize">
+                                <option value="100">1mL syringe (100 units)</option>
+                                <option value="50">0.5mL syringe (50 units)</option>
+                                <option value="30">0.3mL syringe (30 units)</option>
+                                <option value="10">0.1mL syringe (10 units)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group" style="margin-top: 40px;">
+                            <button class="btn btn-primary" onclick="calculatePeptide()" style="width: 100%; padding: 18px; font-size: 1.2rem;">
+                                <i class="fas fa-calculator"></i> Calculate Reconstitution
+                            </button>
+                        </div>
+                        
+                        <div class="input-group" style="margin-top: 20px;">
+                            <button class="btn btn-secondary" onclick="resetCalculator()" style="width: 100%; padding: 15px;">
+                                <i class="fas fa-redo"></i> Reset Calculator
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- RESULTS -->
+                    <div class="calculator-results">
+                        <h3 style="margin-bottom: 30px; color: #0d47a1; font-size: 1.8rem;">
+                            <i class="fas fa-chart-bar"></i> Calculation Results
+                        </h3>
+                        
+                        <div class="result-item">
+                            <div class="result-label">
+                                <i class="fas fa-vial"></i> Final Concentration
+                            </div>
+                            <div class="result-value">
+                                <span id="concentrationResult">5.00</span>
+                                <span class="result-unit">mg/mL</span>
+                            </div>
+                            <div class="result-detail">
+                                Concentration after reconstitution with bacteriostatic water
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="result-label">
+                                <i class="fas fa-syringe"></i> Volume per Dose
+                            </div>
+                            <div class="result-value">
+                                <span id="volumeResult">0.40</span>
+                                <span class="result-unit">mL</span>
+                            </div>
+                            <div class="result-detail">
+                                Draw <span id="unitsResult" style="font-weight: bold; color: #0d47a1;">40</span> units on 
+                                <span id="syringeLabel" style="font-weight: bold;">1mL</span> syringe
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="result-label">
+                                <i class="fas fa-calculator"></i> Total Doses Available
+                            </div>
+                            <div class="result-value">
+                                <span id="dosesResult">5</span>
+                                <span class="result-unit">doses</span>
+                            </div>
+                            <div class="result-detail">
+                                Based on peptide amount and desired dose
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="result-label">
+                                <i class="fas fa-clock"></i> Storage Recommendation
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                    <i class="fas fa-snowflake" style="color: #2196f3;"></i>
+                                    <span>Store reconstituted peptide at <strong>2-8°C</strong></span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                    <i class="fas fa-clock" style="color: #2196f3;"></i>
+                                    <span>Use within <strong>30 days</strong> after reconstitution</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-exclamation-triangle" style="color: #ff9800;"></i>
+                                    <span>Avoid <strong>freeze-thaw cycles</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 30px; padding: 20px; background: #e8f5e9; border-radius: 10px; border-left: 4px solid #2e7d32;">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <i class="fas fa-lightbulb" style="color: #2e7d32;"></i>
+                                <h4 style="color: #2e7d32; margin: 0;">Pro Tip</h4>
+                            </div>
+                            <p style="color: #666; margin: 0;">
+                                Always use bacteriostatic water (not sterile water) for reconstitution to prevent bacterial growth. 
+                                Store lyophilized peptides at -20°C for maximum stability.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXAMPLES SECTION -->
+    <section class="examples-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Common Calculation Examples</h2>
+                <p>Learn how to calculate different peptide dosages for your research</p>
+            </div>
+            
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h3><i class="fas fa-weight"></i> GLP-1 Analog Example</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Peptide: Tirzepatide 10mg</li>
+                        <li><i class="fas fa-check-circle"></i> Bacteriostatic Water: 2mL</li>
+                        <li><i class="fas fa-check-circle"></i> Desired Dose: 2.5mg</li>
+                    </ul>
+                    <div class="example-result">
+                        Concentration: 5mg/mL<br>
+                        Draw 0.5mL (50 units) per dose<br>
+                        Total doses: 4
+                    </div>
+                    <button onclick="loadExample(1)" class="btn btn-secondary" style="margin-top: 15px; width: 100%;">
+                        <i class="fas fa-play-circle"></i> Load Example
+                    </button>
+                </div>
+                
+                <div class="example-card">
+                    <h3><i class="fas fa-dna"></i> Research Peptide Example</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Peptide: BPC-157 5mg</li>
+                        <li><i class="fas fa-check-circle"></i> Bacteriostatic Water: 1mL</li>
+                        <li><i class="fas fa-check-circle"></i> Desired Dose: 250μg (0.25mg)</li>
+                    </ul>
+                    <div class="example-result">
+                        Concentration: 5mg/mL<br>
+                        Draw 0.05mL (5 units) per dose<br>
+                        Total doses: 20
+                    </div>
+                    <button onclick="loadExample(2)" class="btn btn-secondary" style="margin-top: 15px; width: 100%;">
+                        <i class="fas fa-play-circle"></i> Load Example
+                    </button>
+                </div>
+                
+                <div class="example-card">
+                    <h3><i class="fas fa-brain"></i> Cognitive Enhancer Example</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Peptide: Semax 10mg</li>
+                        <li><i class="fas fa-check-circle"></i> Bacteriostatic Water: 2.5mL</li>
+                        <li><i class="fas fa-check-circle"></i> Desired Dose: 300μg (0.3mg)</li>
+                    </ul>
+                    <div class="example-result">
+                        Concentration: 4mg/mL<br>
+                        Draw 0.075mL (7.5 units) per dose<br>
+                        Total doses: ~33
+                    </div>
+                    <button onclick="loadExample(3)" class="btn btn-secondary" style="margin-top: 15px; width: 100%;">
+                        <i class="fas fa-play-circle"></i> Load Example
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>RX Research Sciences</h3>
+                    <p style="color: #bbbbbb; margin-bottom: 20px;">Providing high-purity research compounds to the scientific community since 2010.</p>
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <a href="#" style="color: white; font-size: 1.3rem;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white; font-size: 1.3rem;"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" style="color: white; font-size: 1.3rem;"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="products/index.html"><i class="fas fa-chevron-right"></i> Products</a></li>
+                        <li><a href="calculator.html"><i class="fas fa-chevron-right"></i> Calculator</a></li>
+                        <li><a href="storage-guide.html"><i class="fas fa-chevron-right"></i> Storage Guide</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Shipping Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Research Use Only</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Legal Disclaimer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <div style="color: #bbbbbb;">
+                        <p style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt"></i> 123 Research Park Drive</p>
+                        <p style="margin-bottom: 10px;"><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                        <p style="margin-bottom: 10px;"><i class="fas fa-envelope"></i> support@rxresearch.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 RX Research Sciences. All rights reserved. | For Research Use Only - Not for Human Consumption</p>
+                <p style="font-size: 0.8rem; margin-top: 10px; color: #aaa;">Always consult with qualified professionals for proper handling of research compounds.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        document.getElementById('calculate-btn').addEventListener('click', function() {
-            const dose = parseFloat(document.getElementById('desired-dose').value);
-            const concentration = parseFloat(document.getElementById('vial-concentration').value);
-            const water = parseFloat(document.getElementById('bacteriostatic-water').value);
+        // ===== PEPTIDE CALCULATOR =====
+        function calculatePeptide() {
+            // Get input values
+            const peptideAmount = parseFloat(document.getElementById('peptideAmount').value);
+            const vialConcentration = parseFloat(document.getElementById('vialConcentration').value);
+            const bacteriostaticWater = parseFloat(document.getElementById('bacteriostaticWater').value);
+            const desiredDose = parseFloat(document.getElementById('desiredDose').value);
+            const syringeSize = parseInt(document.getElementById('syringeSize').value);
             
-            if (dose && concentration && water) {
-                const result = (dose / concentration) * water;
-                document.getElementById('calculation-result').textContent = 
-                    `You need to draw ${result.toFixed(2)} mL for ${dose} mg dose`;
-            } else {
-                document.getElementById('calculation-result').textContent = 
-                    'Please fill all fields correctly';
+            // Validate inputs
+            if (!peptideAmount || !bacteriostaticWater || !desiredDose || !vialConcentration) {
+                showNotification('Please fill all fields correctly', 'error');
+                return;
             }
+            
+            if (bacteriostaticWater <= 0 || desiredDose <= 0) {
+                showNotification('Values must be greater than zero', 'error');
+                return;
+            }
+            
+            // Calculations
+            const concentration = peptideAmount / bacteriostaticWater; // mg/mL
+            const volumePerDose = desiredDose / concentration; // mL
+            const totalDoses = Math.floor(peptideAmount / desiredDose);
+            const unitsPerDose = Math.round(volumePerDose * syringeSize);
+            
+            // Update results
+            document.getElementById('concentrationResult').textContent = concentration.toFixed(2);
+            document.getElementById('volumeResult').textContent = volumePerDose.toFixed(3);
+            document.getElementById('dosesResult').textContent = totalDoses;
+            document.getElementById('unitsResult').textContent = unitsPerDose;
+            
+            // Update syringe label
+            const syringeOptions = {
+                100: '1mL',
+                50: '0.5mL',
+                30: '0.3mL',
+                10: '0.1mL'
+            };
+            document.getElementById('syringeLabel').textContent = syringeOptions[syringeSize];
+            
+            // Show success notification
+            showNotification('Calculation completed successfully!', 'success');
+        }
+        
+        // ===== LOAD EXAMPLE =====
+        function loadExample(exampleNumber) {
+            switch(exampleNumber) {
+                case 1: // GLP-1 Example
+                    document.getElementById('peptideAmount').value = 10;
+                    document.getElementById('vialConcentration').value = 5;
+                    document.getElementById('bacteriostaticWater').value = 2;
+                    document.getElementById('desiredDose').value = 2.5;
+                    document.getElementById('syringeSize').value = 100;
+                    break;
+                    
+                case 2: // BPC-157 Example
+                    document.getElementById('peptideAmount').value = 5;
+                    document.getElementById('vialConcentration').value = 5;
+                    document.getElementById('bacteriostaticWater').value = 1;
+                    document.getElementById('desiredDose').value = 0.25;
+                    document.getElementById('syringeSize').value = 100;
+                    break;
+                    
+                case 3: // Semax Example
+                    document.getElementById('peptideAmount').value = 10;
+                    document.getElementById('vialConcentration').value = 4;
+                    document.getElementById('bacteriostaticWater').value = 2.5;
+                    document.getElementById('desiredDose').value = 0.3;
+                    document.getElementById('syringeSize').value = 100;
+                    break;
+            }
+            
+            calculatePeptide();
+            showNotification(`Example ${exampleNumber} loaded`, 'info');
+        }
+        
+        // ===== RESET CALCULATOR =====
+        function resetCalculator() {
+            document.getElementById('peptideAmount').value = 10;
+            document.getElementById('vialConcentration').value = 5;
+            document.getElementById('bacteriostaticWater').value = 2;
+            document.getElementById('desiredDose').value = 2;
+            document.getElementById('syringeSize').value = 100;
+            
+            calculatePeptide();
+            showNotification('Calculator reset to default values', 'info');
+        }
+        
+        // ===== NOTIFICATION SYSTEM =====
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => notification.remove());
+            
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            // Set colors based on type
+            let backgroundColor = '#2196f3';
+            let icon = 'fas fa-info-circle';
+            
+            if (type === 'success') {
+                backgroundColor = '#2e7d32';
+                icon = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                backgroundColor = '#f44336';
+                icon = 'fas fa-exclamation-circle';
+            } else if (type === 'warning') {
+                backgroundColor = '#ff9800';
+                icon = 'fas fa-exclamation-triangle';
+            }
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${backgroundColor};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                min-width: 300px;
+                max-width: 400px;
+            `;
+            
+            notification.innerHTML = `<i class="${icon}"></i> ${message}`;
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // ===== INITIALIZE =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize calculator
+            calculatePeptide();
+            
+            // Add CSS animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+                
+                .fas.fa-concentration:before {
+                    content: "\\f07d";
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Add cart functionality
+            let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+            const cartCountElement = document.querySelector('.cart-count');
+            
+            function updateCartCount() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountElement.textContent = totalItems;
+                localStorage.setItem('rxCart', JSON.stringify(cart));
+            }
+            
+            updateCartCount();
+            
+            // Update active nav link
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
         });
     </script>
 </body>
