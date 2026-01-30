@@ -555,19 +555,44 @@ body {
         padding: 20px;
     }
     
+    /* ✅ CORREÇÃO DOS BOTÕES PARA TABLET */
     .product-footer {
         flex-direction: column;
         gap: 20px;
         align-items: stretch;
-    }
-    
-    .actions {
-        justify-content: center;
+        min-height: auto;
+        padding-top: 15px;
     }
     
     .price {
         text-align: center;
         font-size: 1.7rem;
+        width: 100%;
+        order: 1; /* Preço primeiro */
+        margin-bottom: 5px;
+    }
+    
+    .actions {
+        justify-content: center;
+        width: 100%;
+        order: 2; /* Botões depois */
+        display: flex;
+        gap: 12px;
+        min-width: auto;
+    }
+    
+    .btn-details, .btn-cart {
+        padding: 11px 18px;
+        font-size: 0.9rem;
+        min-width: 110px;
+        height: 42px;
+        flex: 1;
+        max-width: 140px;
+    }
+    
+    .btn-details i, .btn-cart i {
+        font-size: 0.9rem;
+        margin-right: 6px;
     }
 }
 
@@ -590,11 +615,32 @@ body {
     
     .product-name {
         font-size: 1.2rem;
+        min-height: auto;
+        margin-bottom: 10px;
+    }
+    
+    /* ✅ CORREÇÃO DOS BOTÕES PARA MOBILE MÉDIO */
+    .product-footer {
+        gap: 15px;
+        padding-top: 15px;
+    }
+    
+    .price {
+        font-size: 1.6rem;
+        margin-bottom: 0;
     }
     
     .btn-details, .btn-cart {
         padding: 10px 15px;
-        font-size: 0.95rem;
+        font-size: 0.85rem;
+        min-width: 100px;
+        height: 40px;
+        max-width: 130px;
+    }
+    
+    .btn-details i, .btn-cart i {
+        font-size: 0.85rem;
+        margin-right: 5px;
     }
     
     .spec {
@@ -609,7 +655,46 @@ body {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+    /* ✅ CORREÇÃO DOS BOTÕES PARA MOBILE PEQUENO */
+    .product-footer {
+        flex-direction: column;
+        gap: 15px;
+        padding-top: 15px;
+    }
+    
+    .price {
+        font-size: 1.5rem;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .actions {
+        flex-direction: row;
+        gap: 10px;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .btn-details, .btn-cart {
+        padding: 10px 14px;
+        font-size: 0.8rem;
+        min-width: 95px;
+        height: 38px;
+        flex: 1;
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .btn-details i, .btn-cart i {
+        font-size: 0.8rem;
+        margin-right: 4px;
+    }
+    
     .products-header h1 {
         font-size: 1.6rem;
     }
@@ -623,13 +708,79 @@ body {
         padding: 8px 12px;
         font-size: 0.9rem;
     }
+}
+
+@media (max-width: 400px) {
+    /* ✅ CORREÇÃO FINAL PARA TELAS MUITO PEQUENAS */
+    .product-footer {
+        gap: 12px;
+        padding-top: 12px;
+    }
+    
+    .price {
+        font-size: 1.4rem;
+        margin-bottom: 3px;
+    }
+    
+    .actions {
+        gap: 8px;
+        width: 100%;
+        justify-content: space-between;
+    }
     
     .btn-details, .btn-cart {
+        padding: 9px 12px;
+        font-size: 0.75rem;
+        min-width: 85px;
+        height: 36px;
+        max-width: 110px;
         flex: 1;
-        justify-content: center;
+    }
+    
+    .btn-details i, .btn-cart i {
+        font-size: 0.75rem;
+        margin-right: 3px;
+    }
+    
+    .products-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .products-header p {
+        font-size: 0.95rem;
+    }
+    
+    .category-btn {
+        min-width: 110px;
+        padding: 7px 10px;
+        font-size: 0.85rem;
     }
 }
 
+@media (max-width: 360px) {
+    /* ✅ CORREÇÃO PARA SMARTPHONES MUITO PEQUENOS */
+    .actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .btn-details, .btn-cart {
+        width: 100%;
+        max-width: 100%;
+        min-width: auto;
+        padding: 10px;
+        font-size: 0.8rem;
+        height: 40px;
+    }
+    
+    .product-footer {
+        gap: 10px;
+    }
+    
+    .price {
+        font-size: 1.3rem;
+    }
+}
 /* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
