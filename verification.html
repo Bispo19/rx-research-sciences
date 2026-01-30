@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Verification - RX Research Sciences</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+            color: white;
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+        }
+        
+        /* ===== HEADER ===== */
+        header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0d47a1;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: #2196f3;
+            font-size: 2.2rem;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .main-nav {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* ===== VERIFICATION HERO ===== */
+        .verification-hero {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .verification-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover;
+            opacity: 0.1;
+        }
+        
+        .verification-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .verification-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .verification-hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+        
+        /* ===== VERIFICATION CONTAINER ===== */
+        .verification-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: -50px auto 80px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        @media (max-width: 992px) {
+            .verification-container {
+                grid-template-columns: 1fr;
+                margin: -30px auto 60px;
+            }
+        }
+        
+        /* ===== VERIFICATION FORM ===== */
+        .verification-form {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-header h2 {
+            font-size: 2rem;
+            color: #0d47a1;
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #2196f3;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+        }
+        
+        .form-input::placeholder {
+            color: #999;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 35px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(33, 150, 243, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+            border-color: #2196f3;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .input-group .form-input {
+            flex: 1;
+        }
+        
+        .input-group .btn {
+            width: auto;
+            min-width: 120px;
+        }
+        
+        /* ===== VERIFICATION INFO ===== */
+        .verification-info {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .info-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .info-header h2 {
+            font-size: 2rem;
+            color: #0d47a1;
+        }
+        
+        .info-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .info-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .info-list i {
+            color: #4caf50;
+            font-size: 1.2rem;
+        }
+        
+        /* ===== RESULT CONTAINER ===== */
+        .result-container {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border: 1px solid #e0e0e0;
+            margin-top: 40px;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .result-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .result-icon.valid {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .result-icon.invalid {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .result-header h2 {
+            font-size: 2rem;
+            color: #333;
+        }
+        
+        .result-details {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .result-row {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .result-row:last-child {
+            border-bottom: none;
+        }
+        
+        .result-label {
+            flex: 0 0 200px;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .result-value {
+            flex: 1;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .result-value.valid {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        
+        .result-value.invalid {
+            color: #c62828;
+            font-weight: bold;
+        }
+        
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        /* ===== VERIFICATION EXAMPLES ===== */
+        .examples-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .example-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+        
+        .example-card:hover {
+            border-color: #2196f3;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .example-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .example-icon {
+            width: 50px;
+            height: 50px;
+            background: #e3f2fd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #2196f3;
+        }
+        
+        .example-card h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .code-example {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #0d47a1;
+            border: 1px solid #e0e0e0;
+            margin-top: 15px;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0d1b3e;
+            color: white;
+            padding-top: 80px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            padding-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 25px;
+            color: #4fc3f7;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #4fc3f7;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bbbbbb;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: #4fc3f7;
+            transform: translateX(5px);
+        }
+        
+        .contact-info {
+            color: #bbbbbb;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-icons a:hover {
+            background: #2196f3;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #2a3a5e;
+            padding: 30px 0;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== LOADING SPINNER ===== */
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #2196f3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .verification-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .verification-container {
+                padding: 0 15px;
+            }
+            
+            .verification-form,
+            .verification-info {
+                padding: 30px 20px;
+            }
+            
+            .form-header h2,
+            .info-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .result-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .result-label {
+                flex: none;
+            }
+            
+            .result-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div><i class="fas fa-shield-alt"></i> Verify Your Product Authenticity</div>
+            <div class="top-links">
+                <a href="tel:+15551234567"><i class="fas fa-phone"></i> Support</a>
+                <a href="mailto:verify@rxresearch.com"><i class="fas fa-envelope"></i> verify@rxresearch.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- LOGO -->
+                <a href="index.html" class="logo">
+                    <i class="fas fa-flask"></i>
+                    <span>RX Research Sciences</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="products.html"><i class="fas fa-pills"></i> Products</a></li>
+                    <li><a href="verification.html" class="active"><i class="fas fa-check-circle"></i> Verification</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- VERIFICATION HERO -->
+    <section class="verification-hero">
+        <div class="container verification-hero-content">
+            <h1>Product Authentication System</h1>
+            <p>Verify the authenticity of your RX Research Sciences products using the unique verification code on your vial or packaging.</p>
+        </div>
+    </section>
+
+    <!-- VERIFICATION CONTAINER -->
+    <div class="container verification-container">
+        <!-- VERIFICATION FORM -->
+        <div class="verification-form">
+            <div class="form-header">
+                <h2>Verify Product</h2>
+                <p>Enter your unique product code to verify authenticity</p>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Product Verification Code</label>
+                <div class="input-group">
+                    <input type="text" class="form-input" id="verificationCode" 
+                           placeholder="Enter code (e.g., CS-ze101208)" 
+                           maxlength="20"
+                           pattern="[A-Za-z0-9-]+">
+                    <button class="btn btn-primary" id="verifyBtn">
+                        <i class="fas fa-check-circle"></i> Verify
+                    </button>
+                </div>
+                <small style="display: block; margin-top: 8px; color: #666;">
+                    Example: CS-ze101208, CS-re10-1220, CS-bc101103
+                </small>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Or scan QR code</label>
+                <button class="btn btn-secondary" id="scanBtn">
+                    <i class="fas fa-qrcode"></i> Scan QR Code
+                </button>
+            </div>
+            
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner"></div>
+                <p>Verifying product authenticity...</p>
+            </div>
+        </div>
+
+        <!-- VERIFICATION INFO -->
+        <div class="verification-info">
+            <div class="info-header">
+                <div class="info-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Why Verify?</h2>
+            </div>
+            
+            <ul class="info-list">
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Confirm product authenticity and origin</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Verify batch information and manufacturing date</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Access Certificate of Analysis (COA)</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Check expiration date and storage recommendations</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Report counterfeit products for investigation</span>
+                </li>
+            </ul>
+            
+            <div style="background: #e8f4fc; padding: 20px; border-radius: 10px; border-left: 4px solid #2196f3;">
+                <p style="color: #0d47a1; margin: 0;">
+                    <i class="fas fa-info-circle"></i> 
+                    <strong>Important:</strong> Every genuine RX Research Sciences product has a unique verification code starting with "CS-". If your product doesn't have one or verification fails, please contact our support team immediately.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT CONTAINER -->
+    <div class="container">
+        <div class="result-container" id="resultContainer">
+            <!-- Result will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- EXAMPLES SECTION -->
+    <section class="examples-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Understanding Your Verification Code</h2>
+                <p>Learn how to read and understand your product verification codes</p>
+            </div>
+            
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-header">
+                        <div class="example-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Code Structure</h3>
+                    </div>
+                    <p>All RX Research Sciences verification codes follow this format:</p>
+                    <div class="code-example">
+                        CS-[Product]-[Batch]-[Date]
+                    </div>
+                    <p><strong>CS:</strong> Company Standard<br>
+                       <strong>Product:</strong> Product identifier<br>
+                       <strong>Batch:</strong> Manufacturing batch<br>
+                       <strong>Date:</strong> Production date</p>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <div class="example-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Find Your Code</h3>
+                    </div>
+                    <p>The verification code is located on:</p>
+                    <ul style="padding-left: 20px; margin: 15px 0;">
+                        <li>Product vial label</li>
+                        <li>Packaging box</li>
+                        <li>Certificate of Analysis</li>
+                        <li>Shipping documentation</li>
+                    </ul>
+                    <p>It's typically a 10-15 character alphanumeric code starting with "CS-".</p>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <div class="example-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Counterfeit Alert</h3>
+                    </div>
+                    <p>Signs of counterfeit products:</p>
+                    <ul style="padding-left: 20px; margin: 15px 0;">
+                        <li>Missing verification code</li>
+                        <li>Invalid verification result</li>
+                        <li>Poor packaging quality</li>
+                        <li>Suspiciously low prices</li>
+                        <li>Unauthorized sellers</li>
+                    </ul>
+                    <p>Always verify before use and purchase only from authorized distributors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>RX Research Sciences</h3>
+                    <p style="color: #bbbbbb; margin-bottom: 20px;">Committed to product authenticity and customer safety through advanced verification systems.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Verification Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Verification FAQ</a></li>
+                        <li><a href="#"><i class="fas fa-exclamation-triangle"></i> Report Counterfeit</a></li>
+                        <li><a href="#"><i class="fas fa-file-pdf"></i> Download COA Template</a></li>
+                        <li><a href="#"><i class="fas fa-download"></i> Verification App</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Verification</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> verify@rxresearchsciences.com</p>
+                        <p><i class="fas fa-phone"></i> +1 (555) VERIFY-00</p>
+                        <p><i class="fas fa-clock"></i> 24/7 Verification Support</p>
+                        <p><i class="fas fa-shield-alt"></i> Secure Verification Portal</p>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="products.html"><i class="fas fa-chevron-right"></i> All Products</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Company</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 RX Research Sciences. All products verified through this system are authentic and quality-controlled.</p>
+                <p style="font-size: 0.8rem; margin-top: 10px; color: #aaa;">Counterfeit products may pose serious health risks. Always verify before use.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== PRODUCT DATABASE =====
+        // This would typically come from a server/database
+        const productDatabase = {
+            // GLP-1 Analogs
+            "CS-ze101208": {
+                name: "Tirzepatide 10mg",
+                status: "valid",
+                batch: "ZE-1012-08",
+                manufactureDate: "2023-10-12",
+                expirationDate: "2025-10-12",
+                verifiedCount: 1428,
+                lastVerified: "2024-01-15",
+                location: "USA Laboratory",
+                purity: "99.3% HPLC",
+                storage: "-20°C"
+            },
+            "CS-ze151021": {
+                name: "Tirzepatide 15mg",
+                status: "valid",
+                batch: "ZE-1510-21",
+                manufactureDate: "2023-10-15",
+                expirationDate: "2025-10-15",
+                verifiedCount: 892,
+                lastVerified: "2024-01-10",
+                location: "Germany Facility",
+                purity: "99.1% HPLC",
+                storage: "-20°C"
+            },
+            "CS-ze201124": {
+                name: "Tirzepatide 20mg",
+                status: "valid",
+                batch: "ZE-2011-24",
+                manufactureDate: "2023-11-20",
+                expirationDate: "2025-11-20",
+                verifiedCount: 756,
+                lastVerified: "2024-01-08",
+                location: "USA Laboratory",
+                purity: "99.4% HPLC",
+                storage: "-20°C"
+            },
+            "CS-re10-1220": {
+                name: "Retatrutide 10mg",
+                status: "valid",
+                batch: "RE-1012-20",
+                manufactureDate: "2023-12-10",
+                expirationDate: "2025-12-10",
+                verifiedCount: 523,
+                lastVerified: "2024-01-12",
+                location: "Switzerland Lab",
+                purity: "99.2% HPLC",
+                storage: "-20°C"
+            },
+            "CS-re20-1225": {
+                name: "Retatrutide 20mg",
+                status: "valid",
+                batch: "RE-2012-25",
+                manufactureDate: "2023-12-20",
+                expirationDate: "2025-12-20",
+                verifiedCount: 341,
+                lastVerified: "2024-01-05",
+                location: "Germany Facility",
+                purity: "99.3% HPLC",
+                storage: "-20°C"
+            },
+            // Research Peptides
+            "CS-bc101103": {
+                name: "BPC-157 10mg",
+                status: "valid",
+                batch: "BC-1011-03",
+                manufactureDate: "2023-11-10",
+                expirationDate: "2025-11-10",
+                verifiedCount: 2156,
+                lastVerified: "2024-01-18",
+                location: "USA Laboratory",
+                purity: "99.5% HPLC",
+                storage: "-20°C"
+            },
+            "CS-tb10-0111": {
+                name: "TB-500 10mg",
+                status: "valid",
+                batch: "TB-1001-11",
+                manufactureDate: "2023-11-01",
+                expirationDate: "2025-11-01",
+                verifiedCount: 1789,
+                lastVerified: "2024-01-14",
+                location: "Switzerland Lab",
+                purity: "99.2% HPLC",
+                storage: "-20°C"
+            },
+            "CS-sa101018": {
+                name: "Semax 10mg",
+                status: "valid",
+                batch: "SA-1010-18",
+                manufactureDate: "2023-10-10",
+                expirationDate: "2025-10-10",
+                verifiedCount: 1245,
+                lastVerified: "2024-01-09",
+                location: "Russia Facility",
+                purity: "99.1% HPLC",
+                storage: "-20°C"
+            },
+            "CS-ep10-1228": {
+                name: "Epithalon 10mg",
+                status: "valid",
+                batch: "EP-1012-28",
+                manufactureDate: "2023-12-10",
+                expirationDate: "2025-12-10",
+                verifiedCount: 987,
+                lastVerified: "2024-01-07",
+                location: "USA Laboratory",
+                purity: "99.4% HPLC",
+                storage: "-20°C"
+            },
+            // Test invalid codes
+            "CS-fake-0001": {
+                name: "Counterfeit Product",
+                status: "invalid",
+                reason: "Code not found in database"
+            },
+            "CS-expired-001": {
+                name: "Expired Batch",
+                status: "invalid",
+                reason: "Product expiration date passed"
+            },
+            "CS-recall-001": {
+                name: "Recalled Product",
+                status: "invalid",
+                reason: "Batch recalled for quality control"
+            }
+        };
+
+        // ===== DOM ELEMENTS =====
+        const verificationCodeInput = document.getElementById('verificationCode');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const scanBtn = document.getElementById('scanBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const resultContainer = document.getElementById('resultContainer');
+
+        // ===== VERIFICATION FUNCTION =====
+        function verifyProduct(code) {
+            // Show loading spinner
+            loadingSpinner.style.display = 'block';
+            resultContainer.style.display = 'none';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                const normalizedCode = code.trim().toUpperCase();
+                const product = productDatabase[normalizedCode];
+                
+                // Hide loading spinner
+                loadingSpinner.style.display = 'none';
+                
+                if (product) {
+                    showResult(product, normalizedCode);
+                } else {
+                    showInvalidResult(normalizedCode);
+                }
+                
+                // Scroll to result
+                resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+            }, 1500); // Simulate 1.5 second API delay
+        }
+
+        // ===== SHOW VALID RESULT =====
+        function showResult(product, code) {
+            const isAuthentic = product.status === 'valid';
+            const verificationDate = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            resultContainer.innerHTML = `
+                <div class="result-header">
+                    <div class="result-icon ${isAuthentic ? 'valid' : 'invalid'}">
+                        <i class="fas ${isAuthentic ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                    </div>
+                    <h2>${isAuthentic ? '✅ Product Authentic' : '❌ Product Verification Failed'}</h2>
+                </div>
+                
+                <div class="result-details">
+                    <div class="result-row">
+                        <div class="result-label">Verification Code:</div>
+                        <div class="result-value ${isAuthentic ? 'valid' : 'invalid'}">${code}</div>
+                    </div>
+                    <div class="result-row">
+                        <div class="result-label">Product Name:</div>
+                        <div class="result-value">${product.name}</div>
+                    </div>
+                    ${isAuthentic ? `
+                    <div class="result-row">
+                        <div class="result-label">Batch Number:</div>
+                        <div class="result-value">${product.batch}</div>
+                    </div>
+                    <div class="result-row">
+                        <div class="result-label">Manufacture Date:</div>
+                        <div class="result-value">${product.manufactureDate}</div>
+                    </div>
+                    <div class="result-row">
+                        <div class="result-label">Expiration Date:</div>
+                        <div class="result-value">${product.expirationDate}</div>
+                    </div>
+                    <div class="result-row">
+                        <div class="result-label">Purity Level:</div>
+                        <div class="result-value">${product.purity}</div>
+                    </div>
+                    <div class="result-row">
+                        <div class="result-label">Storage Conditions:</div>
+                        <div class="result-value">${product.storage}</div>
+                    </div>
+                    <div class="result-row">
+                        <div class="result-label">Manufacturing Location:</div>
+                        <div class="result-value">${product.location}</div>
+                    </div>
+                    <div class="result-row">
+                        <div class="result-label">Times Verified:</div>
+                        <div class="result-value">${product.verifiedCount.toLocaleString()}</div>
+                    </div>
+                    ` : `
+                    <div class="result-row">
+                        <div class="result-label">Reason:</div>
+                        <div class="result-value invalid">${product.reason}</div>
+                    </div>
+                    `}
+                    <div class="result-row">
+                        <div class="result-label">Verification Date:</div>
+                        <div class="result-value">${verificationDate}</div>
+                    </div>
+                </div>
+                
+                <div class="result-actions">
+                    ${isAuthentic ? `
+                    <button class="btn btn-primary" onclick="downloadCOA('${code}')">
+                        <i class="fas fa-file-pdf"></i> Download COA
+                    </button>
+                    <button class="btn btn-secondary" onclick="printVerification('${code}')">
+                        <i class="fas fa-print"></i> Print Verification
+                    </button>
+                    ` : `
+                    <button class="btn btn-primary" onclick="reportCounterfeit('${code}')">
+                        <i class="fas fa-exclamation-triangle"></i> Report Counterfeit
+                    </button>
+                    `}
+                    <button class="btn btn-secondary" onclick="verifyAnother()">
+                        <i class="fas fa-redo"></i> Verify Another
+                    </button>
+                </div>
+                
+                ${isAuthentic ? `
+                <div style="margin-top: 25px; padding: 20px; background: #e8f5e9; border-radius: 10px; border-left: 4px solid #2e7d32;">
+                    <p style="margin: 0; color: #2e7d32;">
+                        <i class="fas fa-check-circle"></i> 
+                        <strong>Verification Successful:</strong> This product is authentic and was manufactured under strict quality control conditions. Store according to recommendations and use before expiration date.
+                    </p>
+                </div>
+                ` : `
+                <div style="margin-top: 25px; padding: 20px; background: #ffebee; border-radius: 10px; border-left: 4px solid #c62828;">
+                    <p style="margin: 0; color: #c62828;">
+                        <i class="fas fa-exclamation-triangle"></i> 
+                        <strong>Warning:</strong> This product verification failed. Do not use this product. Please contact our verification team immediately at verify@rxresearchsciences.com or call +1 (555) VERIFY-00.
+                    </p>
+                </div>
+                `}
+            `;
+            
+            resultContainer.style.display = 'block';
+            
+            // Add to verification history
+            addToHistory(code, isAuthentic);
+        }
+
+        // ===== SHOW INVALID RESULT =====
+        function showInvalidResult(code) {
+            const verificationDate = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            resultContainer.innerHTML = `
+                <div class="result-header">
+                    <div class="result-icon invalid">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2>❌ Invalid Verification Code</h2>
+                </div>
+                
+                <div class="result-details">
+                    <div class="result-row">
+                        <div class="result-label">Entered Code:</div>
+                        <div class="result-value invalid">${code}</div>
+                    </div>
+                    <div class="result-row">
+                        <div class="result-label">Status:</div>
+                        <div class="result-value invalid">Code not found in database</div>
+                    </div>
+                    <div class="result-row">
+                        <div class="result-label">Possible Reasons:</div>
+                        <div class="result-value">
+                            <ul style="padding-left: 20px; margin: 0;">
+                                <li>Code entered incorrectly</li>
+                                <li>Product from unauthorized source</li>
+                                <li>Counterfeit product</li>
+                                <li>Database synchronization in progress</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="result-row">
+                        <div class="result-label">Verification Date:</div>
+                        <div class="result-value">${verificationDate}</div>
+                    </div>
+                </div>
+                
+                <div class="result-actions">
+                    <button class="btn btn-primary" onclick="reportCounterfeit('${code}')">
+                        <i class="fas fa-exclamation-triangle"></i> Report Suspected Counterfeit
+                    </button>
+                    <button class="btn btn-secondary" onclick="verifyAnother()">
+                        <i class="fas fa-redo"></i> Try Again
+                    </button>
+                </div>
+                
+                <div style="margin-top: 25px; padding: 20px; background: #fff3e0; border-radius: 10px; border-left: 4px solid #f57c00;">
+                    <p style="margin: 0; color: #f57c00;">
+                        <i class="fas fa-info-circle"></i> 
+                        <strong>Note:</strong> Please double-check your verification code. It should start with "CS-" followed by 8-12 characters. If you're certain the code is correct, this may indicate a counterfeit product.
+                    </p>
+                </div>
+            `;
+            
+            resultContainer.style.display = 'block';
+            addToHistory(code, false);
+        }
+
+        // ===== HELPER FUNCTIONS =====
+        function downloadCOA(code) {
+            alert(`Downloading Certificate of Analysis for ${code}\n\nIn a real application, this would download a PDF file.`);
+            // In real app: window.open(`/api/coa/${code}`, '_blank');
+        }
+
+        function printVerification(code) {
+            const printContent = resultContainer.innerHTML;
+            const originalContent = document.body.innerHTML;
+            
+            document.body.innerHTML = `
+                <div style="padding: 40px; max-width: 800px; margin: 0 auto;">
+                    <h1 style="color: #0d47a1; border-bottom: 2px solid #0d47a1; padding-bottom: 10px;">
+                        RX Research Sciences - Product Verification
+                    </h1>
+                    ${printContent}
+                    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ccc; color: #666; font-size: 0.9rem;">
+                        Printed on: ${new Date().toLocaleString()}<br>
+                        Verification ID: ${Math.random().toString(36).substr(2, 9).toUpperCase()}
+                    </div>
+                </div>
+            `;
+            
+            window.print();
+            document.body.innerHTML = originalContent;
+            location.reload();
+        }
+
+        function reportCounterfeit(code) {
+            const email = `verify@rxresearchsciences.com`;
+            const subject = `Counterfeit Product Report: ${code}`;
+            const body = `Product Code: ${code}\n\nDetails:\n\nPurchase Date:\nPurchase Location:\nReason for Concern:\n\nAdditional Information:`;
+            
+            window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+        }
+
+        function verifyAnother() {
+            verificationCodeInput.value = '';
+            verificationCodeInput.focus();
+            resultContainer.style.display = 'none';
+        }
+
+        function addToHistory(code, isValid) {
+            const history = JSON.parse(localStorage.getItem('verificationHistory') || '[]');
+            history.unshift({
+                code: code,
+                isValid: isValid,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Keep only last 10 verifications
+            if (history.length > 10) {
+                history.pop();
+            }
+            
+            localStorage.setItem('verificationHistory', JSON.stringify(history));
+        }
+
+        // ===== QR CODE SCANNER SIMULATION =====
+        function simulateQRScan() {
+            // For demo purposes, simulate scanning a random valid code
+            const validCodes = Object.keys(productDatabase).filter(code => productDatabase[code].status === 'valid');
+            const randomCode = validCodes[Math.floor(Math.random() * validCodes.length)];
+            
+            verificationCodeInput.value = randomCode;
+            verifyProduct(randomCode);
+        }
+
+        // ===== EVENT LISTENERS =====
+        verifyBtn.addEventListener('click', () => {
+            const code = verificationCodeInput.value.trim();
+            if (code) {
+                verifyProduct(code);
+            } else {
+                alert('Please enter a verification code');
+                verificationCodeInput.focus();
+            }
+        });
+
+        scanBtn.addEventListener('click', simulateQRScan);
+
+        verificationCodeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                verifyBtn.click();
+            }
+        });
+
+        // Auto-focus on input
+        verificationCodeInput.focus();
+
+        // ===== SAMPLE CODE BUTTONS =====
+        // Add sample code buttons for easy testing
+        const sampleCodes = ['CS-ze101208', 'CS-bc101103', 'CS-fake-0001'];
+        
+        const sampleContainer = document.createElement('div');
+        sampleContainer.style.cssText = `
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f7ff;
+            border-radius: 10px;
+            border: 1px solid #bbdefb;
+        `;
+        
+        sampleContainer.innerHTML = `
+            <p style="margin: 0 0 10px 0; color: #0d47a1; font-weight: 500;">
+                <i class="fas fa-vial"></i> Test with sample codes:
+            </p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                ${sampleCodes.map(code => `
+                    <button class="sample-code-btn" 
+                            data-code="${code}"
+                            style="padding: 8px 15px; background: white; border: 1px solid #bbdefb; border-radius: 6px; cursor: pointer; color: #0d47a1; transition: all 0.3s;">
+                        ${code}
+                    </button>
+                `).join('')}
+            </div>
+        `;
+        
+        document.querySelector('.verification-form').appendChild(sampleContainer);
+        
+        // Add event listeners to sample code buttons
+        document.querySelectorAll('.sample-code-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const code = btn.getAttribute('data-code');
+                verificationCodeInput.value = code;
+                verifyProduct(code);
+            });
+            
+            btn.addEventListener('mouseenter', () => {
+                btn.style.background = '#e3f2fd';
+                btn.style.borderColor = '#2196f3';
+                btn.style.transform = 'translateY(-2px)';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.background = 'white';
+                btn.style.borderColor = '#bbdefb';
+                btn.style.transform = 'translateY(0)';
+            });
+        });
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if there's a code in URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const codeParam = urlParams.get('code');
+            
+            if (codeParam) {
+                verificationCodeInput.value = codeParam;
+                verifyProduct(codeParam);
+            }
+        });
+    </script>
+</body>
+</html>
