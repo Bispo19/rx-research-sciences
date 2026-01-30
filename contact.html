@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - RX Research Sciences</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+            color: white;
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* ===== HEADER ===== */
+        header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0d47a1;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: #2196f3;
+            font-size: 2.2rem;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .main-nav {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* ===== CONTACT HERO ===== */
+        .contact-hero {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover;
+            opacity: 0.15;
+        }
+        
+        .contact-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .contact-hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+        
+        /* ===== CONTACT CONTAINER ===== */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin: -40px auto 80px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                margin: -20px auto 60px;
+                gap: 40px;
+            }
+        }
+        
+        /* ===== CONTACT FORM ===== */
+        .contact-form {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .form-header h2 {
+            font-size: 2.2rem;
+            color: #0d47a1;
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 576px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-label.required::after {
+            content: ' *';
+            color: #f44336;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+            font-family: inherit;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #2196f3;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* ===== CONTACT INFO ===== */
+        .contact-info {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .info-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .info-header h2 {
+            font-size: 2.2rem;
+            color: #0d47a1;
+        }
+        
+        .contact-methods {
+            margin-bottom: 40px;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .contact-method:hover {
+            background: white;
+            border-color: #2196f3;
+            transform: translateX(5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .method-icon {
+            width: 50px;
+            height: 50px;
+            background: #e3f2fd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #2196f3;
+            flex-shrink: 0;
+        }
+        
+        .method-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .method-content p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .method-link {
+            color: #2196f3;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+        
+        .method-link:hover {
+            color: #0d47a1;
+            transform: translateX(3px);
+        }
+        
+        /* ===== BUSINESS HOURS ===== */
+        .business-hours {
+            background: #f0f7ff;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .hours-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .hours-header h3 {
+            font-size: 1.3rem;
+            color: #0d47a1;
+        }
+        
+        .hours-list {
+            list-style: none;
+        }
+        
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #d0e3ff;
+        }
+        
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .day {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .time {
+            color: #666;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 35px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(33, 150, 243, 0.4);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+            border-color: #2196f3;
+            transform: translateY(-3px);
+        }
+        
+        /* ===== SUCCESS MESSAGE ===== */
+        .success-message {
+            display: none;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border-left: 4px solid #2e7d32;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .success-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .success-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        /* ===== LOADING SPINNER ===== */
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2196f3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ===== MAP SECTION ===== */
+        .map-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .map-container {
+            background: #f8f9fa;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            height: 400px;
+            position: relative;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #0d47a1;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .map-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .map-placeholder h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* ===== FAQ SECTION ===== */
+        .faq-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9f2fa 100%);
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .faq-item:hover {
+            border-color: #2196f3;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .faq-icon {
+            width: 50px;
+            height: 50px;
+            background: #e3f2fd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #2196f3;
+            margin-bottom: 20px;
+        }
+        
+        .faq-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .faq-item p {
+            color: #666;
+        }
+        
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover;
+            opacity: 0.1;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0d1b3e;
+            color: white;
+            padding-top: 80px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            padding-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 25px;
+            color: #4fc3f7;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #4fc3f7;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bbbbbb;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: #4fc3f7;
+            transform: translateX(5px);
+        }
+        
+        .contact-info {
+            color: #bbbbbb;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-icons a:hover {
+            background: #2196f3;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #2a3a5e;
+            padding: 30px 0;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .contact-hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .contact-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-form,
+            .contact-info {
+                padding: 40px 30px;
+            }
+            
+            .form-header h2,
+            .info-header h2 {
+                font-size: 2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contact-hero {
+                padding: 60px 0;
+            }
+            
+            .contact-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .contact-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .contact-form,
+            .contact-info {
+                padding: 30px 20px;
+            }
+            
+            .cta-content h2 {
+                font-size: 2.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .top-links {
+                margin-top: 5px;
+            }
+            
+            .nav-links {
+                overflow-x: auto;
+                padding: 0 10px;
+            }
+            
+            .nav-links a {
+                padding: 15px 20px;
+                white-space: nowrap;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div><i class="fas fa-headset"></i> Need help? Our support team is available 24/7</div>
+            <div class="top-links">
+                <a href="tel:+15551234567"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
+                <a href="mailto:support@rxresearch.com"><i class="fas fa-envelope"></i> support@rxresearch.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- LOGO -->
+                <a href="index.html" class="logo">
+                    <i class="fas fa-flask"></i>
+                    <span>RX Research Sciences</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="products.html"><i class="fas fa-pills"></i> Products</a></li>
+                    <li><a href="verification.html"><i class="fas fa-check-circle"></i> Verification</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- CONTACT HERO -->
+    <section class="contact-hero">
+        <div class="container contact-hero-content">
+            <h1>Get in Touch With Our Team</h1>
+            <p>Have questions about our research compounds? Need technical support? Our scientific team is here to help you with your research needs.</p>
+        </div>
+    </section>
+
+    <!-- CONTACT CONTAINER -->
+    <div class="container contact-container">
+        <!-- CONTACT FORM -->
+        <div class="contact-form">
+            <div class="form-header">
+                <h2>Send Us a Message</h2>
+                <p>Fill out the form below and our team will respond within 24 hours</p>
+            </div>
+            
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label required">First Name</label>
+                        <input type="text" class="form-input" id="firstName" required placeholder="Enter your first name">
+                        <div class="error-message" id="firstNameError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Last Name</label>
+                        <input type="text" class="form-input" id="lastName" required placeholder="Enter your last name">
+                        <div class="error-message" id="lastNameError"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label required">Email Address</label>
+                    <input type="email" class="form-input" id="email" required placeholder="your.email@example.com">
+                    <div class="error-message" id="emailError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label required">Phone Number</label>
+                    <input type="tel" class="form-input" id="phone" required placeholder="+1 (555) 123-4567">
+                    <div class="error-message" id="phoneError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label required">Inquiry Type</label>
+                    <select class="form-select" id="inquiryType" required>
+                        <option value="">Select an option</option>
+                        <option value="product">Product Information</option>
+                        <option value="technical">Technical Support</option>
+                        <option value="order">Order Inquiry</option>
+                        <option value="verification">Product Verification</option>
+                        <option value="research">Research Collaboration</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="error-message" id="inquiryTypeError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Product Reference (Optional)</label>
+                    <input type="text" class="form-input" id="productCode" placeholder="e.g., CS-ze101208 or product name">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label required">Message</label>
+                    <textarea class="form-textarea" id="message" required placeholder="Please provide details about your inquiry..."></textarea>
+                    <div class="error-message" id="messageError"></div>
+                </div>
+                
+                <div class="loading-spinner" id="loadingSpinner">
+                    <div class="spinner"></div>
+                    <p>Sending your message...</p>
+                </div>
+                
+                <div class="success-message" id="successMessage">
+                    <div class="success-content">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            <h3>Message Sent Successfully!</h3>
+                            <p>Thank you for contacting RX Research Sciences. Our team will respond to your inquiry within 24 hours. A confirmation email has been sent to your inbox.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+
+        <!-- CONTACT INFO -->
+        <div class="contact-info">
+            <div class="info-header">
+                <div class="info-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h2>Contact Information</h2>
+            </div>
+            
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <div class="method-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="method-content">
+                        <h3>Phone Support</h3>
+                        <p>Speak directly with our scientific support team</p>
+                        <a href="tel:+15551234567" class="method-link">
+                            <i class="fas fa-phone"></i> +1 (555) 123-4567
+                        </a>
+                        <p style="font-size: 0.9rem; color: #888; margin-top: 5px;">Available 24/7 for urgent inquiries</p>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="method-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="method-content">
+                        <h3>Email Support</h3>
+                        <p>Send detailed inquiries to our specialized teams</p>
+                        <div>
+                            <a href="mailto:sales@rxresearch.com" class="method-link">
+                                <i class="fas fa-envelope"></i> sales@rxresearch.com
+                            </a>
+                            <br>
+                            <a href="mailto:support@rxresearch.com" class="method-link">
+                                <i class="fas fa-envelope"></i> support@rxresearch.com
+                            </a>
+                            <br>
+                            <a href="mailto:verify@rxresearch.com" class="method-link">
+                                <i class="fas fa-envelope"></i> verify@rxresearch.com
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="method-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="method-content">
+                        <h3>Corporate Office</h3>
+                        <p>123 Research Park Drive<br>Science District, CA 90210<br>United States</p>
+                        <a href="#map" class="method-link">
+                            <i class="fas fa-map"></i> View on Map
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="business-hours">
+                <div class="hours-header">
+                    <i class="fas fa-clock"></i>
+                    <h3>Business Hours</h3>
+                </div>
+                <ul class="hours-list">
+                    <li>
+                        <span class="day">Monday - Friday</span>
+                        <span class="time">8:00 AM - 6:00 PM EST</span>
+                    </li>
+                    <li>
+                        <span class="day">Saturday</span>
+                        <span class="time">9:00 AM - 2:00 PM EST</span>
+                    </li>
+                    <li>
+                        <span class="day">Sunday</span>
+                        <span class="time">Emergency Support Only</span>
+                    </li>
+                    <li>
+                        <span class="day">24/7 Support</span>
+                        <span class="time">Urgent Technical Inquiries</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div style="margin-top: 30px; padding: 20px; background: #f0f7ff; border-radius: 12px; border-left: 4px solid #2196f3;">
+                <p style="margin: 0; color: #0d47a1; font-size: 0.95rem;">
+                    <i class="fas fa-info-circle"></i> 
+                    <strong>For Research Institutions:</strong> Please include your institution name and research credentials for expedited support. Academic and research collaboration inquiries receive priority response.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAP SECTION -->
+    <section id="map" class="map-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Location</h2>
+                <p>Visit our corporate headquarters in the Science District research park</p>
+            </div>
+            
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>RX Research Sciences Headquarters</h3>
+                    <p>123 Research Park Drive, Science District, CA 90210, United States</p>
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">
+                        <i class="fas fa-info-circle"></i> In a real implementation, this would display an interactive Google Maps embed
+                    </p>
+                    <a href="https://maps.google.com/?q=123+Research+Park+Drive+Science+District+CA+90210" 
+                       target="_blank" 
+                       class="btn btn-primary" 
+                       style="margin-top: 20px; width: auto; padding: 12px 25px;">
+                        <i class="fas fa-external-link-alt"></i> Open in Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Quick answers to common questions about contacting our team</p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Order & Shipping Inquiries</h3>
+                    <p>For questions about order status, shipping times, or delivery issues, please contact our logistics team at logistics@rxresearch.com with your order number.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Technical & Product Questions</h3>
+                    <p>Our scientific support team can assist with product specifications, usage protocols, and research applications. Include product codes for faster assistance.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-icon">
+                        <i class="fas fa-file-certificate"></i>
+                    </div>
+                    <h3>Certificates of Analysis</h3>
+                    <p>Request COAs by emailing verify@rxresearch.com with your product batch numbers. Most COAs are available for download from our verification portal.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Research Collaborations</h3>
+                    <p>For partnership inquiries or collaborative research proposals, please contact research@rxresearch.com with detailed project information.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Verification Issues</h3>
+                    <p>If you're having trouble verifying a product or suspect counterfeit materials, contact verify@rxresearch.com immediately with product details.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>International Inquiries</h3>
+                    <p>For international orders and shipping to your country, please contact international@rxresearch.com. We serve researchers in 50+ countries worldwide.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="container cta-content">
+            <h2>Ready to Advance Your Research?</h2>
+            <p>Contact our team today to discuss your specific research needs or request a custom quote for bulk orders.</p>
+            <div class="cta-buttons">
+                <a href="tel:+15551234567" class="btn btn-primary">
+                    <i class="fas fa-phone"></i> Call Now: +1 (555) 123-4567
+                </a>
+                <a href="mailto:sales@rxresearch.com" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i> Email Sales Team
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>RX Research Sciences</h3>
+                    <p style="color: #bbbbbb; margin-bottom: 20px;">Your trusted partner in pharmaceutical research. Committed to supporting scientific discovery through quality compounds and expert support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Contact</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                        <p><i class="fas fa-envelope"></i> info@rxresearchsciences.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Research Park Drive</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM EST</p>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Support Departments</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:sales@rxresearch.com"><i class="fas fa-chevron-right"></i> Sales & Orders</a></li>
+                        <li><a href="mailto:support@rxresearch.com"><i class="fas fa-chevron-right"></i> Technical Support</a></li>
+                        <li><a href="mailto:verify@rxresearch.com"><i class="fas fa-chevron-right"></i> Product Verification</a></li>
+                        <li><a href="mailto:logistics@rxresearch.com"><i class="fas fa-chevron-right"></i> Shipping & Logistics</a></li>
+                        <li><a href="mailto:research@rxresearch.com"><i class="fas fa-chevron-right"></i> Research Collaboration</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="products.html"><i class="fas fa-chevron-right"></i> Product Catalog</a></li>
+                        <li><a href="verification.html"><i class="fas fa-chevron-right"></i> Product Verification</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Company</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 RX Research Sciences. All rights reserved. | Emergency Support: +1 (555) EMERGENCY</p>
+                <p style="font-size: 0.8rem; margin-top: 10px; color: #aaa;">For research use only. Not for human consumption or diagnostic use.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== FORM VALIDATION & SUBMISSION =====
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const successMessage = document.getElementById('successMessage');
+        
+        // Error message styling
+        const errorMessages = document.querySelectorAll('.error-message');
+        errorMessages.forEach(msg => {
+            msg.style.cssText = `
+                color: #f44336;
+                font-size: 0.9rem;
+                margin-top: 5px;
+                display: none;
+            `;
+        });
+        
+        // Validation functions
+        function validateField(fieldId, errorId, validationFn) {
+            const field = document.getElementById(fieldId);
+            const error = document.getElementById(errorId);
+            const value = field.value.trim();
+            
+            if (!value) {
+                showError(field, error, 'This field is required');
+                return false;
+            }
+            
+            if (validationFn && !validationFn(value)) {
+                showError(field, error, 'Please enter a valid value');
+                return false;
+            }
+            
+            hideError(field, error);
+            return true;
+        }
+        
+        function showError(field, errorElement, message) {
+            field.style.borderColor = '#f44336';
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        function hideError(field, errorElement) {
+            field.style.borderColor = '#e0e0e0';
+            errorElement.style.display = 'none';
+        }
+        
+        // Specific validations
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        function validatePhone(phone) {
+            // Basic phone validation - accepts various formats
+            const re = /^[\d\s\-\+\(\)]{10,}$/;
+            return re.test(phone.replace(/\s/g, ''));
+        }
+        
+        // Form submission
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validate all fields
+            const isValid = [
+                validateField('firstName', 'firstNameError'),
+                validateField('lastName', 'lastNameError'),
+                validateField('email', 'emailError', validateEmail),
+                validateField('phone', 'phoneError', validatePhone),
+                validateField('inquiryType', 'inquiryTypeError'),
+                validateField('message', 'messageError')
+            ].every(result => result === true);
+            
+            if (!isValid) {
+                // Scroll to first error
+                const firstError = document.querySelector('.error-message[style*="display: block"]');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
+            }
+            
+            // Disable submit button and show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            loadingSpinner.style.display = 'block';
+            
+            // Collect form data
+            const formData = {
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                inquiryType: document.getElementById('inquiryType').value,
+                productCode: document.getElementById('productCode').value.trim(),
+                message: document.getElementById('message').value.trim(),
+                timestamp: new Date().toISOString(),
+                source: 'Website Contact Form'
+            };
+            
+            // Simulate API call (in real implementation, this would be a fetch to your backend)
+            setTimeout(() => {
+                // Hide loading spinner
+                loadingSpinner.style.display = 'none';
+                
+                // Show success message
+                successMessage.classList.add('show');
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // In a real implementation, you would send the data to your server:
+                // fetch('/api/contact', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(formData)
+                // })
+                // .then(response => response.json())
+                // .then(data => {
+                //     // Handle response
+                // })
+                // .catch(error => {
+                //     // Handle error
+                // });
+                
+                // Store in localStorage for demo purposes
+                const submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+                submissions.push(formData);
+                localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
+                
+            }, 2000); // Simulate 2 second delay
+        });
+        
+        // Real-time validation
+        document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(field => {
+            field.addEventListener('blur', function() {
+                const fieldId = this.id;
+                const errorId = fieldId + 'Error';
+                
+                switch(fieldId) {
+                    case 'firstName':
+                    case 'lastName':
+                        validateField(fieldId, errorId);
+                        break;
+                    case 'email':
+                        validateField(fieldId, errorId, validateEmail);
+                        break;
+                    case 'phone':
+                        validateField(fieldId, errorId, validatePhone);
+                        break;
+                    case 'inquiryType':
+                        validateField(fieldId, errorId);
+                        break;
+                    case 'message':
+                        validateField(fieldId, errorId);
+                        break;
+                }
+            });
+            
+            // Clear error on focus
+            field.addEventListener('focus', function() {
+                const fieldId = this.id;
+                const errorId = fieldId + 'Error';
+                const errorElement = document.getElementById(errorId);
+                hideError(this, errorElement);
+            });
+        });
+        
+        // ===== SCROLL TO MAP =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // ===== AUTO-FORMAT PHONE NUMBER =====
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                if (value.length <= 3) {
+                    value = `+${value}`;
+                } else if (value.length <= 6) {
+                    value = `+${value.slice(0,3)} (${value.slice(3)}`;
+                } else if (value.length <= 9) {
+                    value = `+${value.slice(0,3)} (${value.slice(3,6)}) ${value.slice(6)}`;
+                } else {
+                    value = `+${value.slice(0,3)} (${value.slice(3,6)}) ${value.slice(6,9)}-${value.slice(9,13)}`;
+                }
+            }
+            
+            e.target.value = value;
+        });
+        
+        // ===== COPY EMAIL TO CLIPBOARD =====
+        document.querySelectorAll('.method-link[href^="mailto:"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const email = this.href.replace('mailto:', '');
+                
+                // Create a temporary copy button
+                const copyBtn = document.createElement('button');
+                copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                copyBtn.style.cssText = `
+                    margin-left: 10px;
+                    padding: 4px 10px;
+                    background: #2196f3;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    font-size: 0.8rem;
+                    cursor: pointer;
+                `;
+                
+                copyBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navigator.clipboard.writeText(email).then(() => {
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        this.style.background = '#2e7d32';
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                            this.style.background = '#2196f3';
+                        }, 2000);
+                    });
+                });
+                
+                // Only add button if not already there
+                if (!this.querySelector('.copy-btn')) {
+                    copyBtn.classList.add('copy-btn');
+                    this.appendChild(copyBtn);
+                }
+            });
+        });
+        
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Auto-focus first input
+            document.getElementById('firstName').focus();
+            
+            // Add animation to contact methods
+            const contactMethods = document.querySelectorAll('.contact-method');
+            contactMethods.forEach((method, index) => {
+                method.style.opacity = '0';
+                method.style.transform = 'translateX(-20px)';
+                method.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                
+                setTimeout(() => {
+                    method.style.opacity = '1';
+                    method.style.transform = 'translateX(0)';
+                }, 100 * index);
+            });
+            
+            // FAQ items animation
+            const faqItems = document.querySelectorAll('.faq-item');
+            const faqObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            faqItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                faqObserver.observe(item);
+            });
+            
+            // Update current year in footer
+            const currentYear = new Date().getFullYear();
+            document.querySelector('.footer-bottom p').innerHTML = 
+                document.querySelector('.footer-bottom p').innerHTML.replace('2024', currentYear);
+        });
+        
+        // ===== SAMPLE DATA FOR TESTING =====
+        // For demonstration purposes - pre-fill form with sample data
+        function fillSampleData() {
+            if (!localStorage.getItem('sampleDataFilled')) {
+                document.getElementById('firstName').value = 'Michael';
+                document.getElementById('lastName').value = 'Chen';
+                document.getElementById('email').value = 'michael.chen@researchlab.edu';
+                document.getElementById('phone').value = '+1 (555) 123-4567';
+                document.getElementById('inquiryType').value = 'technical';
+                document.getElementById('productCode').value = 'CS-ze101208';
+                document.getElementById('message').value = 'I would like more information about storage requirements for Tirzepatide 10mg and whether you provide certificates of analysis for research publications.';
+                
+                localStorage.setItem('sampleDataFilled', 'true');
+            }
+        }
+        
+        // Add a subtle button to fill sample data for testing
+        const sampleDataBtn = document.createElement('button');
+        sampleDataBtn.innerHTML = '<i class="fas fa-vial"></i> Fill Sample Data';
+        sampleDataBtn.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        `;
+        
+        sampleDataBtn.addEventListener('click', () => {
+            fillSampleData();
+            sampleDataBtn.innerHTML = '<i class="fas fa-check"></i> Sample Data Filled!';
+            sampleDataBtn.style.background = '#2e7d32';
+            
+            setTimeout(() => {
+                sampleDataBtn.innerHTML = '<i class="fas fa-vial"></i> Fill Sample Data';
+                sampleDataBtn.style.background = '#2196f3';
+            }, 2000);
+        });
+        
+        sampleDataBtn.addEventListener('mouseenter', () => {
+            sampleDataBtn.style.transform = 'translateY(-3px)';
+            sampleDataBtn.style.boxShadow = '0 8px 25px rgba(33, 150, 243, 0.4)';
+        });
+        
+        sampleDataBtn.addEventListener('mouseleave', () => {
+            sampleDataBtn.style.transform = 'translateY(0)';
+            sampleDataBtn.style.boxShadow = '0 4px 15px rgba(33, 150, 243, 0.3)';
+        });
+        
+        document.body.appendChild(sampleDataBtn);
+    </script>
+</body>
+</html>
