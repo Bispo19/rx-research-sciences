@@ -386,18 +386,23 @@
             gap: 10px;
         }
         
-        .btn-cart {
-            background: #2196f3;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.3s;
+      <button class="btn-cart" onclick="addToCartFromProductPage({
+    id: '${product.code.toLowerCase()}',
+    name: '${product.name}',
+    code: '${product.code}',
+    concentration: '${product.concentration}',
+    category: '${categoryName}',
+    price: ${product.price},
+    icon: '${product.category === 'glp1' ? 'fas fa-weight' : 
+             product.category === 'peptides' ? 'fas fa-dna' : 
+             product.category === 'blends' ? 'fas fa-vial' : 
+             product.category === 'hormones' ? 'fas fa-chart-line' :
+             product.category === 'cognitive' ? 'fas fa-brain' :
+             product.category === 'antiaging' ? 'fas fa-heartbeat' :
+             product.category === 'recovery' ? 'fas fa-heartbeat' : 'fas fa-flask'}'
+})">
+    <i class="fas fa-cart-plus"></i> Add
+</button>
         }
         
         .btn-cart:hover {
