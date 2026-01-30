@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - RX Research Sciences</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            background: #0d47a1;
+            color: white;
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+        }
+        
+        /* ===== HEADER ===== */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0d47a1;
+        }
+        
+        .logo i {
+            color: #2196f3;
+            font-size: 2.2rem;
+        }
+        
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 30px;
+            position: relative;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .action-icon {
+            position: relative;
+            cursor: pointer;
+            color: #555;
+            font-size: 1.3rem;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f44336;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            min-width: 18px;
+            text-align: center;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .main-nav {
+            background: #f5f7fa;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            display: block;
+            padding: 18px 25px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: white;
+            color: #2196f3;
+            box-shadow: 0 -3px 0 #2196f3 inset;
+        }
+        
+        /* ===== PRODUCTS HEADER ===== */
+        .products-header {
+            background: linear-gradient(135deg, #0d47a1, #1976d2);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .products-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .products-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* ===== FILTERS ===== */
+        .filters-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .filters-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .filter-label {
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .filter-select {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            min-width: 180px;
+        }
+        
+        .search-filter {
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .search-filter input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .view-btn {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .view-btn.active {
+            background: #2196f3;
+            color: white;
+            border-color: #2196f3;
+        }
+        
+        /* ===== CATEGORIES ===== */
+        .categories-section {
+            margin-bottom: 30px;
+        }
+        
+        .categories-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .category-tab {
+            padding: 10px 25px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .category-tab:hover,
+        .category-tab.active {
+            background: #2196f3;
+            color: white;
+            border-color: #2196f3;
+        }
+        
+        /* ===== PRODUCTS GRID ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #2196f3;
+        }
+        
+        .product-header {
+            padding: 25px 25px 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .product-category {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0d47a1;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .product-code {
+            color: #666;
+            font-size: 0.9rem;
+            font-family: monospace;
+            background: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .product-body {
+            padding: 20px 25px;
+        }
+        
+        .product-specs {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .product-specs li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .product-specs li:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            color: #666;
+        }
+        
+        .spec-value {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .price-amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0d47a1;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-cart {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        
+        .btn-cart:hover {
+            background: #0d47a1;
+        }
+        
+        .btn-details {
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-details:hover {
+            background: #f0f7ff;
+            border-color: #2196f3;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0d1b3e;
+            color: white;
+            padding-top: 60px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 25px;
+            color: #4fc3f7;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bbbbbb;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: #4fc3f7;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: #2196f3;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #2a3a5e;
+            padding: 25px 0;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== PAGINATION ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 40px 0;
+        }
+        
+        .pagination-btn {
+            padding: 10px 18px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .pagination-btn:hover,
+        .pagination-btn.active {
+            background: #2196f3;
+            color: white;
+            border-color: #2196f3;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .search-container {
+                order: 3;
+                margin: 15px 0 0;
+                max-width: 100%;
+            }
+            
+            .filters-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .nav-links {
+                overflow-x: auto;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+                white-space: nowrap;
+            }
+            
+            .categories-tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div>Free shipping on orders over $100 • Lab-grade quality guaranteed</div>
+            <div class="top-links">
+                <a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
+                <a href="#"><i class="fas fa-question-circle"></i> Scientific Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- LOGO -->
+                <div class="logo">
+                    <i class="fas fa-flask"></i>
+                    <span>RX Research Sciences</span>
+                </div>
+
+                <!-- SEARCH -->
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search products by name or code...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+
+                <!-- USER ACTIONS -->
+                <div class="user-actions">
+                    <div class="action-icon">
+                        <i class="far fa-user"></i>
+                    </div>
+                    <div class="action-icon">
+                        <i class="far fa-heart"></i>
+                    </div>
+                    <div class="action-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="products.html" class="active"><i class="fas fa-pills"></i> All Products</a></li>
+                    <li><a href="verification.html"><i class="fas fa-check-circle"></i> Verification</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="blog.html"><i class="fas fa-blog"></i> Research</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- PRODUCTS HEADER -->
+    <section class="products-header">
+        <div class="container">
+            <h1>Research Compounds Catalog</h1>
+            <p>Comprehensive collection of high-purity research peptides, compounds, and pharmaceutical-grade materials for scientific research.</p>
+        </div>
+    </section>
+
+    <!-- FILTERS -->
+    <section class="container">
+        <div class="filters-section">
+            <div class="filters-row">
+                <div class="filter-group">
+                    <span class="filter-label">Sort by:</span>
+                    <select class="filter-select">
+                        <option>Newest First</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Name: A to Z</option>
+                    </select>
+                </div>
+                
+                <div class="search-filter">
+                    <input type="text" placeholder="Filter products by name or code...">
+                </div>
+                
+                <div class="view-options">
+                    <button class="view-btn active"><i class="fas fa-th-large"></i></button>
+                    <button class="view-btn"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="container categories-section">
+        <div class="categories-tabs">
+            <button class="category-tab active" data-category="all">All Products</button>
+            <button class="category-tab" data-category="glp1">GLP-1 Analogs</button>
+            <button class="category-tab" data-category="peptides">Research Peptides</button>
+            <button class="category-tab" data-category="blends">Peptide Blends</button>
+            <button class="category-tab" data-category="hormones">Hormones</button>
+            <button class="category-tab" data-category="cognitive">Cognitive Enhancers</button>
+            <button class="category-tab" data-category="antiaging">Anti-Aging</button>
+            <button class="category-tab" data-category="recovery">Recovery & Healing</button>
+        </div>
+    </section>
+
+    <!-- PRODUCTS GRID -->
+    <section class="container">
+        <div class="products-grid" id="products-container">
+            <!-- Tirzepatide Products -->
+            <div class="product-card" data-category="glp1">
+                <div class="product-header">
+                    <span class="product-category">GLP-1 Analog</span>
+                    <h3 class="product-name">Tirzepatide 10mg</h3>
+                    <span class="product-code">CS-ze101208</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Tirzepatide</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                        <li><span class="spec-label">Form:</span> <span class="spec-value">Lyophilized Powder</span></li>
+                        <li><span class="spec-label">Storage:</span> <span class="spec-value">-20°C</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$189.99</div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="Tirzepatide 10mg">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="glp1">
+                <div class="product-header">
+                    <span class="product-category">GLP-1 Analog</span>
+                    <h3 class="product-name">Tirzepatide 15mg</h3>
+                    <span class="product-code">CS-ze151021</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Tirzepatide</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">15mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                        <li><span class="spec-label">Form:</span> <span class="spec-value">Lyophilized Powder</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$249.99</div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="Tirzepatide 15mg">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="glp1">
+                <div class="product-header">
+                    <span class="product-category">GLP-1 Analog</span>
+                    <h3 class="product-name">Tirzepatide 20mg</h3>
+                    <span class="product-code">CS-ze201124</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Tirzepatide</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">20mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                        <li><span class="spec-label">Form:</span> <span class="spec-value">Lyophilized Powder</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$299.99</div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="Tirzepatide 20mg">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="glp1">
+                <div class="product-header">
+                    <span class="product-category">GLP-1 Analog</span>
+                    <h3 class="product-name">Tirzepatide 30mg</h3>
+                    <span class="product-code">CS-ze30-0108</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Tirzepatide</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">30mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$399.99</div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="Tirzepatide 30mg">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Retatrutide Products -->
+            <div class="product-card" data-category="glp1">
+                <div class="product-header">
+                    <span class="product-category">GLP-1 Analog</span>
+                    <h3 class="product-name">Retatrutide 10mg</h3>
+                    <span class="product-code">CS-re10-1220</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Retatrutide</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$219.99</div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="Retatrutide 10mg">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="glp1">
+                <div class="product-header">
+                    <span class="product-category">GLP-1 Analog</span>
+                    <h3 class="product-name">Retatrutide 20mg</h3>
+                    <span class="product-code">CS-re20-1225</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Retatrutide</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">20mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$329.99</div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="Retatrutide 20mg">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cognitive Enhancers -->
+            <div class="product-card" data-category="cognitive">
+                <div class="product-header">
+                    <span class="product-category">Cognitive Enhancer</span>
+                    <h3 class="product-name">Semax 10mg</h3>
+                    <span class="product-code">CS-sa101018</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Semax</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$89.99</div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="Semax 10mg">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="cognitive">
+                <div class="product-header">
+                    <span class="product-category">Cognitive Enhancer</span>
+                    <h3 class="product-name">Selank 10mg</h3>
+                    <span class="product-code">CS-sn101026</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">Selank</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$79.99</div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="Selank 10mg">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BPC-157 & Recovery -->
+            <div class="product-card" data-category="recovery">
+                <div class="product-header">
+                    <span class="product-category">Recovery Peptide</span>
+                    <h3 class="product-name">BPC-157 10mg</h3>
+                    <span class="product-code">CS-bc101103</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">BPC-157</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$69.99</div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="BPC-157 10mg">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="recovery">
+                <div class="product-header">
+                    <span class="product-category">Recovery Peptide</span>
+                    <h3 class="product-name">BPC-157 20mg</h3>
+                    <span class="product-code">CS-bc20-0109</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">BPC-157</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">20mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$119.99</div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="BPC-157 20mg">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TB-500 -->
+            <div class="product-card" data-category="recovery">
+                <div class="product-header">
+                    <span class="product-category">Recovery Peptide</span>
+                    <h3 class="product-name">TB-500 10mg</h3>
+                    <span class="product-code">CS-tb10-0111</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">TB-500</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">10mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$79.99</div>
+                        <div class="product-actions">
+                            <button class="btn-cart" data-product="TB-500 10mg">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Growth Hormone Releasing -->
+            <div class="product-card" data-category="hormones">
+                <div class="product-header">
+                    <span class="product-category">Growth Hormone</span>
+                    <h3 class="product-name">CJC1295 DAC 5mg</h3>
+                    <span class="product-code">CS-cwd5820</span>
+                </div>
+                <div class="product-body">
+                    <ul class="product-specs">
+                        <li><span class="spec-label">Compound:</span> <span class="spec-value">CJC1295 DAC</span></li>
+                        <li><span class="spec-label">Concentration:</span> <span class="spec-value">5mg</span></li>
+                        <li><span class="spec-label">Purity:</span> <span class="spec-value">≥99%</span></li>
+                    </ul>
+                    <div class="product-price">
+                        <div class="price-amount">$149.99</div>
+                        <div class="product-actions">
+                            <
