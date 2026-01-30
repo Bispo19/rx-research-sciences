@@ -658,6 +658,159 @@
             font-size: 0.9rem;
         }
         
+        /* ===== RECONSTITUTION CALCULATOR SECTION ===== */
+        .calculator-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .calculator-container {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .calculator-inputs {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .calculator-results {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #2196f3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        .result-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .result-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0d47a1;
+        }
+        
+        .result-unit {
+            font-size: 0.9rem;
+            color: #666;
+            margin-left: 5px;
+        }
+        
+        /* ===== STORAGE GUIDE SECTION ===== */
+        .storage-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .storage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .storage-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+        
+        .storage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #2196f3;
+        }
+        
+        .storage-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 1.8rem;
+            color: white;
+        }
+        
+        .storage-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .storage-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .temp-badge {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #0d47a1;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
         /* ===== WHY CHOOSE US ===== */
         .features-section {
             padding: 100px 0;
@@ -883,6 +1036,11 @@
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
+            
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
         }
         
         @media (max-width: 992px) {
@@ -954,6 +1112,15 @@
                 padding: 8px 15px;
                 font-size: 0.9rem;
             }
+            
+            .calculator-container {
+                padding: 30px;
+            }
+            
+            .calculator-inputs,
+            .calculator-results {
+                padding: 25px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -973,7 +1140,8 @@
             
             .categories-grid,
             .products-grid,
-            .features-grid {
+            .features-grid,
+            .storage-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -1006,7 +1174,7 @@
             }
         }
         
-        .hero-content, .section-header, .category-card, .product-card, .feature-card {
+        .hero-content, .section-header, .category-card, .product-card, .feature-card, .storage-card, .calculator-container {
             animation: fadeInUp 0.6s ease-out;
         }
         
@@ -1062,7 +1230,7 @@
         <div class="container">
             <div class="header-content">
                 <!-- LOGO -->
-                <a href="index.html" class="logo">
+                <a href="#home" class="logo" onclick="scrollToSection('home')">
                     <i class="fas fa-flask"></i>
                     <span>RX Research Sciences</span>
                 </a>
@@ -1075,11 +1243,11 @@
 
                 <!-- USER ACTIONS -->
                 <div class="user-actions">
-                    <div class="action-icon">
+                    <div class="action-icon" onclick="scrollToSection('products')">
                         <i class="far fa-user"></i>
                         <span>Account</span>
                     </div>
-                    <div class="action-icon">
+                    <div class="action-icon" onclick="scrollToSection('products')">
                         <i class="far fa-heart"></i>
                         <span>Wishlist</span>
                     </div>
@@ -1092,33 +1260,33 @@
             </div>
         </div>
 
-        <!-- NAVIGATION -->
+        <!-- NAVIGATION - CORRIGIDO -->
         <nav class="main-nav">
             <div class="container">
                 <ul class="nav-links">
-                    <li><a href="#" class="active" data-target="home"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="#" data-target="products"><i class="fas fa-shopping-cart"></i> All Products</a></li>
-                    <li><a href="#" data-target="categories"><i class="fas fa-th-large"></i> Categories</a></li>
-                    <li><a href="#" data-target="verification"><i class="fas fa-check-circle"></i> Verification</a></li>
-                    <li><a href="#" data-target="about"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="#" data-target="contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="#" data-target="research"><i class="fas fa-blog"></i> Research</a></li>
+                    <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#products"><i class="fas fa-shopping-cart"></i> All Products</a></li>
+                    <li><a href="#categories"><i class="fas fa-th-large"></i> Categories</a></li>
+                    <li><a href="#calculator"><i class="fas fa-calculator"></i> Calculator</a></li>
+                    <li><a href="#storage"><i class="fas fa-temperature-low"></i> Storage Guide</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
     <!-- HERO SECTION -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="container hero-content">
             <h1>Advanced Research Compounds for Scientific Discovery</h1>
             <p>Providing researchers worldwide with 80+ high-purity pharmaceutical compounds, peptides, and research materials. Lab-grade quality, certificates of analysis, and global shipping.</p>
             
             <div class="btn-group">
-                <a href="#" class="btn btn-primary" data-target="products">
+                <a href="#products" class="btn btn-primary">
                     <i class="fas fa-shopping-cart"></i> Shop All Products
                 </a>
-                <a href="#" class="btn btn-secondary" data-target="categories">
+                <a href="#categories" class="btn btn-secondary">
                     <i class="fas fa-th-large"></i> Browse Categories
                 </a>
             </div>
@@ -1367,26 +1535,6 @@
                     </div>
                 </div>
                 
-                <div class="product-card visible" data-category="cognitive">
-                    <div class="product-image">
-                        <i class="fas fa-memory"></i>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Cognitive Enhancer</span>
-                        <h3 class="product-title">Selank 10mg</h3>
-                        <span class="product-code">CS-sl101019</span>
-                        <div class="product-price">
-                            <div class="price-amount">$84.99</div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-small add-to-cart" data-product="Selank 10mg">
-                                    <i class="fas fa-cart-plus"></i> Add
-                                </button>
-                                <button class="btn btn-secondary btn-small details-btn">Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
                 <!-- Growth Hormones -->
                 <div class="product-card visible" data-category="hormones">
                     <div class="product-image">
@@ -1400,27 +1548,6 @@
                             <div class="price-amount">$129.99</div>
                             <div class="product-actions">
                                 <button class="btn btn-primary btn-small add-to-cart" data-product="CJC-1295 5mg">
-                                    <i class="fas fa-cart-plus"></i> Add
-                                </button>
-                                <button class="btn btn-secondary btn-small details-btn">Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Peptide Blends -->
-                <div class="product-card visible" data-category="blends">
-                    <div class="product-image">
-                        <i class="fas fa-vial"></i>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Peptide Blend</span>
-                        <h3 class="product-title">BPC-157 + TB-500 Blend</h3>
-                        <span class="product-code">CS-bt101030</span>
-                        <div class="product-price">
-                            <div class="price-amount">$129.99</div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-small add-to-cart" data-product="BPC-157 + TB-500 Blend">
                                     <i class="fas fa-cart-plus"></i> Add
                                 </button>
                                 <button class="btn btn-secondary btn-small details-btn">Details</button>
@@ -1449,38 +1576,177 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="product-card visible" data-category="antiaging">
-                    <div class="product-image">
-                        <i class="fas fa-dna"></i>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Anti-Aging</span>
-                        <h3 class="product-title">NAD+ 100mg</h3>
-                        <span class="product-code">CS-na101040</span>
-                        <div class="product-price">
-                            <div class="price-amount">$199.99</div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-small add-to-cart" data-product="NAD+ 100mg">
-                                    <i class="fas fa-cart-plus"></i> Add
-                                </button>
-                                <button class="btn btn-secondary btn-small details-btn">Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             <div style="text-align: center; margin-top: 50px;">
-                <a href="#" class="btn btn-primary" style="padding: 16px 40px;" data-target="products">
+                <a href="#products" class="btn btn-primary" style="padding: 16px 40px;">
                     <i class="fas fa-arrow-right"></i> View All 80+ Products
                 </a>
             </div>
         </div>
     </section>
 
+    <!-- PEPTIDE CALCULATOR SECTION -->
+    <section class="calculator-section" id="calculator">
+        <div class="container">
+            <div class="section-header">
+                <h2>Peptide Reconstitution Calculator</h2>
+                <p>Calculate precise dosing for your research peptides with our advanced calculator</p>
+            </div>
+            
+            <div class="calculator-container">
+                <div class="calculator-grid">
+                    <div class="calculator-inputs">
+                        <h3 style="margin-bottom: 25px; color: #0d47a1;">Calculator Inputs</h3>
+                        
+                        <div class="input-group">
+                            <label for="peptideAmount">Peptide Amount (mg)</label>
+                            <input type="number" id="peptideAmount" value="10" min="1" max="100" step="0.1">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="bacteriostaticWater">Bacteriostatic Water (ml)</label>
+                            <input type="number" id="bacteriostaticWater" value="2" min="0.5" max="10" step="0.1">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="desiredDose">Desired Dose (mcg)</label>
+                            <input type="number" id="desiredDose" value="250" min="10" max="5000" step="10">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="syringeSize">Syringe Size (units)</label>
+                            <select id="syringeSize">
+                                <option value="100">1ml (100 units)</option>
+                                <option value="50">0.5ml (50 units)</option>
+                                <option value="30">0.3ml (30 units)</option>
+                                <option value="10">0.1ml (10 units)</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="calculatePeptide()">
+                            <i class="fas fa-calculator"></i> Calculate
+                        </button>
+                    </div>
+                    
+                    <div class="calculator-results">
+                        <h3 style="margin-bottom: 25px; color: #0d47a1;">Calculation Results</h3>
+                        
+                        <div class="result-item">
+                            <div class="result-label">Peptide Concentration</div>
+                            <div class="result-value">
+                                <span id="concentrationResult">5.00</span>
+                                <span class="result-unit">mg/ml</span>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="result-label">Volume per Dose</div>
+                            <div class="result-value">
+                                <span id="volumeResult">0.05</span>
+                                <span class="result-unit">ml</span>
+                            </div>
+                            <div style="font-size: 0.9rem; color: #666; margin-top: 5px;">
+                                (<span id="unitsResult">5</span> units on <span id="syringeLabel">1ml</span> syringe)
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="result-label">Total Doses Available</div>
+                            <div class="result-value">
+                                <span id="dosesResult">40</span>
+                                <span class="result-unit">doses</span>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="result-label">Storage Recommendation</div>
+                            <div style="margin-top: 10px;">
+                                <p style="margin: 5px 0; color: #666;">
+                                    <i class="fas fa-snowflake"></i> Store at -20°C
+                                </p>
+                                <p style="margin: 5px 0; color: #666;">
+                                    <i class="fas fa-clock"></i> Use within 30 days after reconstitution
+                                </p>
+                                <p style="margin: 5px 0; color: #666;">
+                                    <i class="fas fa-syringe"></i> Use sterile techniques
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STORAGE GUIDE SECTION -->
+    <section class="storage-section" id="storage">
+        <div class="container">
+            <div class="section-header">
+                <h2>Peptide Storage & Reconstitution Guide</h2>
+                <p>Proper storage and handling techniques for optimal peptide stability and research results</p>
+            </div>
+            
+            <div class="storage-grid">
+                <div class="storage-card">
+                    <div class="storage-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <h3>Lyophilized Storage</h3>
+                    <p>Store un-reconstituted peptides at -20°C or below in a dry, dark environment.</p>
+                    <div class="temp-badge">-20°C to -80°C</div>
+                </div>
+                
+                <div class="storage-card">
+                    <div class="storage-icon">
+                        <i class="fas fa-temperature-low"></i>
+                    </div>
+                    <h3>Reconstituted Storage</h3>
+                    <p>After reconstitution, store peptides at 2-8°C and use within recommended timeframe.</p>
+                    <div class="temp-badge">2°C to 8°C</div>
+                </div>
+                
+                <div class="storage-card">
+                    <div class="storage-icon">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <h3>Reconstitution Protocol</h3>
+                    <p>Use sterile bacteriostatic water and proper aseptic techniques for reconstitution.</p>
+                    <div class="temp-badge">Sterile Technique</div>
+                </div>
+                
+                <div class="storage-card">
+                    <div class="storage-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Shelf Life</h3>
+                    <p>Lyophilized: 2+ years at -20°C. Reconstituted: 30 days at 2-8°C.</p>
+                    <div class="temp-badge">Optimized Stability</div>
+                </div>
+                
+                <div class="storage-card">
+                    <div class="storage-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Avoid Freeze-Thaw Cycles</h3>
+                    <p>Minimize freeze-thaw cycles to prevent peptide degradation and maintain integrity.</p>
+                    <div class="temp-badge">Single Use Aliquots</div>
+                </div>
+                
+                <div class="storage-card">
+                    <div class="storage-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Laboratory Best Practices</h3>
+                    <p>Always use sterile equipment and follow proper laboratory safety protocols.</p>
+                    <div class="temp-badge">GMP Guidelines</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- WHY CHOOSE US -->
-    <section class="features-section">
+    <section class="features-section" id="about">
         <div class="container">
             <div class="section-header">
                 <h2>Why Choose RX Research Sciences</h2>
@@ -1540,15 +1806,15 @@
     </section>
 
     <!-- CTA SECTION -->
-    <section class="cta-section">
+    <section class="cta-section" id="contact">
         <div class="container cta-content">
             <h2>Ready to Advance Your Research?</h2>
             <p>Join thousands of researchers worldwide who trust RX Research Sciences for their laboratory compound needs.</p>
             <div class="btn-group">
-                <a href="#" class="btn btn-primary" data-target="products">
+                <a href="#products" class="btn btn-primary">
                     <i class="fas fa-shopping-cart"></i> Start Shopping
                 </a>
-                <a href="#" class="btn btn-secondary" data-target="contact">
+                <a href="#contact" class="btn btn-secondary">
                     <i class="fas fa-envelope"></i> Contact Sales
                 </a>
             </div>
@@ -1574,11 +1840,11 @@
                 <div class="footer-col">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#" data-target="home"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="#" data-target="products"><i class="fas fa-chevron-right"></i> All Products</a></li>
-                        <li><a href="#" data-target="verification"><i class="fas fa-chevron-right"></i> Product Verification</a></li>
-                        <li><a href="#" data-target="about"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                        <li><a href="#" data-target="contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#products"><i class="fas fa-chevron-right"></i> All Products</a></li>
+                        <li><a href="#categories"><i class="fas fa-chevron-right"></i> Categories</a></li>
+                        <li><a href="#calculator"><i class="fas fa-chevron-right"></i> Peptide Calculator</a></li>
+                        <li><a href="#storage"><i class="fas fa-chevron-right"></i> Storage Guide</a></li>
                     </ul>
                 </div>
                 
@@ -1639,6 +1905,61 @@
             document.getElementById('legal-banner').style.display = 'none';
         }
         
+        // ===== NAVEGAÇÃO CORRIGIDA =====
+        function scrollToSection(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Atualiza estado ativo no menu
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        }
+        
+        // Configura navegação do menu
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    const sectionId = href.substring(1);
+                    scrollToSection(sectionId);
+                }
+            });
+        });
+        
+        // Configura botões na home
+        document.querySelectorAll('.btn-group a, .btn-primary, .btn-secondary').forEach(button => {
+            if (button.getAttribute('href') && button.getAttribute('href').startsWith('#')) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    const sectionId = href.substring(1);
+                    scrollToSection(sectionId);
+                });
+            }
+        });
+        
+        // Configura links no footer
+        document.querySelectorAll('.footer-links a').forEach(link => {
+            if (link.getAttribute('href') && link.getAttribute('href').startsWith('#')) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    const sectionId = href.substring(1);
+                    scrollToSection(sectionId);
+                });
+            }
+        });
+        
         // ===== SHOPPING CART FUNCTIONALITY =====
         let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
         const cartCountElement = document.querySelector('.cart-count');
@@ -1696,7 +2017,6 @@
         // ===== SISTEMA DE FILTRAGEM POR CATEGORIA =====
         let currentFilter = 'all';
         
-        // Função para filtrar produtos
         function filterProducts(category) {
             currentFilter = category;
             const products = document.querySelectorAll('.product-card');
@@ -1765,12 +2085,6 @@
             button.addEventListener('click', function() {
                 const category = this.getAttribute('data-filter');
                 filterProducts(category);
-                
-                // Rola para a seção de produtos
-                document.querySelector('#products').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
             });
         });
         
@@ -1779,31 +2093,44 @@
             card.addEventListener('click', function() {
                 const category = this.getAttribute('data-category');
                 filterProducts(category);
-                
-                // Rola para a seção de produtos
-                setTimeout(() => {
-                    document.querySelector('#products').scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }, 100);
+                scrollToSection('products');
             });
         });
         
-        // Configura links de categoria no footer
-        document.querySelectorAll('.footer-links a[data-category]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const category = this.getAttribute('data-category');
-                filterProducts(category);
-                
-                setTimeout(() => {
-                    document.querySelector('#products').scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }, 100);
-            });
+        // ===== PEPTIDE CALCULATOR =====
+        function calculatePeptide() {
+            const peptideAmount = parseFloat(document.getElementById('peptideAmount').value);
+            const bacteriostaticWater = parseFloat(document.getElementById('bacteriostaticWater').value);
+            const desiredDose = parseFloat(document.getElementById('desiredDose').value);
+            const syringeSize = parseInt(document.getElementById('syringeSize').value);
+            
+            // Cálculos
+            const concentration = peptideAmount / bacteriostaticWater; // mg/ml
+            const volumePerDose = (desiredDose / 1000) / concentration; // ml
+            const totalDoses = peptideAmount * 1000 / desiredDose;
+            const unitsPerDose = (volumePerDose * syringeSize).toFixed(1);
+            
+            // Atualiza resultados
+            document.getElementById('concentrationResult').textContent = concentration.toFixed(2);
+            document.getElementById('volumeResult').textContent = volumePerDose.toFixed(3);
+            document.getElementById('dosesResult').textContent = Math.floor(totalDoses);
+            document.getElementById('unitsResult').textContent = unitsPerDose;
+            
+            // Atualiza label da seringa
+            const syringeOptions = {
+                100: '1ml',
+                50: '0.5ml',
+                30: '0.3ml',
+                10: '0.1ml'
+            };
+            document.getElementById('syringeLabel').textContent = syringeOptions[syringeSize];
+            
+            showNotification('Peptide calculation updated');
+        }
+        
+        // Inicializa calculadora
+        document.addEventListener('DOMContentLoaded', function() {
+            calculatePeptide();
         });
         
         // ===== BOTÃO "DETAILS" DOS PRODUTOS =====
@@ -1902,15 +2229,6 @@
                                 </p>
                             </div>
                             
-                            <h5 style="margin: 0 0 10px 0; color: #333;">Shipping Information</h5>
-                            <ul style="margin-bottom: 25px; padding-left: 20px; color: #666;">
-                                <li>Temperature-controlled packaging</li>
-                                <li>Discreet shipping worldwide</li>
-                                <li>Delivery: 5-10 business days (international)</li>
-                                <li>Tracking number provided</li>
-                                <li>Signature required upon delivery</li>
-                            </ul>
-                            
                             <div style="display: flex; gap: 10px; margin-top: 25px;">
                                 <button class="btn btn-primary btn-small add-to-cart" 
                                         data-product="${productName}" 
@@ -1928,63 +2246,6 @@
                 `;
                 
                 document.body.insertAdjacentHTML('beforeend', modalHTML);
-                
-                // Adiciona animação
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes slideUp {
-                        from {
-                            opacity: 0;
-                            transform: translateY(30px);
-                        }
-                        to {
-                            opacity: 1;
-                            transform: translateY(0);
-                        }
-                    }
-                `;
-                document.head.appendChild(style);
-            });
-        });
-        
-        // ===== NAVEGAÇÃO POR SEÇÕES =====
-        function scrollToSection(sectionId) {
-            const sections = {
-                'home': '.hero',
-                'products': '#products',
-                'categories': '#categories',
-                'verification': '.hero',
-                'about': '.features-section',
-                'contact': '.cta-section',
-                'research': '#products'
-            };
-            
-            const target = document.querySelector(sections[sectionId]);
-            if (target) {
-                window.scrollTo({
-                    top: target.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                
-                // Atualiza estado ativo no menu
-                document.querySelectorAll('.nav-links a').forEach(link => {
-                    link.classList.remove('active');
-                });
-                document.querySelector(`[data-target="${sectionId}"]`).classList.add('active');
-                
-                // Se for a seção de produtos, mostra todos
-                if (sectionId === 'products') {
-                    filterProducts('all');
-                }
-            }
-        }
-        
-        // Configura navegação do menu
-        document.querySelectorAll('[data-target]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = this.getAttribute('data-target');
-                scrollToSection(target);
             });
         });
         
@@ -1995,7 +2256,6 @@
         searchButton.addEventListener('click', () => {
             if (searchInput.value.trim()) {
                 showNotification(`Searching for: ${searchInput.value}`);
-                // Simula busca - mostra todos os produtos
                 filterProducts('all');
                 scrollToSection('products');
                 searchInput.value = '';
@@ -2039,32 +2299,6 @@
             }, 3000);
         }
         
-        // ===== ANIMAÇÕES =====
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeOutUp {
-                from {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-                to {
-                    opacity: 0;
-                    transform: translateY(-20px);
-                }
-            }
-            
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-        
         // ===== BOTÃO SUBSCRIBE =====
         document.getElementById('subscribeBtn').addEventListener('click', function() {
             const emailInput = document.querySelector('.newsletter-input');
@@ -2080,6 +2314,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             updateCartCount();
             filterProducts('all');
+            calculatePeptide();
         });
     </script>
 </body>
