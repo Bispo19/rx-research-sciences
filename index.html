@@ -497,69 +497,81 @@
             font-weight: 500;
         }
         
-        /* ===== FEATURED PRODUCTS ===== */
-        .products-section {
-            padding: 100px 0;
-            background: #f8f9fa;
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            border: 1px solid #f0f0f0;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border-color: #2196f3;
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: #f44336;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 1;
-        }
-        
-        .product-image {
-            height: 200px;
-            background: linear-gradient(135deg, #f0f7ff, #e3f2fd);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .product-image i {
-            font-size: 4rem;
-            color: #0d47a1;
-            transition: transform 0.3s;
-        }
-        
-        .product-card:hover .product-image i {
-            transform: scale(1.1);
-        }
-        
-        .product-info {
-            padding: 25px;
-        }
+       /* ===== FEATURED PRODUCTS ===== */
+.products-section {
+    padding: 100px 0;
+    background: #f8f9fa;
+    position: relative; /* Adicione isso */
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+    border: 1px solid #f0f0f0;
+    position: relative; /* ESSENCIAL - deve estar aqui */
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    border-color: #2196f3;
+}
+
+/* CORREÇÃO DO BADGE */
+.product-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px; /* MUDEI DE left PARA right */
+    background: #f44336;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 10; /* Aumentei o z-index */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Para o badge NEW (verde) */
+.product-badge[style*="background: #2e7d32"] {
+    background: #2e7d32 !important;
+}
+
+.product-image {
+    height: 200px;
+    background: linear-gradient(135deg, #f0f7ff, #e3f2fd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image i {
+    font-size: 4rem;
+    color: #0d47a1;
+    transition: transform 0.3s;
+}
+
+.product-card:hover .product-image i {
+    transform: scale(1.1);
+}
+
+.product-info {
+    padding: 25px;
+}
+
+/* O resto do CSS permanece igual... */
         
         .product-category {
             color: #666;
