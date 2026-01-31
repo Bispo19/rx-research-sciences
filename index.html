@@ -173,25 +173,6 @@
             text-align: center;
         }
         
-        .whatsapp-order {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-        }
-        
-        .whatsapp-order:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
-        }
-        
         /* ===== NAVIGATION ===== */
         .main-nav {
             background: linear-gradient(135deg, #0d47a1, #1565c0);
@@ -545,6 +526,157 @@
             color: #2196f3;
         }
         
+        /* ===== MINI CART MODAL ===== */
+        .mini-cart {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            z-index: 2000;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mini-cart.active {
+            right: 0;
+        }
+        
+        .cart-header {
+            padding: 25px;
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-header h3 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .close-cart:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: #0d47a1;
+            font-weight: bold;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .quantity-btn:hover {
+            background: #f5f5f5;
+        }
+        
+        .cart-item-quantity {
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: #f44336;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .cart-footer {
+            padding: 25px;
+            border-top: 1px solid #eee;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #0d47a1;
+        }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 50px 20px;
+            color: #666;
+        }
+        
+        .cart-empty i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
         /* ===== FOOTER ===== */
         footer {
             background: #0d1b3e;
@@ -681,19 +813,6 @@
             gap: 8px;
         }
         
-        .representatives-info {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 10px;
-            margin: 30px 0;
-            text-align: center;
-        }
-        
-        .representatives-info h4 {
-            color: #4fc3f7;
-            margin-bottom: 15px;
-        }
-        
         .back-to-top {
             display: block;
             text-align: center;
@@ -716,6 +835,22 @@
             line-height: 1.6;
         }
         
+        /* ===== OVERLAY ===== */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1500;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
         /* ===== RESPONSIVE ===== */
         @media (max-width: 992px) {
             .header-content {
@@ -730,10 +865,6 @@
             
             .user-actions {
                 margin-top: 15px;
-            }
-            
-            .whatsapp-order {
-                display: none;
             }
             
             .nav-links {
@@ -756,6 +887,12 @@
             
             .section-header h2 {
                 font-size: 2rem;
+            }
+            
+            .mini-cart {
+                width: 100%;
+                max-width: 400px;
+                right: -100%;
             }
             
             /* Responsividade do Footer */
@@ -863,12 +1000,12 @@
     <div class="top-bar">
         <div class="container top-bar-content">
             <div class="top-message">
-                <i class="fas fa-globe-americas"></i>
-                <span>Local representatives worldwide • Crypto payments accepted</span>
+                <i class="fas fa-shipping-fast"></i>
+                <span>Shipping via local representatives • Crypto payments accepted</span>
             </div>
             <div class="top-links">
-                <a href="contact.html#representatives"><i class="fas fa-user-tie"></i> Find Your Representative</a>
-                <a href="tel:+15551234567"><i class="fas fa-phone"></i> Global Support</a>
+                <a href="representatives.html"><i class="fas fa-user-tie"></i> Find Your Representative</a>
+                <a href="tel:+15551234567"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
             </div>
         </div>
     </div>
@@ -889,20 +1026,20 @@
                     <button class="search-btn"><i class="fas fa-search"></i></button>
                 </div>
 
-                <!-- USER ACTIONS & WHATSAPP -->
+                <!-- USER ACTIONS -->
                 <div class="user-actions">
-                    <a href="representatives.html" class="action-icon">
-                        <i class="fas fa-user-tie"></i>
-                        <span>Representatives</span>
+                    <a href="account.html" class="action-icon">
+                        <i class="far fa-user"></i>
+                        <span>Account</span>
                     </a>
-                    <a href="crypto-payments.html" class="action-icon">
-                        <i class="fab fa-bitcoin"></i>
-                        <span>Crypto</span>
+                    <a href="wishlist.html" class="action-icon">
+                        <i class="far fa-heart"></i>
+                        <span>Wishlist</span>
                     </a>
-                    <a href="https://wa.me/15551234567?text=Hello%20RX%20Research%20Sciences,%20I%20would%20like%20to%20place%20an%20order" 
-                       class="whatsapp-order" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Order via WhatsApp</span>
+                    <a href="javascript:void(0)" class="action-icon cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                        <span>Cart</span>
                     </a>
                 </div>
             </div>
@@ -915,14 +1052,38 @@
                     <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="products/index.html"><i class="fas fa-boxes"></i> All Products</a></li>
                     <li><a href="#categories"><i class="fas fa-th-large"></i> Categories</a></li>
-                    <li><a href="representatives.html"><i class="fas fa-user-tie"></i> Representatives</a></li>
-                    <li><a href="crypto-payments.html"><i class="fab fa-bitcoin"></i> Crypto Payments</a></li>
                     <li><a href="calculator.html"><i class="fas fa-calculator"></i> Calculator</a></li>
-                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="storage-guide.html"><i class="fas fa-temperature-low"></i> Reconstituting / Storage</a></li>
+                    <li><a href="representatives.html"><i class="fas fa-user-tie"></i> Representatives</a></li>
                 </ul>
             </div>
         </nav>
     </header>
+
+    <!-- ===== MINI CART MODAL ===== -->
+    <div class="mini-cart" id="miniCart">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be inserted here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <a href="javascript:void(0)" class="btn btn-primary" id="checkoutBtn" style="width: 100%; margin-bottom: 10px;">
+                <i class="fas fa-shopping-cart"></i> Checkout
+            </a>
+            <a href="javascript:void(0)" class="btn btn-whatsapp" id="whatsappCheckoutBtn" style="width: 100%;">
+                <i class="fab fa-whatsapp"></i> Checkout via WhatsApp
+            </a>
+        </div>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
 
     <!-- ===== HERO SECTION ===== -->
     <section class="hero">
@@ -933,9 +1094,8 @@
                 <a href="products/index.html" class="btn btn-primary">
                     <i class="fas fa-flask"></i> Browse Products
                 </a>
-                <a href="https://wa.me/15551234567?text=Hello%20RX%20Research%20Sciences,%20I%20would%20like%20to%20place%20an%20order" 
-                   class="btn btn-whatsapp" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Order Now
+                <a href="#featured" class="btn" style="background: white; color: #0d47a1;">
+                    <i class="fas fa-star"></i> Featured Products
                 </a>
             </div>
         </div>
@@ -946,32 +1106,26 @@
         <div class="container">
             <div class="section-header">
                 <h2>How To Order</h2>
-                <p>Simple process through our local representatives</p>
+                <p>Simple 3-step process to get your research compounds</p>
             </div>
             
             <div class="process-grid">
                 <div class="process-step">
                     <div class="step-number">1</div>
-                    <h3>Browse Products</h3>
-                    <p>Explore our catalog of research compounds</p>
+                    <h3>Add to Cart</h3>
+                    <p>Browse products and add them to your cart with transparent pricing</p>
                 </div>
                 
                 <div class="process-step">
                     <div class="step-number">2</div>
-                    <h3>Contact Representative</h3>
-                    <p>Find your local representative for ordering and support</p>
+                    <h3>Checkout Options</h3>
+                    <p>Choose standard checkout or WhatsApp checkout for faster processing</p>
                 </div>
                 
                 <div class="process-step">
                     <div class="step-number">3</div>
-                    <h3>Crypto Payment</h3>
-                    <p>Pay securely with Bitcoin, USDT, or other cryptocurrencies</p>
-                </div>
-                
-                <div class="process-step">
-                    <div class="step-number">4</div>
-                    <h3>Local Delivery</h3>
-                    <p>Your representative handles shipping and local support</p>
+                    <h3>Local Representative</h3>
+                    <p>Your local representative will contact you for shipping and payment details</p>
                 </div>
             </div>
         </div>
@@ -1023,7 +1177,7 @@
     </section>
 
     <!-- ===== FEATURED PRODUCTS ===== -->
-    <section class="featured-section">
+    <section id="featured" class="featured-section">
         <div class="container">
             <div class="section-header">
                 <h2>Featured Products</h2>
@@ -1040,9 +1194,13 @@
                         <h3 class="product-name">Tirzepatide 10mg</h3>
                         <p>High-purity dual GIP and GLP-1 receptor agonist for metabolic research.</p>
                         <div class="product-price">
-                            <div class="price">Contact for Price</div>
-                            <button class="btn btn-primary" onclick="openWhatsApp('Tirzepatide 10mg')">
-                                <i class="fab fa-whatsapp"></i> Inquire
+                            <div class="price">$89.99</div>
+                            <button class="btn btn-primary add-to-cart" 
+                                    data-id="1" 
+                                    data-name="Tirzepatide 10mg" 
+                                    data-price="89.99" 
+                                    data-category="GLP-1 Analog">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
                             </button>
                         </div>
                     </div>
@@ -1057,9 +1215,13 @@
                         <h3 class="product-name">BPC-157 10mg</h3>
                         <p>Body Protection Compound for tissue repair and gastrointestinal research.</p>
                         <div class="product-price">
-                            <div class="price">Contact for Price</div>
-                            <button class="btn btn-primary" onclick="openWhatsApp('BPC-157 10mg')">
-                                <i class="fab fa-whatsapp"></i> Inquire
+                            <div class="price">$69.99</div>
+                            <button class="btn btn-primary add-to-cart" 
+                                    data-id="2" 
+                                    data-name="BPC-157 10mg" 
+                                    data-price="69.99" 
+                                    data-category="Research Peptide">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
                             </button>
                         </div>
                     </div>
@@ -1074,9 +1236,13 @@
                         <h3 class="product-name">Semax 10mg</h3>
                         <p>Nootropic peptide for cognitive enhancement and neuroprotection research.</p>
                         <div class="product-price">
-                            <div class="price">Contact for Price</div>
-                            <button class="btn btn-primary" onclick="openWhatsApp('Semax 10mg')">
-                                <i class="fab fa-whatsapp"></i> Inquire
+                            <div class="price">$89.99</div>
+                            <button class="btn btn-primary add-to-cart" 
+                                    data-id="3" 
+                                    data-name="Semax 10mg" 
+                                    data-price="89.99" 
+                                    data-category="Cognitive Enhancer">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
                             </button>
                         </div>
                     </div>
@@ -1096,7 +1262,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Accepted Cryptocurrencies</h2>
-                <p>Secure payments with major cryptocurrencies</p>
+                <p>Secure payments with major cryptocurrencies through your local representative</p>
             </div>
             
             <div class="crypto-grid">
@@ -1134,8 +1300,8 @@
             </div>
             
             <div style="text-align: center; margin-top: 40px;">
-                <a href="crypto-payments.html" class="btn btn-primary">
-                    <i class="fas fa-info-circle"></i> Learn About Crypto Payments
+                <a href="representatives.html" class="btn btn-primary">
+                    <i class="fas fa-user-tie"></i> Contact Representative for Payment
                 </a>
             </div>
         </div>
@@ -1207,12 +1373,13 @@
                 </div>
                 
                 <div class="footer-col">
-                    <h3>Order Process</h3>
+                    <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="products/index.html"><i class="fas fa-chevron-right"></i> Browse Products</a></li>
-                        <li><a href="representatives.html"><i class="fas fa-chevron-right"></i> Find Representative</a></li>
-                        <li><a href="crypto-payments.html"><i class="fas fa-chevron-right"></i> Crypto Payments</a></li>
-                        <li><a href="shipping-info.html"><i class="fas fa-chevron-right"></i> Local Shipping</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="products/index.html"><i class="fas fa-chevron-right"></i> All Products</a></li>
+                        <li><a href="calculator.html"><i class="fas fa-chevron-right"></i> Calculator</a></li>
+                        <li><a href="storage-guide.html"><i class="fas fa-chevron-right"></i> Reconstituting / Storage</a></li>
+                        <li><a href="representatives.html"><i class="fas fa-chevron-right"></i> Representatives</a></li>
                     </ul>
                 </div>
                 
@@ -1220,8 +1387,8 @@
                     <h3>Resources</h3>
                     <ul class="footer-links">
                         <li><a href="verification.html"><i class="fas fa-chevron-right"></i> Product Verification</a></li>
-                        <li><a href="calculator.html"><i class="fas fa-chevron-right"></i> Dosage Calculator</a></li>
-                        <li><a href="storage-guide.html"><i class="fas fa-chevron-right"></i> Storage Guide</a></li>
+                        <li><a href="crypto-payments.html"><i class="fas fa-chevron-right"></i> Crypto Payments</a></li>
+                        <li><a href="shipping-info.html"><i class="fas fa-chevron-right"></i> Shipping Info</a></li>
                         <li><a href="research-guides.html"><i class="fas fa-chevron-right"></i> Research Guides</a></li>
                     </ul>
                 </div>
@@ -1229,21 +1396,12 @@
                 <div class="footer-col">
                     <h3>Contact</h3>
                     <div class="contact-info">
-                        <p><i class="fas fa-user-tie"></i> Contact your local representative</p>
-                        <p><i class="fab fa-whatsapp"></i> WhatsApp: Global Support</p>
+                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
                         <p><i class="fas fa-envelope"></i> support@rxresearchsciences.com</p>
-                        <p><i class="fas fa-clock"></i> 24/7 Crypto Orders</p>
+                        <p><i class="fas fa-user-tie"></i> Contact local representative for shipping</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM EST</p>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Informações sobre Representantes -->
-            <div class="representatives-info">
-                <h4>Local Representatives Worldwide</h4>
-                <p style="color: #bbbbbb; margin-bottom: 20px;">Each country has dedicated representatives who handle orders, shipping, and local support. Contact your representative for pricing and delivery details.</p>
-                <a href="representatives.html" class="btn btn-primary" style="background: #2196f3;">
-                    <i class="fas fa-search"></i> Find Your Representative
-                </a>
             </div>
             
             <!-- Métodos de Pagamento (Cripto) -->
@@ -1262,16 +1420,16 @@
             <div class="security-badges">
                 <div class="badges-container">
                     <div class="security-badge">
-                        <i class="fas fa-lock"></i> End-to-End Encryption
+                        <i class="fas fa-lock"></i> Secure Checkout
                     </div>
                     <div class="security-badge">
-                        <i class="fab fa-bitcoin"></i> Anonymous Payments
+                        <i class="fas fa-certificate"></i> Lab-Verified Quality
                     </div>
                     <div class="security-badge">
                         <i class="fas fa-user-tie"></i> Local Representatives
                     </div>
                     <div class="security-badge">
-                        <i class="fas fa-certificate"></i> Lab-Verified Quality
+                        <i class="fas fa-shipping-fast"></i> Worldwide Shipping
                     </div>
                 </div>
             </div>
@@ -1283,23 +1441,141 @@
             
             <div class="footer-bottom">
                 <p>&copy; 2024 RX Research Sciences. All rights reserved. | Research Use Only - Not for Human Consumption</p>
-                <p style="margin-top: 10px; font-size: 0.8rem;">These products are for research purposes only. Not for human consumption or diagnostic use. All orders handled by local country representatives.</p>
+                <p style="margin-top: 10px; font-size: 0.8rem;">These products are for research purposes only. Not for human consumption or diagnostic use.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // ===== FUNÇÕES DE CONTATO =====
-        function openWhatsApp(productName) {
-            const message = `Hello RX Research Sciences, I'm interested in ${productName}. Can you provide more information and pricing?`;
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/15551234567?text=${encodedMessage}`, '_blank');
+        // ===== CART MANAGEMENT =====
+        let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+        
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = totalItems;
+            });
+            localStorage.setItem('rxCart', JSON.stringify(cart));
+        }
+        
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartTotalElement = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="cart-empty">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some products to get started</p>
+                    </div>
+                `;
+                cartTotalElement.textContent = '$0.00';
+                document.getElementById('checkoutBtn').style.display = 'none';
+                document.getElementById('whatsappCheckoutBtn').style.display = 'none';
+                return;
+            }
+            
+            let cartHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                cartHTML += `
+                    <div class="cart-item" data-id="${item.id}">
+                        <div class="cart-item-image">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">$${item.price.toFixed(2)} each</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                            <span class="cart-item-quantity">${item.quantity}</span>
+                            <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                            <button class="remove-item" data-id="${item.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartItemsContainer.innerHTML = cartHTML;
+            cartTotalElement.textContent = `$${total.toFixed(2)}`;
+            
+            // Add event listeners to new buttons
+            document.querySelectorAll('.decrease').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    updateQuantity(id, -1);
+                });
+            });
+            
+            document.querySelectorAll('.increase').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    updateQuantity(id, 1);
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    removeFromCart(id);
+                });
+            });
+            
+            document.getElementById('checkoutBtn').style.display = 'block';
+            document.getElementById('whatsappCheckoutBtn').style.display = 'block';
+        }
+        
+        function addToCart(id, name, price, category) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    name: name,
+                    price: price,
+                    category: category,
+                    quantity: 1
+                });
+            }
+            
+            updateCartCount();
+            updateCartDisplay();
+            showNotification(`${name} added to cart`, 'success');
+        }
+        
+        function updateQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(item => item.id !== id);
+                }
+                updateCartCount();
+                updateCartDisplay();
+                localStorage.setItem('rxCart', JSON.stringify(cart));
+            }
+        }
+        
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartCount();
+            updateCartDisplay();
+            localStorage.setItem('rxCart', JSON.stringify(cart));
+            showNotification('Item removed from cart', 'info');
         }
         
         function showNotification(message, type = 'success') {
-            // Create notification
             const notification = document.createElement('div');
-            const bgColor = type === 'success' ? '#2e7d32' : '#d32f2f';
+            const bgColor = type === 'success' ? '#2e7d32' : 
+                           type === 'info' ? '#1976d2' : '#d32f2f';
             
             notification.style.cssText = `
                 position: fixed;
@@ -1318,113 +1594,130 @@
                 max-width: 400px;
             `;
             
-            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            const icon = type === 'success' ? 'fa-check-circle' : 
+                        type === 'info' ? 'fa-info-circle' : 'fa-exclamation-circle';
             notification.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
             notification.setAttribute('role', 'alert');
             notification.setAttribute('aria-live', 'assertive');
             document.body.appendChild(notification);
             
-            // Remove after 3 seconds
             setTimeout(() => {
                 notification.style.animation = 'slideOut 0.3s ease';
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
         
-        // Add CSS for animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-            
-            /* Whatsapp button animation */
-            @keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.05); }
-                100% { transform: scale(1); }
-            }
-            
-            .whatsapp-order {
-                animation: pulse 2s infinite;
-            }
-        `;
-        document.head.appendChild(style);
+        // ===== CART MODAL FUNCTIONS =====
+        function openCart() {
+            document.getElementById('miniCart').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
         
-        // Search functionality
-        document.querySelector('.search-btn').addEventListener('click', () => {
-            const searchTerm = document.querySelector('.search-bar').value;
-            if (searchTerm.trim()) {
-                window.location.href = `products/index.html?search=${encodeURIComponent(searchTerm)}`;
-            }
-        });
+        function closeCart() {
+            document.getElementById('miniCart').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
         
-        document.querySelector('.search-bar').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+        // ===== WHATSAPP CHECKOUT =====
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty', 'error');
+                return;
+            }
+            
+            let message = "Hello RX Research Sciences,\n\nI would like to place an order:\n\n";
+            
+            let total = 0;
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} - ${item.quantity} x $${item.price.toFixed(2)} = $${(item.quantity * item.price).toFixed(2)}\n`;
+                total += item.quantity * item.price;
+            });
+            
+            message += `\nTotal: $${total.toFixed(2)}\n\nPlease contact me to complete the order.`;
+            message += "\n\nShipping Address:\n[Please provide your address]";
+            message += "\n\nPayment Method:\n[Please specify preferred crypto payment]";
+            
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/15551234567?text=${encodedMessage}`, '_blank');
+        }
+        
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add CSS for animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Initialize cart
+            updateCartCount();
+            updateCartDisplay();
+            
+            // Add to cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const name = this.getAttribute('data-name');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    const category = this.getAttribute('data-category');
+                    addToCart(id, name, price, category);
+                });
+            });
+            
+            // Cart icon click
+            document.querySelector('.cart-icon').addEventListener('click', openCart);
+            
+            // Close cart buttons
+            document.querySelector('.close-cart').addEventListener('click', closeCart);
+            document.getElementById('overlay').addEventListener('click', closeCart);
+            
+            // Checkout buttons
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                showNotification('Standard checkout will be available soon!', 'info');
+                closeCart();
+            });
+            
+            document.getElementById('whatsappCheckoutBtn').addEventListener('click', function() {
+                sendWhatsAppOrder();
+                closeCart();
+            });
+            
+            // Search functionality
+            document.querySelector('.search-btn').addEventListener('click', () => {
                 const searchTerm = document.querySelector('.search-bar').value;
                 if (searchTerm.trim()) {
                     window.location.href = `products/index.html?search=${encodeURIComponent(searchTerm)}`;
                 }
-            }
-        });
-        
-        // Smooth scroll to top
-        document.querySelector('.back-to-top').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
             });
-        });
-        
-        // Find representative based on user's country
-        function detectCountry() {
-            // Esta é uma função simplificada. Em produção, use um serviço de geolocalização.
-            fetch('https://ipapi.co/json/')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.country_code) {
-                        showNotification(`Detected country: ${data.country_name}. Find your local representative.`, 'success');
-                    }
-                })
-                .catch(() => {
-                    // Fallback se a API falhar
-                    console.log('Geolocation API not available');
-                });
-        }
-        
-        // Detect country on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // detectCountry(); // Descomente para habilitar detecção automática
-        });
-        
-        // Cookie consent for geolocation (simplificado)
-        function showGeolocationConsent() {
-            if (!localStorage.getItem('geoConsent')) {
-                const consent = confirm('We use geolocation to connect you with local representatives. Continue?');
-                if (consent) {
-                    localStorage.setItem('geoConsent', 'true');
-                    detectCountry();
-                }
-            }
-        }
-        
-        // Inicializar após carregamento da página
-        window.addEventListener('load', function() {
-            // Mostrar consentimento (opcional)
-            // showGeolocationConsent();
             
-            // Adicionar tooltip para whatsapp
-            const whatsappBtn = document.querySelector('.whatsapp-order');
-            if (whatsappBtn) {
-                whatsappBtn.title = 'Order via WhatsApp - Fast response within minutes';
-            }
+            document.querySelector('.search-bar').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const searchTerm = document.querySelector('.search-bar').value;
+                    if (searchTerm.trim()) {
+                        window.location.href = `products/index.html?search=${encodeURIComponent(searchTerm)}`;
+                    }
+                }
+            });
+            
+            // Smooth scroll to top
+            document.querySelector('.back-to-top').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
 </body>
