@@ -230,4 +230,187 @@ class ProductFilter {
                         <h3 class="product-name">${product.name}</h3>
                         <span class="product-code">${product.code}</span>
                     </div>
-                    <
+                    <div class="product-specs">
+                        <div class="spec">
+                            <span class="spec-label">Type:</span>
+                            <span class="spec-value">${product.type}</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Purity:</span>
+                            <span class="spec-value">${product.purity}</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Dosage:</span>
+                            <span class="spec-value">${product.dosage}</span>
+                        </div>
+                    </div>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-footer">
+                        <div class="price">${product.price.toFixed(2)}</div>
+                        <div class="actions">
+                            <button class="btn-details" data-id="${product.id}">
+                                <i class="fas fa-info-circle"></i> Details
+                            </button>
+                            <button class="btn-cart" data-id="${product.id}">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    showProductDetails(productId) {
+        const product = this.products.find(p => p.id === productId);
+        if (!product) return;
+
+        // Criar modal de detalhes
+        const modal = document.createElement('div');
+        modal.className = 'product-modal';
+        modal.innerHTML = `
+            <div style="background: white; padding: 30px; border-radius: 15px; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto;">
+                <button onclick="this.parentElement.parentElement.remove()" style="float: right; background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+                <h2>${product.name}</h2>
+                <p><strong>Code:</strong> ${product.code}</p>
+                <p><strong>Category:</strong> ${product.category}</p>
+                <p><strong>Type:</strong> ${product.type}</p>
+                <p><strong>Purity:</strong> ${product.purity}</p>
+                <p><strong>Dosage:</strong> ${product.dosage}</p>
+                <p><strong>Price:</strong> $${product.price.toFixed(2)}</p>
+                <p><strong>Description:</strong> ${product.description}</p>
+                ${product.cas ? `<p><strong>CAS:</strong> ${product.cas}</p>` : ''}
+                <button onclick="productFilter.addToCart(${product.id}); this.parentElement.parentElement.remove();" 
+                        style="padding: 10px 20px; background: #2ecc71; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">
+                    Add to Cart
+                </button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    addToCart(productId) {
+        const product = this.products.find(p => p.id == productId);
+        if (!product) {
+            console.error('[ProductFilter] Produto não encontrado:', productId);
+            return;
+        }
+        
+        console.log('[ProductFilter] Adicionando ao carrinho:', product.name);
+        
+        // Obter carrinho atual do localStorage
+        let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+        
+        // Verificar se produto já está no carrinho
+        const existingItem = cart.find(item => item.id == productId);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                code: product.code,
+                price: product.price,
+                quantity: 1,
+                category: product.category,
+                type: product.type,
+                dosage: product.dosage,
+                purity: product.purity
+            });
+        }
+        
+        // Salvar no localStorage
+        localStorage.setItem('rxCart', JSON.stringify(cart));
+        
+        // Atualizar contador do carrinho em todas as páginas
+        this.updateCartCount();
+        
+        // Mostrar notificação
+        this.showCartNotification(product.name);
+    }
+
+    updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        
+        // Atualizar todos os elementos com classe .cart-count
+        document.querySelectorAll('.cart-count').forEach(element => {
+            element.textContent = totalItems;
+        });
+    }
+
+    showCartNotification(productName) {
+        // Remover notificação existente
+        document.querySelector('.cart-notification')?.remove();
+        
+        // Criar notificação
+        const notification = document.createElement('div');
+        notification.className = 'cart-notification';
+        notification.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            Added <strong>${productName}</strong> to cart!
+            <a href="../cart.html" style="margin-left: 10px; color: white; text-decoration: underline;">
+                View Cart
+            </a>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+
+    clearFilters() {
+        this.currentCategory = 'all';
+        this.currentType = 'all';
+        this.currentSort = 'featured';
+        this.searchTerm = '';
+        
+        // Resetar UI
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.category === 'all') {
+                btn.classList.add('active');
+            }
+        });
+        
+        const typeFilter = document.getElementById('type-filter');
+        if (typeFilter) typeFilter.value = 'all';
+        
+        const sortFilter = document.getElementById('sort-filter');
+        if (sortFilter) sortFilter.value = 'featured';
+        
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) searchInput.value = '';
+        
+        this.applyFilters();
+    }
+
+    updateProductCount() {
+        const countElement = document.getElementById('product-count');
+        if (countElement) {
+            countElement.textContent = `Showing ${this.filteredProducts.length} products`;
+        }
+    }
+
+    showError(message) {
+        const grid = document.getElementById('products-grid');
+        if (grid) {
+            grid.innerHTML = `
+                <div class="no-products">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Error</h3>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+    }
+}
+
+// Inicializar quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', () => {
+    window.productFilter = new ProductFilter();
+});
