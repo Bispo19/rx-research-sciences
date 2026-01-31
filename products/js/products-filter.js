@@ -1,13 +1,16 @@
-// products/js/products-filter.js - VERSÃO SIMPLIFICADA E SEGURA
-// NÃO MODIFICA LAYOUT, APENAS FILTRA PRODUTOS
-
+// products/js/products-filter.js - VERSÃO FINAL SIMPLIFICADA
 class ProductFilter {
     constructor() {
-        console.log('ProductFilter inicializando...');
+        console.log('[ProductFilter] Constructor chamado');
         
         // Usar dados do products-data.js
         this.products = window.products || [];
-        console.log('Produtos carregados:', this.products.length);
+        console.log('[ProductFilter] Produtos carregados:', this.products.length);
+        
+        if (this.products.length === 0) {
+            console.error('[ProductFilter] ERRO: Nenhum produto carregado!');
+            return;
+        }
         
         this.filteredProducts = [...this.products];
         this.currentCategory = 'all';
@@ -17,56 +20,63 @@ class ProductFilter {
         
         // Inicializar quando DOM estiver pronto
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.init());
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('[ProductFilter] DOM pronto, inicializando...');
+                this.init();
+            });
         } else {
-            this.init();
+            console.log('[ProductFilter] DOM já carregado, inicializando...');
+            setTimeout(() => this.init(), 100);
         }
     }
     
     init() {
-        console.log('ProductFilter.init() chamado');
+        console.log('[ProductFilter] init()');
         
-        // Verificar elementos essenciais
-        const categoriesContainer = document.getElementById('categories-filter');
-        const productsGrid = document.getElementById('products-grid');
+        // Verificar se os elementos existem
+        const grid = document.getElementById('products-grid');
+        const categories = document.getElementById('categories-filter');
         
-        if (!categoriesContainer || !productsGrid) {
-            console.error('Elementos do DOM não encontrados!');
-            console.log('categories-filter:', categoriesContainer);
-            console.log('products-grid:', productsGrid);
+        if (!grid) {
+            console.error('[ProductFilter] Elemento products-grid não encontrado!');
             return;
         }
         
-        // Configurar event listeners primeiro
+        if (!categories) {
+            console.error('[ProductFilter] Elemento categories-filter não encontrado!');
+            return;
+        }
+        
+        // Configurar eventos
         this.setupEventListeners();
         
-        // Renderizar produtos iniciais
+        // Renderizar produtos
         this.renderProducts();
         
-        console.log('ProductFilter inicializado com sucesso');
+        console.log('[ProductFilter] Inicialização completa');
     }
     
     renderProducts() {
         const container = document.getElementById('products-grid');
         if (!container) return;
         
-        // Limpar loading
+        // Limpar container
         container.innerHTML = '';
         
-        // Se não houver produtos
+        // Mostrar mensagem se não houver produtos
         if (this.filteredProducts.length === 0) {
             container.innerHTML = `
-                <div class="no-products" style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
-                    <i class="fas fa-flask fa-3x" style="color: #95a5a6; margin-bottom: 20px;"></i>
-                    <h3 style="color: #34495e; margin-bottom: 10px;">No products found</h3>
-                    <p style="color: #7f8c8d;">Try adjusting your filters or search term</p>
+                <div class="no-products">
+                    <i class="fas fa-flask fa-3x"></i>
+                    <h3>No products found</h3>
+                    <p>Try adjusting your filters or search term</p>
                 </div>
             `;
             this.updateProductCount(0);
             return;
         }
         
-        // Renderizar produtos
+        // Adicionar cada produto
         this.filteredProducts.forEach(product => {
             const productCard = this.createProductCard(product);
             container.appendChild(productCard);
@@ -76,25 +86,24 @@ class ProductFilter {
     }
     
     createProductCard(product) {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.setAttribute('data-id', product.id);
-        card.setAttribute('data-category', product.category);
-        card.setAttribute('data-type', product.type);
-        
-        // Cor da categoria
-        const categoryColors = {
+        // Cores por categoria
+        const colors = {
             peptides: "#3498db",
             coenzymes: "#e74c3c",
             nootropics: "#f39c12",
             "small molecules": "#95a5a6"
         };
         
-        const categoryColor = categoryColors[product.category] || "#95a5a6";
-        const darkenedColor = this.darkenColor(categoryColor);
+        const color = colors[product.category] || "#95a5a6";
+        
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.setAttribute('data-id', product.id);
+        card.setAttribute('data-category', product.category);
+        card.setAttribute('data-type', product.type);
         
         card.innerHTML = `
-            <div class="product-image" style="background: linear-gradient(135deg, ${categoryColor}, ${darkenedColor})">
+            <div class="product-image" style="background: linear-gradient(135deg, ${color}, ${this.darkenColor(color)})">
                 <div class="molecule-icon">⚗️</div>
                 <div class="product-badge ${product.featured ? 'featured' : ''}">
                     ${product.featured ? 'FEATURED' : product.purity}
@@ -143,13 +152,14 @@ class ProductFilter {
             </div>
         `;
         
-        // Adicionar event listeners aos botões
+        // Adicionar eventos aos botões
         const detailsBtn = card.querySelector('.btn-details');
         const cartBtn = card.querySelector('.btn-cart');
         
         if (detailsBtn) {
             detailsBtn.addEventListener('click', (e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 this.showProductDetails(product.id);
             });
         }
@@ -157,6 +167,7 @@ class ProductFilter {
         if (cartBtn) {
             cartBtn.addEventListener('click', (e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 this.addToCart(product.id);
             });
         }
@@ -164,16 +175,12 @@ class ProductFilter {
         return card;
     }
     
-    darkenColor(color) {
-        // Simples função para escurecer cor
-        return color.replace(/\d+/g, num => Math.max(0, parseInt(num) - 40));
+    darkenColor(hex) {
+        return hex.replace(/\d+/g, num => Math.max(0, parseInt(num) - 40));
     }
     
     filterProducts() {
-        console.log('Filtrando produtos...');
-        console.log('Categoria:', this.currentCategory);
-        console.log('Tipo:', this.currentType);
-        console.log('Busca:', this.searchTerm);
+        console.log('[ProductFilter] Filtrando produtos...');
         
         this.filteredProducts = this.products.filter(product => {
             // Filtrar por categoria
@@ -188,25 +195,22 @@ class ProductFilter {
             
             // Filtrar por termo de busca
             if (this.searchTerm) {
-                const searchLower = this.searchTerm.toLowerCase();
-                const matches = 
-                    (product.name && product.name.toLowerCase().includes(searchLower)) ||
-                    (product.code && product.code.toLowerCase().includes(searchLower)) ||
-                    (product.type && product.type.toLowerCase().includes(searchLower)) ||
-                    (product.description && product.description.toLowerCase().includes(searchLower));
-                
-                if (!matches) return false;
+                const term = this.searchTerm.toLowerCase();
+                return (
+                    product.name.toLowerCase().includes(term) ||
+                    product.code.toLowerCase().includes(term) ||
+                    product.type.toLowerCase().includes(term) ||
+                    product.description.toLowerCase().includes(term)
+                );
             }
             
             return true;
         });
         
-        console.log('Produtos filtrados:', this.filteredProducts.length);
-        
-        // Ordenar produtos
+        // Ordenar
         this.sortProducts();
         
-        // Renderizar produtos filtrados
+        // Renderizar
         this.renderProducts();
     }
     
@@ -231,14 +235,14 @@ class ProductFilter {
     }
     
     updateProductCount(count) {
-        const countElement = document.getElementById('product-count');
-        if (countElement) {
-            countElement.textContent = `Showing ${count} of ${this.products.length} products`;
+        const element = document.getElementById('product-count');
+        if (element) {
+            element.textContent = `Showing ${count} of ${this.products.length} products`;
         }
     }
     
     setupEventListeners() {
-        console.log('Configurando event listeners...');
+        console.log('[ProductFilter] Configurando event listeners...');
         
         // Filtro de categoria
         document.addEventListener('click', (e) => {
@@ -246,7 +250,7 @@ class ProductFilter {
                 const btn = e.target.closest('.category-btn');
                 this.currentCategory = btn.dataset.category;
                 
-                // Atualizar estado ativo
+                // Atualizar botão ativo
                 document.querySelectorAll('.category-btn').forEach(b => {
                     b.classList.remove('active');
                 });
@@ -290,14 +294,15 @@ class ProductFilter {
         // Limpar filtros
         const clearBtn = document.getElementById('clear-filters');
         if (clearBtn) {
-            clearBtn.addEventListener('click', () => {
+            clearBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 this.clearFilters();
             });
         }
     }
     
     clearFilters() {
-        console.log('Limpando filtros...');
+        console.log('[ProductFilter] Limpando filtros...');
         
         this.currentCategory = 'all';
         this.currentType = 'all';
@@ -324,35 +329,102 @@ class ProductFilter {
         const product = this.products.find(p => p.id == productId);
         if (!product) return;
         
-        // Modal simples
-        const modalHtml = `
-            <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; justify-content: center; align-items: center; padding: 20px;">
-                <div style="background: white; border-radius: 15px; max-width: 500px; width: 100%; padding: 30px; position: relative;">
-                    <button onclick="this.parentElement.parentElement.remove()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #666;">&times;</button>
-                    
-                    <h2 style="color: #0d47a1; margin-top: 0;">${product.name}</h2>
+        // Remover modais existentes
+        const existingModal = document.querySelector('.product-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // Criar modal
+        const modal = document.createElement('div');
+        modal.className = 'product-modal';
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        `;
+        
+        modal.innerHTML = `
+            <div style="
+                background: white;
+                border-radius: 15px;
+                max-width: 500px;
+                width: 100%;
+                padding: 30px;
+                position: relative;
+                max-height: 80vh;
+                overflow-y: auto;
+            ">
+                <button style="
+                    position: absolute;
+                    top: 15px;
+                    right: 15px;
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    color: #666;
+                " onclick="this.closest('.product-modal').remove()">&times;</button>
+                
+                <h2 style="color: #0d47a1; margin-top: 0; margin-bottom: 20px;">${product.name}</h2>
+                
+                <div style="margin-bottom: 20px;">
                     <p><strong>Code:</strong> ${product.code}</p>
                     <p><strong>Price:</strong> $${product.price.toFixed(2)}</p>
                     <p><strong>Purity:</strong> ${product.purity}</p>
                     <p><strong>Type:</strong> ${product.type}</p>
                     <p><strong>Dosage:</strong> ${product.dosage}</p>
                     ${product.cas && product.cas !== "N/A" ? `<p><strong>CAS:</strong> ${product.cas}</p>` : ''}
-                    <p><strong>Description:</strong> ${product.description}</p>
-                    
-                    <div style="margin-top: 30px; display: flex; gap: 15px;">
-                        <button onclick="window.productFilter.addToCart(${product.id}); this.closest('[style*=\"position: fixed\"]').remove();" style="padding: 12px 24px; background: #2ecc71; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                        <button onclick="this.closest('[style*=\"position: fixed\"]').remove()" style="padding: 12px 24px; background: #f5f5f5; color: #333; border: 1px solid #ddd; border-radius: 5px; cursor: pointer;">
-                            Close
-                        </button>
-                    </div>
+                </div>
+                
+                <p><strong>Description:</strong><br>${product.description}</p>
+                
+                <div style="margin-top: 30px; display: flex; gap: 15px;">
+                    <button onclick="window.productFilter.addToCart(${product.id}); this.closest('.product-modal').remove();" 
+                            style="
+                                padding: 12px 24px;
+                                background: #2ecc71;
+                                color: white;
+                                border: none;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                font-weight: bold;
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                            ">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                    <button onclick="this.closest('.product-modal').remove()" 
+                            style="
+                                padding: 12px 24px;
+                                background: #f5f5f5;
+                                color: #333;
+                                border: 1px solid #ddd;
+                                border-radius: 5px;
+                                cursor: pointer;
+                            ">
+                        Close
+                    </button>
                 </div>
             </div>
         `;
         
-        const modal = document.createElement('div');
-        modal.innerHTML = modalHtml;
+        // Fechar ao clicar fora
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+        
         document.body.appendChild(modal);
     }
     
@@ -360,43 +432,75 @@ class ProductFilter {
         const product = this.products.find(p => p.id == productId);
         if (!product) return;
         
-        // Notificação simples
+        // Remover notificações existentes
+        const existingNotif = document.querySelector('.cart-notification');
+        if (existingNotif) {
+            existingNotif.remove();
+        }
+        
+        // Criar notificação
         const notification = document.createElement('div');
-        notification.innerHTML = `
-            <div style="position: fixed; top: 100px; right: 20px; background: #2ecc71; color: white; padding: 15px 20px; border-radius: 5px; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 10px; animation: slideIn 0.3s ease;">
-                <i class="fas fa-check-circle"></i>
-                Added <strong>${product.name}</strong> to cart!
-            </div>
+        notification.className = 'cart-notification';
+        notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideInRight 0.3s ease;
         `;
         
-        // Adicionar estilo de animação
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
+        notification.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            Added <strong>${product.name}</strong> to cart!
         `;
-        document.head.appendChild(style);
+        
+        // Adicionar animação CSS se não existir
+        if (!document.getElementById('notification-animations')) {
+            const style = document.createElement('style');
+            style.id = 'notification-animations';
+            style.textContent = `
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOutRight {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
         
         document.body.appendChild(notification);
         
+        // Remover após 3 segundos
         setTimeout(() => {
-            notification.remove();
-            style.remove();
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
         }, 3000);
     }
 }
 
-// Inicializar automaticamente apenas uma vez
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.products && window.products.length > 0) {
+// Inicialização única quando dados estiverem prontos
+if (window.products && window.products.length > 0) {
+    // Esperar um pouco para garantir que o DOM esteja pronto
+    setTimeout(() => {
+        if (!window.productFilter) {
             window.productFilter = new ProductFilter();
         }
-    });
+    }, 100);
 } else {
-    if (window.products && window.products.length > 0) {
-        window.productFilter = new ProductFilter();
-    }
+    console.error('[APP] products não carregado ou vazio');
 }
