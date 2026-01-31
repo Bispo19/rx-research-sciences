@@ -1,2045 +1,827 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Products - RX Research Sciences</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Incluir os arquivos JavaScript -->
-    <script src="products-data.js" defer></script>
-    <script src="products-filter.js" defer></script>
-    <style>
-        /* ===== BASE STYLES ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        /* ===== TOP BAR ===== */
-        .top-bar {
-            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
-            color: white;
-            padding: 10px 0;
-            font-size: 0.9rem;
-        }
-        
-        .top-bar-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .top-links a {
-            color: white;
-            margin-left: 20px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        /* ===== HEADER ===== */
-        header {
-            background: white;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #0d47a1;
-            text-decoration: none;
-        }
-        
-        .logo i {
-            color: #2196f3;
-            font-size: 2.2rem;
-        }
-        
-        .search-container {
-            flex: 1;
-            max-width: 600px;
-            margin: 0 30px;
-            position: relative;
-        }
-        
-        .search-bar {
-            width: 100%;
-            padding: 14px 50px 14px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 30px;
-            font-size: 1rem;
-            transition: all 0.3s;
-            background: #f8f9fa;
-        }
-        
-        .search-bar:focus {
-            outline: none;
-            border-color: #2196f3;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
-        }
-        
-        .search-btn {
-            position: absolute;
-            right: 8px;
-            top: 8px;
-            background: #2196f3;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .search-btn:hover {
-            background: #0d47a1;
-        }
-        
-        .user-actions {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .action-icon {
-            position: relative;
-            cursor: pointer;
-            color: #555;
-            font-size: 1.3rem;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            text-decoration: none;
-        }
-        
-        .action-icon:hover {
-            color: #2196f3;
-        }
-        
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #f44336;
-            color: white;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 50%;
-            min-width: 18px;
-            text-align: center;
-        }
-        
-        /* ===== NAVIGATION ===== */
-        .main-nav {
-            background: linear-gradient(135deg, #0d47a1, #1565c0);
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 0;
-            flex-wrap: wrap;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .nav-links li {
-            position: relative;
-        }
-        
-        .nav-links a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 18px 25px;
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        /* ===== BOTÃO DETAILS PERSONALIZADO ===== */
-        .details-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            color: white !important;
-            border: none !important;
-            transition: all 0.3s ease !important;
-            position: relative !important;
-            overflow: hidden !important;
-            z-index: 1 !important;
-        }
-
-        .details-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            transition: all 0.4s ease;
-            z-index: -1;
-        }
-
-        .details-btn:hover {
-            transform: translateY(-3px) !important;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4) !important;
-        }
-
-        .details-btn:hover::before {
-            left: 0;
-        }
-
-        .details-btn:active {
-            transform: translateY(-1px) !important;
-        }
-        
-        /* ===== PRODUCTS HERO ===== */
-        .products-hero {
-            background: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(13, 71, 161, 0.9)),
-                        url('https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .products-hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .products-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .products-hero p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            opacity: 0.95;
-        }
-        
-        /* ===== PRODUCTS LAYOUT ===== */
-        .products-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 30px;
-            margin: 0 auto 50px;
-            max-width: 1400px;
-            padding: 0 20px;
-        }
-
-        /* ===== FILTER SIDEBAR ===== */
-        .filter-sidebar {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            border: 1px solid #eef2f7;
-            align-self: start;
-            position: sticky;
-            top: 120px;
-            max-height: calc(100vh - 170px);
-            overflow-y: auto;
-            margin-left: 0;
-        }
-
-        .filter-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f5ff;
-        }
-
-        .filter-header h3 {
-            color: #0d47a1;
-            font-size: 1.2rem;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .filter-clear-btn {
-            background: #f8fafc;
-            color: #64748b;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 8px 15px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.3s;
-        }
-
-        .filter-clear-btn:hover {
-            background: #f1f5f9;
-            color: #475569;
-        }
-
-        /* ===== FILTER GROUPS ===== */
-        .filter-group {
-            margin-bottom: 25px;
-        }
-
-        .filter-group h4 {
-            font-size: 0.95rem;
-            color: #334155;
-            margin: 0 0 15px 0;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            padding: 10px 12px;
-            background: #f8fafc;
-            border-radius: 8px;
-            transition: background 0.3s;
-        }
-
-        .filter-group h4:hover {
-            background: #f1f5f9;
-        }
-
-        .filter-group h4 i {
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
-
-        .filter-options {
-            padding: 0 12px;
-        }
-
-        .filter-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 0;
-            cursor: pointer;
-            border-bottom: 1px solid #f1f5f9;
-            transition: all 0.2s;
-        }
-
-        .filter-option:hover {
-            padding-left: 5px;
-        }
-
-        .filter-option:last-child {
-            border-bottom: none;
-        }
-
-        .filter-option input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-right: 12px;
-            cursor: pointer;
-            accent-color: #2196f3;
-        }
-
-        .filter-option span:first-of-type {
-            color: #475569;
-            font-size: 0.9rem;
-            flex: 1;
-        }
-
-        .filter-count {
-            background: #e2e8f0;
-            color: #475569;
-            font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-weight: 600;
-            min-width: 24px;
-            text-align: center;
-        }
-
-        .filter-count.stock-in {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .filter-count.stock-low {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        /* ===== APPLY BUTTON ===== */
-        .apply-filters-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #2196f3, #0d47a1);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
-
-        .apply-filters-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
-        }
-
-        /* ===== PRODUCTS MAIN ===== */
-        .products-main {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            border: 1px solid #eef2f7;
-            margin-right: 0;
-            min-width: 0;
-        }
-
-        .products-header {
-            margin-bottom: 30px;
-        }
-
-        .products-header h2 {
-            color: #0d47a1;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-
-        .products-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .results-count {
-            color: #64748b;
-            font-size: 0.95rem;
-        }
-
-        .sort-options {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sort-select {
-            padding: 10px 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            background: white;
-            color: #334155;
-            font-size: 0.9rem;
-            min-width: 200px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .sort-select:focus {
-            outline: none;
-            border-color: #2196f3;
-        }
-        
-        /* ===== PRODUCTS GRID ===== */
-        .products-main-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-        
-        .product-item {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            border: 1px solid #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
-        .product-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border-color: #2196f3;
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #f44336;
-            color: white;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 10;
-            text-transform: uppercase;
-        }
-        
-        .product-image {
-            height: 200px;
-            background: linear-gradient(135deg, #f0f7ff, #e3f2fd);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .product-image i {
-            font-size: 4rem;
-            color: #0d47a1;
-            transition: transform 0.3s;
-        }
-        
-        .product-item:hover .product-image i {
-            transform: scale(1.1);
-        }
-        
-        .product-info {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .product-category {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            display: block;
-            text-transform: uppercase;
-        }
-        
-        .product-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #333;
-            font-weight: 600;
-            line-height: 1.4;
-            min-height: 2.8em;
-        }
-        
-        .product-code {
-            color: #888;
-            font-family: monospace;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-            background: #f5f5f5;
-            padding: 5px 10px;
-            border-radius: 5px;
-            display: inline-block;
-        }
-        
-        .product-price {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: auto;
-            padding-top: 20px;
-            border-top: 1px solid #f0f0f0;
-            min-height: 80px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .price-amount {
-            font-size: 1.7rem;
-            font-weight: bold;
-            color: #0d47a1;
-            flex-shrink: 0;
-            min-width: 100px;
-        }
-        
-        .product-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: nowrap;
-            min-width: 0;
-        }
-        
-        .btn-small {
-            padding: 10px 16px;
-            font-size: 0.88rem;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: all 0.2s;
-            min-width: 80px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            flex-shrink: 0;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #2196f3, #0d47a1);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #0d47a1, #1565c0);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
-        }
-        
-        /* Botão Details específico */
-        .details-btn.btn-small {
-            min-width: 85px;
-            padding: 10px 18px;
-        }
-        
-        /* ===== PAGINATION ===== */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin: 50px 0;
-            flex-wrap: wrap;
-        }
-        
-        .page-btn {
-            padding: 10px 18px;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            min-width: 45px;
-            text-align: center;
-        }
-        
-        .page-btn:hover {
-            border-color: #2196f3;
-            color: #2196f3;
-        }
-        
-        .page-btn.active {
-            background: linear-gradient(135deg, #2196f3, #0d47a1);
-            color: white;
-            border-color: #2196f3;
-        }
-        
-        /* ===== LOADING STATE ===== */
-        .loading {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-            color: #64748b;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .loading i {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #2196f3;
-        }
-
-        .loading p {
-            font-size: 1.2rem;
-            color: #475569;
-        }
-
-        /* ===== NO PRODUCTS STATE ===== */
-        .no-products {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-            color: #64748b;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .no-products i {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #94a3b8;
-        }
-
-        .no-products h3 {
-            color: #334155;
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-        }
-
-        .no-products p {
-            color: #64748b;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        /* ===== FOOTER ===== */
-        footer {
-            background: #0d1b3e;
-            color: white;
-            padding: 60px 0 30px;
-            margin-top: 80px;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            padding-bottom: 50px;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px 50px;
-        }
-        
-        .footer-col h3 {
-            margin-bottom: 25px;
-            color: #4fc3f7;
-            font-size: 1.3rem;
-        }
-        
-        .footer-col p {
-            color: #bbbbbb;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #bbbbbb;
-            text-decoration: none;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .footer-links a:hover {
-            color: #4fc3f7;
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid #2a3a5e;
-            padding: 30px 0;
-            text-align: center;
-            color: #888;
-            font-size: 0.9rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-        
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1200px) {
-            .products-layout {
-                grid-template-columns: 250px 1fr;
-            }
-            
-            .product-actions {
-                gap: 8px;
-            }
-            
-            .btn-small {
-                padding: 9px 14px;
-                font-size: 0.85rem;
-                min-width: 75px;
-            }
-            
-            .details-btn.btn-small {
-                min-width: 80px;
-                padding: 9px 16px;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .header-content {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .search-container {
-                margin: 10px 0;
-                max-width: 100%;
-            }
-            
-            .user-actions {
-                justify-content: center;
-            }
-            
-            .products-layout {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .filter-sidebar {
-                position: static;
-                max-height: none;
-                margin: 0;
-            }
-            
-            .products-main {
-                margin: 0;
-            }
-            
-            .product-price {
-                flex-direction: row;
-                align-items: center;
-            }
-            
-            .product-actions {
-                justify-content: flex-end;
-                flex: 1;
-            }
-            
-            .products-main-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .top-bar-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 15px;
-            }
-            
-            .top-links {
-                margin-top: 10px;
-            }
-            
-            .top-links a {
-                margin: 0 10px;
-            }
-            
-            .products-hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .products-hero {
-                padding: 50px 15px;
-            }
-            
-            .products-layout {
-                padding: 0 15px;
-                margin: 20px auto 40px;
-            }
-            
-            .products-main {
-                padding: 20px;
-            }
-            
-            .products-main-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 20px;
-            }
-            
-            .product-price {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 15px;
-            }
-            
-            .price-amount {
-                text-align: center;
-                width: 100%;
-            }
-            
-            .product-actions {
-                justify-content: center;
-                width: 100%;
-            }
-            
-            .btn-small {
-                flex: 1;
-                max-width: 140px;
-            }
-            
-            .filter-sidebar {
-                padding: 20px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .products-info {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .sort-select {
-                width: 100%;
-            }
-            
-            .products-layout {
-                padding: 0 10px;
-            }
-            
-            .products-main-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .filter-group h4 {
-                padding: 8px 10px;
-                font-size: 0.9rem;
-            }
-            
-            .filter-option span:first-of-type {
-                font-size: 0.85rem;
-            }
-            
-            .product-actions {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .btn-small {
-                min-width: 120px;
-                max-width: 45%;
-                padding: 10px 12px;
-            }
-            
-            .details-btn.btn-small {
-                min-width: 120px;
-            }
-            
-            .price-amount {
-                font-size: 1.6rem;
-                margin-bottom: 5px;
-            }
-            
-            .filter-sidebar,
-            .products-main {
-                padding: 15px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .product-actions {
-                flex-direction: column;
-                width: 100%;
-                gap: 8px;
-            }
-            
-            .btn-small {
-                width: 100%;
-                max-width: 100%;
-                min-width: auto;
-            }
-            
-            .product-price {
-                gap: 12px;
-            }
-        }
-
-        /* ===== MODAL STYLES ===== */
-        .product-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 99999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        /* Animações para o modal */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { 
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Classes para páginas ocultas */
-        .product-page {
-            display: none;
-        }
-
-        .product-page.active {
-            display: grid;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body>
-    <!-- ===== TOP BAR ===== -->
-    <div class="top-bar">
-        <div class="top-bar-content">
-            <div><i class="fas fa-shipping-fast"></i> Free shipping on orders over $100 • <i class="fas fa-certificate"></i> Lab-grade quality</div>
-            <div class="top-links">
-                <a href="tel:+15551234567"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
-                <a href="mailto:support@rxresearch.com"><i class="fas fa-envelope"></i> support@rxresearch.com</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== HEADER ===== -->
-    <header>
-        <div class="header-content">
-            <!-- LOGO -->
-            <a href="../index.html" class="logo">
-                <i class="fas fa-flask"></i>
-                <span>RX Research Sciences</span>
-            </a>
-
-            <!-- SEARCH -->
-            <div class="search-container">
-                <input type="text" class="search-bar" placeholder="Search 80+ research compounds...">
-                <button class="search-btn"><i class="fas fa-search"></i></button>
-            </div>
-
-            <!-- USER ACTIONS -->
-            <div class="user-actions">
-                <a href="../account.html" class="action-icon">
-                    <i class="far fa-user"></i>
-                    <span>Account</span>
-                </a>
-                <a href="../wishlist.html" class="action-icon">
-                    <i class="far fa-heart"></i>
-                    <span>Wishlist</span>
-                </a>
-                <a href="../cart.html" class="action-icon">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                    <span>Cart</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- NAVIGATION -->
-        <nav class="main-nav">
-            <div class="container">
-                <ul class="nav-links">
-                    <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="index.html" class="active"><i class="fas fa-boxes"></i> All Products</a></li>
-                    <li><a href="../calculator.html"><i class="fas fa-calculator"></i> Calculator</a></li>
-                    <li><a href="../storage-guide.html"><i class="fas fa-temperature-low"></i> Storage Guide</a></li>
-                    <li><a href="../about.html"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="../contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
-    <!-- ===== HERO SECTION ===== -->
-    <section class="products-hero">
-        <div class="products-hero-content">
-            <h1>Research Products Catalog</h1>
-            <p>Premium research chemicals, peptides, and biochemicals for scientific studies</p>
-        </div>
-    </section>
-
-    <!-- ===== FILTERS SECTION ===== -->
-    <section>
-        <div class="products-layout">
-            <!-- FILTER SIDEBAR (LADO ESQUERDO) -->
-            <aside class="filter-sidebar">
-                <div class="filter-header">
-                    <h3><i class="fas fa-filter"></i> Filters</h3>
-                    <button class="filter-clear-btn" id="clearFilters">
-                        <i class="fas fa-redo"></i> Clear
-                    </button>
-                </div>
-
-                <!-- CATEGORY FILTER -->
-                <div class="filter-group">
-                    <h4>Category <i class="fas fa-chevron-down"></i></h4>
-                    <div class="filter-options" id="categoryFilter">
-                        <!-- Será preenchido dinamicamente pelo JavaScript -->
-                        <div class="loading">Loading categories...</div>
-                    </div>
-                </div>
-
-                <!-- PURITY FILTER -->
-                <div class="filter-group">
-                    <h4>Purity <i class="fas fa-chevron-down"></i></h4>
-                    <div class="filter-options">
-                        <label class="filter-option">
-                            <input type="checkbox" name="purity" value="99" checked>
-                            <span>≥99% HPLC</span>
-                            <span class="filter-count" id="purity99Count">0</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox" name="purity" value="98">
-                            <span>98-99%</span>
-                            <span class="filter-count" id="purity98Count">0</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- PRICE FILTER -->
-                <div class="filter-group">
-                    <h4>Price Range <i class="fas fa-chevron-down"></i></h4>
-                    <div class="filter-options">
-                        <label class="filter-option">
-                            <input type="checkbox" name="price" value="0-100" checked>
-                            <span>$0 - $100</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox" name="price" value="100-200" checked>
-                            <span>$100 - $200</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox" name="price" value="200-500" checked>
-                            <span>$200 - $500</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox" name="price" value="500+" checked>
-                            <span>$500+</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- STOCK STATUS -->
-                <div class="filter-group">
-                    <h4>Availability <i class="fas fa-chevron-down"></i></h4>
-                    <div class="filter-options">
-                        <label class="filter-option">
-                            <input type="checkbox" name="stock" value="in-stock" checked>
-                            <span>In Stock</span>
-                            <span class="filter-count stock-in" id="stockInCount">0</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox" name="stock" value="low-stock">
-                            <span>Low Stock</span>
-                            <span class="filter-count stock-low" id="stockLowCount">0</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- APPLY BUTTON -->
-                <button class="apply-filters-btn" id="applyFilters">
-                    <i class="fas fa-check"></i> Apply Filters
-                </button>
-            </aside>
-
-            <!-- PRODUCTS GRID (LADO DIREITO) -->
-            <main class="products-main">
-                <div class="products-header">
-                    <h2>Research Products</h2>
-                    <div class="products-info">
-                        <span class="results-count">Showing <span id="productsCount">0</span> of <span id="totalProducts">0</span> products</span>
-                        <div class="sort-options">
-                            <select class="sort-select" id="sortSelect">
-                                <option value="featured">Sort by: Featured</option>
-                                <option value="price-low">Sort by: Price Low-High</option>
-                                <option value="price-high">Sort by: Price High-Low</option>
-                                <option value="name-asc">Sort by: Name A-Z</option>
-                                <option value="name-desc">Sort by: Name Z-A</option>
-                                <option value="newest">Sort by: Newest</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PRODUCTS GRID -->
-                <div class="products-main-grid" id="productsGrid">
-                    <div class="loading">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        <p>Loading products...</p>
-                    </div>
-                </div>
-                
-                <!-- ===== PAGINATION ===== -->
-                <div class="pagination" id="pagination" style="display: none;">
-                    <!-- Será gerado dinamicamente pelo JavaScript -->
-                </div>
-            </main>
-        </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h3>RX Research Sciences</h3>
-                    <p>Providing high-purity research compounds to the scientific community since 2010.</p>
-                    <div style="display: flex; gap: 15px; margin-top: 25px;">
-                        <a href="#" style="display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; color: white; text-decoration: none;"><i class="fab fa-twitter"></i></a>
-                        <a href="#" style="display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; color: white; text-decoration: none;"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="../index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> All Products</a></li>
-                        <li><a href="../calculator.html"><i class="fas fa-chevron-right"></i> Calculator</a></li>
-                        <li><a href="../storage-guide.html"><i class="fas fa-chevron-right"></i> Storage Guide</a></li>
-                        <li><a href="../contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3>Contact Info</h3>
-                    <div style="color: #bbbbbb;">
-                        <p style="margin-bottom: 15px; display: flex; align-items: center; gap: 12px;"><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-                        <p style="margin-bottom: 15px; display: flex; align-items: center; gap: 12px;"><i class="fas fa-envelope"></i> support@rxresearchsciences.com</p>
-                        <p style="margin-bottom: 15px; display: flex; align-items: center; gap: 12px;"><i class="fas fa-map-marker-alt"></i> 123 Research Park Drive</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2024 RX Research Sciences. All rights reserved. | Research Use Only - Not for Human Consumption</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JavaScript principal da página -->
-    <script>
-        // ===== VARIÁVEIS GLOBAIS =====
-        let allProducts = [];
-        let filteredProducts = [];
-        let currentPage = 1;
-        const productsPerPage = 12;
-        let totalPages = 1;
-
-        // ===== INICIALIZAÇÃO =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // Verificar se os dados dos produtos estão disponíveis
-            if (typeof products !== 'undefined' && products.length > 0) {
-                allProducts = products;
-                initializePage();
-            } else {
-                // Se não estiver disponível, tentar carregar depois
-                setTimeout(() => {
-                    if (typeof products !== 'undefined') {
-                        allProducts = products;
-                        initializePage();
-                    } else {
-                        showError('Products data not loaded. Please refresh the page.');
-                    }
-                }, 1000);
-            }
-        });
-
-        function initializePage() {
-            // Inicializar contadores
-            updateFilterCounts();
-            
-            // Carregar categorias dinamicamente
-            loadCategories();
-            
-            // Renderizar produtos iniciais
-            filteredProducts = [...allProducts];
-            renderProducts();
-            updatePagination();
-            
-            // Inicializar carrinho
-            updateCartCount();
-        }
-
-        // ===== FUNÇÕES DE FILTRO =====
-        function updateFilterCounts() {
-            if (!allProducts.length) return;
-            
-            // Contar por pureza
-            const purity99Count = allProducts.filter(p => p.purity.includes('99%')).length;
-            const purity98Count = allProducts.filter(p => p.purity.includes('98%')).length;
-            
-            document.getElementById('purity99Count').textContent = purity99Count;
-            document.getElementById('purity98Count').textContent = purity98Count;
-            
-            // Contar por estoque (assumindo que todos estão em stock)
-            const stockInCount = allProducts.filter(p => p.stock).length;
-            const stockLowCount = allProducts.filter(p => !p.stock).length;
-            
-            document.getElementById('stockInCount').textContent = stockInCount;
-            document.getElementById('stockLowCount').textContent = stockLowCount;
-            
-            // Atualizar contagem total
-            document.getElementById('totalProducts').textContent = allProducts.length;
-        }
-
-        function loadCategories() {
-            if (!allProducts.length) return;
-            
-            const categoryFilter = document.getElementById('categoryFilter');
-            categoryFilter.innerHTML = '';
-            
-            // Extrair categorias únicas dos produtos
-            const uniqueCategories = [...new Set(allProducts.map(p => p.category))];
-            
-            // Contar produtos por categoria
-            const categoryCounts = {};
-            allProducts.forEach(product => {
-                if (!categoryCounts[product.category]) {
-                    categoryCounts[product.category] = 0;
-                }
-                categoryCounts[product.category]++;
-            });
-            
-            // Criar checkboxes para cada categoria
-            uniqueCategories.forEach(category => {
-                const count = categoryCounts[category] || 0;
-                const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
-                
-                const label = document.createElement('label');
-                label.className = 'filter-option';
-                label.innerHTML = `
-                    <input type="checkbox" name="category" value="${category}" checked>
-                    <span>${categoryName}</span>
-                    <span class="filter-count">${count}</span>
-                `;
-                
-                categoryFilter.appendChild(label);
-            });
-            
-            // Adicionar evento aos checkboxes
-            categoryFilter.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                checkbox.addEventListener('change', applyFilters);
-            });
-        }
-
-        function applyFilters() {
-            // Coletar filtros selecionados
-            const selectedCategories = Array.from(
-                document.querySelectorAll('#categoryFilter input[type="checkbox"]:checked')
-            ).map(cb => cb.value);
-            
-            const selectedPurities = Array.from(
-                document.querySelectorAll('input[name="purity"]:checked')
-            ).map(cb => cb.value);
-            
-            const selectedPriceRanges = Array.from(
-                document.querySelectorAll('input[name="price"]:checked')
-            ).map(cb => cb.value);
-            
-            const selectedStock = Array.from(
-                document.querySelectorAll('input[name="stock"]:checked')
-            ).map(cb => cb.value);
-            
-            // Aplicar filtros
-            filteredProducts = allProducts.filter(product => {
-                // Filtro de categoria
-                if (selectedCategories.length > 0 && !selectedCategories.includes(product.category)) {
-                    return false;
-                }
-                
-                // Filtro de pureza
-                if (selectedPurities.length > 0) {
-                    const purity = parseFloat(product.purity);
-                    const hasPurity99 = selectedPurities.includes('99') && purity >= 99;
-                    const hasPurity98 = selectedPurities.includes('98') && purity >= 98 && purity < 99;
-                    
-                    if (!(hasPurity99 || hasPurity98)) {
-                        return false;
-                    }
-                }
-                
-                // Filtro de preço
-                if (selectedPriceRanges.length > 0) {
-                    let priceMatch = false;
-                    
-                    selectedPriceRanges.forEach(range => {
-                        if (range === '0-100' && product.price <= 100) priceMatch = true;
-                        if (range === '100-200' && product.price > 100 && product.price <= 200) priceMatch = true;
-                        if (range === '200-500' && product.price > 200 && product.price <= 500) priceMatch = true;
-                        if (range === '500+' && product.price > 500) priceMatch = true;
-                    });
-                    
-                    if (!priceMatch) return false;
-                }
-                
-                // Filtro de estoque
-                if (selectedStock.length > 0) {
-                    const isInStock = selectedStock.includes('in-stock') && product.stock;
-                    const isLowStock = selectedStock.includes('low-stock') && !product.stock;
-                    
-                    if (!(isInStock || isLowStock)) {
-                        return false;
-                    }
-                }
-                
-                return true;
-            });
-            
-            // Aplicar ordenação
-            applySorting();
-            
-            // Resetar para página 1
-            currentPage = 1;
-            
-            // Renderizar produtos
-            renderProducts();
-            updatePagination();
-            
-            showNotification(`Found ${filteredProducts.length} products`);
-        }
-
-        function applySorting() {
-            const sortValue = document.getElementById('sortSelect').value;
-            
-            filteredProducts.sort((a, b) => {
-                switch (sortValue) {
-                    case 'price-low':
-                        return a.price - b.price;
-                    case 'price-high':
-                        return b.price - a.price;
-                    case 'name-asc':
-                        return a.name.localeCompare(b.name);
-                    case 'name-desc':
-                        return b.name.localeCompare(a.name);
-                    case 'featured':
-                        // Produtos featured primeiro
-                        if (a.featured && !b.featured) return -1;
-                        if (!a.featured && b.featured) return 1;
-                        return 0;
-                    case 'newest':
-                        // Ordenar por ID (assumindo que IDs maiores são mais novos)
-                        return b.id - a.id;
-                    default:
-                        return 0;
-                }
-            });
-        }
-
-        // ===== RENDERIZAÇÃO DE PRODUTOS =====
-        function renderProducts() {
-            const productsGrid = document.getElementById('productsGrid');
-            
-            if (filteredProducts.length === 0) {
-                productsGrid.innerHTML = `
-                    <div class="no-products">
-                        <i class="fas fa-search"></i>
-                        <h3>No products found</h3>
-                        <p>Try adjusting your filters to find what you're looking for.</p>
-                    </div>
-                `;
-                document.getElementById('pagination').style.display = 'none';
-                return;
-            }
-            
-            // Calcular produtos para a página atual
-            const startIndex = (currentPage - 1) * productsPerPage;
-            const endIndex = startIndex + productsPerPage;
-            const productsToShow = filteredProducts.slice(startIndex, endIndex);
-            
-            // Limpar grid
-            productsGrid.innerHTML = '';
-            
-            // Renderizar produtos
-            productsToShow.forEach(product => {
-                const productElement = createProductElement(product);
-                productsGrid.appendChild(productElement);
-            });
-            
-            // Atualizar contador
-            const startProduct = startIndex + 1;
-            const endProduct = Math.min(endIndex, filteredProducts.length);
-            document.getElementById('productsCount').textContent = `${startProduct}-${endProduct}`;
-            document.getElementById('totalProducts').textContent = filteredProducts.length;
-        }
-
-        function createProductElement(product) {
-            const div = document.createElement('div');
-            div.className = 'product-item';
-            
-            // Determinar ícone baseado na categoria
-            let icon = 'fa-flask'; // padrão
-            if (product.category.includes('peptide')) icon = 'fa-dna';
-            if (product.category.includes('nootropic')) icon = 'fa-brain';
-            if (product.type.includes('GLP-1') || product.type.includes('Tirzepatide') || product.type.includes('Retatrutide')) icon = 'fa-weight';
-            if (product.type.includes('Semax') || product.type.includes('Selank')) icon = 'fa-brain';
-            if (product.type.includes('Epithalon')) icon = 'fa-clock';
-            if (product.type.includes('BPC') || product.type.includes('TB')) icon = 'fa-heartbeat';
-            
-            // Criar badge se for featured
-            const badge = product.featured ? '<div class="product-badge">FEATURED</div>' : '';
-            
-            div.innerHTML = `
-                ${badge}
-                <div class="product-image">
-                    <i class="fas ${icon}"></i>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">${product.category.toUpperCase()}</span>
-                    <h3 class="product-title">${product.name}</h3>
-                    <span class="product-code">${product.code}</span>
-                    <div class="product-specs" style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 0.9rem;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                            <span style="color: #64748b;">Type:</span>
-                            <span style="color: #334155; font-weight: 500;">${product.type}</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                            <span style="color: #64748b;">Purity:</span>
-                            <span style="color: #334155; font-weight: 500;">${product.purity}</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="color: #64748b;">Dosage:</span>
-                            <span style="color: #334155; font-weight: 500;">${product.dosage}</span>
-                        </div>
-                    </div>
-                    <p class="product-description" style="color: #64748b; font-size: 0.95rem; margin-bottom: 20px;">${product.description}</p>
-                    <div class="product-price">
-                        <div class="price-amount">$${product.price.toFixed(2)}</div>
-                        <div class="product-actions">
-                            <button class="btn-primary btn-small add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
-                                <i class="fas fa-cart-plus"></i> Add
-                            </button>
-                            <button class="details-btn btn-small details-btn" data-id="${product.id}">Details</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Adicionar eventos aos botões
-            const addToCartBtn = div.querySelector('.add-to-cart');
-            const detailsBtn = div.querySelector('.details-btn');
-            
-            addToCartBtn.addEventListener('click', function() {
-                addToCart(product.id);
-            });
-            
-            detailsBtn.addEventListener('click', function() {
-                showProductModal(product);
-            });
-            
-            return div;
-        }
-
-        // ===== PAGINAÇÃO =====
-        function updatePagination() {
-            totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-            const pagination = document.getElementById('pagination');
-            
-            if (totalPages <= 1) {
-                pagination.style.display = 'none';
-                return;
-            }
-            
-            pagination.style.display = 'flex';
-            
-            // Gerar HTML da paginação
-            let html = '';
-            
-            // Botão Previous
-            html += `<button class="page-btn prev-btn" ${currentPage === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i> Prev</button>`;
-            
-            // Números das páginas
-            for (let i = 1; i <= totalPages; i++) {
-                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
-                    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
-                } else if (i === currentPage - 2 || i === currentPage + 2) {
-                    html += `<span class="page-dots">...</span>`;
-                }
-            }
-            
-            // Botão Next
-            html += `<button class="page-btn next-btn" ${currentPage === totalPages ? 'disabled' : ''}>Next <i class="fas fa-chevron-right"></i></button>`;
-            
-            pagination.innerHTML = html;
-            
-            // Adicionar eventos
-            pagination.querySelectorAll('.page-btn[data-page]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const pageNum = parseInt(this.getAttribute('data-page'));
-                    if (pageNum !== currentPage) {
-                        currentPage = pageNum;
-                        renderProducts();
-                        updatePagination();
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                });
-            });
-            
-            // Botão Previous
-            pagination.querySelector('.prev-btn').addEventListener('click', function() {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderProducts();
-                    updatePagination();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-            
-            // Botão Next
-            pagination.querySelector('.next-btn').addEventListener('click', function() {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderProducts();
-                    updatePagination();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-        }
-
-        // ===== MODAL DO PRODUTO =====
-        function showProductModal(product) {
-            // Remover modal existente
-            document.querySelectorAll('.product-modal').forEach(modal => modal.remove());
-            
-            // Criar modal
-            const modal = document.createElement('div');
-            modal.className = 'product-modal';
-            modal.innerHTML = `
-                <div class="modal-content" style="
-                    background: white;
-                    border-radius: 20px;
-                    max-width: 700px;
-                    width: 100%;
-                    max-height: 90vh;
-                    overflow-y: auto;
-                    position: relative;
-                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-                    animation: slideUp 0.4s ease;
-                ">
-                    <!-- CLOSE BUTTON -->
-                    <button class="modal-close-btn" onclick="this.closest('.product-modal').remove()" style="
-                        position: absolute;
-                        top: 20px;
-                        right: 20px;
-                        background: #f8fafc;
-                        border: none;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        cursor: pointer;
-                        font-size: 1.5rem;
-                        color: #64748b;
-                        z-index: 10;
-                        transition: all 0.3s;
-                    ">
-                        &times;
-                    </button>
-                    
-                    <!-- MODAL HEADER -->
-                    <div style="
-                        padding: 40px 40px 30px;
-                        background: linear-gradient(135deg, #667eea, #764ba2);
-                        border-radius: 20px 20px 0 0;
-                        color: white;
-                        position: relative;
-                        overflow: hidden;
-                    ">
-                        <div style="position: absolute; top: 20px; right: 20px; opacity: 0.1; font-size: 60px;">
-                            <i class="fas fa-flask"></i>
-                        </div>
-                        <h2 style="margin: 0 0 10px 0; font-size: 1.8rem;">${product.name}</h2>
-                        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-                            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem;">
-                                ${product.category.toUpperCase()}
-                            </span>
-                            <span style="font-family: monospace; background: rgba(255,255,255,0.15); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem;">
-                                ${product.code}
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <!-- MODAL BODY -->
-                    <div style="padding: 30px 40px;">
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; margin-bottom: 30px;">
-                            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #2196f3;">
-                                <h4 style="margin: 0 0 10px 0; color: #334155; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
-                                    <i class="fas fa-vial" style="margin-right: 8px;"></i>Purity
-                                </h4>
-                                <p style="margin: 0; color: #0d47a1; font-size: 1.2rem; font-weight: 600;">${product.purity}</p>
-                            </div>
-                            
-                            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #2ecc71;">
-                                <h4 style="margin: 0 0 10px 0; color: #334155; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
-                                    <i class="fas fa-syringe" style="margin-right: 8px;"></i>Dosage
-                                </h4>
-                                <p style="margin: 0; color: #0d47a1; font-size: 1.2rem; font-weight: 600;">${product.dosage}</p>
-                            </div>
-                            
-                            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #f39c12;">
-                                <h4 style="margin: 0 0 10px 0; color: #334155; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
-                                    <i class="fas fa-temperature-low" style="margin-right: 8px;"></i>Storage
-                                </h4>
-                                <p style="margin: 0; color: #0d47a1; font-size: 1.2rem; font-weight: 600;">-20°C</p>
-                            </div>
-                        </div>
-                        
-                        <div style="background: #f0f7ff; padding: 25px; border-radius: 12px; margin-bottom: 25px;">
-                            <h3 style="margin: 0 0 15px 0; color: #0d47a1; font-size: 1.2rem;">
-                                <i class="fas fa-info-circle" style="margin-right: 10px;"></i>Product Description
-                            </h3>
-                            <p style="margin: 0; color: #475569; line-height: 1.7;">
-                                ${product.description}
-                            </p>
-                            ${product.cas ? `<p style="margin: 15px 0 0 0; color: #64748b; font-size: 0.9rem;"><strong>CAS Number:</strong> ${product.cas}</p>` : ''}
-                        </div>
-                        
-                        <div style="border-top: 2px solid #f1f5f9; padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-                            <div>
-                                <div style="color: #64748b; font-size: 0.9rem; margin-bottom: 5px;">Price</div>
-                                <div style="color: #0d47a1; font-size: 2.2rem; font-weight: 700;">
-                                    $${product.price.toFixed(2)}
-                                    <span style="font-size: 1rem; color: #94a3b8;">/unit</span>
-                                </div>
-                            </div>
-                            
-                            <div style="display: flex; gap: 15px;">
-                                <button onclick="addToCart(${product.id}); this.closest('.product-modal')?.remove();" style="
-                                    padding: 15px 30px;
-                                    background: linear-gradient(135deg, #2196f3, #0d47a1);
-                                    color: white;
-                                    border: none;
-                                    border-radius: 10px;
-                                    font-weight: 600;
-                                    cursor: pointer;
-                                    display: flex;
-                                    align-items: center;
-                                    gap: 10px;
-                                    transition: all 0.3s;
-                                    min-width: 160px;
-                                ">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </button>
-                                
-                                <button onclick="this.closest('.product-modal').remove()" style="
-                                    padding: 15px 30px;
-                                    background: #f8fafc;
-                                    color: #64748b;
-                                    border: 2px solid #e2e8f0;
-                                    border-radius: 10px;
-                                    font-weight: 600;
-                                    cursor: pointer;
-                                    display: flex;
-                                    align-items: center;
-                                    gap: 10px;
-                                    transition: all 0.3s;
-                                    min-width: 130px;
-                                ">
-                                    <i class="fas fa-times"></i> Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- LEGAL NOTICE -->
-                    <div style="
-                        padding: 20px 40px;
-                        background: #fef2f2;
-                        border-top: 2px solid #fee2e2;
-                        border-radius: 0 0 20px 20px;
-                    ">
-                        <p style="margin: 0; color: #991b1b; font-size: 0.85rem; display: flex; align-items: flex-start; gap: 10px;">
-                            <i class="fas fa-exclamation-triangle" style="color: #dc2626; flex-shrink: 0; margin-top: 2px;"></i>
-                            <strong>Research Use Only:</strong> This product is intended for laboratory research purposes 
-                            and is not for human or veterinary use. All purchases are subject to our terms and conditions.
-                        </p>
-                    </div>
-                </div>
-            `;
-            
-            // Fechar modal ao clicar fora
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.remove();
-                }
-            });
-            
-            // Fechar com ESC
-            document.addEventListener('keydown', function handleEsc(e) {
-                if (e.key === 'Escape') {
-                    modal.remove();
-                    document.removeEventListener('keydown', handleEsc);
-                }
-            });
-            
-            document.body.appendChild(modal);
-        }
-
-        // ===== CARRINHO =====
-        function addToCart(productId) {
-            const product = allProducts.find(p => p.id == productId);
-            if (!product) return;
-            
-            // Obter carrinho atual
-            let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
-            
-            // Verificar se produto já está no carrinho
-            const existingItem = cart.find(item => item.id == productId);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({
-                    id: product.id,
-                    name: product.name,
-                    code: product.code,
-                    price: product.price,
-                    quantity: 1,
-                    category: product.category,
-                    type: product.type,
-                    dosage: product.dosage,
-                    purity: product.purity
-                });
-            }
-            
-            // Salvar no localStorage
-            localStorage.setItem('rxCart', JSON.stringify(cart));
-            
-            // Atualizar contador do carrinho
-            updateCartCount();
-            
-            // Mostrar notificação
-            showNotification(`${product.name} added to cart`);
-        }
-
-        function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem('rxCart')) || [];
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            
-            // Atualizar todos os elementos com classe .cart-count
-            document.querySelectorAll('.cart-count').forEach(element => {
-                element.textContent = totalItems;
-            });
-        }
-
-        // ===== NOTIFICAÇÕES =====
-        function showNotification(message) {
-            // Remover notificação existente
-            document.querySelectorAll('.notification').forEach(el => el.remove());
-            
-            // Criar notificação
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: #2e7d32;
-                color: white;
-                padding: 15px 25px;
-                border-radius: 8px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                z-index: 9999;
-                animation: slideIn 0.3s ease;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            `;
-            
-            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-            document.body.appendChild(notification);
-            
-            // Remover após 3 segundos
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-
-        function showError(message) {
-            const productsGrid = document.getElementById('productsGrid');
-            productsGrid.innerHTML = `
-                <div class="no-products">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <h3>Error loading products</h3>
-                    <p>${message}</p>
-                </div>
-            `;
-        }
-
-        // ===== EVENT LISTENERS =====
-        
-        // Botão Clear Filters
-        document.getElementById('clearFilters').addEventListener('click', function() {
-            // Resetar todos os checkboxes
-            document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(checkbox => {
-                checkbox.checked = true;
-            });
-            
-            // Resetar ordenação
-            document.getElementById('sortSelect').value = 'featured';
-            
-            // Aplicar filtros
-            applyFilters();
-            
-            showNotification('Filters cleared!');
-        });
-        
-        // Botão Apply Filters
-        document.getElementById('applyFilters').addEventListener('click', applyFilters);
-        
-        // Ordenação
-        document.getElementById('sortSelect').addEventListener('change', function() {
-            applySorting();
-            currentPage = 1;
-            renderProducts();
-            updatePagination();
-        });
-        
-        // Filtros de pureza, preço e estoque
-        document.querySelectorAll('input[name="purity"], input[name="price"], input[name="stock"]').forEach(input => {
-            input.addEventListener('change', applyFilters);
-        });
-        
-        // Search functionality
-        document.querySelector('.search-btn').addEventListener('click', function() {
-            const searchTerm = document.querySelector('.search-bar').value.toLowerCase().trim();
-            if (searchTerm) {
-                // Filtrar produtos pelo termo de busca
-                filteredProducts = allProducts.filter(product => 
-                    product.name.toLowerCase().includes(searchTerm) ||
-                    product.code.toLowerCase().includes(searchTerm) ||
-                    product.type.toLowerCase().includes(searchTerm) ||
-                    product.description.toLowerCase().includes(searchTerm)
-                );
-                
-                currentPage = 1;
-                renderProducts();
-                updatePagination();
-                showNotification(`Found ${filteredProducts.length} products matching "${searchTerm}"`);
-            }
-        });
-        
-        document.querySelector('.search-bar').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.querySelector('.search-btn').click();
-            }
-        });
-        
-        // Filter toggle functionality
-        document.querySelectorAll('.filter-group h4').forEach(header => {
-            header.addEventListener('click', function() {
-                const options = this.nextElementSibling;
-                const icon = this.querySelector('i');
-                
-                if (options.style.display === 'none' || options.style.display === '') {
-                    options.style.display = 'block';
-                    icon.className = 'fas fa-chevron-up';
-                } else {
-                    options.style.display = 'none';
-                    icon.className = 'fas fa-chevron-down';
-                }
-            });
-        });
-
-        // Add CSS animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-            
-            .modal-close-btn:hover {
-                background: #ef4444 !important;
-                color: white !important;
-                transform: rotate(90deg);
-            }
-            
-            .page-dots {
-                padding: 10px;
-                color: #64748b;
-            }
-            
-            .page-btn:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-            
-            .page-btn:disabled:hover {
-                border-color: #e0e0e0;
-                color: #64748b;
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
-</body>
-</html>
+// products/js/products-data.js
+const products = [
+    // ========== TIRZEPATIDE ==========
+    {
+        id: 1,
+        name: "Tirzepatide 10mg",
+        code: "CS-ze101208",
+        category: "peptides",
+        type: "Tirzepatide",
+        dosage: "10mg",
+        price: 89.99,
+        purity: "99% HPLC",
+        cas: "2023788-19-2",
+        description: "Dual GIP and GLP-1 receptor agonist for metabolic research",
+        color: "#3498db",
+        stock: true,
+        featured: true
+    },
+    {
+        id: 2,
+        name: "Tirzepatide 15mg",
+        code: "CS-ze151021",
+        category: "peptides",
+        type: "Tirzepatide",
+        dosage: "15mg",
+        price: 119.99,
+        purity: "99% HPLC",
+        cas: "2023788-19-2",
+        description: "Dual GIP and GLP-1 receptor agonist for metabolic research",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 3,
+        name: "Tirzepatide 20mg",
+        code: "CS-ze200923",
+        category: "peptides",
+        type: "Tirzepatide",
+        dosage: "20mg",
+        price: 149.99,
+        purity: "99% HPLC",
+        cas: "2023788-19-2",
+        description: "Dual GIP and GLP-1 receptor agonist for metabolic research",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== RETATRUTIDE ==========
+    {
+        id: 4,
+        name: "Retatrutide 10mg",
+        code: "CS-re101210",
+        category: "peptides",
+        type: "Retatrutide",
+        dosage: "10mg",
+        price: 109.99,
+        purity: "99% HPLC",
+        cas: "N/A",
+        description: "Triple GIP, GLP-1 and glucagon receptor agonist",
+        color: "#3498db",
+        stock: true,
+        featured: true
+    },
+    {
+        id: 5,
+        name: "Retatrutide 15mg",
+        code: "CS-re151128",
+        category: "peptides",
+        type: "Retatrutide",
+        dosage: "15mg",
+        price: 139.99,
+        purity: "99% HPLC",
+        cas: "N/A",
+        description: "Triple GIP, GLP-1 and glucagon receptor agonist",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== CJC-1295 ==========
+    {
+        id: 6,
+        name: "CJC-1295 2mg",
+        code: "CS-cj020501",
+        category: "peptides",
+        type: "CJC-1295",
+        dosage: "2mg",
+        price: 29.99,
+        purity: "99% HPLC",
+        cas: "863288-34-0",
+        description: "Growth hormone releasing hormone analog",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 7,
+        name: "CJC-1295 5mg",
+        code: "CS-cj050312",
+        category: "peptides",
+        type: "CJC-1295",
+        dosage: "5mg",
+        price: 49.99,
+        purity: "99% HPLC",
+        cas: "863288-34-0",
+        description: "Growth hormone releasing hormone analog",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== IPAMORELIN ==========
+    {
+        id: 8,
+        name: "Ipamorelin 2mg",
+        code: "CS-ip020715",
+        category: "peptides",
+        type: "Ipamorelin",
+        dosage: "2mg",
+        price: 24.99,
+        purity: "99% HPLC",
+        cas: "170851-70-4",
+        description: "Growth hormone secretagogue",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 9,
+        name: "Ipamorelin 5mg",
+        code: "CS-ip050128",
+        category: "peptides",
+        type: "Ipamorelin",
+        dosage: "5mg",
+        price: 39.99,
+        purity: "99% HPLC",
+        cas: "170851-70-4",
+        description: "Growth hormone secretagogue",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== SEMAX ==========
+    {
+        id: 10,
+        name: "Semax 3mg",
+        code: "CS-se030409",
+        category: "peptides",
+        type: "Semax",
+        dosage: "3mg",
+        price: 34.99,
+        purity: "99% HPLC",
+        cas: "80714-61-0",
+        description: "Neuroprotective peptide with nootropic effects",
+        color: "#3498db",
+        stock: true,
+        featured: true
+    },
+    {
+        id: 11,
+        name: "Semax 5mg",
+        code: "CS-se050322",
+        category: "peptides",
+        type: "Semax",
+        dosage: "5mg",
+        price: 44.99,
+        purity: "99% HPLC",
+        cas: "80714-61-0",
+        description: "Neuroprotective peptide with nootropic effects",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== SELANK ==========
+    {
+        id: 12,
+        name: "Selank 3mg",
+        code: "CS-sl030518",
+        category: "peptides",
+        type: "Selank",
+        dosage: "3mg",
+        price: 32.99,
+        purity: "99% HPLC",
+        cas: "129954-34-3",
+        description: "Anxiolytic peptide with nootropic properties",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 13,
+        name: "Selank 5mg",
+        code: "CS-sl050611",
+        category: "peptides",
+        type: "Selank",
+        dosage: "5mg",
+        price: 42.99,
+        purity: "99% HPLC",
+        cas: "129954-34-3",
+        description: "Anxiolytic peptide with nootropic properties",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== BPC-157 ==========
+    {
+        id: 14,
+        name: "BPC-157 5mg",
+        code: "CS-bp050823",
+        category: "peptides",
+        type: "BPC-157",
+        dosage: "5mg",
+        price: 39.99,
+        purity: "99% HPLC",
+        cas: "137525-51-0",
+        description: "Pentadecapeptide with regenerative properties",
+        color: "#3498db",
+        stock: true,
+        featured: true
+    },
+    {
+        id: 15,
+        name: "BPC-157 10mg",
+        code: "CS-bp100714",
+        category: "peptides",
+        type: "BPC-157",
+        dosage: "10mg",
+        price: 69.99,
+        purity: "99% HPLC",
+        cas: "137525-51-0",
+        description: "Pentadecapeptide with regenerative properties",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== TB-500 ==========
+    {
+        id: 16,
+        name: "TB-500 2mg",
+        code: "CS-tb020916",
+        category: "peptides",
+        type: "TB-500",
+        dosage: "2mg",
+        price: 29.99,
+        purity: "99% HPLC",
+        cas: "77591-33-4",
+        description: "Thymosin beta-4 fragment for tissue repair",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 17,
+        name: "TB-500 5mg",
+        code: "CS-tb050327",
+        category: "peptides",
+        type: "TB-500",
+        dosage: "5mg",
+        price: 49.99,
+        purity: "99% HPLC",
+        cas: "77591-33-4",
+        description: "Thymosin beta-4 fragment for tissue repair",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== EPITHALON ==========
+    {
+        id: 18,
+        name: "Epithalon 10mg",
+        code: "CS-ep100101",
+        category: "peptides",
+        type: "Epithalon",
+        dosage: "10mg",
+        price: 49.99,
+        purity: "99% HPLC",
+        cas: "307297-39-8",
+        description: "Telomerase activator peptide",
+        color: "#3498db",
+        stock: true,
+        featured: true
+    },
+    {
+        id: 19,
+        name: "Epithalon 50mg",
+        code: "CS-ep500523",
+        category: "peptides",
+        type: "Epithalon",
+        dosage: "50mg",
+        price: 199.99,
+        purity: "99% HPLC",
+        cas: "307297-39-8",
+        description: "Telomerase activator peptide",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== MOTS-C ==========
+    {
+        id: 20,
+        name: "MOTS-c 10mg",
+        code: "CS-mc100429",
+        category: "peptides",
+        type: "MOTS-c",
+        dosage: "10mg",
+        price: 79.99,
+        purity: "99% HPLC",
+        cas: "N/A",
+        description: "Mitochondrial-derived peptide for metabolic regulation",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== PT-141 (BREMELANOTIDE) ==========
+    {
+        id: 21,
+        name: "PT-141 10mg",
+        code: "CS-pt101215",
+        category: "peptides",
+        type: "PT-141",
+        dosage: "10mg",
+        price: 59.99,
+        purity: "99% HPLC",
+        cas: "189691-06-3",
+        description: "Melanocortin receptor agonist",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== TESAMORELIN ==========
+    {
+        id: 22,
+        name: "Tesamorelin 2mg",
+        code: "CS-te020830",
+        category: "peptides",
+        type: "Tesamorelin",
+        dosage: "2mg",
+        price: 89.99,
+        purity: "99% HPLC",
+        cas: "218949-48-5",
+        description: "Growth hormone releasing hormone analog",
+        color: "#3498db",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== ADENOSINE ==========
+    {
+        id: 23,
+        name: "Adenosine 1g",
+        code: "CS-ad100001",
+        category: "coenzymes",
+        type: "Adenosine",
+        dosage: "1g",
+        price: 29.99,
+        purity: "99% HPLC",
+        cas: "58-61-7",
+        description: "Nucleoside involved in cellular energy transfer",
+        color: "#e74c3c",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 24,
+        name: "Adenosine 5g",
+        code: "CS-ad500002",
+        category: "coenzymes",
+        type: "Adenosine",
+        dosage: "5g",
+        price: 99.99,
+        purity: "99% HPLC",
+        cas: "58-61-7",
+        description: "Nucleoside involved in cellular energy transfer",
+        color: "#e74c3c",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== NAD+ (NICOTINAMIDE ADENINE DINUCLÉOTIDO) ==========
+    {
+        id: 25,
+        name: "NAD+ 100mg",
+        code: "CS-na010003",
+        category: "coenzymes",
+        type: "NAD+",
+        dosage: "100mg",
+        price: 49.99,
+        purity: "99% HPLC",
+        cas: "53-84-9",
+        description: "Coenzyme central to metabolism",
+        color: "#e74c3c",
+        stock: true,
+        featured: true
+    },
+    {
+        id: 26,
+        name: "NAD+ 1g",
+        code: "CS-na100004",
+        category: "coenzymes",
+        type: "NAD+",
+        dosage: "1g",
+        price: 199.99,
+        purity: "99% HPLC",
+        cas: "53-84-9",
+        description: "Coenzyme central to metabolism",
+        color: "#e74c3c",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== NMN (NICOTINAMIDE MONONUCLÉOTIDO) ==========
+    {
+        id: 27,
+        name: "NMN 1g",
+        code: "CS-nm010005",
+        category: "coenzymes",
+        type: "NMN",
+        dosage: "1g",
+        price: 39.99,
+        purity: "99% HPLC",
+        cas: "1094-61-7",
+        description: "NAD+ precursor for cellular energy research",
+        color: "#e74c3c",
+        stock: true,
+        featured: true
+    },
+    {
+        id: 28,
+        name: "NMN 10g",
+        code: "CS-nm100006",
+        category: "coenzymes",
+        type: "NMN",
+        dosage: "10g",
+        price: 299.99,
+        purity: "99% HPLC",
+        cas: "1094-61-7",
+        description: "NAD+ precursor for cellular energy research",
+        color: "#e74c3c",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== NR (NICOTINAMIDE RIBOSIDE) ==========
+    {
+        id: 29,
+        name: "Nicotinamide Riboside 1g",
+        code: "CS-nr010007",
+        category: "coenzymes",
+        type: "NR",
+        dosage: "1g",
+        price: 44.99,
+        purity: "99% HPLC",
+        cas: "1341-23-7",
+        description: "NAD+ precursor with high bioavailability",
+        color: "#e74c3c",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 30,
+        name: "Nicotinamide Riboside 10g",
+        code: "CS-nr100008",
+        category: "coenzymes",
+        type: "NR",
+        dosage: "10g",
+        price: 349.99,
+        purity: "99% HPLC",
+        cas: "1341-23-7",
+        description: "NAD+ precursor with high bioavailability",
+        color: "#e74c3c",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== COENZYME Q10 ==========
+    {
+        id: 31,
+        name: "Coenzyme Q10 100mg",
+        code: "CS-cq010009",
+        category: "coenzymes",
+        type: "CoQ10",
+        dosage: "100mg",
+        price: 24.99,
+        purity: "99% HPLC",
+        cas: "303-98-0",
+        description: "Electron carrier in mitochondrial electron transport",
+        color: "#e74c3c",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 32,
+        name: "Coenzyme Q10 1g",
+        code: "CS-cq100010",
+        category: "coenzymes",
+        type: "CoQ10",
+        dosage: "1g",
+        price: 149.99,
+        purity: "99% HPLC",
+        cas: "303-98-0",
+        description: "Electron carrier in mitochondrial electron transport",
+        color: "#e74c3c",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== ALPHA-GPC ==========
+    {
+        id: 33,
+        name: "Alpha-GPC 100mg",
+        code: "CS-ag010011",
+        category: "nootropics",
+        type: "Alpha-GPC",
+        dosage: "100mg",
+        price: 19.99,
+        purity: "99% HPLC",
+        cas: "28319-77-9",
+        description: "Cholinergic compound for cognitive research",
+        color: "#f39c12",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 34,
+        name: "Alpha-GPC 1g",
+        code: "CS-ag100012",
+        category: "nootropics",
+        type: "Alpha-GPC",
+        dosage: "1g",
+        price: 89.99,
+        purity: "99% HPLC",
+        cas: "28319-77-9",
+        description: "Cholinergic compound for cognitive research",
+        color: "#f39c12",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== LION'S MANE EXTRACT ==========
+    {
+        id: 35,
+        name: "Lion's Mane Extract 500mg",
+        code: "CS-lm050013",
+        category: "nootropics",
+        type: "Lion's Mane",
+        dosage: "500mg",
+        price: 29.99,
+        purity: "30% polysaccharides",
+        cas: "N/A",
+        description: "Hericium erinaceus extract for neural research",
+        color: "#f39c12",
+        stock: true,
+        featured: true
+    },
+    {
+        id: 36,
+        name: "Lion's Mane Extract 1g",
+        code: "CS-lm100014",
+        category: "nootropics",
+        type: "Lion's Mane",
+        dosage: "1g",
+        price: 49.99,
+        purity: "30% polysaccharides",
+        cas: "N/A",
+        description: "Hericium erinaceus extract for neural research",
+        color: "#f39c12",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== BACOPA MONNIERI ==========
+    {
+        id: 37,
+        name: "Bacopa Monnieri Extract 500mg",
+        code: "CS-bm050015",
+        category: "nootropics",
+        type: "Bacopa Monnieri",
+        dosage: "500mg",
+        price: 24.99,
+        purity: "20% bacosides",
+        cas: "N/A",
+        description: "Ayurvedic herb for cognitive function research",
+        color: "#f39c12",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== L-THEANINE ==========
+    {
+        id: 38,
+        name: "L-Theanine 100mg",
+        code: "CS-lt010016",
+        category: "nootropics",
+        type: "L-Theanine",
+        dosage: "100mg",
+        price: 14.99,
+        purity: "99% HPLC",
+        cas: "3081-61-6",
+        description: "Amino acid from green tea for relaxation research",
+        color: "#f39c12",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 39,
+        name: "L-Theanine 1g",
+        code: "CS-lt100017",
+        category: "nootropics",
+        type: "L-Theanine",
+        dosage: "1g",
+        price: 49.99,
+        purity: "99% HPLC",
+        cas: "3081-61-6",
+        description: "Amino acid from green tea for relaxation research",
+        color: "#f39c12",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== NOOPEPT ==========
+    {
+        id: 40,
+        name: "Noopept 10mg",
+        code: "CS-no010018",
+        category: "nootropics",
+        type: "Noopept",
+        dosage: "10mg",
+        price: 19.99,
+        purity: "99% HPLC",
+        cas: "157115-85-0",
+        description: "Synthetic nootropic peptide for cognitive research",
+        color: "#f39c12",
+        stock: true,
+        featured: true
+    },
+    {
+        id: 41,
+        name: "Noopept 100mg",
+        code: "CS-no100019",
+        category: "nootropics",
+        type: "Noopept",
+        dosage: "100mg",
+        price: 79.99,
+        purity: "99% HPLC",
+        cas: "157115-85-0",
+        description: "Synthetic nootropic peptide for cognitive research",
+        color: "#f39c12",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== PHENIBUT ==========
+    {
+        id: 42,
+        name: "Phenibut HCl 1g",
+        code: "CS-ph100020",
+        category: "small molecules",
+        type: "Phenibut",
+        dosage: "1g",
+        price: 29.99,
+        purity: "99% HPLC",
+        cas: "1078-21-3",
+        description: "GABA analog for neurological research",
+        color: "#95a5a6",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 43,
+        name: "Phenibut HCl 10g",
+        code: "CS-ph100021",
+        category: "small molecules",
+        type: "Phenibut",
+        dosage: "10g",
+        price: 199.99,
+        purity: "99% HPLC",
+        cas: "1078-21-3",
+        description: "GABA analog for neurological research",
+        color: "#95a5a6",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== TIANEPTINE ==========
+    {
+        id: 44,
+        name: "Tianeptine Sodium 1g",
+        code: "CS-ti100022",
+        category: "small molecules",
+        type: "Tianeptine",
+        dosage: "1g",
+        price: 39.99,
+        purity: "99% HPLC",
+        cas: "30123-17-2",
+        description: "Atypical antidepressant for neurological research",
+        color: "#95a5a6",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== MODAFINIL ==========
+    {
+        id: 45,
+        name: "Modafinil 100mg",
+        code: "CS-mo010023",
+        category: "small molecules",
+        type: "Modafinil",
+        dosage: "100mg",
+        price: 49.99,
+        purity: "99% HPLC",
+        cas: "68693-11-8",
+        description: "Wakefulness-promoting agent for sleep research",
+        color: "#95a5a6",
+        stock: true,
+        featured: true
+    },
+    {
+        id: 46,
+        name: "Modafinil 1g",
+        code: "CS-mo100024",
+        category: "small molecules",
+        type: "Modafinil",
+        dosage: "1g",
+        price: 299.99,
+        purity: "99% HPLC",
+        cas: "68693-11-8",
+        description: "Wakefulness-promoting agent for sleep research",
+        color: "#95a5a6",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== KAVA EXTRACT ==========
+    {
+        id: 47,
+        name: "Kava Extract 500mg",
+        code: "CS-ka050025",
+        category: "small molecules",
+        type: "Kava",
+        dosage: "500mg",
+        price: 34.99,
+        purity: "30% kavalactones",
+        cas: "N/A",
+        description: "Piper methysticum extract for anxiety research",
+        color: "#95a5a6",
+        stock: true,
+        featured: false
+    },
+    
+    // ========== 5-HTP ==========
+    {
+        id: 48,
+        name: "5-HTP 100mg",
+        code: "CS-5h010026",
+        category: "small molecules",
+        type: "5-HTP",
+        dosage: "100mg",
+        price: 24.99,
+        purity: "99% HPLC",
+        cas: "4350-09-8",
+        description: "Serotonin precursor for mood research",
+        color: "#95a5a6",
+        stock: true,
+        featured: false
+    },
+    {
+        id: 49,
+        name: "5-HTP 1g",
+        code: "CS-5h100027",
+        category: "small molecules",
+        type: "5-HTP",
+        dosage: "1g",
+        price: 99.99,
+        purity: "99% HPLC",
+        cas: "4350-09-8",
+        description: "Serotonin precursor for mood research",
+        color: "#95a5a6",
+        stock: true,
+        featured: false
+    }
+];
+
+// Categorias disponíveis
+const categories = [
+    { id: "all", name: "All Products", count: products.length },
+    { id: "peptides", name: "Peptides", count: products.filter(p => p.category === "peptides").length },
+    { id: "coenzymes", name: "Coenzymes", count: products.filter(p => p.category === "coenzymes").length },
+    { id: "nootropics", name: "Nootropics", count: products.filter(p => p.category === "nootropics").length },
+    { id: "small molecules", name: "Small Molecules", count: products.filter(p => p.category === "small molecules").length }
+];
+
+// Tipos disponíveis (extraídos automaticamente dos produtos)
+const types = [...new Set(products.map(p => p.type))];
+
+// Cores por categoria para placeholders
+const categoryColors = {
+    peptides: "#3498db",      // Azul
+    coenzymes: "#e74c3c",     // Vermelho
+    nootropics: "#f39c12",    // Laranja
+    "small molecules": "#95a5a6", // Cinza
+    default: "#95a5a6"
+};
+
+// ========== EXPORTAR PARA WINDOW ==========
+window.products = products;
+window.categories = categories;
+window.types = types;
+window.categoryColors = categoryColors;
+
+// Log para debug
+console.log('[DEBUG] products-data.js carregado');
+console.log('[DEBUG] Total produtos:', products.length);
+console.log('[DEBUG] Categorias:', categories.length);
+console.log('[DEBUG] Tipos:', types.length);
+
+// Adicionar um evento para quando os dados estiverem prontos
+window.dispatchEvent(new Event('productsDataLoaded'));
