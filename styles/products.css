@@ -808,3 +808,26 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--secondary-blue);
 }
+/* styles/products.css - Adicione isto no FINAL do arquivo */
+
+/* ===== CORREÇÃO PARA O AVISO LEGAL NÃO QUEBRAR LAYOUT ===== */
+body.has-legal-banner .site-header {
+    position: relative;
+    z-index: 9999;
+}
+
+body.has-legal-banner .main-wrapper {
+    padding-top: 20px;
+}
+
+/* ===== GARANTIR QUE O SITE TENHA ESPAÇO ===== */
+.site-header {
+    position: relative;
+    z-index: 1000;
+}
+
+.main-wrapper {
+    min-height: 70vh;
+    position: relative;
+    z-index: 1;
+}
