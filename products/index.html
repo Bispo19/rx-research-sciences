@@ -197,42 +197,6 @@
             background: rgba(255, 255, 255, 0.15);
         }
         
-        /* ===== BOTÃO DETAILS PERSONALIZADO ===== */
-        .details-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            color: white !important;
-            border: none !important;
-            transition: all 0.3s ease !important;
-            position: relative !important;
-            overflow: hidden !important;
-            z-index: 1 !important;
-        }
-
-        .details-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            transition: all 0.4s ease;
-            z-index: -1;
-        }
-
-        .details-btn:hover {
-            transform: translateY(-3px) !important;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4) !important;
-        }
-
-        .details-btn:hover::before {
-            left: 0;
-        }
-
-        .details-btn:active {
-            transform: translateY(-1px) !important;
-        }
-        
         /* ===== PRODUCTS PAGE CONTENT ===== */
         .products-page {
             max-width: 1400px;
@@ -1112,6 +1076,7 @@
                 <div class="controls">
                     <select class="type-filter" id="type-filter">
                         <option value="all">All Types</option>
+                        <!-- Types will be populated by JavaScript -->
                     </select>
                     
                     <select class="sort-filter" id="sort-filter">
@@ -1132,12 +1097,11 @@
 
         <!-- PRODUCTS INFO -->
         <div class="products-info">
-            <div id="product-count">Showing 48 products</div>
+            <div id="product-count">Loading products...</div>
         </div>
 
         <!-- PRODUCTS GRID -->
         <div class="products-grid" id="products-grid">
-            <!-- Products will be loaded here by JavaScript -->
             <div class="loading">
                 <i class="fas fa-spinner fa-spin"></i>
                 <p>Loading products...</p>
@@ -1185,10 +1149,10 @@
         </div>
     </footer>
 
-    <!-- ===== DADOS DOS PRODUTOS EM-LINE ===== -->
+    <!-- ===== JAVASCRIPT PARA PRODUTOS ===== -->
     <script>
-        // Dados dos produtos em-line para evitar problemas de carregamento
-        const products = [
+        // ===== DADOS COMPLETOS DOS PRODUTOS =====
+        const allProducts = [
             // ========== TIRZEPATIDE ==========
             {
                 id: 1,
@@ -1509,7 +1473,7 @@
                 featured: false
             },
             
-            // ========== PT-141 (BREMELANOTIDE) ==========
+            // ========== PT-141 ==========
             {
                 id: 21,
                 name: "PT-141 10mg",
@@ -1575,7 +1539,7 @@
                 featured: false
             },
             
-            // ========== NAD+ (NICOTINAMIDE ADENINE DINUCLÉOTIDO) ==========
+            // ========== NAD+ ==========
             {
                 id: 25,
                 name: "NAD+ 100mg",
@@ -1607,7 +1571,7 @@
                 featured: false
             },
             
-            // ========== NMN (NICOTINAMIDE MONONUCLÉOTIDO) ==========
+            // ========== NMN ==========
             {
                 id: 27,
                 name: "NMN 1g",
@@ -1639,7 +1603,7 @@
                 featured: false
             },
             
-            // ========== NR (NICOTINAMIDE RIBOSIDE) ==========
+            // ========== NR ==========
             {
                 id: 29,
                 name: "Nicotinamide Riboside 1g",
@@ -1979,49 +1943,32 @@
             }
         ];
 
-        // Cores por categoria
-        const categoryColors = {
-            peptides: "#3498db",
-            coenzymes: "#e74c3c",
-            nootropics: "#f39c12",
-            "small molecules": "#95a5a6",
-            default: "#95a5a6"
-        };
-    </script>
-
-    <!-- ===== SISTEMA DE FILTRO EM-LINE ===== -->
-    <script>
-        class ProductFilter {
+        // ===== SISTEMA DE FILTRO SIMPLIFICADO =====
+        class SimpleProductFilter {
             constructor() {
-                this.products = window.products || [];
-                this.filteredProducts = [];
+                this.products = allProducts;
+                this.filteredProducts = [...allProducts];
                 this.currentCategory = 'all';
                 this.currentType = 'all';
                 this.currentSort = 'featured';
                 this.searchTerm = '';
+                
                 this.init();
             }
 
             init() {
-                console.log('[ProductFilter] Inicializando com', this.products.length, 'produtos');
+                console.log('Inicializando filtro de produtos com', this.products.length, 'produtos');
                 
-                if (this.products.length === 0) {
-                    this.showError('Nenhum produto disponível');
-                    return;
-                }
-
-                this.filteredProducts = [...this.products];
                 this.setupEventListeners();
                 this.renderProducts();
                 this.updateCartCount();
                 this.populateTypeFilter();
                 this.updateCategoryCounts();
-                
-                console.log('[ProductFilter] Pronto!');
+                this.updateProductCount();
             }
 
             setupEventListeners() {
-                // Eventos de categoria
+                // Categorias
                 document.querySelectorAll('.category-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const category = e.currentTarget.dataset.category;
@@ -2029,7 +1976,7 @@
                     });
                 });
 
-                // Filtro de tipo
+                // Tipo
                 const typeFilter = document.getElementById('type-filter');
                 if (typeFilter) {
                     typeFilter.addEventListener('change', (e) => {
@@ -2064,22 +2011,20 @@
                     });
                 }
 
-                // Botões de ação
+                // Clique em botões (delegação de eventos)
                 document.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('btn-details') || e.target.closest('.btn-details')) {
-                        const btn = e.target.classList.contains('btn-details') ? e.target : e.target.closest('.btn-details');
-                        const productId = btn.dataset.id;
-                        if (productId) {
-                            this.showProductDetails(parseInt(productId));
-                        }
+                    // Botão Details
+                    if (e.target.closest('.btn-details')) {
+                        const btn = e.target.closest('.btn-details');
+                        const productId = parseInt(btn.dataset.id);
+                        if (productId) this.showProductDetails(productId);
                     }
                     
-                    if (e.target.classList.contains('btn-cart') || e.target.closest('.btn-cart')) {
-                        const btn = e.target.classList.contains('btn-cart') ? e.target : e.target.closest('.btn-cart');
-                        const productId = btn.dataset.id;
-                        if (productId) {
-                            this.addToCart(parseInt(productId));
-                        }
+                    // Botão Add to Cart
+                    if (e.target.closest('.btn-cart')) {
+                        const btn = e.target.closest('.btn-cart');
+                        const productId = parseInt(btn.dataset.id);
+                        if (productId) this.addToCart(productId);
                     }
                 });
             }
@@ -2100,21 +2045,19 @@
             }
 
             applyFilters() {
-                console.log('[ProductFilter] Aplicando filtros...');
-                
-                // Filtro por categoria
+                // Filtrar por categoria
                 if (this.currentCategory === 'all') {
                     this.filteredProducts = [...this.products];
                 } else {
                     this.filteredProducts = this.products.filter(p => p.category === this.currentCategory);
                 }
 
-                // Filtro por tipo
+                // Filtrar por tipo
                 if (this.currentType !== 'all') {
                     this.filteredProducts = this.filteredProducts.filter(p => p.type === this.currentType);
                 }
 
-                // Filtro por busca
+                // Filtrar por busca
                 if (this.searchTerm) {
                     this.filteredProducts = this.filteredProducts.filter(p => 
                         p.name.toLowerCase().includes(this.searchTerm) ||
@@ -2124,7 +2067,7 @@
                     );
                 }
 
-                // Ordenação
+                // Ordenar
                 this.sortProducts();
 
                 // Renderizar
@@ -2158,10 +2101,7 @@
 
             renderProducts() {
                 const grid = document.getElementById('products-grid');
-                if (!grid) {
-                    console.error('[ProductFilter] Grid não encontrado');
-                    return;
-                }
+                if (!grid) return;
 
                 if (this.filteredProducts.length === 0) {
                     grid.innerHTML = `
@@ -2178,9 +2118,17 @@
             }
 
             createProductCard(product) {
-                const color = categoryColors[product.category] || '#95a5a6';
+                // Cores por categoria
+                const colors = {
+                    peptides: "#3498db",
+                    coenzymes: "#e74c3c",
+                    nootropics: "#f39c12",
+                    "small molecules": "#95a5a6"
+                };
                 
-                // Determinar ícone baseado no tipo
+                const color = colors[product.category] || "#95a5a6";
+                
+                // Ícone baseado no tipo
                 let icon = 'fa-flask';
                 if (product.type.includes('Tirzepatide') || product.type.includes('Retatrutide')) icon = 'fa-weight';
                 if (product.type.includes('Semax') || product.type.includes('Selank') || product.type.includes('Noopept')) icon = 'fa-brain';
@@ -2237,7 +2185,6 @@
                 const product = this.products.find(p => p.id === productId);
                 if (!product) return;
 
-                // Criar modal de detalhes
                 const modal = document.createElement('div');
                 modal.className = 'product-modal';
                 modal.innerHTML = `
@@ -2279,7 +2226,6 @@
                     </div>
                 `;
                 
-                // Fechar modal ao clicar fora
                 modal.addEventListener('click', (e) => {
                     if (e.target === modal) {
                         modal.remove();
@@ -2291,17 +2237,9 @@
 
             addToCart(productId) {
                 const product = this.products.find(p => p.id == productId);
-                if (!product) {
-                    console.error('[ProductFilter] Produto não encontrado:', productId);
-                    return;
-                }
+                if (!product) return;
                 
-                console.log('[ProductFilter] Adicionando ao carrinho:', product.name);
-                
-                // Obter carrinho atual do localStorage
                 let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
-                
-                // Verificar se produto já está no carrinho
                 const existingItem = cart.find(item => item.id == productId);
                 
                 if (existingItem) {
@@ -2320,13 +2258,8 @@
                     });
                 }
                 
-                // Salvar no localStorage
                 localStorage.setItem('rxCart', JSON.stringify(cart));
-                
-                // Atualizar contador do carrinho
                 this.updateCartCount();
-                
-                // Mostrar notificação
                 this.showCartNotification(product.name);
             }
 
@@ -2334,17 +2267,14 @@
                 const cart = JSON.parse(localStorage.getItem('rxCart')) || [];
                 const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
                 
-                // Atualizar todos os elementos com classe .cart-count
-                document.querySelectorAll('.cart-count').forEach(element => {
-                    element.textContent = totalItems;
+                document.querySelectorAll('.cart-count').forEach(el => {
+                    el.textContent = totalItems;
                 });
             }
 
             showCartNotification(productName) {
-                // Remover notificação existente
                 document.querySelector('.cart-notification')?.remove();
                 
-                // Criar notificação
                 const notification = document.createElement('div');
                 notification.className = 'cart-notification';
                 notification.innerHTML = `
@@ -2369,7 +2299,6 @@
                 this.currentSort = 'featured';
                 this.searchTerm = '';
                 
-                // Resetar UI
                 document.querySelectorAll('.category-btn').forEach(btn => {
                     btn.classList.remove('active');
                     if (btn.dataset.category === 'all') {
@@ -2377,18 +2306,13 @@
                     }
                 });
                 
-                const typeFilter = document.getElementById('type-filter');
-                if (typeFilter) typeFilter.value = 'all';
-                
-                const sortFilter = document.getElementById('sort-filter');
-                if (sortFilter) sortFilter.value = 'featured';
-                
-                const searchInput = document.getElementById('search-input');
-                if (searchInput) searchInput.value = '';
+                document.getElementById('type-filter').value = 'all';
+                document.getElementById('sort-filter').value = 'featured';
+                document.getElementById('search-input').value = '';
                 
                 this.applyFilters();
                 
-                // Mostrar notificação
+                // Notificação
                 this.showNotification('Filters cleared!');
             }
 
@@ -2396,7 +2320,7 @@
                 const typeFilter = document.getElementById('type-filter');
                 if (!typeFilter) return;
                 
-                // Limpar opções existentes (exceto a primeira)
+                // Limpar opções existentes (exceto "All Types")
                 while (typeFilter.options.length > 1) {
                     typeFilter.remove(1);
                 }
@@ -2438,24 +2362,9 @@
                 }
             }
 
-            showError(message) {
-                const grid = document.getElementById('products-grid');
-                if (grid) {
-                    grid.innerHTML = `
-                        <div class="no-products">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <h3>Error</h3>
-                            <p>${message}</p>
-                        </div>
-                    `;
-                }
-            }
-
             showNotification(message) {
-                // Remover notificação existente
                 document.querySelector('.notification')?.remove();
                 
-                // Criar notificação
                 const notification = document.createElement('div');
                 notification.className = 'notification';
                 notification.style.cssText = `
@@ -2484,9 +2393,46 @@
             }
         }
 
-        // Inicializar quando o DOM estiver pronto
+        // ===== INICIALIZAÇÃO =====
         document.addEventListener('DOMContentLoaded', () => {
-            window.productFilter = new ProductFilter();
+            // Adicionar CSS para animações
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Inicializar filtro
+            window.productFilter = new SimpleProductFilter();
+            
+            // Configurar busca do header
+            document.querySelector('.search-btn')?.addEventListener('click', () => {
+                const searchTerm = document.querySelector('.search-bar')?.value;
+                if (searchTerm) {
+                    document.getElementById('search-input').value = searchTerm;
+                    window.productFilter.searchTerm = searchTerm.toLowerCase();
+                    window.productFilter.applyFilters();
+                }
+            });
+            
+            document.querySelector('.search-bar')?.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const searchTerm = document.querySelector('.search-bar')?.value;
+                    if (searchTerm) {
+                        document.getElementById('search-input').value = searchTerm;
+                        window.productFilter.searchTerm = searchTerm.toLowerCase();
+                        window.productFilter.applyFilters();
+                    }
+                }
+            });
         });
     </script>
 </body>
