@@ -244,7 +244,7 @@
             text-align: center;
         }
         
-        /* ===== NAVIGATION ===== */
+        /* ===== NAVIGATION - CORRIGIDO ===== */
         .main-nav {
             background: linear-gradient(135deg, #0d47a1, #1565c0);
             border-top: 1px solid rgba(255,255,255,0.1);
@@ -254,10 +254,66 @@
             display: flex;
             list-style: none;
             gap: 0;
+            position: relative;
+            z-index: 1001;
         }
         
         .nav-links li {
             position: relative;
+        }
+        
+        /* ESTILOS DO DROPDOWN - CORRIGIDOS */
+        .nav-links .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 240px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            padding: 15px 0;
+            list-style: none;
+            z-index: 1002;
+            border: 1px solid rgba(0,0,0,0.08);
+            margin-top: 5px;
+        }
+        
+        .nav-links .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            border-width: 0 10px 10px 10px;
+            border-style: solid;
+            border-color: transparent transparent white transparent;
+        }
+        
+        .nav-links .dropdown-menu li {
+            margin: 0;
+        }
+        
+        .nav-links .dropdown-menu a {
+            color: #333;
+            padding: 12px 25px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-links .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+            color: #0d47a1;
+            border-left-color: #2196f3;
+            padding-left: 30px;
+        }
+        
+        /* MOSTRAR DROPDOWN AO PASSAR O MOUSE */
+        .nav-links li.dropdown:hover .dropdown-menu {
+            display: block;
+            animation: fadeInUp 0.3s ease-out;
         }
         
         .nav-links a {
@@ -497,397 +553,214 @@
             font-size: 0.9rem;
             font-weight: 500;
         }
-      /* ===== FEATURED PRODUCTS - CORRIGIDO ===== */
-.products-section {
-    padding: 100px 0;
-    background: #f8f9fa;
-    position: relative;
-}
-
-.category-filter {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    padding: 10px 25px;
-    background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 30px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.filter-btn:hover {
-    border-color: #2196f3;
-    color: #2196f3;
-}
-
-.filter-btn.active {
-    background: linear-gradient(135deg, #2196f3, #0d47a1);
-    color: white;
-    border-color: #2196f3;
-}
-
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.product-card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    transition: all 0.3s;
-    border: 1px solid #f0f0f0;
-    position: relative;
-    display: none;
-}
-
-.product-card.visible {
-    display: block;
-    animation: fadeIn 0.5s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    border-color: #2196f3;
-}
-
-.product-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #f44336;
-    color: white;
-    padding: 6px 15px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    z-index: 10;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.product-badge[style*="background: #2e7d32"] {
-    background: #2e7d32 !important;
-}
-
-.product-image {
-    height: 200px;
-    background: linear-gradient(135deg, #f0f7ff, #e3f2fd);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.product-image i {
-    font-size: 4rem;
-    color: #0d47a1;
-    transition: transform 0.3s;
-}
-
-.product-card:hover .product-image i {
-    transform: scale(1.1);
-}
-
-.product-info {
-    padding: 25px;
-}
-
-.product-category {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    display: block;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 500;
-}
-
-.product-title {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-    color: #333;
-    font-weight: 600;
-}
-
-.product-code {
-    color: #888;
-    font-family: monospace;
-    font-size: 0.85rem;
-    margin-bottom: 15px;
-    background: #f5f5f5;
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: inline-block;
-}
-
-/* ===== CORREÇÃO DOS BOTÕES ===== */
-.product-price {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #f0f0f0;
-    flex-wrap: wrap;
-    gap: 15px;
-    min-height: 70px;
-}
-
-.price-amount {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #0d47a1;
-    flex-grow: 1;
-}
-
-.product-actions {
-    display: flex;
-    gap: 12px;
-    flex-shrink: 0;
-    margin-left: 10px;
-    /* SEMPRE VISÍVEL */
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: flex !important;
-}
-
-.btn-small {
-    padding: 10px 18px;
-    font-size: 0.9rem;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: all 0.2s;
-    min-width: 85px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-/* Botão Add to Cart */
-.product-actions .btn-primary {
-    background: linear-gradient(135deg, #2196f3, #0d47a1);
-    color: white;
-    border: none;
-}
-
-.product-actions .btn-primary:hover {
-    background: linear-gradient(135deg, #0d47a1, #1565c0);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
-}
-
-/* Botão Details */
-.product-actions .btn-secondary {
-    background: #f8f9fa;
-    color: #555;
-    border: 1px solid #e0e0e0;
-}
-
-.product-actions .btn-secondary:hover {
-    background: white;
-    border-color: #2196f3;
-    color: #2196f3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .product-price {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-    
-    .product-actions {
-        margin-left: 0;
-        width: 100%;
-        justify-content: space-between;
-    }
-    
-    .btn-small {
-        flex: 1;
-        padding: 12px 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .product-actions {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .btn-small {
-        width: 100%;
-    }
-        /* ===== RECONSTITUTION CALCULATOR SECTION ===== */
-        .calculator-section {
+        
+        /* ===== FEATURED PRODUCTS ===== */
+        .products-section {
             padding: 100px 0;
+            background: #f8f9fa;
+            position: relative;
+        }
+        
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 25px;
             background: white;
-        }
-        
-        .calculator-container {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 20px;
-            padding: 50px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-        
-        .calculator-inputs {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-        
-        .calculator-results {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-        
-        .input-group {
-            margin-bottom: 25px;
-        }
-        
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #333;
-        }
-        
-        .input-group input,
-        .input-group select {
-            width: 100%;
-            padding: 12px 15px;
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
             transition: all 0.3s;
         }
         
-        .input-group input:focus,
-        .input-group select:focus {
-            outline: none;
+        .filter-btn:hover {
             border-color: #2196f3;
-            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+            color: #2196f3;
         }
         
-        .result-item {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid #2196f3;
+        .filter-btn.active {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            border-color: #2196f3;
         }
         
-        .result-label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        
-        .result-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #0d47a1;
-        }
-        
-        .result-unit {
-            font-size: 0.9rem;
-            color: #666;
-            margin-left: 5px;
-        }
-        
-        /* ===== STORAGE GUIDE SECTION ===== */
-        .storage-section {
-            padding: 100px 0;
-            background: #f8f9fa;
-        }
-        
-        .storage-grid {
+        .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
-            margin-top: 50px;
         }
         
-        .storage-card {
+        .product-card {
             background: white;
             border-radius: 15px;
-            padding: 40px 30px;
+            overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             transition: all 0.3s;
-            border: 2px solid transparent;
-            text-align: center;
+            border: 1px solid #f0f0f0;
+            position: relative;
+            display: none;
         }
         
-        .storage-card:hover {
+        .product-card.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .product-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
             border-color: #2196f3;
         }
         
-        .storage-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #2196f3, #0d47a1);
-            border-radius: 50%;
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f44336;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .product-badge[style*="background: #2e7d32"] {
+            background: #2e7d32 !important;
+        }
+        
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, #f0f7ff, #e3f2fd);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 1.8rem;
-            color: white;
+            position: relative;
+            overflow: hidden;
         }
         
-        .storage-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .storage-card p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-        
-        .temp-badge {
-            display: inline-block;
-            background: #e3f2fd;
+        .product-image i {
+            font-size: 4rem;
             color: #0d47a1;
-            padding: 8px 20px;
-            border-radius: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover .product-image i {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            padding: 25px;
+        }
+        
+        .product-category {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
             font-weight: 600;
-            font-size: 1.1rem;
+        }
+        
+        .product-code {
+            color: #888;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            background: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+            flex-wrap: wrap;
+            gap: 15px;
+            min-height: 70px;
+        }
+        
+        .price-amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0d47a1;
+            flex-grow: 1;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+            margin-left: 10px;
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: flex !important;
+        }
+        
+        .btn-small {
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s;
+            min-width: 85px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        
+        /* Botão Add to Cart */
+        .product-actions .btn-primary {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            border: none;
+        }
+        
+        .product-actions .btn-primary:hover {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+        }
+        
+        /* Botão Details */
+        .product-actions .btn-secondary {
+            background: #f8f9fa;
+            color: #555;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .product-actions .btn-secondary:hover {
+            background: white;
+            border-color: #2196f3;
+            color: #2196f3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         /* ===== WHY CHOOSE US ===== */
@@ -1115,11 +988,6 @@
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
-            
-            .calculator-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
         }
         
         @media (max-width: 992px) {
@@ -1150,17 +1018,48 @@
                 width: 100%;
                 max-width: 300px;
             }
+            
+            /* Responsividade do dropdown */
+            .nav-links .dropdown-menu {
+                position: static;
+                display: none;
+                width: 100%;
+                box-shadow: none;
+                border: none;
+                background: rgba(255,255,255,0.1);
+                margin-top: 0;
+            }
+            
+            .nav-links .dropdown-menu a {
+                color: white;
+                padding-left: 40px;
+            }
+            
+            .nav-links .dropdown-menu a:hover {
+                background: rgba(255,255,255,0.2);
+            }
+            
+            .nav-links li.dropdown:hover .dropdown-menu {
+                display: block;
+            }
         }
         
         @media (max-width: 768px) {
             .nav-links {
                 overflow-x: auto;
                 padding: 0 10px;
+                flex-wrap: wrap;
+            }
+            
+            .nav-links li {
+                flex: 1 0 auto;
             }
             
             .nav-links a {
                 padding: 15px 20px;
                 white-space: nowrap;
+                justify-content: center;
+                text-align: center;
             }
             
             .hero {
@@ -1191,18 +1090,37 @@
                 padding: 8px 15px;
                 font-size: 0.9rem;
             }
-            
-            .calculator-container {
-                padding: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .product-price {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
             }
             
-            .calculator-inputs,
-            .calculator-results {
-                padding: 25px;
+            .product-actions {
+                margin-left: 0;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .btn-small {
+                flex: 1;
+                padding: 12px 15px;
             }
         }
         
         @media (max-width: 480px) {
+            .product-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn-small {
+                width: 100%;
+            }
+            
             .top-bar-content {
                 flex-direction: column;
                 gap: 10px;
@@ -1219,9 +1137,21 @@
             
             .categories-grid,
             .products-grid,
-            .features-grid,
-            .storage-grid {
+            .features-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+            }
+            
+            .nav-links li {
+                width: 100%;
+            }
+            
+            .nav-links a {
+                justify-content: flex-start;
+                text-align: left;
             }
         }
         
@@ -1253,7 +1183,7 @@
             }
         }
         
-        .hero-content, .section-header, .category-card, .product-card, .feature-card, .storage-card, .calculator-container {
+        .hero-content, .section-header, .category-card, .product-card, .feature-card, .calculator-container {
             animation: fadeInUp 0.6s ease-out;
         }
         
@@ -1275,6 +1205,17 @@
         .feature-card:nth-child(4) { animation-delay: 0.5s; }
         .feature-card:nth-child(5) { animation-delay: 0.6s; }
         .feature-card:nth-child(6) { animation-delay: 0.7s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -1344,8 +1285,18 @@
             <div class="container">
                 <ul class="nav-links">
                     <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="products/index.html"><i class="fas fa-shopping-cart"></i> All Products</a></li>
-                    <li><a href="index.html#categories"><i class="fas fa-th-large"></i> Categories</a></li>
+                    <li><a href="products/index.html"><i class="fas fa-boxes"></i> All Products</a></li>
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-th-large"></i> Categories <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="products/index.html?category=glp1"><i class="fas fa-weight"></i> GLP-1 Analogs</a></li>
+                            <li><a href="products/index.html?category=peptides"><i class="fas fa-dna"></i> Research Peptides</a></li>
+                            <li><a href="products/index.html?category=hormones"><i class="fas fa-chart-line"></i> Growth Hormones</a></li>
+                            <li><a href="products/index.html?category=blends"><i class="fas fa-vial"></i> Peptide Blends</a></li>
+                            <li><a href="products/index.html?category=cognitive"><i class="fas fa-brain"></i> Cognitive Enhancers</a></li>
+                            <li><a href="products/index.html?category=antiaging"><i class="fas fa-heartbeat"></i> Anti-Aging Research</a></li>
+                        </ul>
+                    </li>
                     <li><a href="calculator.html"><i class="fas fa-calculator"></i> Calculator</a></li>
                     <li><a href="storage-guide.html"><i class="fas fa-temperature-low"></i> Storage Guide</a></li>
                     <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
@@ -1365,7 +1316,7 @@
                 <a href="products/index.html" class="btn btn-primary">
                     <i class="fas fa-shopping-cart"></i> Shop All Products
                 </a>
-                <a href="index.html#categories" class="btn btn-secondary">
+                <a href="#categories" class="btn btn-secondary" onclick="scrollToSection('categories')">
                     <i class="fas fa-th-large"></i> Browse Categories
                 </a>
             </div>
@@ -1665,165 +1616,6 @@
         </div>
     </section>
 
-    <!-- PEPTIDE CALCULATOR SECTION -->
-    <section class="calculator-section" id="calculator">
-        <div class="container">
-            <div class="section-header">
-                <h2>Peptide Reconstitution Calculator</h2>
-                <p>Calculate precise dosing for your research peptides with our advanced calculator</p>
-            </div>
-            
-            <div class="calculator-container">
-                <div class="calculator-grid">
-                    <div class="calculator-inputs">
-                        <h3 style="margin-bottom: 25px; color: #0d47a1;">Calculator Inputs</h3>
-                        
-                        <div class="input-group">
-                            <label for="peptideAmount">Peptide Amount (mg)</label>
-                            <input type="number" id="peptideAmount" value="10" min="1" max="100" step="0.1">
-                        </div>
-                        
-                        <div class="input-group">
-                            <label for="bacteriostaticWater">Bacteriostatic Water (ml)</label>
-                            <input type="number" id="bacteriostaticWater" value="2" min="0.5" max="10" step="0.1">
-                        </div>
-                        
-                        <div class="input-group">
-                            <label for="desiredDose">Desired Dose (mg)</label>
-                            <input type="number" id="desiredDose" value="2" min="0.1" max="50" step="0.1">
-                        </div>
-                        
-                        <div class="input-group">
-                            <label for="syringeSize">Syringe Size (units)</label>
-                            <select id="syringeSize">
-                                <option value="100">1ml (100 units)</option>
-                                <option value="50">0.5ml (50 units)</option>
-                                <option value="30">0.3ml (30 units)</option>
-                                <option value="10">0.1ml (10 units)</option>
-                            </select>
-                        </div>
-                        
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="calculatePeptide()">
-                            <i class="fas fa-calculator"></i> Calculate
-                        </button>
-                    </div>
-                    
-                    <div class="calculator-results">
-                        <h3 style="margin-bottom: 25px; color: #0d47a1;">Calculation Results</h3>
-                        
-                        <div class="result-item">
-                            <div class="result-label">Peptide Concentration</div>
-                            <div class="result-value">
-                                <span id="concentrationResult">5.00</span>
-                                <span class="result-unit">mg/ml</span>
-                            </div>
-                        </div>
-                        
-                        <div class="result-item">
-                            <div class="result-label">Volume per Dose</div>
-                            <div class="result-value">
-                                <span id="volumeResult">0.40</span>
-                                <span class="result-unit">ml</span>
-                            </div>
-                            <div style="font-size: 0.9rem; color: #666; margin-top: 5px;">
-                                (<span id="unitsResult">40</span> units on <span id="syringeLabel">1ml</span> syringe)
-                            </div>
-                        </div>
-                        
-                        <div class="result-item">
-                            <div class="result-label">Total Doses Available</div>
-                            <div class="result-value">
-                                <span id="dosesResult">5</span>
-                                <span class="result-unit">doses</span>
-                            </div>
-                        </div>
-                        
-                        <div class="result-item">
-                            <div class="result-label">Storage Recommendation</div>
-                            <div style="margin-top: 10px;">
-                                <p style="margin: 5px 0; color: #666;">
-                                    <i class="fas fa-snowflake"></i> Store at -20°C
-                                </p>
-                                <p style="margin: 5px 0; color: #666;">
-                                    <i class="fas fa-clock"></i> Use within 30 days after reconstitution
-                                </p>
-                                <p style="margin: 5px 0; color: #666;">
-                                    <i class="fas fa-syringe"></i> Use sterile techniques
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- STORAGE GUIDE SECTION -->
-    <section class="storage-section" id="storage">
-        <div class="container">
-            <div class="section-header">
-                <h2>Peptide Storage & Reconstitution Guide</h2>
-                <p>Proper storage and handling techniques for optimal peptide stability and research results</p>
-            </div>
-            
-            <div class="storage-grid">
-                <div class="storage-card">
-                    <div class="storage-icon">
-                        <i class="fas fa-snowflake"></i>
-                    </div>
-                    <h3>Lyophilized Storage</h3>
-                    <p>Store un-reconstituted peptides at -20°C or below in a dry, dark environment.</p>
-                    <div class="temp-badge">-20°C to -80°C</div>
-                </div>
-                
-                <div class="storage-card">
-                    <div class="storage-icon">
-                        <i class="fas fa-temperature-low"></i>
-                    </div>
-                    <h3>Reconstituted Storage</h3>
-                    <p>After reconstitution, store peptides at 2-8°C and use within recommended timeframe.</p>
-                    <div class="temp-badge">2°C to 8°C</div>
-                </div>
-                
-                <div class="storage-card">
-                    <div class="storage-icon">
-                        <i class="fas fa-vial"></i>
-                    </div>
-                    <h3>Reconstitution Protocol</h3>
-                    <p>Use sterile bacteriostatic water and proper aseptic techniques for reconstitution.</p>
-                    <div class="temp-badge">Sterile Technique</div>
-                </div>
-                
-                <div class="storage-card">
-                    <div class="storage-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3>Shelf Life</h3>
-                    <p>Lyophilized: 2+ years at -20°C. Reconstituted: 30 days at 2-8°C.</p>
-                    <div class="temp-badge">Optimized Stability</div>
-                </div>
-                
-                <div class="storage-card">
-                    <div class="storage-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <h3>Avoid Freeze-Thaw Cycles</h3>
-                    <p>Minimize freeze-thaw cycles to prevent peptide degradation and maintain integrity.</p>
-                    <div class="temp-badge">Single Use Aliquots</div>
-                </div>
-                
-                <div class="storage-card">
-                    <div class="storage-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <h3>Laboratory Best Practices</h3>
-                    <p>Always use sterile equipment and follow proper laboratory safety protocols.</p>
-                    <div class="temp-badge">GMP Guidelines</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- WHY CHOOSE US -->
     <section class="features-section" id="about">
         <div class="container">
@@ -1921,7 +1713,7 @@
                     <ul class="footer-links">
                         <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
                         <li><a href="products/index.html"><i class="fas fa-chevron-right"></i> All Products</a></li>
-                        <li><a href="index.html#categories"><i class="fas fa-chevron-right"></i> Categories</a></li>
+                        <li><a href="#categories" onclick="scrollToSection('categories')"><i class="fas fa-chevron-right"></i> Categories</a></li>
                         <li><a href="calculator.html"><i class="fas fa-chevron-right"></i> Peptide Calculator</a></li>
                         <li><a href="storage-guide.html"><i class="fas fa-chevron-right"></i> Storage Guide</a></li>
                     </ul>
@@ -1992,19 +1784,6 @@
                     top: target.offsetTop - 80,
                     behavior: 'smooth'
                 });
-                
-                // Atualiza estado ativo no menu para links internos
-                const currentPath = window.location.pathname;
-                if (currentPath.endsWith('index.html') || currentPath.endsWith('/')) {
-                    document.querySelectorAll('.nav-links a').forEach(link => {
-                        const href = link.getAttribute('href');
-                        if (href.startsWith('#') && href === `#${sectionId}`) {
-                            link.classList.add('active');
-                        } else if (href.startsWith('#')) {
-                            link.classList.remove('active');
-                        }
-                    });
-                }
             }
         }
         
@@ -2157,42 +1936,6 @@
                 filterProducts(category);
                 scrollToSection('products');
             });
-        });
-        
-        // ===== PEPTIDE CALCULATOR =====
-        function calculatePeptide() {
-            const peptideAmount = parseFloat(document.getElementById('peptideAmount').value);
-            const bacteriostaticWater = parseFloat(document.getElementById('bacteriostaticWater').value);
-            const desiredDose = parseFloat(document.getElementById('desiredDose').value);
-            const syringeSize = parseInt(document.getElementById('syringeSize').value);
-            
-            // Cálculos - CORRIGIDO para mg (não mcg)
-            const concentration = peptideAmount / bacteriostaticWater; // mg/ml
-            const volumePerDose = desiredDose / concentration; // ml (dose em mg)
-            const totalDoses = peptideAmount / desiredDose;
-            const unitsPerDose = (volumePerDose * syringeSize).toFixed(1);
-            
-            // Atualiza resultados
-            document.getElementById('concentrationResult').textContent = concentration.toFixed(2);
-            document.getElementById('volumeResult').textContent = volumePerDose.toFixed(3);
-            document.getElementById('dosesResult').textContent = Math.floor(totalDoses);
-            document.getElementById('unitsResult').textContent = unitsPerDose;
-            
-            // Atualiza label da seringa
-            const syringeOptions = {
-                100: '1ml',
-                50: '0.5ml',
-                30: '0.3ml',
-                10: '0.1ml'
-            };
-            document.getElementById('syringeLabel').textContent = syringeOptions[syringeSize];
-            
-            showNotification('Peptide calculation updated');
-        }
-        
-        // Inicializa calculadora
-        document.addEventListener('DOMContentLoaded', function() {
-            calculatePeptide();
         });
         
         // ===== BOTÃO "DETAILS" DOS PRODUTOS =====
@@ -2376,7 +2119,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             updateCartCount();
             filterProducts('all');
-            calculatePeptide();
             
             // Marca link ativo baseado na página atual
             const currentPage = window.location.pathname.split('/').pop();
