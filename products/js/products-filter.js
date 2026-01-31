@@ -1,14 +1,14 @@
-// products/js/products-filter.js - VERSÃO FINAL SIMPLIFICADA
+// products/js/products-filter.js - VERSÃO FINAL OTIMIZADA
 class ProductFilter {
     constructor() {
-        console.log('[ProductFilter] Constructor chamado');
+        console.log('[ProductFilter] Inicializando...');
         
-        // Usar dados do products-data.js
+        // Dados dos produtos
         this.products = window.products || [];
-        console.log('[ProductFilter] Produtos carregados:', this.products.length);
+        console.log('[ProductFilter] Produtos:', this.products.length);
         
         if (this.products.length === 0) {
-            console.error('[ProductFilter] ERRO: Nenhum produto carregado!');
+            console.error('[ProductFilter] ERRO: Sem produtos!');
             return;
         }
         
@@ -18,75 +18,57 @@ class ProductFilter {
         this.currentSort = 'name-asc';
         this.searchTerm = '';
         
-        // Inicializar quando DOM estiver pronto
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                console.log('[ProductFilter] DOM pronto, inicializando...');
-                this.init();
-            });
-        } else {
-            console.log('[ProductFilter] DOM já carregado, inicializando...');
-            setTimeout(() => this.init(), 100);
-        }
+        // Inicializar
+        this.init();
     }
     
     init() {
-        console.log('[ProductFilter] init()');
+        console.log('[ProductFilter] Configurando...');
         
-        // Verificar se os elementos existem
-        const grid = document.getElementById('products-grid');
-        const categories = document.getElementById('categories-filter');
-        
-        if (!grid) {
-            console.error('[ProductFilter] Elemento products-grid não encontrado!');
-            return;
-        }
-        
-        if (!categories) {
-            console.error('[ProductFilter] Elemento categories-filter não encontrado!');
+        // Verificar elementos
+        if (!document.getElementById('products-grid')) {
+            console.error('[ProductFilter] Elemento products-grid não encontrado');
             return;
         }
         
         // Configurar eventos
         this.setupEventListeners();
         
-        // Renderizar produtos
+        // Renderizar inicial
         this.renderProducts();
         
-        console.log('[ProductFilter] Inicialização completa');
+        console.log('[ProductFilter] Pronto!');
     }
     
     renderProducts() {
         const container = document.getElementById('products-grid');
         if (!container) return;
         
-        // Limpar container
+        // Limpar
         container.innerHTML = '';
         
-        // Mostrar mensagem se não houver produtos
+        // Sem produtos
         if (this.filteredProducts.length === 0) {
             container.innerHTML = `
                 <div class="no-products">
                     <i class="fas fa-flask fa-3x"></i>
                     <h3>No products found</h3>
-                    <p>Try adjusting your filters or search term</p>
+                    <p>Try adjusting your filters</p>
                 </div>
             `;
             this.updateProductCount(0);
             return;
         }
         
-        // Adicionar cada produto
+        // Renderizar cada produto
         this.filteredProducts.forEach(product => {
-            const productCard = this.createProductCard(product);
-            container.appendChild(productCard);
+            container.appendChild(this.createProductCard(product));
         });
         
         this.updateProductCount(this.filteredProducts.length);
     }
     
     createProductCard(product) {
-        // Cores por categoria
         const colors = {
             peptides: "#3498db",
             coenzymes: "#e74c3c",
@@ -95,15 +77,12 @@ class ProductFilter {
         };
         
         const color = colors[product.category] || "#95a5a6";
+        const darkColor = this.darkenColor(color);
         
         const card = document.createElement('div');
         card.className = 'product-card';
-        card.setAttribute('data-id', product.id);
-        card.setAttribute('data-category', product.category);
-        card.setAttribute('data-type', product.type);
-        
         card.innerHTML = `
-            <div class="product-image" style="background: linear-gradient(135deg, ${color}, ${this.darkenColor(color)})">
+            <div class="product-image" style="background: linear-gradient(135deg, ${color}, ${darkColor})">
                 <div class="molecule-icon">⚗️</div>
                 <div class="product-badge ${product.featured ? 'featured' : ''}">
                     ${product.featured ? 'FEATURED' : product.purity}
@@ -152,25 +131,14 @@ class ProductFilter {
             </div>
         `;
         
-        // Adicionar eventos aos botões
-        const detailsBtn = card.querySelector('.btn-details');
-        const cartBtn = card.querySelector('.btn-cart');
+        // Eventos dos botões
+        card.querySelector('.btn-details')?.addEventListener('click', () => {
+            this.showProductDetails(product.id);
+        });
         
-        if (detailsBtn) {
-            detailsBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.showProductDetails(product.id);
-            });
-        }
-        
-        if (cartBtn) {
-            cartBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.addToCart(product.id);
-            });
-        }
+        card.querySelector('.btn-cart')?.addEventListener('click', () => {
+            this.addToCart(product.id);
+        });
         
         return card;
     }
@@ -180,20 +148,18 @@ class ProductFilter {
     }
     
     filterProducts() {
-        console.log('[ProductFilter] Filtrando produtos...');
-        
         this.filteredProducts = this.products.filter(product => {
-            // Filtrar por categoria
+            // Categoria
             if (this.currentCategory !== 'all' && product.category !== this.currentCategory) {
                 return false;
             }
             
-            // Filtrar por tipo
+            // Tipo
             if (this.currentType !== 'all' && product.type !== this.currentType) {
                 return false;
             }
             
-            // Filtrar por termo de busca
+            // Busca
             if (this.searchTerm) {
                 const term = this.searchTerm.toLowerCase();
                 return (
@@ -242,41 +208,28 @@ class ProductFilter {
     }
     
     setupEventListeners() {
-        console.log('[ProductFilter] Configurando event listeners...');
-        
-        // Filtro de categoria
+        // Categorias
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.category-btn')) {
-                const btn = e.target.closest('.category-btn');
+            const btn = e.target.closest('.category-btn');
+            if (btn) {
                 this.currentCategory = btn.dataset.category;
-                
-                // Atualizar botão ativo
-                document.querySelectorAll('.category-btn').forEach(b => {
-                    b.classList.remove('active');
-                });
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
                 this.filterProducts();
             }
         });
         
-        // Filtro de tipo
-        const typeFilter = document.getElementById('type-filter');
-        if (typeFilter) {
-            typeFilter.addEventListener('change', (e) => {
-                this.currentType = e.target.value;
-                this.filterProducts();
-            });
-        }
+        // Tipo
+        document.getElementById('type-filter')?.addEventListener('change', (e) => {
+            this.currentType = e.target.value;
+            this.filterProducts();
+        });
         
-        // Filtro de ordenação
-        const sortFilter = document.getElementById('sort-filter');
-        if (sortFilter) {
-            sortFilter.addEventListener('change', (e) => {
-                this.currentSort = e.target.value;
-                this.filterProducts();
-            });
-        }
+        // Ordenação
+        document.getElementById('sort-filter')?.addEventListener('change', (e) => {
+            this.currentSort = e.target.value;
+            this.filterProducts();
+        });
         
         // Busca
         const searchInput = document.getElementById('product-search');
@@ -292,35 +245,24 @@ class ProductFilter {
         }
         
         // Limpar filtros
-        const clearBtn = document.getElementById('clear-filters');
-        if (clearBtn) {
-            clearBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.clearFilters();
-            });
-        }
+        document.getElementById('clear-filters')?.addEventListener('click', () => {
+            this.clearFilters();
+        });
     }
     
     clearFilters() {
-        console.log('[ProductFilter] Limpando filtros...');
-        
         this.currentCategory = 'all';
         this.currentType = 'all';
         this.currentSort = 'name-asc';
         this.searchTerm = '';
         
-        // Resetar UI
+        // UI
         document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-        const allBtn = document.querySelector('.category-btn[data-category="all"]');
-        if (allBtn) allBtn.classList.add('active');
+        document.querySelector('.category-btn[data-category="all"]')?.classList.add('active');
         
-        const typeFilter = document.getElementById('type-filter');
-        const sortFilter = document.getElementById('sort-filter');
-        const searchInput = document.getElementById('product-search');
-        
-        if (typeFilter) typeFilter.value = 'all';
-        if (sortFilter) sortFilter.value = 'name-asc';
-        if (searchInput) searchInput.value = '';
+        document.getElementById('type-filter').value = 'all';
+        document.getElementById('sort-filter').value = 'name-asc';
+        document.getElementById('product-search').value = '';
         
         this.filterProducts();
     }
@@ -329,100 +271,49 @@ class ProductFilter {
         const product = this.products.find(p => p.id == productId);
         if (!product) return;
         
-        // Remover modais existentes
-        const existingModal = document.querySelector('.product-modal');
-        if (existingModal) {
-            existingModal.remove();
-        }
+        // Remover modal existente
+        document.querySelector('.product-modal')?.remove();
         
         // Criar modal
         const modal = document.createElement('div');
         modal.className = 'product-modal';
         modal.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 10000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 10000;
+            display: flex; justify-content: center; align-items: center; padding: 20px;
         `;
         
         modal.innerHTML = `
-            <div style="
-                background: white;
-                border-radius: 15px;
-                max-width: 500px;
-                width: 100%;
-                padding: 30px;
-                position: relative;
-                max-height: 80vh;
-                overflow-y: auto;
-            ">
-                <button style="
-                    position: absolute;
-                    top: 15px;
-                    right: 15px;
-                    background: none;
-                    border: none;
-                    font-size: 1.5rem;
-                    cursor: pointer;
-                    color: #666;
-                " onclick="this.closest('.product-modal').remove()">&times;</button>
+            <div style="background: white; border-radius: 15px; max-width: 500px; width: 100%; padding: 30px; position: relative;">
+                <button style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #666;"
+                        onclick="this.closest('.product-modal').remove()">&times;</button>
                 
-                <h2 style="color: #0d47a1; margin-top: 0; margin-bottom: 20px;">${product.name}</h2>
+                <h2 style="color: #0d47a1; margin: 0 0 20px 0;">${product.name}</h2>
                 
-                <div style="margin-bottom: 20px;">
-                    <p><strong>Code:</strong> ${product.code}</p>
-                    <p><strong>Price:</strong> $${product.price.toFixed(2)}</p>
-                    <p><strong>Purity:</strong> ${product.purity}</p>
-                    <p><strong>Type:</strong> ${product.type}</p>
-                    <p><strong>Dosage:</strong> ${product.dosage}</p>
-                    ${product.cas && product.cas !== "N/A" ? `<p><strong>CAS:</strong> ${product.cas}</p>` : ''}
-                </div>
+                <p><strong>Code:</strong> ${product.code}</p>
+                <p><strong>Price:</strong> $${product.price.toFixed(2)}</p>
+                <p><strong>Purity:</strong> ${product.purity}</p>
+                <p><strong>Type:</strong> ${product.type}</p>
+                <p><strong>Dosage:</strong> ${product.dosage}</p>
+                ${product.cas && product.cas !== "N/A" ? `<p><strong>CAS:</strong> ${product.cas}</p>` : ''}
                 
-                <p><strong>Description:</strong><br>${product.description}</p>
+                <p style="margin-top: 20px;"><strong>Description:</strong><br>${product.description}</p>
                 
                 <div style="margin-top: 30px; display: flex; gap: 15px;">
-                    <button onclick="window.productFilter.addToCart(${product.id}); this.closest('.product-modal').remove();" 
-                            style="
-                                padding: 12px 24px;
-                                background: #2ecc71;
-                                color: white;
-                                border: none;
-                                border-radius: 5px;
-                                cursor: pointer;
-                                font-weight: bold;
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
-                            ">
+                    <button onclick="window.productFilter.addToCart(${product.id}); this.closest('.product-modal').remove();"
+                            style="padding: 12px 24px; background: #2ecc71; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
                         <i class="fas fa-cart-plus"></i> Add to Cart
                     </button>
-                    <button onclick="this.closest('.product-modal').remove()" 
-                            style="
-                                padding: 12px 24px;
-                                background: #f5f5f5;
-                                color: #333;
-                                border: 1px solid #ddd;
-                                border-radius: 5px;
-                                cursor: pointer;
-                            ">
+                    <button onclick="this.closest('.product-modal').remove()"
+                            style="padding: 12px 24px; background: #f5f5f5; color: #333; border: 1px solid #ddd; border-radius: 5px; cursor: pointer;">
                         Close
                     </button>
                 </div>
             </div>
         `;
         
-        // Fechar ao clicar fora
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.remove();
-            }
+            if (e.target === modal) modal.remove();
         });
         
         document.body.appendChild(modal);
@@ -432,28 +323,16 @@ class ProductFilter {
         const product = this.products.find(p => p.id == productId);
         if (!product) return;
         
-        // Remover notificações existentes
-        const existingNotif = document.querySelector('.cart-notification');
-        if (existingNotif) {
-            existingNotif.remove();
-        }
+        // Remover notificação existente
+        document.querySelector('.cart-notification')?.remove();
         
         // Criar notificação
         const notification = document.createElement('div');
         notification.className = 'cart-notification';
         notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: #2ecc71;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 5px;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            position: fixed; top: 100px; right: 20px; background: #2ecc71; color: white;
+            padding: 15px 20px; border-radius: 5px; z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 10px;
             animation: slideInRight 0.3s ease;
         `;
         
@@ -462,45 +341,16 @@ class ProductFilter {
             Added <strong>${product.name}</strong> to cart!
         `;
         
-        // Adicionar animação CSS se não existir
-        if (!document.getElementById('notification-animations')) {
-            const style = document.createElement('style');
-            style.id = 'notification-animations';
-            style.textContent = `
-                @keyframes slideInRight {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes slideOutRight {
-                    from { transform: translateX(0); opacity: 1; }
-                    to { transform: translateX(100%); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
         document.body.appendChild(notification);
         
-        // Remover após 3 segundos
         setTimeout(() => {
             notification.style.animation = 'slideOutRight 0.3s ease';
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.remove();
-                }
-            }, 300);
+            setTimeout(() => notification.remove(), 300);
         }, 3000);
     }
 }
 
-// Inicialização única quando dados estiverem prontos
+// Inicializar quando dados estiverem prontos
 if (window.products && window.products.length > 0) {
-    // Esperar um pouco para garantir que o DOM esteja pronto
-    setTimeout(() => {
-        if (!window.productFilter) {
-            window.productFilter = new ProductFilter();
-        }
-    }, 100);
-} else {
-    console.error('[APP] products não carregado ou vazio');
+    window.productFilter = new ProductFilter();
 }
