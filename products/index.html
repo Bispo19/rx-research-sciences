@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- CSS do site principal -->
-  <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="../styles.css">
     
     <!-- CSS específico para produtos -->
     <link rel="stylesheet" href="../styles/products.css">
     
     <!-- Estilos específicos para esta página -->
     <style>
-        /* ===== AVISO LEGAL (MANTIDO) ===== */
+        /* ===== AVISO LEGAL ===== */
         #legal-banner {
             background-color: #1a1a1a;
             color: white;
@@ -79,13 +79,13 @@
         
         /* Ajuste para quando o banner legal está visível */
         body.has-legal-banner {
-            padding-top: 70px; /* ESPAÇO FIXO para o banner */
+            padding-top: 70px;
         }
         
         /* Ajuste específico para o main-wrapper */
         .main-wrapper {
             padding: 30px 0 50px 0;
-            min-height: calc(100vh - 400px); /* Altura mínima considerando header/footer */
+            min-height: calc(100vh - 400px);
         }
         
         /* ===== ANIMAÇÕES ===== */
@@ -93,10 +93,52 @@
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-20px); }
         }
+        
+        /* ===== CORREÇÃO PARA CARREGAMENTO DE PRODUTOS ===== */
+        .loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .loading i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .loading p {
+            font-size: 1.2rem;
+        }
+        
+        /* ===== ESTILOS PARA PRODUTOS VAZIOS ===== */
+        .no-products {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .no-products i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            color: #95a5a6;
+        }
+        
+        .no-products h3 {
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+        
+        .no-products p {
+            color: #7f8c8d;
+        }
     </style>
 </head>
 <body>
-    <!-- ===== AVISO LEGAL (MANTIDO) ===== -->
+    <!-- ===== AVISO LEGAL ===== -->
     <div id="legal-banner">
         <div class="legal-content">
             <span class="fas fa-exclamation-triangle" style="color: #ffcc00; margin-right: 8px;"></span>
@@ -111,7 +153,7 @@
         </div>
     </div>
 
-    <!-- ===== HEADER ORIGINAL DO SITE (COPIADO DO INDEX.HTML) ===== -->
+    <!-- ===== HEADER ORIGINAL DO SITE ===== -->
     <header class="site-header">
         <div class="top-bar">
             <div class="container">
@@ -274,7 +316,6 @@
 
             <!-- Products Grid -->
             <div class="products-grid" id="products-grid">
-                <!-- Produtos serão carregados via JavaScript -->
                 <div class="loading">
                     <i class="fas fa-spinner fa-spin fa-2x"></i>
                     <p>Loading products...</p>
@@ -347,23 +388,11 @@
             }
             
             // Ativar link ativo na navegação
-            const currentPath = window.location.pathname;
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            navLinks.forEach(link => {
-                if (link.getAttribute('href') === 'index.html' && currentPath.includes('products')) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === 'index.html') {
                     link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
                 }
             });
-            
-            // Inicializar filtro de produtos
-            setTimeout(() => {
-                if (window.productFilter) {
-                    window.productFilter.init();
-                }
-            }, 500);
         });
     </script>
 </body>
