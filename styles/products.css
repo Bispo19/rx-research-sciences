@@ -810,7 +810,11 @@ body {
 }
 /* styles/products.css - Adicione isto no FINAL do arquivo */
 
-/* ===== CORREÇÃO PARA O AVISO LEGAL NÃO QUEBRAR LAYOUT ===== */
+/* styles/products.css - Adicione isto NO FINAL do seu arquivo existente */
+
+/* ===== CORREÇÕES ESPECÍFICAS ===== */
+
+/* Garantir que o aviso legal não quebre layout */
 body.has-legal-banner .site-header {
     position: relative;
     z-index: 9999;
@@ -820,14 +824,91 @@ body.has-legal-banner .main-wrapper {
     padding-top: 20px;
 }
 
-/* ===== GARANTIR QUE O SITE TENHA ESPAÇO ===== */
-.site-header {
-    position: relative;
-    z-index: 1000;
+/* Loading state fix */
+.loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.main-wrapper {
-    min-height: 70vh;
-    position: relative;
-    z-index: 1;
+.loading i {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.loading p {
+    font-size: 1.2rem;
+}
+
+/* No products state */
+.no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-products i {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: block;
+    color: #95a5a6;
+}
+
+.no-products h3 {
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+.no-products p {
+    color: #7f8c8d;
+}
+
+/* Corrigir overflow dos botões em mobile */
+@media (max-width: 480px) {
+    .product-footer {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .price {
+        text-align: center;
+        width: 100%;
+    }
+    
+    .actions {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .btn-details, .btn-cart {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/* Modal styles */
+.product-modal {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Notification styles */
+.cart-notification {
+    animation: slideInRight 0.3s ease;
 }
