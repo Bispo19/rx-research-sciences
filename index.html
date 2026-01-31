@@ -640,24 +640,90 @@
             margin-top: 20px;
             padding-top: 20px;
             border-top: 1px solid #f0f0f0;
+             min-height: 70px; /* Altura mínima para evitar quebras */
         }
         
         .price-amount {
             font-size: 1.8rem;
             font-weight: bold;
             color: #0d47a1;
+            flex: 1; /* Permite que o preço ocupe espaço disponível */
         }
         
         .product-actions {
             display: flex;
             gap: 10px;
+             flex-shrink: 0; /* Impede que os botões encolham */
+    margin-left: 15px; /* Espaço entre preço e botões */
         }
         
         .btn-small {
-            padding: 10px 20px;
-            font-size: 0.9rem;
+           padding: 10px 20px;
+    font-size: 0.9rem;
+    white-space: nowrap; /* Impede quebra de texto */
+    min-width: 80px; /* Largura mínima consistente */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
         }
-        
+        /* Ajuste específico para o botão "Details" */
+.details-btn {
+    background: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+    transition: all 0.3s;
+}
+
+.details-btn:hover {
+    background: #e0e0e0;
+    border-color: #2196f3;
+    color: #2196f3;
+}
+
+/* Garantir que os botões sejam sempre visíveis */
+.product-card .product-actions {
+    opacity: 1 !important; /* Forçar visibilidade */
+    visibility: visible !important;
+    display: flex !important;
+}
+/* Ajuste responsivo para telas menores */
+@media (max-width: 768px) {
+    .product-price {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .product-actions {
+        margin-left: 0;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .btn-small {
+        flex: 1; /* Botões ocupam espaço igual */
+        padding: 12px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-actions {
+        flex-direction: column;
+        gap: 10px;
+    } .btn-small {
+        width: 100%;
+    }
+}
+
+/* Se você estava usando algum CSS que escondia os botões, remova estas regras: */
+.product-card:hover .product-actions {
+    /* Se houver esta regra, ela deve ser removida */
+}
+
+.product-actions {
+    /* Certifique-se que não há display: none ou opacity: 0 */
+}
         /* ===== RECONSTITUTION CALCULATOR SECTION ===== */
         .calculator-section {
             padding: 100px 0;
