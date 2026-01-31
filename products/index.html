@@ -8,11 +8,11 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- CSS do site principal -->
-    <link rel="stylesheet" href="../styles.css">
+    <!-- CSS do site principal - CAMINHO CORRETO PARA GITHUB PAGES -->
+    <link rel="stylesheet" href="https://bispo19.github.io/rx-research-sciences/styles.css">
     
-    <!-- CSS específico para produtos -->
-    <link rel="stylesheet" href="../styles/products.css">
+    <!-- CSS específico para produtos - CAMINHO CORRETO -->
+    <link rel="stylesheet" href="https://bispo19.github.io/rx-research-sciences/styles/products.css">
     
     <!-- Estilos específicos para esta página -->
     <style>
@@ -75,6 +75,7 @@
         /* ===== CORREÇÃO PARA O AVISO LEGAL NÃO SOBRESCREVER O HEADER ===== */
         body {
             padding-top: 0;
+            margin: 0;
         }
         
         /* Ajuste para quando o banner legal está visível */
@@ -135,6 +136,22 @@
         .no-products p {
             color: #7f8c8d;
         }
+        
+        /* ===== CORREÇÃO ESPECÍFICA DO HEADER ===== */
+        .site-header {
+            position: relative;
+            z-index: 1000;
+        }
+        
+        /* Garantir que o header fique acima do conteúdo */
+        header {
+            position: relative;
+        }
+        
+        /* Remover qualquer margin/padding extra */
+        * {
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -154,6 +171,7 @@
     </div>
 
     <!-- ===== HEADER ORIGINAL DO SITE ===== -->
+    <!-- IMPORTANTE: Use o MESMO header da página index.html principal -->
     <header class="site-header">
         <div class="top-bar">
             <div class="container">
@@ -170,7 +188,7 @@
         <div class="main-header">
             <div class="container">
                 <div class="logo-section">
-                    <a href="../index.html" class="logo">
+                    <a href="https://bispo19.github.io/rx-research-sciences/" class="logo">
                         <h1><i class="fas fa-flask"></i> RX Research Sciences</h1>
                     </a>
                 </div>
@@ -183,15 +201,15 @@
                 </div>
                 
                 <div class="user-section">
-                    <a href="../account.html" class="user-icon">
+                    <a href="https://bispo19.github.io/rx-research-sciences/account.html" class="user-icon">
                         <i class="fas fa-user"></i>
                         <span>Account</span>
                     </a>
-                    <a href="../wishlist.html" class="wishlist-icon">
+                    <a href="https://bispo19.github.io/rx-research-sciences/wishlist.html" class="wishlist-icon">
                         <i class="fas fa-heart"></i>
                         <span>Wishlist</span>
                     </a>
-                    <a href="../cart.html" class="cart-icon">
+                    <a href="https://bispo19.github.io/rx-research-sciences/cart.html" class="cart-icon">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
                         <span>Cart</span>
@@ -203,23 +221,23 @@
         <nav class="main-navigation">
             <div class="container">
                 <ul class="nav-menu">
-                    <li><a href="../index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="index.html" class="nav-link active"><i class="fas fa-pills"></i> All Products</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/products/" class="nav-link active"><i class="fas fa-pills"></i> All Products</a></li>
                     <li class="dropdown">
                         <a href="#" class="nav-link"><i class="fas fa-th-large"></i> Categories <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="../categories/glp-1.html"><i class="fas fa-heartbeat"></i> GLP-1 Analogs</a>
-                            <a href="../categories/peptides.html"><i class="fas fa-dna"></i> Research Peptides</a>
-                            <a href="../categories/growth-hormones.html"><i class="fas fa-chart-line"></i> Growth Hormones</a>
-                            <a href="../categories/blends.html"><i class="fas fa-vial"></i> Peptide Blends</a>
-                            <a href="../categories/cognitive.html"><i class="fas fa-brain"></i> Cognitive Enhancers</a>
-                            <a href="../categories/anti-aging.html"><i class="fas fa-clock"></i> Anti-Aging Research</a>
+                            <a href="https://bispo19.github.io/rx-research-sciences/categories/glp-1.html"><i class="fas fa-heartbeat"></i> GLP-1 Analogs</a>
+                            <a href="https://bispo19.github.io/rx-research-sciences/categories/peptides.html"><i class="fas fa-dna"></i> Research Peptides</a>
+                            <a href="https://bispo19.github.io/rx-research-sciences/categories/growth-hormones.html"><i class="fas fa-chart-line"></i> Growth Hormones</a>
+                            <a href="https://bispo19.github.io/rx-research-sciences/categories/blends.html"><i class="fas fa-vial"></i> Peptide Blends</a>
+                            <a href="https://bispo19.github.io/rx-research-sciences/categories/cognitive.html"><i class="fas fa-brain"></i> Cognitive Enhancers</a>
+                            <a href="https://bispo19.github.io/rx-research-sciences/categories/anti-aging.html"><i class="fas fa-clock"></i> Anti-Aging Research</a>
                         </div>
                     </li>
-                    <li><a href="../calculator.html" class="nav-link"><i class="fas fa-calculator"></i> Calculator</a></li>
-                    <li><a href="../storage-guide.html" class="nav-link"><i class="fas fa-book"></i> Storage Guide</a></li>
-                    <li><a href="../about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="../contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/calculator.html" class="nav-link"><i class="fas fa-calculator"></i> Calculator</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/storage-guide.html" class="nav-link"><i class="fas fa-book"></i> Storage Guide</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
             </div>
         </nav>
@@ -334,19 +352,19 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="index.html">All Products</a></li>
-                    <li><a href="../categories/peptides.html">Peptides</a></li>
-                    <li><a href="../about.html">About Us</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/">Home</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/products/">All Products</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/categories/peptides.html">Peptides</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/about.html">About Us</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Legal</h3>
                 <ul>
-                    <li><a href="../terms.html">Terms of Service</a></li>
-                    <li><a href="../privacy.html">Privacy Policy</a></li>
-                    <li><a href="../disclaimer.html">Disclaimer</a></li>
-                    <li><a href="../verification.html">Verification</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/terms.html">Terms of Service</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/privacy.html">Privacy Policy</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/disclaimer.html">Disclaimer</a></li>
+                    <li><a href="https://bispo19.github.io/rx-research-sciences/verification.html">Verification</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -361,8 +379,9 @@
     </footer>
 
     <!-- ===== SCRIPTS EM ORDEM CORRETA ===== -->
-    <script src="js/products-data.js"></script>
-    <script src="js/products-filter.js"></script>
+    <!-- CAMINHOS CORRETOS PARA GITHUB PAGES -->
+    <script src="https://bispo19.github.io/rx-research-sciences/products/js/products-data.js"></script>
+    <script src="https://bispo19.github.io/rx-research-sciences/products/js/products-filter.js"></script>
     
     <!-- FUNÇÕES ESPECÍFICAS DESTA PÁGINA -->
     <script>
@@ -389,7 +408,7 @@
             
             // Ativar link ativo na navegação
             document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === 'index.html') {
+                if (link.href === window.location.href) {
                     link.classList.add('active');
                 }
             });
