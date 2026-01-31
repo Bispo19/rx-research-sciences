@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Products - RX Research Sciences</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Incluir os arquivos JavaScript -->
+    <script src="products-data.js" defer></script>
+    <script src="products-filter.js" defer></script>
     <style>
         /* ===== BASE STYLES ===== */
         * {
@@ -682,6 +685,59 @@
             border-color: #2196f3;
         }
         
+        /* ===== LOADING STATE ===== */
+        .loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #64748b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #2196f3;
+        }
+
+        .loading p {
+            font-size: 1.2rem;
+            color: #475569;
+        }
+
+        /* ===== NO PRODUCTS STATE ===== */
+        .no-products {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #64748b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .no-products i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #94a3b8;
+        }
+
+        .no-products h3 {
+            color: #334155;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .no-products p {
+            color: #64748b;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
         /* ===== FOOTER ===== */
         footer {
             background: #0d1b3e;
@@ -1078,27 +1134,9 @@
                 <!-- CATEGORY FILTER -->
                 <div class="filter-group">
                     <h4>Category <i class="fas fa-chevron-down"></i></h4>
-                    <div class="filter-options">
-                        <label class="filter-option">
-                            <input type="checkbox" name="category" value="glp1" checked>
-                            <span>GLP-1 Analogs</span>
-                            <span class="filter-count">12</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox" name="category" value="peptides" checked>
-                            <span>Research Peptides</span>
-                            <span class="filter-count">25</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox" name="category" value="hormones" checked>
-                            <span>Growth Hormones</span>
-                            <span class="filter-count">8</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox" name="category" value="blends" checked>
-                            <span>Peptide Blends</span>
-                            <span class="filter-count">5</span>
-                        </label>
+                    <div class="filter-options" id="categoryFilter">
+                        <!-- Será preenchido dinamicamente pelo JavaScript -->
+                        <div class="loading">Loading categories...</div>
                     </div>
                 </div>
 
@@ -1107,14 +1145,14 @@
                     <h4>Purity <i class="fas fa-chevron-down"></i></h4>
                     <div class="filter-options">
                         <label class="filter-option">
-                            <input type="checkbox" name="purity" value="99+" checked>
+                            <input type="checkbox" name="purity" value="99" checked>
                             <span>≥99% HPLC</span>
-                            <span class="filter-count">32</span>
+                            <span class="filter-count" id="purity99Count">0</span>
                         </label>
                         <label class="filter-option">
-                            <input type="checkbox" name="purity" value="98-99">
+                            <input type="checkbox" name="purity" value="98">
                             <span>98-99%</span>
-                            <span class="filter-count">18</span>
+                            <span class="filter-count" id="purity98Count">0</span>
                         </label>
                     </div>
                 </div>
@@ -1135,6 +1173,10 @@
                             <input type="checkbox" name="price" value="200-500" checked>
                             <span>$200 - $500</span>
                         </label>
+                        <label class="filter-option">
+                            <input type="checkbox" name="price" value="500+" checked>
+                            <span>$500+</span>
+                        </label>
                     </div>
                 </div>
 
@@ -1145,12 +1187,12 @@
                         <label class="filter-option">
                             <input type="checkbox" name="stock" value="in-stock" checked>
                             <span>In Stock</span>
-                            <span class="filter-count stock-in">45</span>
+                            <span class="filter-count stock-in" id="stockInCount">0</span>
                         </label>
                         <label class="filter-option">
                             <input type="checkbox" name="stock" value="low-stock">
                             <span>Low Stock</span>
-                            <span class="filter-count stock-low">5</span>
+                            <span class="filter-count stock-low" id="stockLowCount">0</span>
                         </label>
                     </div>
                 </div>
@@ -1166,14 +1208,15 @@
                 <div class="products-header">
                     <h2>Research Products</h2>
                     <div class="products-info">
-                        <span class="results-count">Showing <span id="productsCount">12</span> of 50 products</span>
+                        <span class="results-count">Showing <span id="productsCount">0</span> of <span id="totalProducts">0</span> products</span>
                         <div class="sort-options">
-                            <select class="sort-select">
-                                <option>Sort by: Featured</option>
-                                <option>Sort by: Price Low-High</option>
-                                <option>Sort by: Price High-Low</option>
-                                <option>Sort by: Name A-Z</option>
-                                <option>Sort by: Newest</option>
+                            <select class="sort-select" id="sortSelect">
+                                <option value="featured">Sort by: Featured</option>
+                                <option value="price-low">Sort by: Price Low-High</option>
+                                <option value="price-high">Sort by: Price High-Low</option>
+                                <option value="name-asc">Sort by: Name A-Z</option>
+                                <option value="name-desc">Sort by: Name Z-A</option>
+                                <option value="newest">Sort by: Newest</option>
                             </select>
                         </div>
                     </div>
@@ -1181,541 +1224,15 @@
 
                 <!-- PRODUCTS GRID -->
                 <div class="products-main-grid" id="productsGrid">
-                    <!-- PÁGINA 1 (VISÍVEL POR PADRÃO) -->
-                    <div class="product-page active" data-page="1">
-                        <!-- Product 1 -->
-                        <div class="product-item">
-                            <div class="product-badge">BEST SELLER</div>
-                            <div class="product-image">
-                                <i class="fas fa-weight"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">GLP-1 Analog</span>
-                                <h3 class="product-title">Tirzepatide 10mg</h3>
-                                <span class="product-code">CS-ze101208</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$89.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Tirzepatide 10mg" data-price="89.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="1">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 2 -->
-                        <div class="product-item">
-                            <div class="product-badge">NEW</div>
-                            <div class="product-image">
-                                <i class="fas fa-weight"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">GLP-1 Analog</span>
-                                <h3 class="product-title">Retatrutide 10mg</h3>
-                                <span class="product-code">CS-re10-1220</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$109.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Retatrutide 10mg" data-price="109.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="2">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 3 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Research Peptide</span>
-                                <h3 class="product-title">BPC-157 10mg</h3>
-                                <span class="product-code">CS-bc101103</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$69.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="BPC-157 10mg" data-price="69.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="3">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 4 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Cognitive Enhancer</span>
-                                <h3 class="product-title">Semax 10mg</h3>
-                                <span class="product-code">CS-sa101018</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$89.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Semax 10mg" data-price="89.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="4">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 5 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Anti-Aging</span>
-                                <h3 class="product-title">Epithalon 10mg</h3>
-                                <span class="product-code">CS-ep10-1228</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$79.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Epithalon 10mg" data-price="79.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="5">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 6 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-dna"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Research Peptide</span>
-                                <h3 class="product-title">TB-500 10mg</h3>
-                                <span class="product-code">CS-tb10-0111</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$69.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="TB-500 10mg" data-price="69.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="6">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PÁGINA 2 (OCULTA) -->
-                    <div class="product-page" data-page="2">
-                        <!-- Product 7 -->
-                        <div class="product-item">
-                            <div class="product-badge">FEATURED</div>
-                            <div class="product-image">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Growth Hormone</span>
-                                <h3 class="product-title">CJC-1295 5mg</h3>
-                                <span class="product-code">CS-cj101025</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$129.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="CJC-1295 5mg" data-price="129.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="7">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 8 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-vial"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Peptide Blend</span>
-                                <h3 class="product-title">Repair Complex 10mg</h3>
-                                <span class="product-code">CS-rc101115</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$99.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Repair Complex 10mg" data-price="99.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="8">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 9 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-weight"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">GLP-1 Analog</span>
-                                <h3 class="product-title">Tirzepatide 15mg</h3>
-                                <span class="product-code">CS-ze151021</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$119.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Tirzepatide 15mg" data-price="119.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="9">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 10 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-weight"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">GLP-1 Analog</span>
-                                <h3 class="product-title">Tirzepatide 20mg</h3>
-                                <span class="product-code">CS-ze201124</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$149.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Tirzepatide 20mg" data-price="149.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="10">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 11 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Research Peptide</span>
-                                <h3 class="product-title">BPC-157 5mg</h3>
-                                <span class="product-code">CS-bc51018</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$39.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="BPC-157 5mg" data-price="39.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="11">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 12 -->
-                        <div class="product-item">
-                            <div class="product-badge">LIMITED</div>
-                            <div class="product-image">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Cognitive Enhancer</span>
-                                <h3 class="product-title">NA Semax 10mg</h3>
-                                <span class="product-code">CS-nasa10928</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$99.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="NA Semax 10mg" data-price="99.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="12">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PÁGINA 3 (OCULTA) - Produtos adicionais para demonstração -->
-                    <div class="product-page" data-page="3">
-                        <!-- Product 13 -->
-                        <div class="product-item">
-                            <div class="product-badge">NEW</div>
-                            <div class="product-image">
-                                <i class="fas fa-weight"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">GLP-1 Analog</span>
-                                <h3 class="product-title">Tirzepatide 30mg</h3>
-                                <span class="product-code">CS-ze30-0108</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$179.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Tirzepatide 30mg" data-price="179.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="13">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 14 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Research Peptide</span>
-                                <h3 class="product-title">MOTS-c 10mg</h3>
-                                <span class="product-code">CS-mc101021</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$109.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="MOTS-c 10mg" data-price="109.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="14">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 15 -->
-                        <div class="product-item">
-                            <div class="product-badge">FEATURED</div>
-                            <div class="product-image">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Cognitive Enhancer</span>
-                                <h3 class="product-title">NA Selank 10mg</h3>
-                                <span class="product-code">CS-nasn101127</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$89.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="NA Selank 10mg" data-price="89.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="15">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 16 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Anti-Aging</span>
-                                <h3 class="product-title">Epithalon 50mg</h3>
-                                <span class="product-code">CS-ei501018</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$299.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Epithalon 50mg" data-price="299.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="16">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 17 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-dna"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Research Peptide</span>
-                                <h3 class="product-title">TB-500 20mg</h3>
-                                <span class="product-code">CS-tb201213</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$129.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="TB-500 20mg" data-price="129.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="17">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 18 -->
-                        <div class="product-item">
-                            <div class="product-badge">BEST SELLER</div>
-                            <div class="product-image">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Growth Hormone</span>
-                                <h3 class="product-title">AOD 9604 5mg</h3>
-                                <span class="product-code">CS-ad51018</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$69.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="AOD 9604 5mg" data-price="69.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="18">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PÁGINA 4 (OCULTA) - Mais produtos -->
-                    <div class="product-page" data-page="4">
-                        <!-- Product 19 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-weight"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">GLP-1 Analog</span>
-                                <h3 class="product-title">Retatrutide 20mg</h3>
-                                <span class="product-code">CS-re20-1225</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$189.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Retatrutide 20mg" data-price="189.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="19">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 20 -->
-                        <div class="product-item">
-                            <div class="product-badge">LIMITED</div>
-                            <div class="product-image">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Research Peptide</span>
-                                <h3 class="product-title">GHK-Cu 50mg</h3>
-                                <span class="product-code">CS-gu50-1228</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$79.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="GHK-Cu 50mg" data-price="79.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="20">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 21 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Cognitive Enhancer</span>
-                                <h3 class="product-title">Selank 10mg</h3>
-                                <span class="product-code">CS-sn101026</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$79.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Selank 10mg" data-price="79.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="21">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 22 -->
-                        <div class="product-item">
-                            <div class="product-badge">NEW</div>
-                            <div class="product-image">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Anti-Aging</span>
-                                <h3 class="product-title">NA Epithalon 20mg</h3>
-                                <span class="product-code">CS-naep20-1222</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$159.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="NA Epithalon 20mg" data-price="159.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="22">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 23 -->
-                        <div class="product-item">
-                            <div class="product-image">
-                                <i class="fas fa-dna"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Research Peptide</span>
-                                <h3 class="product-title">TB Frag 10mg</h3>
-                                <span class="product-code">CS-tbf101105</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$79.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="TB Frag 10mg" data-price="79.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="23">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Product 24 -->
-                        <div class="product-item">
-                            <div class="product-badge">FEATURED</div>
-                            <div class="product-image">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-category">Growth Hormone</span>
-                                <h3 class="product-title">Thymosin Alpha-1 10mg</h3>
-                                <span class="product-code">CS-ta110-0111</span>
-                                <div class="product-price">
-                                    <div class="price-amount">$89.99</div>
-                                    <div class="product-actions">
-                                        <button class="btn-primary btn-small add-to-cart" data-name="Thymosin Alpha-1 10mg" data-price="89.99">
-                                            <i class="fas fa-cart-plus"></i> Add
-                                        </button>
-                                        <button class="details-btn btn-small details-btn" data-id="24">Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading products...</p>
                     </div>
                 </div>
                 
                 <!-- ===== PAGINATION ===== -->
-                <div class="pagination">
-                    <button class="page-btn prev-btn"><i class="fas fa-chevron-left"></i> Prev</button>
-                    <button class="page-btn active" data-page="1">1</button>
-                    <button class="page-btn" data-page="2">2</button>
-                    <button class="page-btn" data-page="3">3</button>
-                    <button class="page-btn" data-page="4">4</button>
-                    <button class="page-btn next-btn">Next <i class="fas fa-chevron-right"></i></button>
+                <div class="pagination" id="pagination" style="display: none;">
+                    <!-- Será gerado dinamicamente pelo JavaScript -->
                 </div>
             </main>
         </div>
@@ -1761,324 +1278,619 @@
         </div>
     </footer>
 
+    <!-- JavaScript principal da página -->
     <script>
-        // ===== CART FUNCTIONALITY =====
-        let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
-        
-        function updateCartCount() {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.querySelectorAll('.cart-count').forEach(el => {
-                el.textContent = totalItems;
-            });
-            localStorage.setItem('rxCart', JSON.stringify(cart));
+        // ===== VARIÁVEIS GLOBAIS =====
+        let allProducts = [];
+        let filteredProducts = [];
+        let currentPage = 1;
+        const productsPerPage = 12;
+        let totalPages = 1;
+
+        // ===== INICIALIZAÇÃO =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se os dados dos produtos estão disponíveis
+            if (typeof products !== 'undefined' && products.length > 0) {
+                allProducts = products;
+                initializePage();
+            } else {
+                // Se não estiver disponível, tentar carregar depois
+                setTimeout(() => {
+                    if (typeof products !== 'undefined') {
+                        allProducts = products;
+                        initializePage();
+                    } else {
+                        showError('Products data not loaded. Please refresh the page.');
+                    }
+                }, 1000);
+            }
+        });
+
+        function initializePage() {
+            // Inicializar contadores
+            updateFilterCounts();
+            
+            // Carregar categorias dinamicamente
+            loadCategories();
+            
+            // Renderizar produtos iniciais
+            filteredProducts = [...allProducts];
+            renderProducts();
+            updatePagination();
+            
+            // Inicializar carrinho
+            updateCartCount();
         }
-        
-        // Add to cart buttons
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function() {
-                const productName = this.getAttribute('data-name');
-                const productPrice = parseFloat(this.getAttribute('data-price'));
+
+        // ===== FUNÇÕES DE FILTRO =====
+        function updateFilterCounts() {
+            if (!allProducts.length) return;
+            
+            // Contar por pureza
+            const purity99Count = allProducts.filter(p => p.purity.includes('99%')).length;
+            const purity98Count = allProducts.filter(p => p.purity.includes('98%')).length;
+            
+            document.getElementById('purity99Count').textContent = purity99Count;
+            document.getElementById('purity98Count').textContent = purity98Count;
+            
+            // Contar por estoque (assumindo que todos estão em stock)
+            const stockInCount = allProducts.filter(p => p.stock).length;
+            const stockLowCount = allProducts.filter(p => !p.stock).length;
+            
+            document.getElementById('stockInCount').textContent = stockInCount;
+            document.getElementById('stockLowCount').textContent = stockLowCount;
+            
+            // Atualizar contagem total
+            document.getElementById('totalProducts').textContent = allProducts.length;
+        }
+
+        function loadCategories() {
+            if (!allProducts.length) return;
+            
+            const categoryFilter = document.getElementById('categoryFilter');
+            categoryFilter.innerHTML = '';
+            
+            // Extrair categorias únicas dos produtos
+            const uniqueCategories = [...new Set(allProducts.map(p => p.category))];
+            
+            // Contar produtos por categoria
+            const categoryCounts = {};
+            allProducts.forEach(product => {
+                if (!categoryCounts[product.category]) {
+                    categoryCounts[product.category] = 0;
+                }
+                categoryCounts[product.category]++;
+            });
+            
+            // Criar checkboxes para cada categoria
+            uniqueCategories.forEach(category => {
+                const count = categoryCounts[category] || 0;
+                const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
                 
-                // Add to cart
-                const existingItem = cart.find(item => item.name === productName);
+                const label = document.createElement('label');
+                label.className = 'filter-option';
+                label.innerHTML = `
+                    <input type="checkbox" name="category" value="${category}" checked>
+                    <span>${categoryName}</span>
+                    <span class="filter-count">${count}</span>
+                `;
                 
-                if (existingItem) {
-                    existingItem.quantity += 1;
-                } else {
-                    cart.push({
-                        id: Date.now(),
-                        name: productName,
-                        price: productPrice,
-                        quantity: 1,
-                        date: new Date().toISOString()
-                    });
+                categoryFilter.appendChild(label);
+            });
+            
+            // Adicionar evento aos checkboxes
+            categoryFilter.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', applyFilters);
+            });
+        }
+
+        function applyFilters() {
+            // Coletar filtros selecionados
+            const selectedCategories = Array.from(
+                document.querySelectorAll('#categoryFilter input[type="checkbox"]:checked')
+            ).map(cb => cb.value);
+            
+            const selectedPurities = Array.from(
+                document.querySelectorAll('input[name="purity"]:checked')
+            ).map(cb => cb.value);
+            
+            const selectedPriceRanges = Array.from(
+                document.querySelectorAll('input[name="price"]:checked')
+            ).map(cb => cb.value);
+            
+            const selectedStock = Array.from(
+                document.querySelectorAll('input[name="stock"]:checked')
+            ).map(cb => cb.value);
+            
+            // Aplicar filtros
+            filteredProducts = allProducts.filter(product => {
+                // Filtro de categoria
+                if (selectedCategories.length > 0 && !selectedCategories.includes(product.category)) {
+                    return false;
                 }
                 
-                // Update cart count
-                updateCartCount();
+                // Filtro de pureza
+                if (selectedPurities.length > 0) {
+                    const purity = parseFloat(product.purity);
+                    const hasPurity99 = selectedPurities.includes('99') && purity >= 99;
+                    const hasPurity98 = selectedPurities.includes('98') && purity >= 98 && purity < 99;
+                    
+                    if (!(hasPurity99 || hasPurity98)) {
+                        return false;
+                    }
+                }
                 
-                // Show notification
-                showNotification(`${productName} added to cart`);
+                // Filtro de preço
+                if (selectedPriceRanges.length > 0) {
+                    let priceMatch = false;
+                    
+                    selectedPriceRanges.forEach(range => {
+                        if (range === '0-100' && product.price <= 100) priceMatch = true;
+                        if (range === '100-200' && product.price > 100 && product.price <= 200) priceMatch = true;
+                        if (range === '200-500' && product.price > 200 && product.price <= 500) priceMatch = true;
+                        if (range === '500+' && product.price > 500) priceMatch = true;
+                    });
+                    
+                    if (!priceMatch) return false;
+                }
                 
-                // Visual feedback
-                const originalHTML = this.innerHTML;
-                this.innerHTML = '<i class="fas fa-check"></i> Added!';
-                this.style.background = '#2e7d32';
-                this.disabled = true;
+                // Filtro de estoque
+                if (selectedStock.length > 0) {
+                    const isInStock = selectedStock.includes('in-stock') && product.stock;
+                    const isLowStock = selectedStock.includes('low-stock') && !product.stock;
+                    
+                    if (!(isInStock || isLowStock)) {
+                        return false;
+                    }
+                }
                 
-                setTimeout(() => {
-                    this.innerHTML = originalHTML;
-                    this.style.background = '';
-                    this.disabled = false;
-                }, 1500);
+                return true;
             });
-        });
-        
-        // Details buttons - VERSÃO CORRIGIDA
-        document.querySelectorAll('.details-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-id');
-                const productElement = this.closest('.product-item');
-                const productName = productElement.querySelector('.product-title').textContent;
-                const productCode = productElement.querySelector('.product-code').textContent;
-                const productCategory = productElement.querySelector('.product-category').textContent;
-                const productPrice = productElement.querySelector('.price-amount').textContent;
-                
-                // Remover modal existente
-                document.querySelectorAll('.product-modal').forEach(modal => modal.remove());
-                
-                // Criar modal melhorado
-                const modal = document.createElement('div');
-                modal.className = 'product-modal';
-                modal.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0,0,0,0.85);
-                    z-index: 99999;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 20px;
-                    animation: fadeIn 0.3s ease;
-                `;
-                
-                modal.innerHTML = `
-                    <div class="modal-content" style="
-                        background: white;
-                        border-radius: 20px;
-                        max-width: 700px;
-                        width: 100%;
-                        max-height: 90vh;
-                        overflow-y: auto;
-                        position: relative;
-                        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-                        animation: slideUp 0.4s ease;
-                    ">
-                        <!-- CLOSE BUTTON (FUNCIONAL) -->
-                        <button class="modal-close-btn" onclick="this.closest('.product-modal').remove()" style="
-                            position: absolute;
-                            top: 20px;
-                            right: 20px;
-                            background: #f8fafc;
-                            border: none;
-                            width: 40px;
-                            height: 40px;
-                            border-radius: 50%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            cursor: pointer;
-                            font-size: 1.5rem;
-                            color: #64748b;
-                            z-index: 10;
-                            transition: all 0.3s;
-                        ">
-                            &times;
-                        </button>
-                        
-                        <!-- MODAL HEADER -->
-                        <div style="
-                            padding: 40px 40px 30px;
-                            background: linear-gradient(135deg, #667eea, #764ba2);
-                            border-radius: 20px 20px 0 0;
-                            color: white;
-                            position: relative;
-                            overflow: hidden;
-                        ">
-                            <div style="position: absolute; top: 20px; right: 20px; opacity: 0.1; font-size: 60px;">
-                                <i class="fas fa-flask"></i>
-                            </div>
-                            <h2 style="margin: 0 0 10px 0; font-size: 1.8rem;">${productName}</h2>
-                            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-                                <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem;">
-                                    ${productCategory}
-                                </span>
-                                <span style="font-family: monospace; background: rgba(255,255,255,0.15); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem;">
-                                    ${productCode}
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <!-- MODAL BODY -->
-                        <div style="padding: 30px 40px;">
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; margin-bottom: 30px;">
-                                <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #2196f3;">
-                                    <h4 style="margin: 0 0 10px 0; color: #334155; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
-                                        <i class="fas fa-vial" style="margin-right: 8px;"></i>Purity
-                                    </h4>
-                                    <p style="margin: 0; color: #0d47a1; font-size: 1.2rem; font-weight: 600;">≥99% HPLC</p>
-                                </div>
-                                
-                                <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #2ecc71;">
-                                    <h4 style="margin: 0 0 10px 0; color: #334155; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
-                                        <i class="fas fa-temperature-low" style="margin-right: 8px;"></i>Storage
-                                    </h4>
-                                    <p style="margin: 0; color: #0d47a1; font-size: 1.2rem; font-weight: 600;">-20°C</p>
-                                </div>
-                                
-                                <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #f39c12;">
-                                    <h4 style="margin: 0 0 10px 0; color: #334155; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
-                                        <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i>Shelf Life
-                                    </h4>
-                                    <p style="margin: 0; color: #0d47a1; font-size: 1.2rem; font-weight: 600;">24 Months</p>
-                                </div>
-                            </div>
-                            
-                            <div style="background: #f0f7ff; padding: 25px; border-radius: 12px; margin-bottom: 25px;">
-                                <h3 style="margin: 0 0 15px 0; color: #0d47a1; font-size: 1.2rem;">
-                                    <i class="fas fa-info-circle" style="margin-right: 10px;"></i>Product Description
-                                </h3>
-                                <p style="margin: 0; color: #475569; line-height: 1.7;">
-                                    This high-purity research compound is intended for laboratory research purposes only. 
-                                    Not for human or veterinary use. Always follow proper laboratory safety protocols 
-                                    when handling research compounds. Store at recommended temperatures and handle with care.
-                                </p>
-                            </div>
-                            
-                            <div style="border-top: 2px solid #f1f5f9; padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-                                <div>
-                                    <div style="color: #64748b; font-size: 0.9rem; margin-bottom: 5px;">Price</div>
-                                    <div style="color: #0d47a1; font-size: 2.2rem; font-weight: 700;">
-                                        ${productPrice}
-                                        <span style="font-size: 1rem; color: #94a3b8;">/unit</span>
-                                    </div>
-                                </div>
-                                
-                                <div style="display: flex; gap: 15px;">
-                                    <button onclick="addProductToCartModal('${productName}', '${productPrice.replace('$', '')}')" style="
-                                        padding: 15px 30px;
-                                        background: linear-gradient(135deg, #2196f3, #0d47a1);
-                                        color: white;
-                                        border: none;
-                                        border-radius: 10px;
-                                        font-weight: 600;
-                                        cursor: pointer;
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-                                        transition: all 0.3s;
-                                        min-width: 160px;
-                                    ">
-                                        <i class="fas fa-cart-plus"></i> Add to Cart
-                                    </button>
-                                    
-                                    <button onclick="this.closest('.product-modal').remove()" style="
-                                        padding: 15px 30px;
-                                        background: #f8fafc;
-                                        color: #64748b;
-                                        border: 2px solid #e2e8f0;
-                                        border-radius: 10px;
-                                        font-weight: 600;
-                                        cursor: pointer;
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-                                        transition: all 0.3s;
-                                        min-width: 130px;
-                                    ">
-                                        <i class="fas fa-times"></i> Close
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- LEGAL NOTICE -->
-                        <div style="
-                            padding: 20px 40px;
-                            background: #fef2f2;
-                            border-top: 2px solid #fee2e2;
-                            border-radius: 0 0 20px 20px;
-                        ">
-                            <p style="margin: 0; color: #991b1b; font-size: 0.85rem; display: flex; align-items: flex-start; gap: 10px;">
-                                <i class="fas fa-exclamation-triangle" style="color: #dc2626; flex-shrink: 0; margin-top: 2px;"></i>
-                                <strong>Research Use Only:</strong> This product is intended for laboratory research purposes 
-                                and is not for human or veterinary use. All purchases are subject to our terms and conditions.
-                            </p>
-                        </div>
+            
+            // Aplicar ordenação
+            applySorting();
+            
+            // Resetar para página 1
+            currentPage = 1;
+            
+            // Renderizar produtos
+            renderProducts();
+            updatePagination();
+            
+            showNotification(`Found ${filteredProducts.length} products`);
+        }
+
+        function applySorting() {
+            const sortValue = document.getElementById('sortSelect').value;
+            
+            filteredProducts.sort((a, b) => {
+                switch (sortValue) {
+                    case 'price-low':
+                        return a.price - b.price;
+                    case 'price-high':
+                        return b.price - a.price;
+                    case 'name-asc':
+                        return a.name.localeCompare(b.name);
+                    case 'name-desc':
+                        return b.name.localeCompare(a.name);
+                    case 'featured':
+                        // Produtos featured primeiro
+                        if (a.featured && !b.featured) return -1;
+                        if (!a.featured && b.featured) return 1;
+                        return 0;
+                    case 'newest':
+                        // Ordenar por ID (assumindo que IDs maiores são mais novos)
+                        return b.id - a.id;
+                    default:
+                        return 0;
+                }
+            });
+        }
+
+        // ===== RENDERIZAÇÃO DE PRODUTOS =====
+        function renderProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            
+            if (filteredProducts.length === 0) {
+                productsGrid.innerHTML = `
+                    <div class="no-products">
+                        <i class="fas fa-search"></i>
+                        <h3>No products found</h3>
+                        <p>Try adjusting your filters to find what you're looking for.</p>
                     </div>
                 `;
-                
-                // Adicionar animações CSS
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes fadeIn {
-                        from { opacity: 0; }
-                        to { opacity: 1; }
-                    }
-                    
-                    @keyframes slideUp {
-                        from { 
-                            opacity: 0;
-                            transform: translateY(50px);
-                        }
-                        to { 
-                            opacity: 1;
-                            transform: translateY(0);
-                        }
-                    }
-                    
-                    .modal-close-btn:hover {
-                        background: #ef4444 !important;
-                        color: white !important;
-                        transform: rotate(90deg);
-                    }
-                `;
-                document.head.appendChild(style);
-                
-                // Fechar modal ao clicar fora
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modal.remove();
+                document.getElementById('pagination').style.display = 'none';
+                return;
+            }
+            
+            // Calcular produtos para a página atual
+            const startIndex = (currentPage - 1) * productsPerPage;
+            const endIndex = startIndex + productsPerPage;
+            const productsToShow = filteredProducts.slice(startIndex, endIndex);
+            
+            // Limpar grid
+            productsGrid.innerHTML = '';
+            
+            // Renderizar produtos
+            productsToShow.forEach(product => {
+                const productElement = createProductElement(product);
+                productsGrid.appendChild(productElement);
+            });
+            
+            // Atualizar contador
+            const startProduct = startIndex + 1;
+            const endProduct = Math.min(endIndex, filteredProducts.length);
+            document.getElementById('productsCount').textContent = `${startProduct}-${endProduct}`;
+            document.getElementById('totalProducts').textContent = filteredProducts.length;
+        }
+
+        function createProductElement(product) {
+            const div = document.createElement('div');
+            div.className = 'product-item';
+            
+            // Determinar ícone baseado na categoria
+            let icon = 'fa-flask'; // padrão
+            if (product.category.includes('peptide')) icon = 'fa-dna';
+            if (product.category.includes('nootropic')) icon = 'fa-brain';
+            if (product.type.includes('GLP-1') || product.type.includes('Tirzepatide') || product.type.includes('Retatrutide')) icon = 'fa-weight';
+            if (product.type.includes('Semax') || product.type.includes('Selank')) icon = 'fa-brain';
+            if (product.type.includes('Epithalon')) icon = 'fa-clock';
+            if (product.type.includes('BPC') || product.type.includes('TB')) icon = 'fa-heartbeat';
+            
+            // Criar badge se for featured
+            const badge = product.featured ? '<div class="product-badge">FEATURED</div>' : '';
+            
+            div.innerHTML = `
+                ${badge}
+                <div class="product-image">
+                    <i class="fas ${icon}"></i>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">${product.category.toUpperCase()}</span>
+                    <h3 class="product-title">${product.name}</h3>
+                    <span class="product-code">${product.code}</span>
+                    <div class="product-specs" style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 0.9rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span style="color: #64748b;">Type:</span>
+                            <span style="color: #334155; font-weight: 500;">${product.type}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span style="color: #64748b;">Purity:</span>
+                            <span style="color: #334155; font-weight: 500;">${product.purity}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: #64748b;">Dosage:</span>
+                            <span style="color: #334155; font-weight: 500;">${product.dosage}</span>
+                        </div>
+                    </div>
+                    <p class="product-description" style="color: #64748b; font-size: 0.95rem; margin-bottom: 20px;">${product.description}</p>
+                    <div class="product-price">
+                        <div class="price-amount">$${product.price.toFixed(2)}</div>
+                        <div class="product-actions">
+                            <button class="btn-primary btn-small add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
+                                <i class="fas fa-cart-plus"></i> Add
+                            </button>
+                            <button class="details-btn btn-small details-btn" data-id="${product.id}">Details</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Adicionar eventos aos botões
+            const addToCartBtn = div.querySelector('.add-to-cart');
+            const detailsBtn = div.querySelector('.details-btn');
+            
+            addToCartBtn.addEventListener('click', function() {
+                addToCart(product.id);
+            });
+            
+            detailsBtn.addEventListener('click', function() {
+                showProductModal(product);
+            });
+            
+            return div;
+        }
+
+        // ===== PAGINAÇÃO =====
+        function updatePagination() {
+            totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            pagination.style.display = 'flex';
+            
+            // Gerar HTML da paginação
+            let html = '';
+            
+            // Botão Previous
+            html += `<button class="page-btn prev-btn" ${currentPage === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i> Prev</button>`;
+            
+            // Números das páginas
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    html += `<span class="page-dots">...</span>`;
+                }
+            }
+            
+            // Botão Next
+            html += `<button class="page-btn next-btn" ${currentPage === totalPages ? 'disabled' : ''}>Next <i class="fas fa-chevron-right"></i></button>`;
+            
+            pagination.innerHTML = html;
+            
+            // Adicionar eventos
+            pagination.querySelectorAll('.page-btn[data-page]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const pageNum = parseInt(this.getAttribute('data-page'));
+                    if (pageNum !== currentPage) {
+                        currentPage = pageNum;
+                        renderProducts();
+                        updatePagination();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
                 });
-                
-                // Fechar com ESC
-                const closeModal = () => modal.remove();
-                const handleEsc = (e) => {
-                    if (e.key === 'Escape') closeModal();
-                };
-                
-                document.addEventListener('keydown', handleEsc);
-                modal._handleEsc = handleEsc;
-                
-                document.body.appendChild(modal);
             });
-        });
-        
-        // Função corrigida addProductToCart para modal
-        function addProductToCartModal(productName, productPrice) {
-            const productPriceNum = parseFloat(productPrice);
             
-            // Add to cart
-            const existingItem = cart.find(item => item.name === productName);
+            // Botão Previous
+            pagination.querySelector('.prev-btn').addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderProducts();
+                    updatePagination();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+            
+            // Botão Next
+            pagination.querySelector('.next-btn').addEventListener('click', function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderProducts();
+                    updatePagination();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        // ===== MODAL DO PRODUTO =====
+        function showProductModal(product) {
+            // Remover modal existente
+            document.querySelectorAll('.product-modal').forEach(modal => modal.remove());
+            
+            // Criar modal
+            const modal = document.createElement('div');
+            modal.className = 'product-modal';
+            modal.innerHTML = `
+                <div class="modal-content" style="
+                    background: white;
+                    border-radius: 20px;
+                    max-width: 700px;
+                    width: 100%;
+                    max-height: 90vh;
+                    overflow-y: auto;
+                    position: relative;
+                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+                    animation: slideUp 0.4s ease;
+                ">
+                    <!-- CLOSE BUTTON -->
+                    <button class="modal-close-btn" onclick="this.closest('.product-modal').remove()" style="
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                        background: #f8fafc;
+                        border: none;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        font-size: 1.5rem;
+                        color: #64748b;
+                        z-index: 10;
+                        transition: all 0.3s;
+                    ">
+                        &times;
+                    </button>
+                    
+                    <!-- MODAL HEADER -->
+                    <div style="
+                        padding: 40px 40px 30px;
+                        background: linear-gradient(135deg, #667eea, #764ba2);
+                        border-radius: 20px 20px 0 0;
+                        color: white;
+                        position: relative;
+                        overflow: hidden;
+                    ">
+                        <div style="position: absolute; top: 20px; right: 20px; opacity: 0.1; font-size: 60px;">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <h2 style="margin: 0 0 10px 0; font-size: 1.8rem;">${product.name}</h2>
+                        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem;">
+                                ${product.category.toUpperCase()}
+                            </span>
+                            <span style="font-family: monospace; background: rgba(255,255,255,0.15); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem;">
+                                ${product.code}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- MODAL BODY -->
+                    <div style="padding: 30px 40px;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; margin-bottom: 30px;">
+                            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #2196f3;">
+                                <h4 style="margin: 0 0 10px 0; color: #334155; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
+                                    <i class="fas fa-vial" style="margin-right: 8px;"></i>Purity
+                                </h4>
+                                <p style="margin: 0; color: #0d47a1; font-size: 1.2rem; font-weight: 600;">${product.purity}</p>
+                            </div>
+                            
+                            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #2ecc71;">
+                                <h4 style="margin: 0 0 10px 0; color: #334155; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
+                                    <i class="fas fa-syringe" style="margin-right: 8px;"></i>Dosage
+                                </h4>
+                                <p style="margin: 0; color: #0d47a1; font-size: 1.2rem; font-weight: 600;">${product.dosage}</p>
+                            </div>
+                            
+                            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #f39c12;">
+                                <h4 style="margin: 0 0 10px 0; color: #334155; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
+                                    <i class="fas fa-temperature-low" style="margin-right: 8px;"></i>Storage
+                                </h4>
+                                <p style="margin: 0; color: #0d47a1; font-size: 1.2rem; font-weight: 600;">-20°C</p>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #f0f7ff; padding: 25px; border-radius: 12px; margin-bottom: 25px;">
+                            <h3 style="margin: 0 0 15px 0; color: #0d47a1; font-size: 1.2rem;">
+                                <i class="fas fa-info-circle" style="margin-right: 10px;"></i>Product Description
+                            </h3>
+                            <p style="margin: 0; color: #475569; line-height: 1.7;">
+                                ${product.description}
+                            </p>
+                            ${product.cas ? `<p style="margin: 15px 0 0 0; color: #64748b; font-size: 0.9rem;"><strong>CAS Number:</strong> ${product.cas}</p>` : ''}
+                        </div>
+                        
+                        <div style="border-top: 2px solid #f1f5f9; padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                            <div>
+                                <div style="color: #64748b; font-size: 0.9rem; margin-bottom: 5px;">Price</div>
+                                <div style="color: #0d47a1; font-size: 2.2rem; font-weight: 700;">
+                                    $${product.price.toFixed(2)}
+                                    <span style="font-size: 1rem; color: #94a3b8;">/unit</span>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 15px;">
+                                <button onclick="addToCart(${product.id}); this.closest('.product-modal')?.remove();" style="
+                                    padding: 15px 30px;
+                                    background: linear-gradient(135deg, #2196f3, #0d47a1);
+                                    color: white;
+                                    border: none;
+                                    border-radius: 10px;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    transition: all 0.3s;
+                                    min-width: 160px;
+                                ">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                                
+                                <button onclick="this.closest('.product-modal').remove()" style="
+                                    padding: 15px 30px;
+                                    background: #f8fafc;
+                                    color: #64748b;
+                                    border: 2px solid #e2e8f0;
+                                    border-radius: 10px;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    transition: all 0.3s;
+                                    min-width: 130px;
+                                ">
+                                    <i class="fas fa-times"></i> Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- LEGAL NOTICE -->
+                    <div style="
+                        padding: 20px 40px;
+                        background: #fef2f2;
+                        border-top: 2px solid #fee2e2;
+                        border-radius: 0 0 20px 20px;
+                    ">
+                        <p style="margin: 0; color: #991b1b; font-size: 0.85rem; display: flex; align-items: flex-start; gap: 10px;">
+                            <i class="fas fa-exclamation-triangle" style="color: #dc2626; flex-shrink: 0; margin-top: 2px;"></i>
+                            <strong>Research Use Only:</strong> This product is intended for laboratory research purposes 
+                            and is not for human or veterinary use. All purchases are subject to our terms and conditions.
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            // Fechar modal ao clicar fora
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+            
+            // Fechar com ESC
+            document.addEventListener('keydown', function handleEsc(e) {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', handleEsc);
+                }
+            });
+            
+            document.body.appendChild(modal);
+        }
+
+        // ===== CARRINHO =====
+        function addToCart(productId) {
+            const product = allProducts.find(p => p.id == productId);
+            if (!product) return;
+            
+            // Obter carrinho atual
+            let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+            
+            // Verificar se produto já está no carrinho
+            const existingItem = cart.find(item => item.id == productId);
             
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
                 cart.push({
-                    id: Date.now(),
-                    name: productName,
-                    price: productPriceNum,
+                    id: product.id,
+                    name: product.name,
+                    code: product.code,
+                    price: product.price,
                     quantity: 1,
-                    date: new Date().toISOString()
+                    category: product.category,
+                    type: product.type,
+                    dosage: product.dosage,
+                    purity: product.purity
                 });
             }
             
-            updateCartCount();
-            showNotification(`${productName} added to cart`);
+            // Salvar no localStorage
+            localStorage.setItem('rxCart', JSON.stringify(cart));
             
-            // Fechar modal
-            document.querySelector('.product-modal')?.remove();
+            // Atualizar contador do carrinho
+            updateCartCount();
+            
+            // Mostrar notificação
+            showNotification(`${product.name} added to cart`);
         }
-        
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // Atualizar todos os elementos com classe .cart-count
+            document.querySelectorAll('.cart-count').forEach(element => {
+                element.textContent = totalItems;
+            });
+        }
+
+        // ===== NOTIFICAÇÕES =====
         function showNotification(message) {
-            // Remove existing notifications
+            // Remover notificação existente
             document.querySelectorAll('.notification').forEach(el => el.remove());
             
-            // Create notification
+            // Criar notificação
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.style.cssText = `
@@ -2100,104 +1912,80 @@
             notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
             document.body.appendChild(notification);
             
-            // Remove after 3 seconds
+            // Remover após 3 segundos
             setTimeout(() => {
                 notification.style.animation = 'slideOut 0.3s ease';
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
+
+        function showError(message) {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = `
+                <div class="no-products">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Error loading products</h3>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        // ===== EVENT LISTENERS =====
         
-        // Filter functionality
-        document.getElementById('applyFilters').addEventListener('click', function() {
-            showNotification('Filters applied successfully!');
-        });
-        
+        // Botão Clear Filters
         document.getElementById('clearFilters').addEventListener('click', function() {
-            // Reset all checkboxes
+            // Resetar todos os checkboxes
             document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(checkbox => {
                 checkbox.checked = true;
             });
+            
+            // Resetar ordenação
+            document.getElementById('sortSelect').value = 'featured';
+            
+            // Aplicar filtros
+            applyFilters();
+            
             showNotification('Filters cleared!');
+        });
+        
+        // Botão Apply Filters
+        document.getElementById('applyFilters').addEventListener('click', applyFilters);
+        
+        // Ordenação
+        document.getElementById('sortSelect').addEventListener('change', function() {
+            applySorting();
+            currentPage = 1;
+            renderProducts();
+            updatePagination();
+        });
+        
+        // Filtros de pureza, preço e estoque
+        document.querySelectorAll('input[name="purity"], input[name="price"], input[name="stock"]').forEach(input => {
+            input.addEventListener('change', applyFilters);
         });
         
         // Search functionality
         document.querySelector('.search-btn').addEventListener('click', function() {
-            const searchTerm = document.querySelector('.search-bar').value;
-            if (searchTerm.trim()) {
-                showNotification(`Searching for: ${searchTerm}`);
+            const searchTerm = document.querySelector('.search-bar').value.toLowerCase().trim();
+            if (searchTerm) {
+                // Filtrar produtos pelo termo de busca
+                filteredProducts = allProducts.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm) ||
+                    product.code.toLowerCase().includes(searchTerm) ||
+                    product.type.toLowerCase().includes(searchTerm) ||
+                    product.description.toLowerCase().includes(searchTerm)
+                );
+                
+                currentPage = 1;
+                renderProducts();
+                updatePagination();
+                showNotification(`Found ${filteredProducts.length} products matching "${searchTerm}"`);
             }
         });
         
         document.querySelector('.search-bar').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                const searchTerm = this.value;
-                if (searchTerm.trim()) {
-                    showNotification(`Searching for: ${searchTerm}`);
-                }
-            }
-        });
-        
-        // ===== PAGINAÇÃO FUNCIONAL =====
-        let currentPage = 1;
-        const totalPages = 4;
-        const productsPerPage = 6;
-        
-        function updatePagination() {
-            // Atualizar botões ativos
-            document.querySelectorAll('.page-btn').forEach(btn => {
-                if (btn.hasAttribute('data-page')) {
-                    const pageNum = parseInt(btn.getAttribute('data-page'));
-                    btn.classList.toggle('active', pageNum === currentPage);
-                }
-            });
-            
-            // Atualizar páginas visíveis
-            document.querySelectorAll('.product-page').forEach(page => {
-                const pageNum = parseInt(page.getAttribute('data-page'));
-                if (pageNum === currentPage) {
-                    page.classList.add('active');
-                } else {
-                    page.classList.remove('active');
-                }
-            });
-            
-            // Atualizar contador de produtos
-            const startProduct = ((currentPage - 1) * productsPerPage) + 1;
-            const endProduct = Math.min(currentPage * productsPerPage, 24); // Total de 24 produtos
-            document.getElementById('productsCount').textContent = `${startProduct}-${endProduct}`;
-            
-            // Atualizar estado dos botões prev/next
-            document.querySelector('.prev-btn').disabled = currentPage === 1;
-            document.querySelector('.next-btn').disabled = currentPage === totalPages;
-        }
-        
-        // Navegação por número de página
-        document.querySelectorAll('.page-btn[data-page]').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const pageNum = parseInt(this.getAttribute('data-page'));
-                if (pageNum !== currentPage) {
-                    currentPage = pageNum;
-                    updatePagination();
-                    showNotification(`Page ${currentPage} loaded`);
-                }
-            });
-        });
-        
-        // Botão Prev
-        document.querySelector('.prev-btn').addEventListener('click', function() {
-            if (currentPage > 1) {
-                currentPage--;
-                updatePagination();
-                showNotification(`Page ${currentPage} loaded`);
-            }
-        });
-        
-        // Botão Next
-        document.querySelector('.next-btn').addEventListener('click', function() {
-            if (currentPage < totalPages) {
-                currentPage++;
-                updatePagination();
-                showNotification(`Page ${currentPage} loaded`);
+                document.querySelector('.search-btn').click();
             }
         });
         
@@ -2216,57 +2004,7 @@
                 }
             });
         });
-        
-        // Função para ajustar tamanho dos botões dinamicamente
-        function adjustButtonSizes() {
-            const productItems = document.querySelectorAll('.product-item');
-            
-            productItems.forEach(item => {
-                const priceSection = item.querySelector('.product-price');
-                const actions = item.querySelector('.product-actions');
-                const priceAmount = item.querySelector('.price-amount');
-                
-                if (priceSection && actions && priceAmount) {
-                    const priceWidth = priceAmount.offsetWidth;
-                    const sectionWidth = priceSection.offsetWidth;
-                    const availableWidth = sectionWidth - priceWidth - 40; // 40px para gaps e padding
-                    
-                    // Se os botões forem muito largos, ajusta
-                    if (actions.offsetWidth > availableWidth) {
-                        actions.style.flexWrap = 'wrap';
-                        actions.style.justifyContent = 'center';
-                        actions.style.gap = '8px';
-                        
-                        const buttons = actions.querySelectorAll('.btn-small');
-                        buttons.forEach(btn => {
-                            btn.style.minWidth = '120px';
-                            btn.style.maxWidth = '45%';
-                            btn.style.flex = '1';
-                        });
-                    } else {
-                        actions.style.flexWrap = 'nowrap';
-                        actions.style.justifyContent = 'space-between';
-                        
-                        const buttons = actions.querySelectorAll('.btn-small');
-                        buttons.forEach(btn => {
-                            btn.style.minWidth = '';
-                            btn.style.maxWidth = '';
-                            btn.style.flex = '';
-                        });
-                    }
-                }
-            });
-        }
-        
-        // Executar no carregamento e no redimensionamento
-        document.addEventListener('DOMContentLoaded', function() {
-            adjustButtonSizes();
-            updateCartCount();
-            updatePagination(); // Inicializar paginação
-        });
-        
-        window.addEventListener('resize', adjustButtonSizes);
-        
+
         // Add CSS animations
         const style = document.createElement('style');
         style.textContent = `
@@ -2278,6 +2016,27 @@
             @keyframes slideOut {
                 from { transform: translateX(0); opacity: 1; }
                 to { transform: translateX(100%); opacity: 0; }
+            }
+            
+            .modal-close-btn:hover {
+                background: #ef4444 !important;
+                color: white !important;
+                transform: rotate(90deg);
+            }
+            
+            .page-dots {
+                padding: 10px;
+                color: #64748b;
+            }
+            
+            .page-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+            
+            .page-btn:disabled:hover {
+                border-color: #e0e0e0;
+                color: #64748b;
             }
         `;
         document.head.appendChild(style);
