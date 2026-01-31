@@ -978,6 +978,21 @@
                 transform: translateY(0);
             }
         }
+
+        /* Classes para páginas ocultas */
+        .product-page {
+            display: none;
+        }
+
+        .product-page.active {
+            display: grid;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -1166,257 +1181,527 @@
 
                 <!-- PRODUCTS GRID -->
                 <div class="products-main-grid" id="productsGrid">
-                    <!-- Product 1 -->
-                    <div class="product-item">
-                        <div class="product-badge">BEST SELLER</div>
-                        <div class="product-image">
-                            <i class="fas fa-weight"></i>
+                    <!-- PÁGINA 1 (VISÍVEL POR PADRÃO) -->
+                    <div class="product-page active" data-page="1">
+                        <!-- Product 1 -->
+                        <div class="product-item">
+                            <div class="product-badge">BEST SELLER</div>
+                            <div class="product-image">
+                                <i class="fas fa-weight"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">GLP-1 Analog</span>
+                                <h3 class="product-title">Tirzepatide 10mg</h3>
+                                <span class="product-code">CS-ze101208</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$89.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Tirzepatide 10mg" data-price="89.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="1">Details</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="product-info">
-                            <span class="product-category">GLP-1 Analog</span>
-                            <h3 class="product-title">Tirzepatide 10mg</h3>
-                            <span class="product-code">CS-ze101208</span>
-                            <div class="product-price">
-                                <div class="price-amount">$89.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="Tirzepatide 10mg" data-price="89.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="1">Details</button>
+                        
+                        <!-- Product 2 -->
+                        <div class="product-item">
+                            <div class="product-badge">NEW</div>
+                            <div class="product-image">
+                                <i class="fas fa-weight"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">GLP-1 Analog</span>
+                                <h3 class="product-title">Retatrutide 10mg</h3>
+                                <span class="product-code">CS-re10-1220</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$109.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Retatrutide 10mg" data-price="109.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="2">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 3 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Research Peptide</span>
+                                <h3 class="product-title">BPC-157 10mg</h3>
+                                <span class="product-code">CS-bc101103</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$69.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="BPC-157 10mg" data-price="69.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="3">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 4 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Cognitive Enhancer</span>
+                                <h3 class="product-title">Semax 10mg</h3>
+                                <span class="product-code">CS-sa101018</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$89.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Semax 10mg" data-price="89.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="4">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 5 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Anti-Aging</span>
+                                <h3 class="product-title">Epithalon 10mg</h3>
+                                <span class="product-code">CS-ep10-1228</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$79.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Epithalon 10mg" data-price="79.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="5">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 6 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-dna"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Research Peptide</span>
+                                <h3 class="product-title">TB-500 10mg</h3>
+                                <span class="product-code">CS-tb10-0111</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$69.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="TB-500 10mg" data-price="69.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="6">Details</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Product 2 -->
-                    <div class="product-item">
-                        <div class="product-badge">NEW</div>
-                        <div class="product-image">
-                            <i class="fas fa-weight"></i>
+
+                    <!-- PÁGINA 2 (OCULTA) -->
+                    <div class="product-page" data-page="2">
+                        <!-- Product 7 -->
+                        <div class="product-item">
+                            <div class="product-badge">FEATURED</div>
+                            <div class="product-image">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Growth Hormone</span>
+                                <h3 class="product-title">CJC-1295 5mg</h3>
+                                <span class="product-code">CS-cj101025</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$129.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="CJC-1295 5mg" data-price="129.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="7">Details</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="product-info">
-                            <span class="product-category">GLP-1 Analog</span>
-                            <h3 class="product-title">Retatrutide 10mg</h3>
-                            <span class="product-code">CS-re10-1220</span>
-                            <div class="product-price">
-                                <div class="price-amount">$109.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="Retatrutide 10mg" data-price="109.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="2">Details</button>
+                        
+                        <!-- Product 8 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Peptide Blend</span>
+                                <h3 class="product-title">Repair Complex 10mg</h3>
+                                <span class="product-code">CS-rc101115</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$99.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Repair Complex 10mg" data-price="99.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="8">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 9 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-weight"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">GLP-1 Analog</span>
+                                <h3 class="product-title">Tirzepatide 15mg</h3>
+                                <span class="product-code">CS-ze151021</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$119.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Tirzepatide 15mg" data-price="119.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="9">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 10 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-weight"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">GLP-1 Analog</span>
+                                <h3 class="product-title">Tirzepatide 20mg</h3>
+                                <span class="product-code">CS-ze201124</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$149.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Tirzepatide 20mg" data-price="149.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="10">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 11 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Research Peptide</span>
+                                <h3 class="product-title">BPC-157 5mg</h3>
+                                <span class="product-code">CS-bc51018</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$39.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="BPC-157 5mg" data-price="39.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="11">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 12 -->
+                        <div class="product-item">
+                            <div class="product-badge">LIMITED</div>
+                            <div class="product-image">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Cognitive Enhancer</span>
+                                <h3 class="product-title">NA Semax 10mg</h3>
+                                <span class="product-code">CS-nasa10928</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$99.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="NA Semax 10mg" data-price="99.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="12">Details</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Product 3 -->
-                    <div class="product-item">
-                        <div class="product-image">
-                            <i class="fas fa-heartbeat"></i>
+
+                    <!-- PÁGINA 3 (OCULTA) - Produtos adicionais para demonstração -->
+                    <div class="product-page" data-page="3">
+                        <!-- Product 13 -->
+                        <div class="product-item">
+                            <div class="product-badge">NEW</div>
+                            <div class="product-image">
+                                <i class="fas fa-weight"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">GLP-1 Analog</span>
+                                <h3 class="product-title">Tirzepatide 30mg</h3>
+                                <span class="product-code">CS-ze30-0108</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$179.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Tirzepatide 30mg" data-price="179.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="13">Details</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="product-info">
-                            <span class="product-category">Research Peptide</span>
-                            <h3 class="product-title">BPC-157 10mg</h3>
-                            <span class="product-code">CS-bc101103</span>
-                            <div class="product-price">
-                                <div class="price-amount">$69.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="BPC-157 10mg" data-price="69.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="3">Details</button>
+                        
+                        <!-- Product 14 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Research Peptide</span>
+                                <h3 class="product-title">MOTS-c 10mg</h3>
+                                <span class="product-code">CS-mc101021</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$109.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="MOTS-c 10mg" data-price="109.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="14">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 15 -->
+                        <div class="product-item">
+                            <div class="product-badge">FEATURED</div>
+                            <div class="product-image">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Cognitive Enhancer</span>
+                                <h3 class="product-title">NA Selank 10mg</h3>
+                                <span class="product-code">CS-nasn101127</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$89.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="NA Selank 10mg" data-price="89.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="15">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 16 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Anti-Aging</span>
+                                <h3 class="product-title">Epithalon 50mg</h3>
+                                <span class="product-code">CS-ei501018</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$299.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Epithalon 50mg" data-price="299.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="16">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 17 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-dna"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Research Peptide</span>
+                                <h3 class="product-title">TB-500 20mg</h3>
+                                <span class="product-code">CS-tb201213</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$129.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="TB-500 20mg" data-price="129.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="17">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 18 -->
+                        <div class="product-item">
+                            <div class="product-badge">BEST SELLER</div>
+                            <div class="product-image">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Growth Hormone</span>
+                                <h3 class="product-title">AOD 9604 5mg</h3>
+                                <span class="product-code">CS-ad51018</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$69.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="AOD 9604 5mg" data-price="69.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="18">Details</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Product 4 -->
-                    <div class="product-item">
-                        <div class="product-image">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <div class="product-info">
-                            <span class="product-category">Cognitive Enhancer</span>
-                            <h3 class="product-title">Semax 10mg</h3>
-                            <span class="product-code">CS-sa101018</span>
-                            <div class="product-price">
-                                <div class="price-amount">$89.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="Semax 10mg" data-price="89.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="4">Details</button>
+
+                    <!-- PÁGINA 4 (OCULTA) - Mais produtos -->
+                    <div class="product-page" data-page="4">
+                        <!-- Product 19 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-weight"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">GLP-1 Analog</span>
+                                <h3 class="product-title">Retatrutide 20mg</h3>
+                                <span class="product-code">CS-re20-1225</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$189.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Retatrutide 20mg" data-price="189.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="19">Details</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Product 5 -->
-                    <div class="product-item">
-                        <div class="product-image">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="product-info">
-                            <span class="product-category">Anti-Aging</span>
-                            <h3 class="product-title">Epithalon 10mg</h3>
-                            <span class="product-code">CS-ep10-1228</span>
-                            <div class="product-price">
-                                <div class="price-amount">$79.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="Epithalon 10mg" data-price="79.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="5">Details</button>
+                        
+                        <!-- Product 20 -->
+                        <div class="product-item">
+                            <div class="product-badge">LIMITED</div>
+                            <div class="product-image">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Research Peptide</span>
+                                <h3 class="product-title">GHK-Cu 50mg</h3>
+                                <span class="product-code">CS-gu50-1228</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$79.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="GHK-Cu 50mg" data-price="79.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="20">Details</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Product 6 -->
-                    <div class="product-item">
-                        <div class="product-image">
-                            <i class="fas fa-dna"></i>
-                        </div>
-                        <div class="product-info">
-                            <span class="product-category">Research Peptide</span>
-                            <h3 class="product-title">TB-500 10mg</h3>
-                            <span class="product-code">CS-tb10-0111</span>
-                            <div class="product-price">
-                                <div class="price-amount">$69.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="TB-500 10mg" data-price="69.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="6">Details</button>
+                        
+                        <!-- Product 21 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Cognitive Enhancer</span>
+                                <h3 class="product-title">Selank 10mg</h3>
+                                <span class="product-code">CS-sn101026</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$79.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Selank 10mg" data-price="79.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="21">Details</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Product 7 -->
-                    <div class="product-item">
-                        <div class="product-badge">FEATURED</div>
-                        <div class="product-image">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="product-info">
-                            <span class="product-category">Growth Hormone</span>
-                            <h3 class="product-title">CJC-1295 5mg</h3>
-                            <span class="product-code">CS-cj101025</span>
-                            <div class="product-price">
-                                <div class="price-amount">$129.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="CJC-1295 5mg" data-price="129.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="7">Details</button>
+                        
+                        <!-- Product 22 -->
+                        <div class="product-item">
+                            <div class="product-badge">NEW</div>
+                            <div class="product-image">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Anti-Aging</span>
+                                <h3 class="product-title">NA Epithalon 20mg</h3>
+                                <span class="product-code">CS-naep20-1222</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$159.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="NA Epithalon 20mg" data-price="159.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="22">Details</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Product 8 -->
-                    <div class="product-item">
-                        <div class="product-image">
-                            <i class="fas fa-vial"></i>
-                        </div>
-                        <div class="product-info">
-                            <span class="product-category">Peptide Blend</span>
-                            <h3 class="product-title">Repair Complex 10mg</h3>
-                            <span class="product-code">CS-rc101115</span>
-                            <div class="product-price">
-                                <div class="price-amount">$99.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="Repair Complex 10mg" data-price="99.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="8">Details</button>
+                        
+                        <!-- Product 23 -->
+                        <div class="product-item">
+                            <div class="product-image">
+                                <i class="fas fa-dna"></i>
+                            </div>
+                            <div class="product-info">
+                                <span class="product-category">Research Peptide</span>
+                                <h3 class="product-title">TB Frag 10mg</h3>
+                                <span class="product-code">CS-tbf101105</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$79.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="TB Frag 10mg" data-price="79.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="23">Details</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Product 9 -->
-                    <div class="product-item">
-                        <div class="product-image">
-                            <i class="fas fa-weight"></i>
-                        </div>
-                        <div class="product-info">
-                            <span class="product-category">GLP-1 Analog</span>
-                            <h3 class="product-title">Tirzepatide 15mg</h3>
-                            <span class="product-code">CS-ze151021</span>
-                            <div class="product-price">
-                                <div class="price-amount">$119.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="Tirzepatide 15mg" data-price="119.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="9">Details</button>
-                                </div>
+                        
+                        <!-- Product 24 -->
+                        <div class="product-item">
+                            <div class="product-badge">FEATURED</div>
+                            <div class="product-image">
+                                <i class="fas fa-chart-line"></i>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 10 -->
-                    <div class="product-item">
-                        <div class="product-image">
-                            <i class="fas fa-weight"></i>
-                        </div>
-                        <div class="product-info">
-                            <span class="product-category">GLP-1 Analog</span>
-                            <h3 class="product-title">Tirzepatide 20mg</h3>
-                            <span class="product-code">CS-ze201124</span>
-                            <div class="product-price">
-                                <div class="price-amount">$149.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="Tirzepatide 20mg" data-price="149.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="10">Details</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 11 -->
-                    <div class="product-item">
-                        <div class="product-image">
-                            <i class="fas fa-heartbeat"></i>
-                        </div>
-                        <div class="product-info">
-                            <span class="product-category">Research Peptide</span>
-                            <h3 class="product-title">BPC-157 5mg</h3>
-                            <span class="product-code">CS-bc51018</span>
-                            <div class="product-price">
-                                <div class="price-amount">$39.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="BPC-157 5mg" data-price="39.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="11">Details</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 12 -->
-                    <div class="product-item">
-                        <div class="product-badge">LIMITED</div>
-                        <div class="product-image">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <div class="product-info">
-                            <span class="product-category">Cognitive Enhancer</span>
-                            <h3 class="product-title">NA Semax 10mg</h3>
-                            <span class="product-code">CS-nasa10928</span>
-                            <div class="product-price">
-                                <div class="price-amount">$99.99</div>
-                                <div class="product-actions">
-                                    <button class="btn-primary btn-small add-to-cart" data-name="NA Semax 10mg" data-price="99.99">
-                                        <i class="fas fa-cart-plus"></i> Add
-                                    </button>
-                                    <button class="details-btn btn-small details-btn" data-id="12">Details</button>
+                            <div class="product-info">
+                                <span class="product-category">Growth Hormone</span>
+                                <h3 class="product-title">Thymosin Alpha-1 10mg</h3>
+                                <span class="product-code">CS-ta110-0111</span>
+                                <div class="product-price">
+                                    <div class="price-amount">$89.99</div>
+                                    <div class="product-actions">
+                                        <button class="btn-primary btn-small add-to-cart" data-name="Thymosin Alpha-1 10mg" data-price="89.99">
+                                            <i class="fas fa-cart-plus"></i> Add
+                                        </button>
+                                        <button class="details-btn btn-small details-btn" data-id="24">Details</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1426,10 +1711,10 @@
                 <!-- ===== PAGINATION ===== -->
                 <div class="pagination">
                     <button class="page-btn prev-btn"><i class="fas fa-chevron-left"></i> Prev</button>
-                    <button class="page-btn active">1</button>
-                    <button class="page-btn">2</button>
-                    <button class="page-btn">3</button>
-                    <button class="page-btn">4</button>
+                    <button class="page-btn active" data-page="1">1</button>
+                    <button class="page-btn" data-page="2">2</button>
+                    <button class="page-btn" data-page="3">3</button>
+                    <button class="page-btn" data-page="4">4</button>
                     <button class="page-btn next-btn">Next <i class="fas fa-chevron-right"></i></button>
                 </div>
             </main>
@@ -1852,14 +2137,67 @@
             }
         });
         
-        // Pagination
-        document.querySelectorAll('.page-btn').forEach(btn => {
-            if (!btn.classList.contains('prev-btn') && !btn.classList.contains('next-btn')) {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    showNotification(`Page ${this.textContent} loaded`);
-                });
+        // ===== PAGINAÇÃO FUNCIONAL =====
+        let currentPage = 1;
+        const totalPages = 4;
+        const productsPerPage = 6;
+        
+        function updatePagination() {
+            // Atualizar botões ativos
+            document.querySelectorAll('.page-btn').forEach(btn => {
+                if (btn.hasAttribute('data-page')) {
+                    const pageNum = parseInt(btn.getAttribute('data-page'));
+                    btn.classList.toggle('active', pageNum === currentPage);
+                }
+            });
+            
+            // Atualizar páginas visíveis
+            document.querySelectorAll('.product-page').forEach(page => {
+                const pageNum = parseInt(page.getAttribute('data-page'));
+                if (pageNum === currentPage) {
+                    page.classList.add('active');
+                } else {
+                    page.classList.remove('active');
+                }
+            });
+            
+            // Atualizar contador de produtos
+            const startProduct = ((currentPage - 1) * productsPerPage) + 1;
+            const endProduct = Math.min(currentPage * productsPerPage, 24); // Total de 24 produtos
+            document.getElementById('productsCount').textContent = `${startProduct}-${endProduct}`;
+            
+            // Atualizar estado dos botões prev/next
+            document.querySelector('.prev-btn').disabled = currentPage === 1;
+            document.querySelector('.next-btn').disabled = currentPage === totalPages;
+        }
+        
+        // Navegação por número de página
+        document.querySelectorAll('.page-btn[data-page]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const pageNum = parseInt(this.getAttribute('data-page'));
+                if (pageNum !== currentPage) {
+                    currentPage = pageNum;
+                    updatePagination();
+                    showNotification(`Page ${currentPage} loaded`);
+                }
+            });
+        });
+        
+        // Botão Prev
+        document.querySelector('.prev-btn').addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePagination();
+                showNotification(`Page ${currentPage} loaded`);
+            }
+        });
+        
+        // Botão Next
+        document.querySelector('.next-btn').addEventListener('click', function() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePagination();
+                showNotification(`Page ${currentPage} loaded`);
             }
         });
         
@@ -1924,6 +2262,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             adjustButtonSizes();
             updateCartCount();
+            updatePagination(); // Inicializar paginação
         });
         
         window.addEventListener('resize', adjustButtonSizes);
