@@ -1,106 +1,65 @@
-// products/js/products-filter.js - VERSÃO CORRIGIDA
-// NÃO CRIA ELEMENTOS DE LAYOUT, APENAS GERENCIA PRODUTOS
+// products/js/products-filter.js - VERSÃO SIMPLIFICADA E SEGURA
+// NÃO MODIFICA LAYOUT, APENAS FILTRA PRODUTOS
 
 class ProductFilter {
     constructor() {
+        console.log('ProductFilter inicializando...');
+        
+        // Usar dados do products-data.js
         this.products = window.products || [];
+        console.log('Produtos carregados:', this.products.length);
+        
         this.filteredProducts = [...this.products];
         this.currentCategory = 'all';
         this.currentType = 'all';
         this.currentSort = 'name-asc';
         this.searchTerm = '';
         
-        // Aguardar DOM estar pronto
+        // Inicializar quando DOM estiver pronto
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => this.init());
         } else {
-            setTimeout(() => this.init(), 100);
+            this.init();
         }
     }
     
     init() {
-        // Verificar se elementos existem
-        if (!document.getElementById('categories-filter') || 
-            !document.getElementById('products-grid')) {
-            console.error('Elementos do DOM não encontrados');
+        console.log('ProductFilter.init() chamado');
+        
+        // Verificar elementos essenciais
+        const categoriesContainer = document.getElementById('categories-filter');
+        const productsGrid = document.getElementById('products-grid');
+        
+        if (!categoriesContainer || !productsGrid) {
+            console.error('Elementos do DOM não encontrados!');
+            console.log('categories-filter:', categoriesContainer);
+            console.log('products-grid:', productsGrid);
             return;
         }
         
-        this.renderCategories();
-        this.renderProducts();
+        // Configurar event listeners primeiro
         this.setupEventListeners();
-        this.populateTypeFilter();
-        console.log('ProductFilter inicializado com', this.products.length, 'produtos');
-    }
-    
-    renderCategories() {
-        const container = document.getElementById('categories-filter');
-        if (!container) return;
         
-        // Gerar categorias dos produtos
-        const categories = [];
-        const uniqueCats = [...new Set(this.products.map(p => p.category).filter(Boolean))];
+        // Renderizar produtos iniciais
+        this.renderProducts();
         
-        // Adicionar "All Products"
-        categories.push({
-            id: "all", 
-            name: "All Products", 
-            count: this.products.length
-        });
-        
-        // Adicionar outras categorias
-        uniqueCats.forEach(cat => {
-            const count = this.products.filter(p => p.category === cat).length;
-            const name = cat.charAt(0).toUpperCase() + cat.slice(1);
-            categories.push({ 
-                id: cat, 
-                name: name, 
-                count 
-            });
-        });
-        
-        // Renderizar botões
-        let html = categories.map(cat => `
-            <button class="category-btn ${this.currentCategory === cat.id ? 'active' : ''}" 
-                    data-category="${cat.id}">
-                ${cat.name} <span class="count">(${cat.count})</span>
-            </button>
-        `).join('');
-        
-        container.innerHTML = html;
-    }
-    
-    populateTypeFilter() {
-        const typeFilter = document.querySelector('.type-filter');
-        if (!typeFilter) return;
-        
-        // Limpar opções existentes exceto "All Types"
-        while (typeFilter.options.length > 1) {
-            typeFilter.remove(1);
-        }
-        
-        // Extrair tipos únicos dos produtos
-        const uniqueTypes = [...new Set(this.products.map(p => p.type).filter(Boolean))].sort();
-        
-        uniqueTypes.forEach(type => {
-            const option = document.createElement('option');
-            option.value = type;
-            option.textContent = type;
-            typeFilter.appendChild(option);
-        });
+        console.log('ProductFilter inicializado com sucesso');
     }
     
     renderProducts() {
         const container = document.getElementById('products-grid');
         if (!container) return;
         
-        // Mostrar loading se não houver produtos
-        if (!this.filteredProducts || this.filteredProducts.length === 0) {
+        // Limpar loading
+        container.innerHTML = '';
+        
+        // Se não houver produtos
+        if (this.filteredProducts.length === 0) {
             container.innerHTML = `
-                <div class="no-products">
-                    <i class="fas fa-flask fa-3x"></i>
-                    <h3>No products found</h3>
-                    <p>Try adjusting your filters or search term</p>
+                <div class="no-products" style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                    <i class="fas fa-flask fa-3x" style="color: #95a5a6; margin-bottom: 20px;"></i>
+                    <h3 style="color: #34495e; margin-bottom: 10px;">No products found</h3>
+                    <p style="color: #7f8c8d;">Try adjusting your filters or search term</p>
                 </div>
             `;
             this.updateProductCount(0);
@@ -108,80 +67,114 @@ class ProductFilter {
         }
         
         // Renderizar produtos
-        let html = this.filteredProducts.map(product => {
-            const categoryColor = this.getCategoryColor(product.category);
-            
-            return `
-            <div class="product-card" data-id="${product.id}">
-                <div class="product-image">
-                    <div class="molecule-icon">⚗️</div>
-                    <div class="product-badge ${product.featured ? 'featured' : ''}">
-                        ${product.featured ? 'FEATURED' : product.purity}
-                    </div>
-                </div>
-                
-                <div class="product-info">
-                    <div class="product-header">
-                        <h3 class="product-name">${product.name}</h3>
-                        <span class="product-code">${product.code}</span>
-                    </div>
-                    
-                    <div class="product-specs">
-                        <div class="spec">
-                            <span class="spec-label">Type:</span>
-                            <span class="spec-value">${product.type}</span>
-                        </div>
-                        <div class="spec">
-                            <span class="spec-label">Dosage:</span>
-                            <span class="spec-value">${product.dosage}</span>
-                        </div>
-                        <div class="spec">
-                            <span class="spec-label">Purity:</span>
-                            <span class="spec-value">${product.purity}</span>
-                        </div>
-                        ${product.cas && product.cas !== "N/A" ? `
-                        <div class="spec">
-                            <span class="spec-label">CAS:</span>
-                            <span class="spec-value">${product.cas}</span>
-                        </div>` : ''}
-                    </div>
-                    
-                    <p class="product-description">${product.description}</p>
-                    
-                    <div class="product-footer">
-                        <div class="price">$${product.price.toFixed(2)}</div>
-                        <div class="actions">
-                            <button class="btn-details" onclick="productFilter.showProductDetails(${product.id})">
-                                <i class="fas fa-info-circle"></i> Details
-                            </button>
-                            <button class="btn-cart" onclick="productFilter.addToCart(${product.id})">
-                                <i class="fas fa-shopping-cart"></i> Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            `;
-        }).join('');
+        this.filteredProducts.forEach(product => {
+            const productCard = this.createProductCard(product);
+            container.appendChild(productCard);
+        });
         
-        container.innerHTML = html;
         this.updateProductCount(this.filteredProducts.length);
     }
     
-    getCategoryColor(category) {
-        // Cores por categoria
-        const colors = {
+    createProductCard(product) {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.setAttribute('data-id', product.id);
+        card.setAttribute('data-category', product.category);
+        card.setAttribute('data-type', product.type);
+        
+        // Cor da categoria
+        const categoryColors = {
             peptides: "#3498db",
             coenzymes: "#e74c3c",
             nootropics: "#f39c12",
-            "small molecules": "#95a5a6",
-            default: "#95a5a6"
+            "small molecules": "#95a5a6"
         };
         
-        return colors[category] || colors.default;
+        const categoryColor = categoryColors[product.category] || "#95a5a6";
+        const darkenedColor = this.darkenColor(categoryColor);
+        
+        card.innerHTML = `
+            <div class="product-image" style="background: linear-gradient(135deg, ${categoryColor}, ${darkenedColor})">
+                <div class="molecule-icon">⚗️</div>
+                <div class="product-badge ${product.featured ? 'featured' : ''}">
+                    ${product.featured ? 'FEATURED' : product.purity}
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <div class="product-header">
+                    <h3 class="product-name">${product.name}</h3>
+                    <span class="product-code">${product.code}</span>
+                </div>
+                
+                <div class="product-specs">
+                    <div class="spec">
+                        <span class="spec-label">Type:</span>
+                        <span class="spec-value">${product.type}</span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Dosage:</span>
+                        <span class="spec-value">${product.dosage}</span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Purity:</span>
+                        <span class="spec-value">${product.purity}</span>
+                    </div>
+                    ${product.cas && product.cas !== "N/A" ? `
+                    <div class="spec">
+                        <span class="spec-label">CAS:</span>
+                        <span class="spec-value">${product.cas}</span>
+                    </div>` : ''}
+                </div>
+                
+                <p class="product-description">${product.description}</p>
+                
+                <div class="product-footer">
+                    <div class="price">$${product.price.toFixed(2)}</div>
+                    <div class="actions">
+                        <button class="btn-details" data-id="${product.id}">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                        <button class="btn-cart" data-id="${product.id}">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Adicionar event listeners aos botões
+        const detailsBtn = card.querySelector('.btn-details');
+        const cartBtn = card.querySelector('.btn-cart');
+        
+        if (detailsBtn) {
+            detailsBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.showProductDetails(product.id);
+            });
+        }
+        
+        if (cartBtn) {
+            cartBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.addToCart(product.id);
+            });
+        }
+        
+        return card;
+    }
+    
+    darkenColor(color) {
+        // Simples função para escurecer cor
+        return color.replace(/\d+/g, num => Math.max(0, parseInt(num) - 40));
     }
     
     filterProducts() {
+        console.log('Filtrando produtos...');
+        console.log('Categoria:', this.currentCategory);
+        console.log('Tipo:', this.currentType);
+        console.log('Busca:', this.searchTerm);
+        
         this.filteredProducts = this.products.filter(product => {
             // Filtrar por categoria
             if (this.currentCategory !== 'all' && product.category !== this.currentCategory) {
@@ -196,19 +189,24 @@ class ProductFilter {
             // Filtrar por termo de busca
             if (this.searchTerm) {
                 const searchLower = this.searchTerm.toLowerCase();
-                return (
+                const matches = 
                     (product.name && product.name.toLowerCase().includes(searchLower)) ||
                     (product.code && product.code.toLowerCase().includes(searchLower)) ||
                     (product.type && product.type.toLowerCase().includes(searchLower)) ||
-                    (product.description && product.description.toLowerCase().includes(searchLower))
-                );
+                    (product.description && product.description.toLowerCase().includes(searchLower));
+                
+                if (!matches) return false;
             }
             
             return true;
         });
         
+        console.log('Produtos filtrados:', this.filteredProducts.length);
+        
         // Ordenar produtos
         this.sortProducts();
+        
+        // Renderizar produtos filtrados
         this.renderProducts();
     }
     
@@ -240,6 +238,8 @@ class ProductFilter {
     }
     
     setupEventListeners() {
+        console.log('Configurando event listeners...');
+        
         // Filtro de categoria
         document.addEventListener('click', (e) => {
             if (e.target.closest('.category-btn')) {
@@ -247,7 +247,9 @@ class ProductFilter {
                 this.currentCategory = btn.dataset.category;
                 
                 // Atualizar estado ativo
-                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.category-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
                 btn.classList.add('active');
                 
                 this.filterProducts();
@@ -255,7 +257,7 @@ class ProductFilter {
         });
         
         // Filtro de tipo
-        const typeFilter = document.querySelector('.type-filter');
+        const typeFilter = document.getElementById('type-filter');
         if (typeFilter) {
             typeFilter.addEventListener('change', (e) => {
                 this.currentType = e.target.value;
@@ -264,7 +266,7 @@ class ProductFilter {
         }
         
         // Filtro de ordenação
-        const sortFilter = document.querySelector('.sort-filter');
+        const sortFilter = document.getElementById('sort-filter');
         if (sortFilter) {
             sortFilter.addEventListener('change', (e) => {
                 this.currentSort = e.target.value;
@@ -295,17 +297,20 @@ class ProductFilter {
     }
     
     clearFilters() {
+        console.log('Limpando filtros...');
+        
         this.currentCategory = 'all';
         this.currentType = 'all';
         this.currentSort = 'name-asc';
         this.searchTerm = '';
         
+        // Resetar UI
         document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
         const allBtn = document.querySelector('.category-btn[data-category="all"]');
         if (allBtn) allBtn.classList.add('active');
         
-        const typeFilter = document.querySelector('.type-filter');
-        const sortFilter = document.querySelector('.sort-filter');
+        const typeFilter = document.getElementById('type-filter');
+        const sortFilter = document.getElementById('sort-filter');
         const searchInput = document.getElementById('product-search');
         
         if (typeFilter) typeFilter.value = 'all';
@@ -316,48 +321,85 @@ class ProductFilter {
     }
     
     showProductDetails(productId) {
-        // Implementação SIMPLES sem criar modais complexos
         const product = this.products.find(p => p.id == productId);
         if (!product) return;
         
-        alert(`Product Details:\n\nName: ${product.name}\nPrice: $${product.price}\nCode: ${product.code}\nPurity: ${product.purity}\n\n${product.description}`);
+        // Modal simples
+        const modalHtml = `
+            <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; justify-content: center; align-items: center; padding: 20px;">
+                <div style="background: white; border-radius: 15px; max-width: 500px; width: 100%; padding: 30px; position: relative;">
+                    <button onclick="this.parentElement.parentElement.remove()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #666;">&times;</button>
+                    
+                    <h2 style="color: #0d47a1; margin-top: 0;">${product.name}</h2>
+                    <p><strong>Code:</strong> ${product.code}</p>
+                    <p><strong>Price:</strong> $${product.price.toFixed(2)}</p>
+                    <p><strong>Purity:</strong> ${product.purity}</p>
+                    <p><strong>Type:</strong> ${product.type}</p>
+                    <p><strong>Dosage:</strong> ${product.dosage}</p>
+                    ${product.cas && product.cas !== "N/A" ? `<p><strong>CAS:</strong> ${product.cas}</p>` : ''}
+                    <p><strong>Description:</strong> ${product.description}</p>
+                    
+                    <div style="margin-top: 30px; display: flex; gap: 15px;">
+                        <button onclick="window.productFilter.addToCart(${product.id}); this.closest('[style*=\"position: fixed\"]').remove();" style="padding: 12px 24px; background: #2ecc71; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        <button onclick="this.closest('[style*=\"position: fixed\"]').remove()" style="padding: 12px 24px; background: #f5f5f5; color: #333; border: 1px solid #ddd; border-radius: 5px; cursor: pointer;">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        const modal = document.createElement('div');
+        modal.innerHTML = modalHtml;
+        document.body.appendChild(modal);
     }
     
     addToCart(productId) {
-        // Implementação SIMPLES
         const product = this.products.find(p => p.id == productId);
         if (!product) return;
         
-        // Simples notificação
+        // Notificação simples
         const notification = document.createElement('div');
-        notification.innerHTML = `Added ${product.name} to cart!`;
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: #2ecc71;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            z-index: 1000;
+        notification.innerHTML = `
+            <div style="position: fixed; top: 100px; right: 20px; background: #2ecc71; color: white; padding: 15px 20px; border-radius: 5px; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 10px; animation: slideIn 0.3s ease;">
+                <i class="fas fa-check-circle"></i>
+                Added <strong>${product.name}</strong> to cart!
+            </div>
         `;
+        
+        // Adicionar estilo de animação
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
         
         document.body.appendChild(notification);
         
         setTimeout(() => {
             notification.remove();
-        }, 2000);
+            style.remove();
+        }, 3000);
     }
 }
 
-// Inicializar quando DOM estiver pronto
-document.addEventListener('DOMContentLoaded', () => {
+// Inicializar quando tudo estiver carregado
+window.addEventListener('load', () => {
+    console.log('Página carregada, inicializando ProductFilter...');
+    
     // Verificar se dados foram carregados
     if (!window.products || window.products.length === 0) {
-        console.error('No products data loaded');
+        console.error('ERRO: Nenhum produto carregado!');
+        console.log('window.products:', window.products);
         return;
     }
     
     // Criar instância global
     window.productFilter = new ProductFilter();
+    console.log('ProductFilter criado:', window.productFilter);
 });
