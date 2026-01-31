@@ -74,23 +74,24 @@
         
         /* ===== CORREÇÃO PARA O AVISO LEGAL NÃO SOBRESCREVER O HEADER ===== */
         body {
-            padding-top: 0; /* Remove padding que possa existir */
+            padding-top: 0;
         }
         
         /* Ajuste para quando o banner legal está visível */
-        body.has-legal-banner main {
-            margin-top: 70px; /* Espaço para o banner */
+        body.has-legal-banner {
+            padding-top: 70px; /* ESPAÇO FIXO para o banner */
+        }
+        
+        /* Ajuste específico para o main-wrapper */
+        .main-wrapper {
+            padding: 30px 0 50px 0;
+            min-height: calc(100vh - 400px); /* Altura mínima considerando header/footer */
         }
         
         /* ===== ANIMAÇÕES ===== */
         @keyframes fadeOutUp {
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-20px); }
-        }
-        
-        /* ===== CORREÇÕES ESPECÍFICAS PARA PRODUTOS ===== */
-        .main-wrapper {
-            padding: 20px 0;
         }
     </style>
 </head>
@@ -111,7 +112,6 @@
     </div>
 
     <!-- ===== HEADER ORIGINAL DO SITE (COPIADO DO INDEX.HTML) ===== -->
-    <!-- Este é o mesmo header da página principal -->
     <header class="site-header">
         <div class="top-bar">
             <div class="container">
@@ -183,7 +183,7 @@
         </nav>
     </header>
 
-    <!-- ===== CONTEÚDO PRINCIPAL (MANTIDO) ===== -->
+    <!-- ===== CONTEÚDO PRINCIPAL ===== -->
     <main class="main-wrapper">
         <div class="products-page">
             <!-- Page Header -->
@@ -202,18 +202,56 @@
                 <div class="filters-row">
                     <!-- Category Filter -->
                     <div class="categories-filter" id="categories-filter">
-                        <!-- Categories will be loaded by JavaScript -->
+                        <button class="category-btn active" data-category="all">
+                            All Products <span class="count">(48)</span>
+                        </button>
+                        <button class="category-btn" data-category="peptides">
+                            Peptides <span class="count">(36)</span>
+                        </button>
+                        <button class="category-btn" data-category="coenzymes">
+                            Coenzymes <span class="count">(1)</span>
+                        </button>
+                        <button class="category-btn" data-category="nootropics">
+                            Nootropics <span class="count">(6)</span>
+                        </button>
+                        <button class="category-btn" data-category="small molecules">
+                            Small Molecules <span class="count">(2)</span>
+                        </button>
                     </div>
                     
                     <div class="controls">
                         <!-- Type Filter -->
-                        <select class="type-filter">
+                        <select class="type-filter" id="type-filter">
                             <option value="all">All Types</option>
-                            <!-- Types will be populated by JavaScript -->
+                            <option value="Tirzepatide">Tirzepatide</option>
+                            <option value="Retatrutide">Retatrutide</option>
+                            <option value="Cagrilintide">Cagrilintide</option>
+                            <option value="Mazdutide">Mazdutide</option>
+                            <option value="AOD 9604">AOD 9604</option>
+                            <option value="Semax">Semax</option>
+                            <option value="Selank">Selank</option>
+                            <option value="NA Semax">NA Semax</option>
+                            <option value="NA Selank">NA Selank</option>
+                            <option value="Melanotan I">Melanotan I</option>
+                            <option value="Melanotan II">Melanotan II</option>
+                            <option value="PT-141">PT-141</option>
+                            <option value="NAD+">NAD+</option>
+                            <option value="Snap-8">Snap-8</option>
+                            <option value="Epithalon">Epithalon</option>
+                            <option value="NA Epithalon">NA Epithalon</option>
+                            <option value="GHK-Cu">GHK-Cu</option>
+                            <option value="Kisspeptin">Kisspeptin</option>
+                            <option value="5-Amino-1MQ">5-Amino-1MQ</option>
+                            <option value="MOTS-c">MOTS-c</option>
+                            <option value="SS-31">SS-31</option>
+                            <option value="DSIP">DSIP</option>
+                            <option value="TB-500">TB-500</option>
+                            <option value="TB Frag">TB Frag</option>
+                            <option value="Thymosin α1">Thymosin α1</option>
                         </select>
                         
                         <!-- Sort Filter -->
-                        <select class="sort-filter">
+                        <select class="sort-filter" id="sort-filter">
                             <option value="name-asc">Sort: Name (A-Z)</option>
                             <option value="name-desc">Name (Z-A)</option>
                             <option value="price-asc">Price: Low to High</option>
@@ -231,11 +269,12 @@
 
             <!-- Products Info -->
             <div class="products-info">
-                <div id="product-count">Loading products...</div>
+                <div id="product-count">Showing 48 products</div>
             </div>
 
             <!-- Products Grid -->
             <div class="products-grid" id="products-grid">
+                <!-- Produtos serão carregados via JavaScript -->
                 <div class="loading">
                     <i class="fas fa-spinner fa-spin fa-2x"></i>
                     <p>Loading products...</p>
@@ -280,8 +319,7 @@
         </div>
     </footer>
 
-    <!-- ===== SCRIPTS ===== -->
-    <!-- ARQUIVOS EXTERNOS QUE VOCÊ JÁ CRIOU -->
+    <!-- ===== SCRIPTS EM ORDEM CORRETA ===== -->
     <script src="js/products-data.js"></script>
     <script src="js/products-filter.js"></script>
     
@@ -294,7 +332,7 @@
             setTimeout(() => {
                 banner.style.display = 'none';
                 sessionStorage.setItem('legalBannerClosed', 'true');
-                // Remove a classe que adiciona margin-top
+                // Remove o padding do body
                 document.body.classList.remove('has-legal-banner');
             }, 300);
         }
@@ -304,22 +342,28 @@
             if (sessionStorage.getItem('legalBannerClosed') === 'true') {
                 document.getElementById('legal-banner').style.display = 'none';
             } else {
-                // Adiciona classe quando o banner está visível
+                // Adiciona padding quando o banner está visível
                 document.body.classList.add('has-legal-banner');
             }
             
             // Ativar link ativo na navegação
-            const currentPage = window.location.pathname;
+            const currentPath = window.location.pathname;
             const navLinks = document.querySelectorAll('.nav-link');
             
             navLinks.forEach(link => {
-                if (link.getAttribute('href') === currentPage || 
-                   (link.getAttribute('href') === 'index.html' && currentPage.includes('products'))) {
+                if (link.getAttribute('href') === 'index.html' && currentPath.includes('products')) {
                     link.classList.add('active');
                 } else {
                     link.classList.remove('active');
                 }
             });
+            
+            // Inicializar filtro de produtos
+            setTimeout(() => {
+                if (window.productFilter) {
+                    window.productFilter.init();
+                }
+            }, 500);
         });
     </script>
 </body>
