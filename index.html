@@ -497,197 +497,218 @@
             font-size: 0.9rem;
             font-weight: 500;
         }
-        
-        /* ===== FEATURED PRODUCTS ===== */
-        .products-section {
-            padding: 100px 0;
-            background: #f8f9fa;
-            position: relative;
-        }
-        
-        .category-filter {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-        
-        .filter-btn {
-            padding: 10px 25px;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 30px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .filter-btn:hover {
-            border-color: #2196f3;
-            color: #2196f3;
-        }
-        
-        .filter-btn.active {
-            background: linear-gradient(135deg, #2196f3, #0d47a1);
-            color: white;
-            border-color: #2196f3;
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            border: 1px solid #f0f0f0;
-            position: relative;
-            display: none; /* Inicialmente escondido */
-        }
-        
-        .product-card.visible {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border-color: #2196f3;
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #f44336;
-            color: white;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 10;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .product-badge[style*="background: #2e7d32"] {
-            background: #2e7d32 !important;
-        }
-        
-        .product-image {
-            height: 200px;
-            background: linear-gradient(135deg, #f0f7ff, #e3f2fd);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .product-image i {
-            font-size: 4rem;
-            color: #0d47a1;
-            transition: transform 0.3s;
-        }
-        
-        .product-card:hover .product-image i {
-            transform: scale(1.1);
-        }
-        
-        .product-info {
-            padding: 25px;
-        }
-        
-        .product-category {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            display: block;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-        }
-        
-        .product-title {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #333;
-            font-weight: 600;
-        }
-        
-        .product-code {
-            color: #888;
-            font-family: monospace;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-            background: #f5f5f5;
-            padding: 5px 10px;
-            border-radius: 5px;
-            display: inline-block;
-        }
-        
-        .product-price {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #f0f0f0;
-             min-height: 70px; /* Altura mínima para evitar quebras */
-        }
-        
-        .price-amount {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #0d47a1;
-            flex: 1; /* Permite que o preço ocupe espaço disponível */
-        }
-        
-        .product-actions {
-            display: flex;
-            gap: 10px;
-             flex-shrink: 0; /* Impede que os botões encolham */
-    margin-left: 15px; /* Espaço entre preço e botões */
-        }
-        
-        .btn-small {
-           padding: 10px 20px;
-    font-size: 0.9rem;
-    white-space: nowrap; /* Impede quebra de texto */
-    min-width: 80px; /* Largura mínima consistente */
-    display: inline-flex;
-    align-items: center;
+      /* ===== FEATURED PRODUCTS - CORRIGIDO ===== */
+.products-section {
+    padding: 100px 0;
+    background: #f8f9fa;
+    position: relative;
+}
+
+.category-filter {
+    display: flex;
     justify-content: center;
-    gap: 5px;
-        }
-        /* Ajuste específico para o botão "Details" */
-.details-btn {
-    background: #f5f5f5;
-    color: #333;
-    border: 1px solid #ddd;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 25px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
     transition: all 0.3s;
 }
 
-.details-btn:hover {
-    background: #e0e0e0;
+.filter-btn:hover {
     border-color: #2196f3;
     color: #2196f3;
 }
 
-/* Garantir que os botões sejam sempre visíveis */
-.product-card .product-actions {
-    opacity: 1 !important; /* Forçar visibilidade */
+.filter-btn.active {
+    background: linear-gradient(135deg, #2196f3, #0d47a1);
+    color: white;
+    border-color: #2196f3;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+    border: 1px solid #f0f0f0;
+    position: relative;
+    display: none;
+}
+
+.product-card.visible {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    border-color: #2196f3;
+}
+
+.product-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #f44336;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.product-badge[style*="background: #2e7d32"] {
+    background: #2e7d32 !important;
+}
+
+.product-image {
+    height: 200px;
+    background: linear-gradient(135deg, #f0f7ff, #e3f2fd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image i {
+    font-size: 4rem;
+    color: #0d47a1;
+    transition: transform 0.3s;
+}
+
+.product-card:hover .product-image i {
+    transform: scale(1.1);
+}
+
+.product-info {
+    padding: 25px;
+}
+
+.product-category {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+.product-title {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 600;
+}
+
+.product-code {
+    color: #888;
+    font-family: monospace;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    background: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* ===== CORREÇÃO DOS BOTÕES ===== */
+.product-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+    flex-wrap: wrap;
+    gap: 15px;
+    min-height: 70px;
+}
+
+.price-amount {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #0d47a1;
+    flex-grow: 1;
+}
+
+.product-actions {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+    margin-left: 10px;
+    /* SEMPRE VISÍVEL */
+    opacity: 1 !important;
     visibility: visible !important;
     display: flex !important;
 }
-/* Ajuste responsivo para telas menores */
+
+.btn-small {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+    min-width: 85px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* Botão Add to Cart */
+.product-actions .btn-primary {
+    background: linear-gradient(135deg, #2196f3, #0d47a1);
+    color: white;
+    border: none;
+}
+
+.product-actions .btn-primary:hover {
+    background: linear-gradient(135deg, #0d47a1, #1565c0);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+/* Botão Details */
+.product-actions .btn-secondary {
+    background: #f8f9fa;
+    color: #555;
+    border: 1px solid #e0e0e0;
+}
+
+.product-actions .btn-secondary:hover {
+    background: white;
+    border-color: #2196f3;
+    color: #2196f3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
     .product-price {
         flex-direction: column;
@@ -702,7 +723,7 @@
     }
     
     .btn-small {
-        flex: 1; /* Botões ocupam espaço igual */
+        flex: 1;
         padding: 12px 15px;
     }
 }
@@ -711,19 +732,11 @@
     .product-actions {
         flex-direction: column;
         gap: 10px;
-    } .btn-small {
+    }
+    
+    .btn-small {
         width: 100%;
     }
-}
-
-/* Se você estava usando algum CSS que escondia os botões, remova estas regras: */
-.product-card:hover .product-actions {
-    /* Se houver esta regra, ela deve ser removida */
-}
-
-.product-actions {
-    /* Certifique-se que não há display: none ou opacity: 0 */
-}
         /* ===== RECONSTITUTION CALCULATOR SECTION ===== */
         .calculator-section {
             padding: 100px 0;
