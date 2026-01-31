@@ -8,12 +8,15 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Seu CSS personalizado -->
+    <!-- CSS do site principal -->
+    <link rel="stylesheet" href="../styles.css">
+    
+    <!-- CSS específico para produtos -->
     <link rel="stylesheet" href="../styles/products.css">
     
     <!-- Estilos específicos para esta página -->
     <style>
-        /* ===== AVISO LEGAL ===== */
+        /* ===== AVISO LEGAL (MANTIDO) ===== */
         #legal-banner {
             background-color: #1a1a1a;
             color: white;
@@ -69,71 +72,14 @@
             line-height: 1.6;
         }
         
-        /* ===== HEADER PERSONALIZADO ===== */
-        .site-header {
-            background: #2c3e50;
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        /* ===== CORREÇÃO PARA O AVISO LEGAL NÃO SOBRESCREVER O HEADER ===== */
+        body {
+            padding-top: 0; /* Remove padding que possa existir */
         }
         
-        .site-header .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .site-header h1 {
-            font-size: 1.5em;
-            color: white;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: background 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.1);
-        }
-        
-        .nav-links a.active {
-            background: #3498db;
-        }
-        
-        /* ===== FOOTER PERSONALIZADO ===== */
-        .site-footer {
-            background: #2c3e50;
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            margin-top: 50px;
-        }
-        
-        .site-footer .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .site-footer p {
-            margin: 5px 0;
-            color: #ecf0f1;
+        /* Ajuste para quando o banner legal está visível */
+        body.has-legal-banner main {
+            margin-top: 70px; /* Espaço para o banner */
         }
         
         /* ===== ANIMAÇÕES ===== */
@@ -141,10 +87,15 @@
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-20px); }
         }
+        
+        /* ===== CORREÇÕES ESPECÍFICAS PARA PRODUTOS ===== */
+        .main-wrapper {
+            padding: 20px 0;
+        }
     </style>
 </head>
 <body>
-    <!-- ===== AVISO LEGAL ===== -->
+    <!-- ===== AVISO LEGAL (MANTIDO) ===== -->
     <div id="legal-banner">
         <div class="legal-content">
             <span class="fas fa-exclamation-triangle" style="color: #ffcc00; margin-right: 8px;"></span>
@@ -159,23 +110,80 @@
         </div>
     </div>
 
-    <!-- ===== HEADER ===== -->
+    <!-- ===== HEADER ORIGINAL DO SITE (COPIADO DO INDEX.HTML) ===== -->
+    <!-- Este é o mesmo header da página principal -->
     <header class="site-header">
-        <div class="container">
-            <h1><i class="fas fa-flask"></i> RX Research Sciences</h1>
-            <nav class="main-nav">
-                <ul class="nav-links">
-                    <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="index.html" class="active"><i class="fas fa-pills"></i> Products</a></li>
-                    <li><a href="../about.html"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="../contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="../verification.html"><i class="fas fa-check-circle"></i> Verification</a></li>
-                </ul>
-            </nav>
+        <div class="top-bar">
+            <div class="container">
+                <span class="shipping-info">
+                    <i class="fas fa-shipping-fast"></i> Free shipping on orders over $100 • Lab-grade quality
+                </span>
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +1 (555) 123-4567</span>
+                    <span><i class="fas fa-envelope"></i> support@rxresearch.com</span>
+                </div>
+            </div>
         </div>
+        
+        <div class="main-header">
+            <div class="container">
+                <div class="logo-section">
+                    <a href="../index.html" class="logo">
+                        <h1><i class="fas fa-flask"></i> RX Research Sciences</h1>
+                    </a>
+                </div>
+                
+                <div class="search-section">
+                    <div class="search-bar">
+                        <input type="text" id="global-search" placeholder="Search 80+ research compounds...">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                
+                <div class="user-section">
+                    <a href="../account.html" class="user-icon">
+                        <i class="fas fa-user"></i>
+                        <span>Account</span>
+                    </a>
+                    <a href="../wishlist.html" class="wishlist-icon">
+                        <i class="fas fa-heart"></i>
+                        <span>Wishlist</span>
+                    </a>
+                    <a href="../cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                        <span>Cart</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="main-navigation">
+            <div class="container">
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="index.html" class="nav-link active"><i class="fas fa-pills"></i> All Products</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link"><i class="fas fa-th-large"></i> Categories <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="../categories/glp-1.html"><i class="fas fa-heartbeat"></i> GLP-1 Analogs</a>
+                            <a href="../categories/peptides.html"><i class="fas fa-dna"></i> Research Peptides</a>
+                            <a href="../categories/growth-hormones.html"><i class="fas fa-chart-line"></i> Growth Hormones</a>
+                            <a href="../categories/blends.html"><i class="fas fa-vial"></i> Peptide Blends</a>
+                            <a href="../categories/cognitive.html"><i class="fas fa-brain"></i> Cognitive Enhancers</a>
+                            <a href="../categories/anti-aging.html"><i class="fas fa-clock"></i> Anti-Aging Research</a>
+                        </div>
+                    </li>
+                    <li><a href="../calculator.html" class="nav-link"><i class="fas fa-calculator"></i> Calculator</a></li>
+                    <li><a href="../storage-guide.html" class="nav-link"><i class="fas fa-book"></i> Storage Guide</a></li>
+                    <li><a href="../about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="../contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
-    <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+    <!-- ===== CONTEÚDO PRINCIPAL (MANTIDO) ===== -->
     <main class="main-wrapper">
         <div class="products-page">
             <!-- Page Header -->
@@ -236,11 +244,39 @@
         </div>
     </main>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- ===== FOOTER ORIGINAL DO SITE ===== -->
     <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2024 RX Research Sciences. All rights reserved.</p>
-            <p>For research purposes only. Not for human or veterinary use.</p>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>RX Research Sciences</h3>
+                <p>Providing researchers worldwide with high-purity pharmaceutical compounds, peptides, and research materials.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="index.html">All Products</a></li>
+                    <li><a href="../categories/peptides.html">Peptides</a></li>
+                    <li><a href="../about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="../terms.html">Terms of Service</a></li>
+                    <li><a href="../privacy.html">Privacy Policy</a></li>
+                    <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    <li><a href="../verification.html">Verification</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> support@rxresearch.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 RX Research Sciences. All rights reserved. | For research purposes only. Not for human or veterinary use.</p>
         </div>
     </footer>
 
@@ -258,6 +294,8 @@
             setTimeout(() => {
                 banner.style.display = 'none';
                 sessionStorage.setItem('legalBannerClosed', 'true');
+                // Remove a classe que adiciona margin-top
+                document.body.classList.remove('has-legal-banner');
             }, 300);
         }
         
@@ -265,7 +303,23 @@
         document.addEventListener('DOMContentLoaded', function() {
             if (sessionStorage.getItem('legalBannerClosed') === 'true') {
                 document.getElementById('legal-banner').style.display = 'none';
+            } else {
+                // Adiciona classe quando o banner está visível
+                document.body.classList.add('has-legal-banner');
             }
+            
+            // Ativar link ativo na navegação
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage || 
+                   (link.getAttribute('href') === 'index.html' && currentPage.includes('products'))) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
         });
     </script>
 </body>
