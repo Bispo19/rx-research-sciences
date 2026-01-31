@@ -57,7 +57,7 @@ body {
     font-size: 14px;
     font-weight: 500;
     border-bottom: 3px solid #e53935;
-    position: fixed; /* Alterado para fixed */
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
