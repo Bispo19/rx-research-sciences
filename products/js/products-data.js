@@ -757,8 +757,6 @@ const products = [
         stock: true,
         featured: true
     }
-
-    // ADICIONE MAIS PRODUTOS AQUI...
 ];
 
 // Categorias disponíveis
@@ -787,3 +785,9 @@ window.products = products;
 window.categories = categories;
 window.types = types;
 window.categoryColors = categoryColors;
+
+// Log para debug
+console.log('[DEBUG] products-data.js carregado');
+console.log('[DEBUG] Total produtos:', products.length);
+console.log('[DEBUG] Categorias:', categories.length);
+console.log('[DEBUG] Tipos:', types.length);
