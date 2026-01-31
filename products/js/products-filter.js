@@ -388,18 +388,15 @@ class ProductFilter {
     }
 }
 
-// Inicializar quando tudo estiver carregado
-window.addEventListener('load', () => {
-    console.log('Página carregada, inicializando ProductFilter...');
-    
-    // Verificar se dados foram carregados
-    if (!window.products || window.products.length === 0) {
-        console.error('ERRO: Nenhum produto carregado!');
-        console.log('window.products:', window.products);
-        return;
+// Inicializar automaticamente apenas uma vez
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.products && window.products.length > 0) {
+            window.productFilter = new ProductFilter();
+        }
+    });
+} else {
+    if (window.products && window.products.length > 0) {
+        window.productFilter = new ProductFilter();
     }
-    
-    // Criar instância global
-    window.productFilter = new ProductFilter();
-    console.log('ProductFilter criado:', window.productFilter);
-});
+}
