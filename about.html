@@ -21,7 +21,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -38,18 +38,41 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .top-message {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .top-links a {
             color: white;
             margin-left: 20px;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: opacity 0.3s;
+        }
+        
+        .top-links a:hover {
+            opacity: 0.9;
         }
         
         /* ===== HEADER ===== */
         header {
             background: white;
             box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .header-content {
@@ -74,6 +97,82 @@
             font-size: 2.2rem;
         }
         
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 30px;
+            position: relative;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #2196f3;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #0d47a1;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .action-icon {
+            position: relative;
+            cursor: pointer;
+            color: #555;
+            font-size: 1.3rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+        
+        .action-icon:hover {
+            color: #2196f3;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f44336;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            min-width: 18px;
+            text-align: center;
+        }
+        
         /* ===== NAVIGATION ===== */
         .main-nav {
             background: linear-gradient(135deg, #0d47a1, #1565c0);
@@ -84,6 +183,7 @@
             display: flex;
             list-style: none;
             gap: 0;
+            flex-wrap: wrap;
         }
         
         .nav-links li {
@@ -99,11 +199,30 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
         
         .nav-links a:hover,
         .nav-links a.active {
             background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #4fc3f7;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
         }
         
         /* ===== ABOUT HERO ===== */
@@ -393,916 +512,4 @@
         .timeline-content h3 {
             font-size: 1.5rem;
             color: #0d47a1;
-            margin-bottom: 10px;
-        }
-        
-        .timeline-content p {
-            color: #666;
-        }
-        
-        /* ===== TEAM SECTION ===== */
-        .team-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9f2fa 100%);
-        }
-        
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-        
-        .team-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            text-align: center;
-        }
-        
-        .team-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
-        .team-image {
-            height: 200px;
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: #0d47a1;
-        }
-        
-        .team-info {
-            padding: 30px 20px;
-        }
-        
-        .team-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        
-        .team-info .position {
-            color: #2196f3;
-            font-weight: 500;
-            margin-bottom: 15px;
-            display: block;
-        }
-        
-        .team-info p {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
-        
-        .team-social {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .team-social a {
-            width: 40px;
-            height: 40px;
-            background: #f5f7fa;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .team-social a:hover {
-            background: #2196f3;
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        /* ===== QUALITY SECTION ===== */
-        .quality-section {
-            padding: 100px 0;
-            background: white;
-        }
-        
-        .quality-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .quality-item {
-            text-align: center;
-            padding: 40px 20px;
-        }
-        
-        .quality-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #2196f3;
-            margin-bottom: 15px;
-            display: block;
-        }
-        
-        .quality-item h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .quality-item p {
-            color: #666;
-        }
-        
-        /* ===== CTA SECTION ===== */
-        .cta-section {
-            padding: 120px 0;
-            background: linear-gradient(135deg, #0d47a1, #1565c0);
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover;
-            opacity: 0.1;
-        }
-        
-        .cta-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .cta-content h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-        
-        .cta-content p {
-            font-size: 1.3rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 16px 35px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            border: none;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #2196f3, #0d47a1);
-            color: white;
-            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(33, 150, 243, 0.4);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-            margin-left: 20px;
-        }
-        
-        .btn-secondary:hover {
-            background: white;
-            color: #0d47a1;
-            transform: translateY(-3px);
-        }
-        
-        /* ===== FOOTER ===== */
-        footer {
-            background: #0d1b3e;
-            color: white;
-            padding-top: 80px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            padding-bottom: 50px;
-        }
-        
-        .footer-col h3 {
-            margin-bottom: 25px;
-            color: #4fc3f7;
-            font-size: 1.3rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: #4fc3f7;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #bbbbbb;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-        
-        .footer-links a:hover {
-            color: #4fc3f7;
-            transform: translateX(5px);
-        }
-        
-        .contact-info {
-            color: #bbbbbb;
-        }
-        
-        .contact-info p {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-        
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        
-        .social-icons a:hover {
-            background: #2196f3;
-            transform: translateY(-3px);
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid #2a3a5e;
-            padding: 30px 0;
-            text-align: center;
-            color: #888;
-            font-size: 0.9rem;
-        }
-        
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1200px) {
-            .about-hero h1 {
-                font-size: 3rem;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .about-hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .overview-content h2,
-            .section-header h2 {
-                font-size: 2.2rem;
-            }
-            
-            .btn-group {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-                align-items: center;
-            }
-            
-            .btn-secondary {
-                margin-left: 0;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .about-hero {
-                padding: 70px 0;
-            }
-            
-            .about-hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .about-hero p {
-                font-size: 1.1rem;
-            }
-            
-            .overview-stats {
-                justify-content: center;
-            }
-            
-            .stat-item {
-                min-width: 120px;
-            }
-            
-            .timeline::before {
-                left: 30px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .top-bar-content {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-            
-            .top-links {
-                margin-top: 5px;
-            }
-            
-            .nav-links {
-                overflow-x: auto;
-                padding: 0 10px;
-            }
-            
-            .nav-links a {
-                padding: 15px 20px;
-                white-space: nowrap;
-            }
-            
-            .values-grid,
-            .team-grid,
-            .quality-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <div class="container top-bar-content">
-            <div><i class="fas fa-flask"></i> Pioneering Pharmaceutical Research Since 2019</div>
-            <div class="top-links">
-                <a href="tel:+15551234567"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
-                <a href="mailto:info@rxresearch.com"><i class="fas fa-envelope"></i> info@rxresearch.com</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- HEADER -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <!-- LOGO -->
-                <a href="index.html" class="logo">
-                    <i class="fas fa-flask"></i>
-                    <span>RX Research Sciences</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- NAVIGATION -->
-        <nav class="main-nav">
-            <div class="container">
-                <ul class="nav-links">
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="products.html"><i class="fas fa-pills"></i> Products</a></li>
-                    <li><a href="verification.html"><i class="fas fa-check-circle"></i> Verification</a></li>
-                    <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
-    <!-- ABOUT HERO -->
-    <section class="about-hero">
-        <div class="container about-hero-content">
-            <h1>Pioneering Pharmaceutical Research</h1>
-            <p>Founded in 2019, RX Research Sciences has been at the forefront of innovative pharmaceutical research, developing advanced compounds that push the boundaries of scientific discovery.</p>
-        </div>
-    </section>
-
-    <!-- COMPANY OVERVIEW -->
-    <section class="overview-section">
-        <div class="container">
-            <div class="overview-grid">
-                <div class="overview-content">
-                    <h2>Our Journey in Pharmaceutical Innovation</h2>
-                    <p>Founded in 2019 by a team of visionary scientists and researchers, RX Research Sciences emerged from a shared passion for advancing pharmaceutical science. What began as a small research initiative has grown into a globally recognized leader in research compounds and pharmaceutical development.</p>
-                    
-                    <p>Our mission has always been clear: to provide researchers worldwide with access to high-purity, scientifically-validated compounds that accelerate discovery and innovation. We believe that by supporting the scientific community with quality materials, we contribute to breakthroughs that improve human health and understanding.</p>
-                    
-                    <p>Over the past five years, we've built a reputation for excellence, reliability, and scientific rigor. Our compounds are now used in research institutions, pharmaceutical companies, and academic laboratories across more than 50 countries.</p>
-                    
-                    <div class="overview-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">2019</span>
-                            <span class="stat-label">Year Founded</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">80+</span>
-                            <span class="stat-label">Research Compounds</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">50+</span>
-                            <span class="stat-label">Countries Served</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">99%</span>
-                            <span class="stat-label">Quality Standard</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="overview-image">
-                    <div style="width: 100%; height: 500px; background: linear-gradient(135deg, #e3f2fd, #bbdefb); display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-flask" style="font-size: 8rem; color: #0d47a1; opacity: 0.7;"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- MISSION & VALUES -->
-    <section class="mission-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Mission & Core Values</h2>
-                <p>Guiding principles that define our approach to pharmaceutical research and development</p>
-            </div>
-            
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-microscope"></i>
-                    </div>
-                    <h3>Scientific Excellence</h3>
-                    <p>We maintain the highest standards of scientific rigor in all our research and development processes, ensuring every compound meets exacting quality criteria.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Quality Integrity</h3>
-                    <p>Every product undergoes rigorous testing and verification. We provide certificates of analysis and maintain transparent quality control processes.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Collaborative Innovation</h3>
-                    <p>We believe in collaborative science. By working with research institutions worldwide, we accelerate discovery and innovation.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3>Global Impact</h3>
-                    <p>Our research supports scientific advancement globally. We're committed to making high-quality research materials accessible worldwide.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <h3>Ethical Research</h3>
-                    <p>We adhere to strict ethical guidelines and promote responsible research practices throughout the scientific community.</p>
-                </div>
-                
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Continuous Learning</h3>
-                    <p>We invest in ongoing research and development, constantly exploring new compounds and improving existing formulations.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TIMELINE -->
-    <section class="timeline-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Journey: 2019 to Present</h2>
-                <p>Key milestones in our growth and development as a research science leader</p>
-            </div>
-            
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-year">2019</div>
-                    <div class="timeline-content">
-                        <h3>Foundation & Vision</h3>
-                        <p>RX Research Sciences was founded by a team of pharmaceutical researchers with a vision to create a reliable source for high-purity research compounds. Established our first laboratory in the United States.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2020</div>
-                    <div class="timeline-content">
-                        <h3>Research Expansion</h3>
-                        <p>Launched our initial catalog of 15 research peptides. Established quality control protocols and verification systems. Began serving academic and research institutions across North America.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2021</div>
-                    <div class="timeline-content">
-                        <h3>International Growth</h3>
-                        <p>Expanded operations to Europe and Asia. Developed partnerships with research facilities in Germany and Switzerland. Introduced our proprietary verification system for product authenticity.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2022</div>
-                    <div class="timeline-content">
-                        <h3>Product Innovation</h3>
-                        <p>Launched our GLP-1 analog research line including Tirzepatide compounds. Expanded catalog to 50+ research compounds. Implemented advanced HPLC testing protocols for all products.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2023</div>
-                    <div class="timeline-content">
-                        <h3>Quality Certification</h3>
-                        <p>Achieved ISO 9001 certification for quality management. Expanded to serve 50+ countries worldwide. Introduced temperature-controlled global shipping for sensitive compounds.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2024</div>
-                    <div class="timeline-content">
-                        <h3>Current Leadership</h3>
-                        <p>Now offering 80+ research compounds with 99%+ HPLC purity standards. Implementing AI-powered quality control and expanding research into novel peptide formulations. Continuing our mission to advance pharmaceutical science globally.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- QUALITY STANDARDS -->
-    <section class="quality-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Quality Commitment</h2>
-                <p>Standards and processes that ensure research-grade excellence in every compound</p>
-            </div>
-            
-            <div class="quality-grid">
-                <div class="quality-item">
-                    <span class="quality-number">≥99%</span>
-                    <h3>HPLC Purity</h3>
-                    <p>All compounds meet or exceed 99% purity standards verified through High-Performance Liquid Chromatography testing.</p>
-                </div>
-                
-                <div class="quality-item">
-                    <span class="quality-number">3-Step</span>
-                    <h3>Quality Verification</h3>
-                    <p>Every batch undergoes raw material testing, in-process monitoring, and final product verification before release.</p>
-                </div>
-                
-                <div class="quality-item">
-                    <span class="quality-number">24/7</span>
-                    <h3>Storage Monitoring</h3>
-                    <p>Temperature-controlled storage facilities with continuous monitoring to maintain compound stability and integrity.</p>
-                </div>
-                
-                <div class="quality-item">
-                    <span class="quality-number">100%</span>
-                    <h3>Batch Tracking</h3>
-                    <p>Complete traceability from raw materials to final product with unique batch codes for every compound produced.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TEAM SECTION -->
-    <section class="team-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Leadership & Scientific Team</h2>
-                <p>Meet the dedicated professionals driving innovation at RX Research Sciences</p>
-            </div>
-            
-            <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-image">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <div class="team-info">
-                        <h3>Dr. Marcus Thorne</h3>
-                        <span class="position">Founder & Chief Scientific Officer</span>
-                        <p>PhD in Pharmaceutical Sciences with 15+ years of research experience. Former research director at major pharmaceutical company.</p>
-                        <div class="team-social">
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="team-card">
-                    <div class="team-image">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <div class="team-info">
-                        <h3>Dr. Elena Rodriguez</h3>
-                        <span class="position">Head of Research & Development</span>
-                        <p>PhD in Biochemistry specializing in peptide synthesis. Published 30+ research papers in peer-reviewed journals.</p>
-                        <div class="team-social">
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="team-card">
-                    <div class="team-image">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <div class="team-info">
-                        <h3>Dr. Kenji Tanaka</h3>
-                        <span class="position">Quality Control Director</span>
-                        <p>MS in Analytical Chemistry with expertise in HPLC and mass spectrometry. 12 years in pharmaceutical quality assurance.</p>
-                        <div class="team-social">
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="team-card">
-                    <div class="team-image">
-                        <i class="fas fa-vial"></i>
-                    </div>
-                    <div class="team-info">
-                        <h3>Dr. Sarah Chen</h3>
-                        <span class="position">Head of Manufacturing</span>
-                        <p>PhD in Chemical Engineering with specialization in pharmaceutical production processes and scale-up operations.</p>
-                        <div class="team-social">
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA SECTION -->
-    <section class="cta-section">
-        <div class="container cta-content">
-            <h2>Partner in Scientific Discovery</h2>
-            <p>Join thousands of researchers worldwide who trust RX Research Sciences for their laboratory compound needs. Together, we're advancing pharmaceutical science.</p>
-            <div class="btn-group">
-                <a href="products.html" class="btn btn-primary">
-                    <i class="fas fa-flask"></i> Explore Our Products
-                </a>
-                <a href="contact.html" class="btn btn-secondary">
-                    <i class="fas fa-envelope"></i> Contact Our Team
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <h3>RX Research Sciences</h3>
-                    <p style="color: #bbbbbb; margin-bottom: 20px;">Pioneering pharmaceutical research since 2019. Committed to advancing scientific discovery through quality compounds and collaborative innovation.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>About</h3>
-                    <ul class="footer-links">
-                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> Our Story</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Mission & Values</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Leadership Team</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Quality Standards</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Research Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Scientific Publications</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Research Protocols</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Compound Datasheets</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Safety Information</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Regulatory Compliance</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Contact Information</h3>
-                    <div class="contact-info">
-                        <p><i class="fas fa-map-marker-alt"></i> 123 Research Park Drive<br>Science District, CA 90210</p>
-                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-                        <p><i class="fas fa-envelope"></i> info@rxresearchsciences.com</p>
-                        <p><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 6:00 PM EST</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2024 RX Research Sciences. Founded in 2019. All rights reserved.</p>
-                <p style="font-size: 0.8rem; margin-top: 10px; color: #aaa;">Committed to advancing pharmaceutical research through scientific excellence and quality innovation.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // ===== ANIMATIONS =====
-        document.addEventListener('DOMContentLoaded', () => {
-            // Animate stats counter
-            const stats = [
-                { element: document.querySelector('.stat-item:nth-child(1) .stat-number'), target: 2019 },
-                { element: document.querySelector('.stat-item:nth-child(2) .stat-number'), target: 80 },
-                { element: document.querySelector('.stat-item:nth-child(3) .stat-number'), target: 50 },
-                { element: document.querySelector('.stat-item:nth-child(4) .stat-number'), target: 99 }
-            ];
-            
-            const animateCounter = (element, target, duration = 2000) => {
-                if (!element) return;
-                
-                const start = 0;
-                const increment = target / (duration / 16); // 60fps
-                let current = start;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    
-                    if (target === 2019) {
-                        element.textContent = Math.floor(current);
-                    } else if (target === 99) {
-                        element.textContent = Math.floor(current) + '%';
-                    } else {
-                        element.textContent = Math.floor(current) + '+';
-                    }
-                }, 16);
-            };
-            
-            // Animate when in viewport
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        stats.forEach(stat => {
-                            animateCounter(stat.element, stat.target);
-                        });
-                        observer.disconnect();
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            const statsSection = document.querySelector('.overview-section');
-            if (statsSection) observer.observe(statsSection);
-            
-            // Timeline animation
-            const timelineItems = document.querySelectorAll('.timeline-item');
-            const timelineObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.3 });
-            
-            timelineItems.forEach(item => {
-                item.style.opacity = '0';
-                item.style.transform = 'translateY(30px)';
-                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                timelineObserver.observe(item);
-            });
-            
-            // Value cards animation
-            const valueCards = document.querySelectorAll('.value-card');
-            const valuesObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }, index * 100);
-                    }
-                });
-            }, { threshold: 0.2 });
-            
-            valueCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                valuesObserver.observe(card);
-            });
-            
-            // Team cards animation
-            const teamCards = document.querySelectorAll('.team-card');
-            const teamObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }, index * 100);
-                    }
-                });
-            }, { threshold: 0.2 });
-            
-            teamCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                teamObserver.observe(card);
-            });
-            
-            // Smooth scroll for navigation
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-        
-        // ===== PARALLAX EFFECT =====
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.about-hero');
-            if (hero) {
-                hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
-            }
-            
-            const cta = document.querySelector('.cta-section');
-            if (cta) {
-                cta.style.backgroundPositionY = scrolled * 0.3 + 'px';
-            }
-        });
-    </script>
-</body>
-</html>
+            margin
