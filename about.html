@@ -406,6 +406,7 @@
         
         .value-card p {
             color: #666;
+            line-height: 1.6;
         }
         
         /* ===== TIMELINE ===== */
@@ -512,4 +513,899 @@
         .timeline-content h3 {
             font-size: 1.5rem;
             color: #0d47a1;
-            margin
+            margin-bottom: 15px;
+        }
+        
+        .timeline-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* ===== TEAM SECTION ===== */
+        .team-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9f2fa 100%);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .team-image {
+            height: 200px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .team-image i {
+            font-size: 4rem;
+            color: #0d47a1;
+        }
+        
+        .team-info {
+            padding: 30px;
+        }
+        
+        .team-name {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .team-role {
+            color: #2196f3;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .team-desc {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 40px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2196f3, #0d47a1);
+            color: white;
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(33, 150, 243, 0.4);
+        }
+        
+        .btn-light {
+            background: white;
+            color: #0d47a1;
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-light:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0d1b3e;
+            color: white;
+            padding-top: 80px;
+            position: relative;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            padding-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 25px;
+            color: #4fc3f7;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #4fc3f7;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #e0e0e0;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+        
+        .footer-links a:hover {
+            color: #4fc3f7;
+            transform: translateX(5px);
+        }
+        
+        .contact-info {
+            color: #bbbbbb;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.5;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-icons a:hover {
+            background: #2196f3;
+            transform: translateY(-3px);
+        }
+        
+        .payment-methods {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #2a3a5e;
+        }
+        
+        .payment-methods h4 {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .payment-icons i {
+            font-size: 2rem;
+        }
+        
+        .security-badges {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .badges-container {
+            display: inline-flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .security-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-to-top {
+            display: block;
+            text-align: center;
+            color: #4fc3f7;
+            margin: 20px 0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .back-to-top:hover {
+            color: #2196f3;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #2a3a5e;
+            padding: 20px 0;
+            text-align: center;
+            color: #888;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .search-container {
+                order: 3;
+                margin: 15px 0 0;
+                max-width: 100%;
+            }
+            
+            .user-actions {
+                margin-top: 15px;
+            }
+            
+            .nav-links {
+                overflow-x: auto;
+                padding: 0 10px;
+                justify-content: center;
+            }
+            
+            .nav-links a {
+                padding: 15px 20px;
+                white-space: nowrap;
+                font-size: 0.9rem;
+            }
+            
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .overview-content h2,
+            .section-header h2,
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .top-links {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .top-links a {
+                margin: 0 5px;
+            }
+            
+            .top-message {
+                margin-top: 5px;
+            }
+            
+            .overview-stats {
+                justify-content: center;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .about-hero {
+                padding: 80px 0;
+            }
+            
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 14px 25px;
+                font-size: 1rem;
+            }
+            
+            .stat-item {
+                min-width: 120px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 5px;
+            }
+            
+            .nav-links a {
+                padding: 12px 15px;
+                font-size: 0.85rem;
+            }
+            
+            .nav-links a i {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body id="top">
+    <!-- ===== TOP BAR ===== -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-message">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Shipping via local representatives • Crypto payments accepted</span>
+            </div>
+            <div class="top-links">
+                <a href="representatives.html"><i class="fas fa-user-tie"></i> Find Your Representative</a>
+                <a href="tel:+15551234567"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- LOGO -->
+                <a href="index.html" class="logo">
+                    <i class="fas fa-flask"></i>
+                    <span>RX Research Sciences</span>
+                </a>
+
+                <!-- SEARCH -->
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search 80+ research compounds...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+
+                <!-- USER ACTIONS -->
+                <div class="user-actions">
+                    <a href="account.html" class="action-icon">
+                        <i class="far fa-user"></i>
+                        <span>Account</span>
+                    </a>
+                    <a href="wishlist.html" class="action-icon">
+                        <i class="far fa-heart"></i>
+                        <span>Wishlist</span>
+                    </a>
+                    <a href="javascript:void(0)" class="action-icon cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                        <span>Cart</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION - MENU PADRÃO CORRETO -->
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="products/index.html"><i class="fas fa-boxes"></i> All Products</a></li>
+                    <li><a href="categories.html"><i class="fas fa-th-large"></i> Categories</a></li>
+                    <li><a href="calculator.html"><i class="fas fa-calculator"></i> Calculator</a></li>
+                    <li><a href="storage-guide.html"><i class="fas fa-temperature-low"></i> Storage Guide</a></li>
+                    <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== ABOUT HERO ===== -->
+    <section class="about-hero">
+        <div class="container about-hero-content">
+            <h1>About RX Research Sciences</h1>
+            <p>Leading the way in high-purity research compounds since 2010. Our commitment to scientific excellence drives everything we do.</p>
+        </div>
+    </section>
+
+    <!-- ===== COMPANY OVERVIEW ===== -->
+    <section class="overview-section">
+        <div class="container">
+            <div class="overview-grid">
+                <div class="overview-content">
+                    <h2>Pioneers in Research Compounds</h2>
+                    <p>Founded in 2010, RX Research Sciences began with a simple mission: to provide researchers with the highest quality compounds available. What started as a small laboratory has grown into a global network of scientific excellence.</p>
+                    <p>Our team of pharmaceutical scientists, biochemists, and research specialists work tirelessly to ensure every compound meets our rigorous standards of purity and consistency.</p>
+                    <p>Today, we serve research institutions, universities, and independent researchers in over 50 countries through our network of local representatives.</p>
+                    
+                    <div class="overview-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">14+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Countries Served</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">80+</span>
+                            <span class="stat-label">Compounds</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">99.9%</span>
+                            <span class="stat-label">HPLC Purity</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="overview-image">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="RX Research Sciences Laboratory">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MISSION & VALUES ===== -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Mission & Values</h2>
+                <p>The principles that guide everything we do at RX Research Sciences</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Uncompromising Quality</h3>
+                    <p>Every compound undergoes rigorous HPLC testing to ensure 99.9%+ purity. We never compromise on quality, even when it means higher production costs.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Scientific Integrity</h3>
+                    <p>We provide accurate, detailed documentation and certificates of analysis for every batch. Transparency in research is non-negotiable.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Global Accessibility</h3>
+                    <p>Through our network of local representatives, we make high-quality research compounds accessible to scientists worldwide.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Personalized Support</h3>
+                    <p>Each researcher receives dedicated support from our scientific team and local representatives throughout their research journey.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Secure & Discreet</h3>
+                    <p>We prioritize researcher privacy with secure payment options and discreet shipping through local representatives.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Ethical Standards</h3>
+                    <p>We adhere to the highest ethical standards in research compounds, ensuring compliance with all international regulations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TIMELINE ===== -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Journey</h2>
+                <p>Milestones in our commitment to research excellence</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2010</div>
+                    <div class="timeline-content">
+                        <h3>Foundation</h3>
+                        <p>RX Research Sciences was founded with a focus on providing high-purity peptides to academic researchers.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2013</div>
+                    <div class="timeline-content">
+                        <h3>Expansion</h3>
+                        <p>Expanded our product line to include GLP-1 analogs and established our first international representative network.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2016</div>
+                    <div class="timeline-content">
+                        <h3>Quality Certification</h3>
+                        <p>Implemented ISO-grade quality control systems and began providing full HPLC documentation with every shipment.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2019</div>
+                    <div class="timeline-content">
+                        <h3>Global Reach</h3>
+                        <p>Reached 50+ countries served through our expanded representative network and local support system.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-content">
+                        <h3>Innovation</h3>
+                        <p>Introduced advanced research compounds and established partnerships with leading research institutions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TEAM SECTION ===== -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet Our Leadership</h2>
+                <p>The experts behind RX Research Sciences</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-image">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Robert Chen</h3>
+                        <span class="team-role">Chief Scientific Officer</span>
+                        <p class="team-desc">PhD in Biochemistry with 20+ years of pharmaceutical research experience. Oversees all quality control and compound development.</p>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-image">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Maria Rodriguez</h3>
+                        <span class="team-role">Head of Research</span>
+                        <p class="team-desc">Former university research director specializing in peptide synthesis and analytical chemistry.</p>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-image">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">James Wilson</h3>
+                        <span class="team-role">Global Operations Director</span>
+                        <p class="team-desc">Manages our worldwide representative network and ensures seamless logistics across all regions.</p>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-image">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Sarah Johnson</h3>
+                        <span class="team-role">Quality Assurance Manager</span>
+                        <p class="team-desc">Ensures every batch meets our 99.9%+ purity standards through rigorous HPLC testing protocols.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA SECTION ===== -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Advance Your Research?</h2>
+                <p>Join thousands of researchers who trust RX Research Sciences for their critical studies.</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                    <a href="products/index.html" class="btn btn-primary">
+                        <i class="fas fa-flask"></i> Browse Products
+                    </a>
+                    <a href="contact.html" class="btn btn-light">
+                        <i class="fas fa-envelope"></i> Contact Our Team
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer role="contentinfo">
+        <div class="container">
+            <div itemscope itemtype="https://schema.org/Organization" style="display: none;">
+                <span itemprop="name">RX Research Sciences</span>
+                <span itemprop="email">support@rxresearchsciences.com</span>
+                <span itemprop="telephone">+1 (555) 123-4567</span>
+            </div>
+            
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>RX Research Sciences</h3>
+                    <p style="color: #e0e0e0; margin-bottom: 20px;">Global network of representatives providing high-purity research compounds since 2010.</p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="products/index.html"><i class="fas fa-chevron-right"></i> All Products</a></li>
+                        <li><a href="categories.html"><i class="fas fa-chevron-right"></i> Categories</a></li>
+                        <li><a href="calculator.html"><i class="fas fa-chevron-right"></i> Calculator</a></li>
+                        <li><a href="storage-guide.html"><i class="fas fa-chevron-right"></i> Storage Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="representatives.html"><i class="fas fa-chevron-right"></i> Representatives</a></li>
+                        <li><a href="verification.html"><i class="fas fa-chevron-right"></i> Product Verification</a></li>
+                        <li><a href="research-guides.html"><i class="fas fa-chevron-right"></i> Research Guides</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                        <p><i class="fas fa-envelope"></i> support@rxresearchsciences.com</p>
+                        <p><i class="fas fa-user-tie"></i> Contact local representative for shipping</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM EST</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-methods">
+                <h4>Accepted Cryptocurrencies</h4>
+                <div class="payment-icons">
+                    <i class="fab fa-bitcoin" style="color: #f7931a;" aria-label="Bitcoin"></i>
+                    <i class="fas fa-coins" style="color: #26a17b;" aria-label="USDT"></i>
+                    <i class="fas fa-bolt" style="color: #00ffa3;" aria-label="Solana"></i>
+                    <i class="fab fa-ethereum" style="color: #627eea;" aria-label="Ethereum"></i>
+                    <i class="fab fa-monero" style="color: #ff6600;" aria-label="Monero"></i>
+                </div>
+            </div>
+            
+            <div class="security-badges">
+                <div class="badges-container">
+                    <div class="security-badge">
+                        <i class="fas fa-lock"></i> Secure Checkout
+                    </div>
+                    <div class="security-badge">
+                        <i class="fas fa-certificate"></i> Lab-Verified Quality
+                    </div>
+                    <div class="security-badge">
+                        <i class="fas fa-user-tie"></i> Local Representatives
+                    </div>
+                    <div class="security-badge">
+                        <i class="fas fa-shipping-fast"></i> Worldwide Shipping
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#top" class="back-to-top">
+                <i class="fas fa-arrow-up"></i> Back to Top
+            </a>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 RX Research Sciences. All rights reserved. | Research Use Only - Not for Human Consumption</p>
+                <p style="margin-top: 10px; font-size: 0.8rem;">These products are for research purposes only. Not for human consumption or diagnostic use.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== CART MANAGEMENT =====
+        let cart = JSON.parse(localStorage.getItem('rxCart')) || [];
+        
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = totalItems;
+            });
+            localStorage.setItem('rxCart', JSON.stringify(cart));
+        }
+        
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? '#2e7d32' : 
+                           type === 'info' ? '#1976d2' : '#d32f2f';
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: ${bgColor};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                max-width: 400px;
+            `;
+            
+            const icon = type === 'success' ? 'fa-check-circle' : 
+                        type === 'info' ? 'fa-info-circle' : 'fa-exclamation-circle';
+            notification.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
+            notification.setAttribute('role', 'alert');
+            notification.setAttribute('aria-live', 'assertive');
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add CSS for animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Initialize cart
+            updateCartCount();
+            
+            // Search functionality
+            document.querySelector('.search-btn').addEventListener('click', () => {
+                const searchTerm = document.querySelector('.search-bar').value;
+                if (searchTerm.trim()) {
+                    window.location.href = `products/index.html?search=${encodeURIComponent(searchTerm)}`;
+                }
+            });
+            
+            document.querySelector('.search-bar').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const searchTerm = document.querySelector('.search-bar').value;
+                    if (searchTerm.trim()) {
+                        window.location.href = `products/index.html?search=${encodeURIComponent(searchTerm)}`;
+                    }
+                }
+            });
+            
+            // Smooth scroll to top
+            document.querySelector('.back-to-top').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Cart icon click (basic functionality for about page)
+            document.querySelector('.cart-icon').addEventListener('click', function() {
+                showNotification('Cart functionality available on product pages', 'info');
+            });
+        });
+    </script>
+</body>
+</html>
