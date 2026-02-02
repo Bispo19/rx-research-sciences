@@ -870,11 +870,13 @@
             .nav-links {
                 overflow-x: auto;
                 padding: 0 10px;
+                justify-content: center;
             }
             
             .nav-links a {
                 padding: 15px 20px;
                 white-space: nowrap;
+                font-size: 0.9rem;
             }
             
             .hero h1 {
@@ -992,6 +994,19 @@
             .payment-icons i {
                 font-size: 1.8rem;
             }
+            
+            .nav-links {
+                gap: 5px;
+            }
+            
+            .nav-links a {
+                padding: 12px 15px;
+                font-size: 0.85rem;
+            }
+            
+            .nav-links a i {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -1045,16 +1060,17 @@
             </div>
         </div>
 
-        <!-- NAVIGATION -->
+        <!-- NAVIGATION - MENU PADRÃO PARA TODAS AS PÁGINAS -->
         <nav class="main-nav">
             <div class="container">
                 <ul class="nav-links">
                     <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="products/index.html"><i class="fas fa-boxes"></i> All Products</a></li>
-                    <li><a href="#categories"><i class="fas fa-th-large"></i> Categories</a></li>
+                    <li><a href="categories.html"><i class="fas fa-th-large"></i> Categories</a></li>
                     <li><a href="calculator.html"><i class="fas fa-calculator"></i> Calculator</a></li>
-                    <li><a href="storage-guide.html"><i class="fas fa-temperature-low"></i> Reconstituting / Storage</a></li>
-                    <li><a href="representatives.html"><i class="fas fa-user-tie"></i> Representatives</a></li>
+                    <li><a href="storage-guide.html"><i class="fas fa-temperature-low"></i> Storage Guide</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
             </div>
         </nav>
@@ -1377,18 +1393,19 @@
                     <ul class="footer-links">
                         <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
                         <li><a href="products/index.html"><i class="fas fa-chevron-right"></i> All Products</a></li>
+                        <li><a href="categories.html"><i class="fas fa-chevron-right"></i> Categories</a></li>
                         <li><a href="calculator.html"><i class="fas fa-chevron-right"></i> Calculator</a></li>
-                        <li><a href="storage-guide.html"><i class="fas fa-chevron-right"></i> Reconstituting / Storage</a></li>
-                        <li><a href="representatives.html"><i class="fas fa-chevron-right"></i> Representatives</a></li>
+                        <li><a href="storage-guide.html"><i class="fas fa-chevron-right"></i> Storage Guide</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
                     <h3>Resources</h3>
                     <ul class="footer-links">
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="representatives.html"><i class="fas fa-chevron-right"></i> Representatives</a></li>
                         <li><a href="verification.html"><i class="fas fa-chevron-right"></i> Product Verification</a></li>
-                        <li><a href="crypto-payments.html"><i class="fas fa-chevron-right"></i> Crypto Payments</a></li>
-                        <li><a href="shipping-info.html"><i class="fas fa-chevron-right"></i> Shipping Info</a></li>
                         <li><a href="research-guides.html"><i class="fas fa-chevron-right"></i> Research Guides</a></li>
                     </ul>
                 </div>
@@ -1717,6 +1734,18 @@
                     top: 0,
                     behavior: 'smooth'
                 });
+            });
+            
+            // Update active link in navigation
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || 
+                    (currentPage === 'index.html' && linkHref === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
             });
         });
     </script>
